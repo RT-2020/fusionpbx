@@ -1350,7 +1350,7 @@
 		 */
 		public function menu_vertical($menu_array) {
 			//set defaults
-				$menu_side_state = $this->settings->get('theme', 'menu_side_state', 'contracted');
+				$menu_side_state = 'expanded';
 				$menu_side_state_class = $menu_side_state !== 'hidden' ? 'hide-sm-up ' : '';
 			//menu brand image and/or text
 				$html = "	<div id='menu_side_control_container'>\n";

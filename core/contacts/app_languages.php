@@ -1088,7 +1088,7 @@ $text['option-home']['ro-ro'] = "Acasă";
 $text['option-home']['ru-ru'] = "Главная";
 $text['option-home']['sv-se'] = "Hem";
 $text['option-home']['uk-ua'] = "Домашній";
-$text['option-home']['zh-cn'] = "家";
+$text['option-home']['zh-cn'] = "首页";
 $text['option-home']['ja-jp'] = "家";
 $text['option-home']['ko-kr'] = "집";
 

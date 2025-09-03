@@ -212,7 +212,7 @@ $text['title-outbound_routes']['ru-ru'] = "Исходящие маршруты";
 $text['title-outbound_routes']['sv-se'] = "Utgående Router";
 $text['title-outbound_routes']['uk-ua'] = "Маршрути вихідних дзвінків";
 $text['title-outbound_routes']['tr-tr'] = "Giden Rotalar";
-$text['title-outbound_routes']['zh-cn'] = "出境航线";
+$text['title-outbound_routes']['zh-cn'] = "出站路由";
 $text['title-outbound_routes']['ja-jp'] = "往路";
 $text['title-outbound_routes']['ko-kr'] = "아웃바운드 경로";
 
@@ -239,7 +239,7 @@ $text['title-inbound_routes']['ru-ru'] = "Входящие маршруты";
 $text['title-inbound_routes']['sv-se'] = "Inkommande Router";
 $text['title-inbound_routes']['uk-ua'] = "Маршрути вхідних дзвінків";
 $text['title-inbound_routes']['tr-tr'] = "Gelen Rotalar";
-$text['title-inbound_routes']['zh-cn'] = "入境航线";
+$text['title-inbound_routes']['zh-cn'] = "入站路由";
 $text['title-inbound_routes']['ja-jp'] = "復路";
 $text['title-inbound_routes']['ko-kr'] = "인바운드 경로";
 
@@ -266,7 +266,7 @@ $text['title-queues']['ru-ru'] = "Очереди";
 $text['title-queues']['sv-se'] = "Köer";
 $text['title-queues']['uk-ua'] = "Черги";
 $text['title-queues']['tr-tr'] = "Kuyruklar";
-$text['title-queues']['zh-cn'] = "尾巴";
+$text['title-queues']['zh-cn'] = "队列";
 $text['title-queues']['ja-jp'] = "テイルス";
 $text['title-queues']['ko-kr'] = "꼬리";
 
@@ -1967,7 +1967,7 @@ $text['header-outbound_routes']['ru-ru'] = "Исходящий Маршрут";
 $text['header-outbound_routes']['sv-se'] = "Utgående Router";
 $text['header-outbound_routes']['uk-ua'] = "Вихідні маршрути";
 $text['header-outbound_routes']['tr-tr'] = "Giden Rotalar";
-$text['header-outbound_routes']['zh-cn'] = "出境航线";
+$text['header-outbound_routes']['zh-cn'] = "出站路由";
 $text['header-outbound_routes']['ja-jp'] = "往路";
 $text['header-outbound_routes']['ko-kr'] = "아웃바운드 경로";
 
@@ -1994,7 +1994,7 @@ $text['header-inbound_routes']['ru-ru'] = "Входящий Маршрут";
 $text['header-inbound_routes']['sv-se'] = "Inkommande Router";
 $text['header-inbound_routes']['uk-ua'] = "Маршрути вхідних дзвінків";
 $text['header-inbound_routes']['tr-tr'] = "Gelen Rotalar";
-$text['header-inbound_routes']['zh-cn'] = "入境航线";
+$text['header-inbound_routes']['zh-cn'] = "入站路由";
 $text['header-inbound_routes']['ja-jp'] = "復路";
 $text['header-inbound_routes']['ko-kr'] = "인바운드 경로";
 

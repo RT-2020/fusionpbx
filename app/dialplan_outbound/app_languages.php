@@ -266,7 +266,7 @@ $text['label-outbound-routes']['ru-ru'] = "Исходящие маршруты";
 $text['label-outbound-routes']['sv-se'] = "Utgående Route";
 $text['label-outbound-routes']['uk-ua'] = "Вихідні маршрути";
 $text['label-outbound-routes']['tr-tr'] = "Giden Rotalar";
-$text['label-outbound-routes']['zh-cn'] = "出境航线";
+$text['label-outbound-routes']['zh-cn'] = "出站路由";
 $text['label-outbound-routes']['ja-jp'] = "往路";
 $text['label-outbound-routes']['ko-kr'] = "아웃바운드 경로";
 

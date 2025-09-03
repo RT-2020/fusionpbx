@@ -23,7 +23,7 @@ $text['title-streams']['ru-ru'] = "Потоки";
 $text['title-streams']['sv-se'] = "Strömmar";
 $text['title-streams']['uk-ua'] = "Потоки";
 $text['title-streams']['tr-tr'] = "Canlı Yayınlar";
-$text['title-streams']['zh-cn'] = "溪流";
+$text['title-streams']['zh-cn'] = "流";
 $text['title-streams']['ja-jp'] = "ストリーム";
 $text['title-streams']['ko-kr'] = "스트림";
 
@@ -50,7 +50,7 @@ $text['title-stream']['ru-ru'] = "Транслировать";
 $text['title-stream']['sv-se'] = "Ström";
 $text['title-stream']['uk-ua'] = "Потік";
 $text['title-stream']['tr-tr'] = "Aktarım";
-$text['title-stream']['zh-cn'] = "溪流";
+$text['title-stream']['zh-cn'] = "流";
 $text['title-stream']['ja-jp'] = "ストリーム";
 $text['title-stream']['ko-kr'] = "스트림";
 

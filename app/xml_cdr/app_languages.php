@@ -4014,7 +4014,7 @@ $text['button-advanced_search']['ru-ru'] = "Расширенный поиск";
 $text['button-advanced_search']['sv-se'] = "Avancerad";
 $text['button-advanced_search']['uk-ua'] = "Просунутий";
 $text['button-advanced_search']['tr-tr'] = "Gelişmiş";
-$text['button-advanced_search']['zh-cn'] = "先进的";
+$text['button-advanced_search']['zh-cn'] = "高级设置";
 $text['button-advanced_search']['ja-jp'] = "高度";
 $text['button-advanced_search']['ko-kr'] = "고급의";
 
