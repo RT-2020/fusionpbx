@@ -158,7 +158,7 @@ $text['option-public']['ru-ru'] = "Публичный";
 $text['option-public']['sv-se'] = "Publik";
 $text['option-public']['uk-ua'] = "Публічний";
 $text['option-public']['tr-tr'] = "Halk";
-$text['option-public']['zh-cn'] = "民众";
+$text['option-public']['zh-cn'] = "公共";
 $text['option-public']['ja-jp'] = "公共";
 $text['option-public']['ko-kr'] = "공공의";
 
@@ -239,7 +239,7 @@ $text['option-context']['ru-ru'] = "Контекст";
 $text['option-context']['sv-se'] = "Sammanhang";
 $text['option-context']['uk-ua'] = "Контекст";
 $text['option-context']['tr-tr'] = "Bağlam";
-$text['option-context']['zh-cn'] = "语境";
+$text['option-context']['zh-cn'] = "上下文";
 $text['option-context']['ja-jp'] = "コンテクスト";
 $text['option-context']['ko-kr'] = "문맥";
 

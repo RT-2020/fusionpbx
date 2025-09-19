@@ -81,7 +81,7 @@ class text {
 			//}
 
 		//check the session language
-			if (isset($_SESSION['domain']) and $language_code == null) {
+			if (isset($_SESSION['domain']['language']['code']) and $language_code == null) {
 				$language_code = $_SESSION['domain']['language']['code'];
 			}
 			elseif ($language_code == null) {
@@ -89,7 +89,7 @@ class text {
 			}
 
 		//check the language code
-			if (strlen($language_code) == 2) {
+			if ($language_code !== null && strlen($language_code) == 2) {
 				if (array_key_exists($language_code, $this->legacy_map)) {
 					$language_code = $this->legacy_map[$language_code];
 				}

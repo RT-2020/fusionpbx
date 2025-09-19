@@ -104,7 +104,7 @@ $text['label-menu_name']['ru-ru'] = "Название";
 $text['label-menu_name']['sv-se'] = "Namn";
 $text['label-menu_name']['uk-ua'] = "Назва";
 $text['label-menu_name']['tr-tr'] = "İsim";
-$text['label-menu_name']['zh-cn'] = "姓名";
+$text['label-menu_name']['zh-cn'] = "菜单名称";
 $text['label-menu_name']['ja-jp'] = "名前";
 $text['label-menu_name']['ko-kr'] = "이름";
 

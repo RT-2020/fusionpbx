@@ -104,7 +104,7 @@ $text['option-true']['ru-ru'] = "Да";
 $text['option-true']['sv-se'] = "Sann";
 $text['option-true']['uk-ua'] = "Так";
 $text['option-true']['tr-tr'] = "Doğru";
-$text['option-true']['zh-cn'] = "真的";
+$text['option-true']['zh-cn'] = "启用";
 $text['option-true']['ja-jp'] = "真実";
 $text['option-true']['ko-kr'] = "진실";
 
@@ -131,7 +131,7 @@ $text['option-false']['ru-ru'] = "Нет";
 $text['option-false']['sv-se'] = "Falsk";
 $text['option-false']['uk-ua'] = "помилковий";
 $text['option-false']['tr-tr'] = "YANLIŞ";
-$text['option-false']['zh-cn'] = "错误的";
+$text['option-false']['zh-cn'] = "禁用";
 $text['option-false']['ja-jp'] = "間違い";
 $text['option-false']['ko-kr'] = "거짓";
 
@@ -212,7 +212,7 @@ $text['label-timeout']['ru-ru'] = "Тайм-аут";
 $text['label-timeout']['sv-se'] = "Tidsgräns";
 $text['label-timeout']['uk-ua'] = "Таймаут";
 $text['label-timeout']['tr-tr'] = "Zaman aşımı";
-$text['label-timeout']['zh-cn'] = "暂停";
+$text['label-timeout']['zh-cn'] = "超时";
 $text['label-timeout']['ja-jp'] = "タイムアウト";
 $text['label-timeout']['ko-kr'] = "타임아웃";
 

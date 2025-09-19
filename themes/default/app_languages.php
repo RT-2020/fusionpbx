@@ -24,7 +24,7 @@ $text['theme-label-logout']['ru-ru'] = "Выйти";
 $text['theme-label-logout']['sv-se'] = "Logga Ut";
 $text['theme-label-logout']['uk-ua'] = "вийти";
 $text['theme-label-logout']['tr-tr'] = "Oturumu Kapat";
-$text['theme-label-logout']['zh-cn'] = "登出";
+$text['theme-label-logout']['zh-cn'] = "退出";
 $text['theme-label-logout']['ja-jp'] = "ログアウト";
 $text['theme-label-logout']['ko-kr'] = "로그 아웃";
 
@@ -51,7 +51,7 @@ $text['theme-confirm-logout']['ru-ru'] = "Вы действительно хот
 $text['theme-confirm-logout']['sv-se'] = "Vill du verkligen vill logga ut?";
 $text['theme-confirm-logout']['uk-ua'] = "Ви дійсно хочете вийти?";
 $text['theme-confirm-logout']['tr-tr'] = "Çıkmak istediğinize emin misiniz?";
-$text['theme-confirm-logout']['zh-cn'] = "您真的要注销吗？";
+$text['theme-confirm-logout']['zh-cn'] = "您确定要退出吗？";
 $text['theme-confirm-logout']['ja-jp'] = "本当にログアウトしますか?";
 $text['theme-confirm-logout']['ko-kr'] = "로그아웃하시겠습니까?";
 
@@ -78,7 +78,7 @@ $text['theme-label-open_selector']['ru-ru'] = "Выбор домена [ESC]";
 $text['theme-label-open_selector']['sv-se'] = "Välj en domän";
 $text['theme-label-open_selector']['uk-ua'] = "Виберіть домен";
 $text['theme-label-open_selector']['tr-tr'] = "Domain Seçici [ESC]";
-$text['theme-label-open_selector']['zh-cn'] = "域选择器 [ESC]";
+$text['theme-label-open_selector']['zh-cn'] = "域名选择器 [ESC]";
 $text['theme-label-open_selector']['ja-jp'] = "ドメインセレクター [ESC]";
 $text['theme-label-open_selector']['ko-kr'] = "도메인 선택기[ESC]";
 

@@ -3585,7 +3585,7 @@ $text['label-true']['ru-ru'] = "Да";
 $text['label-true']['sv-se'] = "Sann";
 $text['label-true']['uk-ua'] = "Так";
 $text['label-true']['tr-tr'] = "Doğru";
-$text['label-true']['zh-cn'] = "真的";
+$text['label-true']['zh-cn'] = "启用";
 $text['label-true']['ja-jp'] = "真実";
 $text['label-true']['ko-kr'] = "진실";
 
@@ -3612,7 +3612,7 @@ $text['label-false']['ru-ru'] = "Нет";
 $text['label-false']['sv-se'] = "Falsk";
 $text['label-false']['uk-ua'] = "помилковий";
 $text['label-false']['tr-tr'] = "Yanlış";
-$text['label-false']['zh-cn'] = "错误的";
+$text['label-false']['zh-cn'] = "关闭";
 $text['label-false']['ja-jp'] = "間違い";
 $text['label-false']['ko-kr'] = "거짓";
 
@@ -4691,7 +4691,7 @@ $text['option-true']['ru-ru'] = "Да";
 $text['option-true']['sv-se'] = "Sann";
 $text['option-true']['uk-ua'] = "правда";
 $text['option-true']['tr-tr'] = "Doğru";
-$text['option-true']['zh-cn'] = "是";
+$text['option-true']['zh-cn'] = "启用";
 $text['option-true']['ja-jp'] = "真実";
 $text['option-true']['ko-kr'] = "진실";
 
@@ -4718,7 +4718,7 @@ $text['option-false']['ru-ru'] = "Нет";
 $text['option-false']['sv-se'] = "Falsk";
 $text['option-false']['uk-ua'] = "помилковий";
 $text['option-false']['tr-tr'] = "Yanlış";
-$text['option-false']['zh-cn'] = "否";
+$text['option-false']['zh-cn'] = "关闭";
 $text['option-false']['ja-jp'] = "間違い";
 $text['option-false']['ko-kr'] = "거짓";
 

@@ -23,7 +23,7 @@ $text['title-groups']['ru-ru'] = "Менеджер группы";
 $text['title-groups']['sv-se'] = "Grupp Inställningar";
 $text['title-groups']['uk-ua'] = "Менеджер групи";
 $text['title-groups']['tr-tr'] = "Grup Müdürü";
-$text['title-groups']['zh-cn'] = "集团经理";
+$text['title-groups']['zh-cn'] = "组管理";
 $text['title-groups']['ja-jp'] = "グループマネージャー";
 $text['title-groups']['ko-kr'] = "그룹 관리자";
 
@@ -50,7 +50,7 @@ $text['title-group']['ru-ru'] = "Менеджер группы";
 $text['title-group']['sv-se'] = "Grupp Inställningar";
 $text['title-group']['uk-ua'] = "Менеджер групи";
 $text['title-group']['tr-tr'] = "Grup Müdürü";
-$text['title-group']['zh-cn'] = "集团经理";
+$text['title-group']['zh-cn'] = "组管理";
 $text['title-group']['ja-jp'] = "グループマネージャー";
 $text['title-group']['ko-kr'] = "그룹 관리자";
 
@@ -158,7 +158,7 @@ $text['title-user_manager']['ru-ru'] = "Менеджер пользовател�
 $text['title-user_manager']['sv-se'] = "Användar Inställningar";
 $text['title-user_manager']['uk-ua'] = "Менеджер користувачів";
 $text['title-user_manager']['tr-tr'] = "Kullanıcı yönetici";
-$text['title-user_manager']['zh-cn'] = "用户经理";
+$text['title-user_manager']['zh-cn'] = "用户管理";
 $text['title-user_manager']['ja-jp'] = "ユーザーマネージャー";
 $text['title-user_manager']['ko-kr'] = "사용자 관리자";
 
@@ -239,7 +239,7 @@ $text['title-group_permissions']['ru-ru'] = "Групповые разрешен
 $text['title-group_permissions']['sv-se'] = "Grupp Rättigheter";
 $text['title-group_permissions']['uk-ua'] = "Дозволи групи";
 $text['title-group_permissions']['tr-tr'] = "Grup İzinleri";
-$text['title-group_permissions']['zh-cn'] = "群组权限";
+$text['title-group_permissions']['zh-cn'] = "组权限";
 $text['title-group_permissions']['ja-jp'] = "グループ権限";
 $text['title-group_permissions']['ko-kr'] = "그룹 권한";
 
@@ -347,7 +347,7 @@ $text['option-true']['ru-ru'] = "Истинный";
 $text['option-true']['sv-se'] = "Sann";
 $text['option-true']['uk-ua'] = "правда";
 $text['option-true']['tr-tr'] = "Doğru";
-$text['option-true']['zh-cn'] = "真的";
+$text['option-true']['zh-cn'] = "启用";
 $text['option-true']['ja-jp'] = "真実";
 $text['option-true']['ko-kr'] = "진실";
 
@@ -455,7 +455,7 @@ $text['option-false']['ru-ru'] = "ЛОЖЬ";
 $text['option-false']['sv-se'] = "Falsk";
 $text['option-false']['uk-ua'] = "помилковий";
 $text['option-false']['tr-tr'] = "YANLIŞ";
-$text['option-false']['zh-cn'] = "错误的";
+$text['option-false']['zh-cn'] = "关闭";
 $text['option-false']['ja-jp'] = "間違い";
 $text['option-false']['ko-kr'] = "거짓";
 

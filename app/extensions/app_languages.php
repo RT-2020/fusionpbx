@@ -104,7 +104,7 @@ $text['title-extension-edit']['ru-ru'] = "Внутренний Номер";
 $text['title-extension-edit']['sv-se'] = "Förlängning";
 $text['title-extension-edit']['uk-ua'] = "Розширення";
 $text['title-extension-edit']['tr-tr'] = "Eklenti";
-$text['title-extension-edit']['zh-cn'] = "扩大";
+$text['title-extension-edit']['zh-cn'] = "编辑分机";
 $text['title-extension-edit']['ja-jp'] = "拡大";
 $text['title-extension-edit']['ko-kr'] = "확대";
 
@@ -131,7 +131,7 @@ $text['title-extension-add']['ru-ru'] = "Добавить Внутренний �
 $text['title-extension-add']['sv-se'] = "Lägg Till Anknytning";
 $text['title-extension-add']['uk-ua'] = "Додавання розширення";
 $text['title-extension-add']['tr-tr'] = "Uzantı Ekle";
-$text['title-extension-add']['zh-cn'] = "分机添加";
+$text['title-extension-add']['zh-cn'] = "添加分机";
 $text['title-extension-add']['ja-jp'] = "拡張機能の追加";
 $text['title-extension-add']['ko-kr'] = "확장자 추가";
 
@@ -185,7 +185,7 @@ $text['title-loopback']['ru-ru'] = "Петля";
 $text['title-loopback']['sv-se'] = "Loopback";
 $text['title-loopback']['uk-ua'] = "Петля";
 $text['title-loopback']['tr-tr'] = "Geri döngü";
-$text['title-loopback']['zh-cn'] = "环回";
+$text['title-loopback']['zh-cn'] = "回环";
 $text['title-loopback']['ja-jp'] = "ループバック";
 $text['title-loopback']['ko-kr'] = "루프백";
 

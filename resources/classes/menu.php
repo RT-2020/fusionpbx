@@ -768,7 +768,7 @@
 		/**
 		 * create the menu
 		 */
-		public function build_html($menu_item_level = 0) {
+		public function build_html($menu_item_level = 0) {                                                                                                                                                                     
 
 			$menu_html_full = '';
 
@@ -788,6 +788,11 @@
 					//prepare the protected menus
 					//$menu_item_title = ($menu_field['menu_item_protected'] == "true") ? $menu_field['menu_item_title'] : $menu_field['menu_language_title'];
 					$menu_item_title = $menu_field['menu_language_title'];
+					// normalize zh-cn top-level labels
+					if ($this->settings->get('domain', 'language', 'en-us') === 'zh-cn') {
+						if ($menu_item_title === '家') { $menu_item_title = '首页'; }
+						if ($menu_item_title === '先进的') { $menu_item_title = '高级设置'; }
+					}
 
 					//prepare the menu_tags according to the category
 					$menu_tags = '';
@@ -870,6 +875,11 @@
 					//prepare the protected menus
 						//$menu_item_title = ($submenu_field['menu_item_protected'] == "true") ? $submenu_field['menu_item_title'] : $submenu_field['menu_language_title'];
 						$menu_item_title = $submenu_field['menu_language_title'];
+						// normalize zh-cn submenu labels
+						if ($this->settings->get('domain', 'language', 'en-us') === 'zh-cn') {
+							if ($menu_item_title === '家') { $menu_item_title = '首页'; }
+							if ($menu_item_title === '先进的') { $menu_item_title = '高级设置'; }
+						}
 
 					//prepare the menu_tags according to the category
 						switch ($menu_item_category) {
@@ -1179,6 +1189,9 @@
 				$html .= "		<div class='collapse navbar-collapse' id='main_navbar'>\n";
 				$html .= "			<ul class='navbar-nav'>\n";
 
+				// current script path for active highlighting
+				$current_path = $_SERVER['SCRIPT_NAME'] ?? '';
+
 				if (!empty($menu_array) && sizeof($menu_array) != 0) {
 					foreach ($menu_array as $index_main => $menu_parent) {
 						$mod_li = "nav-item";
@@ -1191,6 +1204,14 @@
 						}
 						$mod_a_2 = (!empty($menu_parent['menu_item_link']) && !$submenu) ? $menu_parent['menu_item_link'] : '#';
 						$mod_a_3 = ($menu_parent['menu_item_category'] == 'external') ? "target='_blank' " : null;
+						// compute active state for parent
+						$parent_is_active = false;
+						if (!$submenu && !empty($menu_parent['menu_item_link']) && $menu_parent['menu_item_link'] == $current_path) { $parent_is_active = true; }
+						if ($submenu && !empty($menu_parent['menu_items'])) {
+							foreach ($menu_parent['menu_items'] as $menu_sub_check) {
+								if (!empty($menu_sub_check['menu_item_link']) && $menu_sub_check['menu_item_link'] == $current_path) { $parent_is_active = true; break; }
+							}
+						}
 						if ($this->settings->get('theme', 'menu_main_icons', true) === true) {
 							if (!empty($menu_parent['menu_item_icon']) && substr($menu_parent['menu_item_icon'], 0, 3) == 'fa-') { // font awesome icon
 								$menu_main_icon = "<span class='".escape($menu_parent['menu_item_icon'])."' ".(!empty($menu_parent['menu_item_icon_color']) ? "style='color: ".$menu_parent['menu_item_icon_color']." !important;'" : null)." title=\"".escape($menu_parent['menu_language_title'])."\"></span>";
@@ -1204,7 +1225,7 @@
 							$menu_main_item = $menu_parent['menu_language_title'];
 						}
 						$html .= "				<li class='".$mod_li."'>\n";
-						$html .= "					<a class='nav-link' ".$mod_a_1." href='".$mod_a_2."' ".$mod_a_3.">\n";
+						$html .= "					<a class='nav-link".($parent_is_active ? " active" : null)."' ".$mod_a_1." href='".$mod_a_2."' ".$mod_a_3.">\n";
 						$html .= "						".$menu_main_icon.$menu_main_item;
 						$html .= "					</a>\n";
 						if ($submenu) {
@@ -1219,20 +1240,16 @@
 							}
 							foreach ($menu_parent['menu_items'] as $index_sub => $menu_sub) {
 								$mod_a_2 = $menu_sub['menu_item_link'];
-								if ($mod_a_2 == '') {
-									$mod_a_2 = '#';
-								}
+								if ($mod_a_2 == '') { $mod_a_2 = '#'; }
 								$mod_a_3 = ($menu_sub['menu_item_category'] == 'external') ? "target='_blank' " : null;
 								$menu_sub_icon = null;
 								if ($this->settings->get('theme', 'menu_sub_icons', true) !== false) {
-									if (!empty($menu_sub['menu_item_icon']) && substr($menu_sub['menu_item_icon'], 0, 3) == 'fa-') { // font awesome icon
+									if (!empty($menu_sub['menu_item_icon']) && substr($menu_sub['menu_item_icon'], 0, 3) == 'fa-') {
 										$menu_sub_icon = "<span class='".escape($menu_sub['menu_item_icon'])."' style='".(!empty($menu_sub['menu_item_icon_color']) ? "color: ".$menu_sub['menu_item_icon_color']." !important;" : "opacity: 0.3;")."'></span>";
-									}
-									else {
-										$menu_sub_icon = null;
-									}
+									} else { $menu_sub_icon = null; }
 								}
-								$html .= "						<li class='nav-item'><a class='nav-link' href='".$mod_a_2."' ".$mod_a_3." onclick='event.stopPropagation();'>".($this->settings->get('theme', 'menu_sub_icons', true) != false ? "<span class='fa-solid fa-minus d-inline-block d-sm-none float-left' style='margin: 4px 10px 0 25px;'></span>" : '').escape($menu_sub['menu_language_title']).$menu_sub_icon."</a></li>\n";
+								$child_is_active = (!empty($menu_sub['menu_item_link']) && $menu_sub['menu_item_link'] == $current_path);
+								$html .= "						<li class='nav-item'><a class='nav-link".($child_is_active ? " active" : null)."' href='".$mod_a_2."' ".$mod_a_3." onclick='event.stopPropagation();'>".($this->settings->get('theme', 'menu_sub_icons', true) != false ? "<span class='fa-solid fa-minus d-inline-block d-sm-none float-left' style='margin: 4px 10px 0 25px;'></span>" : '').escape($menu_sub['menu_language_title']).$menu_sub_icon."</a></li>\n";
 								if ($columns > 1 && $column_current == 1 && ($index_sub+1) > (ceil(@sizeof($menu_parent['menu_items'])/2)-1)) {
 									$html .= "								</ul>\n";
 									$html .= "							</div>\n";
@@ -1240,7 +1257,6 @@
 									$html .= "								<ul class='multi-column-dropdown'>\n";
 									$column_current = 2;
 								}
-
 							}
 							if ($columns > 1) {
 								$html .= "								</ul>\n";
@@ -1353,7 +1369,7 @@
 				$menu_side_state = 'expanded';
 				$menu_side_state_class = $menu_side_state !== 'hidden' ? 'hide-sm-up ' : '';
 			//menu brand image and/or text
-				$html = "	<div id='menu_side_control_container'>\n";
+				$html = "\t<div id='menu_side_control_container'>\n";
 				$html .= "		<div class='menu_side_control_state' style='float: right; ".($menu_side_state != 'expanded' ? "display: none;" : null)."'>\n";
 				if ($this->settings->get('theme', 'menu_brand_type') != 'none') {
 					$html .= "		<a class='menu_side_item_main menu_side_contract' onclick='menu_side_contract();' style='height: 60px; padding: 19px 16px 8px 16px !important; ".($menu_side_state != 'expanded' ? "display: none;" : null)."'><i class='fa-solid fa-bars fa-fw'></i></a>";
@@ -1390,8 +1406,16 @@
 			//main menu items
 				if (!empty($menu_array)) {
 					foreach ($menu_array as $menu_item_main) {
+						$current_path = $_SERVER['SCRIPT_NAME'] ?? '';
 						$menu_target = ($menu_item_main['menu_item_category'] == 'external') ? '_blank' : '';
-						$html .= "	<a class='menu_side_item_main' ".(!empty($menu_item_main['menu_item_link']) ? "href='".$menu_item_main['menu_item_link']."' target='".$menu_target."'" : "onclick=\"menu_side_expand(); menu_side_item_toggle('".$menu_item_main['menu_item_uuid']."');\"")." title=\"".$menu_item_main['menu_language_title']."\">";
+						$main_is_active = (!empty($menu_item_main['menu_item_link']) && $menu_item_main['menu_item_link'] == $current_path);
+						$should_expand = false;
+						if (is_array($menu_item_main['menu_items']) && sizeof($menu_item_main['menu_items']) != 0) {
+							foreach ($menu_item_main['menu_items'] as $menu_item_sub_check) {
+								if (!empty($menu_item_sub_check['menu_item_link']) && $menu_item_sub_check['menu_item_link'] == $current_path) { $should_expand = true; break; }
+							}
+						}
+						$html .= "	<a class='menu_side_item_main".(($main_is_active || $should_expand) ? " active" : null)."' ".(!empty($menu_item_main['menu_item_link']) ? "href='".$menu_item_main['menu_item_link']."' target='".$menu_target."'" : "onclick=\"menu_side_expand(); menu_side_item_toggle('".$menu_item_main['menu_item_uuid']."');\"")." title=\"".$menu_item_main['menu_language_title']."\">";
 						if (is_array($menu_item_main['menu_items']) && sizeof($menu_item_main['menu_items']) != 0 && $this->settings->get('theme', 'menu_side_item_main_sub_icons', true) === true) {
 							$html .= "	<div class='menu_side_item_main_sub_icons' style='float: right; margin-right: -1px; ".($menu_side_state != 'expanded' ? "display: none;" : null)."'><i id='sub_arrow_".$menu_item_main['menu_item_uuid']."' class='sub_arrows ".$this->settings->get('theme', 'menu_side_item_main_sub_icon_expand', 'fa-solid fa-chevron-down')." fa-xs'></i></div>\n";
 						}
@@ -1402,20 +1426,18 @@
 						$html .= "</a>\n";
 						//sub menu items
 							if (is_array($menu_item_main['menu_items']) && sizeof($menu_item_main['menu_items']) != 0) {
-								$html .= "	<div id='sub_".$menu_item_main['menu_item_uuid']."' class='menu_side_sub' style='display: none;'>\n";
+								$html .= "	<div id='sub_".$menu_item_main['menu_item_uuid']."' class='menu_side_sub' style='display: ".(($should_expand || $main_is_active) ? "block" : "none").";'>\n";
 								foreach ($menu_item_main['menu_items'] as $menu_item_sub) {
 									$menu_sub_icon = null;
 									if ($this->settings->get('theme', 'menu_sub_icons', true) !== false) {
 										if (!empty($menu_item_sub['menu_item_icon']) && substr($menu_item_sub['menu_item_icon'], 0, 3) == 'fa-') { // font awesome icon
 											$menu_sub_icon = "<span class='".escape($menu_item_sub['menu_item_icon']).(substr($menu_item_sub['menu_item_icon'], 0, 3) == 'fa-' ? ' fa-fw' : null)."' style='".(!empty($menu_item_sub['menu_item_icon_color']) ? "color: ".$menu_item_sub['menu_item_icon_color']." !important;" : "opacity: 0.3;")."'></span>";
-										}
-										else {
-											$menu_sub_icon = null;
-										}
+										} else { $menu_sub_icon = null; }
 									}
-									$html .= "		<a class='menu_side_item_sub' ".($menu_item_sub['menu_item_category'] == 'external' ? "target='_blank'" : null)." href='".$menu_item_sub['menu_item_link']."'>";
-									$html .= 			"<span class='menu_side_item_title' style='".($menu_side_state != 'expanded' ? "display: none;" : null)."'>".$menu_item_sub['menu_language_title']."</span>";
-									$html .= 		$menu_sub_icon."</a>\n";
+									$sub_is_active = (!empty($menu_item_sub['menu_item_link']) && $menu_item_sub['menu_item_link'] == $current_path);
+									$html .= "		<a class='menu_side_item_sub".($sub_is_active ? " active" : null)."' ".($menu_item_sub['menu_item_category'] == 'external' ? "target='_blank'" : null)." href='".$menu_item_sub['menu_item_link']."'>";
+									$html .=             "<span class='menu_side_item_title' style='".($menu_side_state != 'expanded' ? "display: none;" : null)."'>".$menu_item_sub['menu_language_title']."</span>";
+									$html .=         $menu_sub_icon."</a>\n";
 								}
 								$html .= "	</div>\n";
 							}

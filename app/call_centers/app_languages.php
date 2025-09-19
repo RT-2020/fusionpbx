@@ -48,7 +48,7 @@ $text['title-call_center_tier_edit']['ro-ro'] = "Nivelul Call Center";
 $text['title-call_center_tier_edit']['ru-ru'] = "Компетенция Колл-центра";
 $text['title-call_center_tier_edit']['sv-se'] = "Call Center Nivå";
 $text['title-call_center_tier_edit']['uk-ua'] = "Рівень кол-центра";
-$text['title-call_center_tier_edit']['zh-cn'] = "呼叫中心层";
+$text['title-call_center_tier_edit']['zh-cn'] = "编辑呼叫中心层级";
 $text['title-call_center_tier_edit']['ja-jp'] = "コールセンター層";
 $text['title-call_center_tier_edit']['ko-kr'] = "콜 센터 계층";
 
@@ -386,7 +386,7 @@ $text['option-true']['ro-ro'] = "Adevărat";
 $text['option-true']['ru-ru'] = "Да";
 $text['option-true']['sv-se'] = "Sann";
 $text['option-true']['uk-ua'] = "Так";
-$text['option-true']['zh-cn'] = "真的";
+$text['option-true']['zh-cn'] = "启用";
 $text['option-true']['ja-jp'] = "真実";
 $text['option-true']['ko-kr'] = "진실";
 
@@ -854,7 +854,7 @@ $text['option-false']['ro-ro'] = "Fals";
 $text['option-false']['ru-ru'] = "Нет";
 $text['option-false']['sv-se'] = "Falsk";
 $text['option-false']['uk-ua'] = "Ні";
-$text['option-false']['zh-cn'] = "错误的";
+$text['option-false']['zh-cn'] = "关闭";
 $text['option-false']['ja-jp'] = "間違い";
 $text['option-false']['ko-kr'] = "거짓";
 

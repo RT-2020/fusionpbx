@@ -22,7 +22,7 @@ $text['label-click2call']['ro-ro'] = "Fă clic pentru a apela";
 $text['label-click2call']['ru-ru'] = "Вызов по клику";
 $text['label-click2call']['sv-se'] = "Klicka för att ringa";
 $text['label-click2call']['uk-ua'] = "Натисніть, щоб подзвонити";
-$text['label-click2call']['zh-cn'] = "点击通话";
+$text['label-click2call']['zh-cn'] = "点击呼叫";
 $text['label-click2call']['ja-jp'] = "電話するにはクリック";
 $text['label-click2call']['ko-kr'] = "클릭 투 콜";
 
@@ -48,7 +48,7 @@ $text['desc-click2call']['ro-ro'] = "Furnizați următoarele informații pentru 
 $text['desc-click2call']['ru-ru'] = "Предоставьте следующую информацию, чтобы сделать вызов от исходного номера до номера адресата.";
 $text['desc-click2call']['sv-se'] = "Ange följande information för att ringa från källnumret till destinationsnumret.";
 $text['desc-click2call']['uk-ua'] = "Надайте наступну інформацію, щоб здійснити дзвінок з номера джерела на номер призначення.";
-$text['desc-click2call']['zh-cn'] = "提供以下信息以从源号码呼叫目标号码。";
+$text['desc-click2call']['zh-cn'] = "请提供以下信息以从源号码呼叫目标号码。";
 $text['desc-click2call']['ja-jp'] = "発信元番号から宛先番号に電話をかけるには、次の情報を入力します。";
 $text['desc-click2call']['ko-kr'] = "발신 번호에서 착신 번호로 전화를 걸려면 다음 정보를 입력하세요.";
 
@@ -74,7 +74,7 @@ $text['label-src-caller-id-nam']['ro-ro'] = "Nume ID apelant sursă";
 $text['label-src-caller-id-nam']['ru-ru'] = "Исходящее Caller ID Имя";
 $text['label-src-caller-id-nam']['sv-se'] = "Caller ID Namn på källa";
 $text['label-src-caller-id-nam']['uk-ua'] = "Ім'я ідентифікатора абонента джерела";
-$text['label-src-caller-id-nam']['zh-cn'] = "源来电显示名称";
+$text['label-src-caller-id-nam']['zh-cn'] = "主叫方来电显示名称";
 $text['label-src-caller-id-nam']['ja-jp'] = "発信元の発信者ID名";
 $text['label-src-caller-id-nam']['ko-kr'] = "소스 발신자 ID 이름";
 
@@ -100,7 +100,7 @@ $text['desc-src-caller-id-nam']['ro-ro'] = "Introduceți numele de identificare 
 $text['desc-src-caller-id-nam']['ru-ru'] = "Введите имя вызывающего абонента для отправки на свой телефон.";
 $text['desc-src-caller-id-nam']['sv-se'] = "Ange Caller ID Namn som skall skickas till din telefon.";
 $text['desc-src-caller-id-nam']['uk-ua'] = "Введіть ідентифікатор абонента, який потрібно надіслати на ваш телефон.";
-$text['desc-src-caller-id-nam']['zh-cn'] = "输入来电显示名称以发送到您的电话。";
+$text['desc-src-caller-id-nam']['zh-cn'] = "输入要显示在您电话上的来电显示名称。";
 $text['desc-src-caller-id-nam']['ja-jp'] = "電話に送信する発信者 ID 名を入力します。";
 $text['desc-src-caller-id-nam']['ko-kr'] = "전화로 보낼 발신자 ID 이름을 입력하십시오.";
 
@@ -126,7 +126,7 @@ $text['label-src-caller-id-num']['ro-ro'] = "Numărul de identificare a apelantu
 $text['label-src-caller-id-num']['ru-ru'] = "Исходящий Caller ID Номер";
 $text['label-src-caller-id-num']['sv-se'] = "Källa Caller ID Nummer";
 $text['label-src-caller-id-num']['uk-ua'] = "Вихідний ідентифікаційний номер абонента";
-$text['label-src-caller-id-num']['zh-cn'] = "源来电显示号码";
+$text['label-src-caller-id-num']['zh-cn'] = "主叫方来电显示号码";
 $text['label-src-caller-id-num']['ja-jp'] = "発信元の発信者番号";
 $text['label-src-caller-id-num']['ko-kr'] = "소스 발신자 ID 번호";
 
@@ -152,7 +152,7 @@ $text['desc-src-caller-id-num']['ro-ro'] = "Introduceți numărul de identificar
 $text['desc-src-caller-id-num']['ru-ru'] = "Введите номер вызывающего абонента для отправки на свой телефон (возможно, вы хотите чтобы он был то же, что и номер назначения).";
 $text['desc-src-caller-id-num']['sv-se'] = "Ange nummeret för nummerpresentation som ska skickas till din telefon (du vill noga att det här är detsamma som destinationsnumret).";
 $text['desc-src-caller-id-num']['uk-ua'] = "Введіть ідентифікаційний номер абонента, який потрібно надіслати на ваш телефон (можливо, ви хочете, щоб він збігався з номером призначення).";
-$text['desc-src-caller-id-num']['zh-cn'] = "输入来电显示号码以发送到您的手机（您可能希望此号码与目的地号码相同）。";
+$text['desc-src-caller-id-num']['zh-cn'] = "输入要显示在您手机上的来电显示号码（您可能希望此号码与目的地号码相同）。";
 $text['desc-src-caller-id-num']['ja-jp'] = "電話に送信する発信者 ID 番号を入力します (おそらく、これを宛先番号と同じにする必要があります)。";
 $text['desc-src-caller-id-num']['ko-kr'] = "전화로 보낼 발신자 ID 번호를 입력합니다(대상 번호와 동일하게 하고 싶을 것입니다).";
 
@@ -178,7 +178,7 @@ $text['label-dest-caller-id-nam']['ro-ro'] = "Nume ID-ul apelantului de destina�
 $text['label-dest-caller-id-nam']['ru-ru'] = "Удаленное Caller ID Имя";
 $text['label-dest-caller-id-nam']['sv-se'] = "Destination Caller ID Nummer";
 $text['label-dest-caller-id-nam']['uk-ua'] = "Ідентифікатор абонента призначення";
-$text['label-dest-caller-id-nam']['zh-cn'] = "目的地来电显示名称";
+$text['label-dest-caller-id-nam']['zh-cn'] = "被叫方来电显示名称";
 $text['label-dest-caller-id-nam']['ja-jp'] = "宛先の発信者ID名";
 $text['label-dest-caller-id-nam']['ko-kr'] = "대상 발신자 ID 이름";
 
@@ -204,7 +204,7 @@ $text['desc-dest-caller-id-nam']['ro-ro'] = "Introduceți numele ID-ului apelant
 $text['desc-dest-caller-id-nam']['ru-ru'] = "Введите имя вызывающего абонента для отправки на номер назначения.";
 $text['desc-dest-caller-id-nam']['sv-se'] = "Ange Caller ID Namn som skall skickas till destinationen.";
 $text['desc-dest-caller-id-nam']['uk-ua'] = "Введіть ідентифікатор абонента, який потрібно надіслати на номер призначення.";
-$text['desc-dest-caller-id-nam']['zh-cn'] = "输入要发送到目的地号码的来电显示名称。";
+$text['desc-dest-caller-id-nam']['zh-cn'] = "输入要显示在目的地号码上的来电显示名称。";
 $text['desc-dest-caller-id-nam']['ja-jp'] = "宛先番号に送信する発信者 ID 名を入力します。";
 $text['desc-dest-caller-id-nam']['ko-kr'] = "상대방 번호로 보낼 발신번호를 입력하세요.";
 
@@ -230,7 +230,7 @@ $text['label-dest-caller-id-num']['ro-ro'] = "Numărul de identificare a apelant
 $text['label-dest-caller-id-num']['ru-ru'] = "Удаленный Caller ID Номер";
 $text['label-dest-caller-id-num']['sv-se'] = "Destination Caller ID Nummer";
 $text['label-dest-caller-id-num']['uk-ua'] = "Ідентифікаційний номер абонента призначення";
-$text['label-dest-caller-id-num']['zh-cn'] = "目的地来电显示号码";
+$text['label-dest-caller-id-num']['zh-cn'] = "被叫方来电显示号码";
 $text['label-dest-caller-id-num']['ja-jp'] = "宛先の発信者番号";
 $text['label-dest-caller-id-num']['ko-kr'] = "대상 발신자 ID 번호";
 
@@ -464,7 +464,7 @@ $text['label-true']['ro-ro'] = "Adevărat";
 $text['label-true']['ru-ru'] = "да";
 $text['label-true']['sv-se'] = "sann";
 $text['label-true']['uk-ua'] = "правда";
-$text['label-true']['zh-cn'] = "真的";
+$text['label-true']['zh-cn'] = "启用";
 $text['label-true']['ja-jp'] = "真実";
 $text['label-true']['ko-kr'] = "진실";
 
@@ -490,7 +490,7 @@ $text['label-false']['ro-ro'] = "שֶׁקֶר";
 $text['label-false']['ru-ru'] = "нет";
 $text['label-false']['sv-se'] = "falsk";
 $text['label-false']['uk-ua'] = "помилковий";
-$text['label-false']['zh-cn'] = "错误的";
+$text['label-false']['zh-cn'] = "关闭";
 $text['label-false']['ja-jp'] = "間違い";
 $text['label-false']['ko-kr'] = "거짓";
 

@@ -104,7 +104,7 @@ $text['title-destination_import']['ru-ru'] = "Импорт";
 $text['title-destination_import']['sv-se'] = "Importera";
 $text['title-destination_import']['uk-ua'] = "Імпортувати";
 $text['title-destination_import']['tr-tr'] = "Hedef İçe Aktarma";
-$text['title-destination_import']['zh-cn'] = "目的地进口";
+$text['title-destination_import']['zh-cn'] = "导入目的地";
 $text['title-destination_import']['ja-jp'] = "宛先インポート";
 $text['title-destination_import']['ko-kr'] = "대상 가져오기";
 
@@ -132,7 +132,7 @@ $text['title-destination_export']['ru-ru'] = "Экспорт";
 $text['title-destination_export']['sv-se'] = "Export";
 $text['title-destination_export']['uk-ua'] = "Експортувати";
 $text['title-destination_export']['tr-tr'] = "Hedef Dışa Aktarma";
-$text['title-destination_export']['zh-cn'] = "目的地出口";
+$text['title-destination_export']['zh-cn'] = "导出目的地";
 $text['title-destination_export']['ja-jp'] = "宛先エクスポート";
 $text['title-destination_export']['ko-kr'] = "대상 내보내기";
 
@@ -159,7 +159,7 @@ $text['title-destination_summary']['ru-ru'] = "Сводная информаци
 $text['title-destination_summary']['sv-se'] = "Destinationssammanfattning";
 $text['title-destination_summary']['uk-ua'] = "Резюме призначення";
 $text['title-destination_summary']['tr-tr'] = "Hedef Özeti";
-$text['title-destination_summary']['zh-cn'] = "目的地概要";
+$text['title-destination_summary']['zh-cn'] = "目的地汇总";
 $text['title-destination_summary']['ja-jp'] = "目的地の概要";
 $text['title-destination_summary']['ko-kr'] = "목적지 요약";
 
@@ -213,7 +213,7 @@ $text['button-inbound']['ru-ru'] = "Входящий";
 $text['button-inbound']['sv-se'] = "Inkommande";
 $text['button-inbound']['uk-ua'] = "Вхідний";
 $text['button-inbound']['tr-tr'] = "Gelen";
-$text['button-inbound']['zh-cn'] = "入境";
+$text['button-inbound']['zh-cn'] = "入站";
 $text['button-inbound']['ja-jp'] = "インバウンド";
 $text['button-inbound']['ko-kr'] = "인바운드";
 
@@ -240,7 +240,7 @@ $text['select-global']['ru-ru'] = "Глобальный";
 $text['select-global']['sv-se'] = "Global";
 $text['select-global']['uk-ua'] = "Глобальний";
 $text['select-global']['tr-tr'] = "Küresel";
-$text['select-global']['zh-cn'] = "全球的";
+$text['select-global']['zh-cn'] = "全局";
 $text['select-global']['ja-jp'] = "グローバル";
 $text['select-global']['ko-kr'] = "글로벌";
 
@@ -267,7 +267,7 @@ $text['option-inbound']['ru-ru'] = "Входящий";
 $text['option-inbound']['sv-se'] = "Inkommande";
 $text['option-inbound']['uk-ua'] = "Вхідний";
 $text['option-inbound']['tr-tr'] = "Gelen";
-$text['option-inbound']['zh-cn'] = "入境";
+$text['option-inbound']['zh-cn'] = "入站";
 $text['option-inbound']['ja-jp'] = "インバウンド";
 $text['option-inbound']['ko-kr'] = "인바운드";
 
@@ -321,7 +321,7 @@ $text['option-local']['ru-ru'] = "Местные";
 $text['option-local']['sv-se'] = "Lokalt";
 $text['option-local']['uk-ua'] = "Головна";
 $text['option-local']['tr-tr'] = "Yerel";
-$text['option-local']['zh-cn'] = "当地的";
+$text['option-local']['zh-cn'] = "本地";
 $text['option-local']['ja-jp'] = "地元";
 $text['option-local']['ko-kr'] = "현지의";
 
@@ -348,7 +348,7 @@ $text['button-local']['ru-ru'] = "Местные";
 $text['button-local']['sv-se'] = "Lokalt";
 $text['button-local']['uk-ua'] = "Головна";
 $text['button-local']['tr-tr'] = "Yerel";
-$text['button-local']['zh-cn'] = "当地的";
+$text['button-local']['zh-cn'] = "本地";
 $text['button-local']['ja-jp'] = "地元";
 $text['button-local']['ko-kr'] = "현지의";
 
@@ -456,7 +456,7 @@ $text['label-monthly_price_buy']['ru-ru'] = "Месячный тариф пок�
 $text['label-monthly_price_buy']['sv-se'] = "Inköpspris / Månad";
 $text['label-monthly_price_buy']['uk-ua'] = "Щомісячна ціна купівлі";
 $text['label-monthly_price_buy']['tr-tr'] = "Aylık alış fiyatı";
-$text['label-monthly_price_buy']['zh-cn'] = "每月买入价";
+$text['label-monthly_price_buy']['zh-cn'] = "每月购买价";
 $text['label-monthly_price_buy']['ja-jp'] = "毎月の購入価格";
 $text['label-monthly_price_buy']['ko-kr'] = "월간 구매 가격";
 
@@ -483,7 +483,7 @@ $text['label-monthly_price']['ru-ru'] = "Месячный тариф прода�
 $text['label-monthly_price']['sv-se'] = "Säljpris / Månad";
 $text['label-monthly_price']['uk-ua'] = "Щомісячна ціна продажу";
 $text['label-monthly_price']['tr-tr'] = "Aylık satış fiyatı";
-$text['label-monthly_price']['zh-cn'] = "每月售价";
+$text['label-monthly_price']['zh-cn'] = "每月销售价";
 $text['label-monthly_price']['ja-jp'] = "月額販売価格";
 $text['label-monthly_price']['ko-kr'] = "월 판매 가격";
 
@@ -618,7 +618,7 @@ $text['label-domain']['ru-ru'] = "Домен";
 $text['label-domain']['sv-se'] = "Domän";
 $text['label-domain']['uk-ua'] = "Домен";
 $text['label-domain']['tr-tr'] = "İhtisas";
-$text['label-domain']['zh-cn'] = "领域";
+$text['label-domain']['zh-cn'] = "域";
 $text['label-domain']['ja-jp'] = "ドメイン";
 $text['label-domain']['ko-kr'] = "도메인";
 
@@ -699,7 +699,7 @@ $text['label-destination_prefix']['ru-ru'] = "Префикс";
 $text['label-destination_prefix']['sv-se'] = "Prefix";
 $text['label-destination_prefix']['uk-ua'] = "Префікс";
 $text['label-destination_prefix']['tr-tr'] = "Önek";
-$text['label-destination_prefix']['zh-cn'] = "字首";
+$text['label-destination_prefix']['zh-cn'] = "前缀";
 $text['label-destination_prefix']['ja-jp'] = "プレフィックス";
 $text['label-destination_prefix']['ko-kr'] = "접두사";
 
@@ -807,7 +807,7 @@ $text['label-destination_condition_field']['ru-ru'] = "Состояние";
 $text['label-destination_condition_field']['sv-se'] = "Villkor";
 $text['label-destination_condition_field']['uk-ua'] = "Стан";
 $text['label-destination_condition_field']['tr-tr'] = "Durum";
-$text['label-destination_condition_field']['zh-cn'] = "健康）状况";
+$text['label-destination_condition_field']['zh-cn'] = "条件";
 $text['label-destination_condition_field']['ja-jp'] = "状態";
 $text['label-destination_condition_field']['ko-kr'] = "상태";
 
@@ -888,7 +888,7 @@ $text['label-destination_context']['ru-ru'] = "Контекст";
 $text['label-destination_context']['sv-se'] = "Context";
 $text['label-destination_context']['uk-ua'] = "Контекст";
 $text['label-destination_context']['tr-tr'] = "Bağlam";
-$text['label-destination_context']['zh-cn'] = "语境";
+$text['label-destination_context']['zh-cn'] = "上下文";
 $text['label-destination_context']['ja-jp'] = "コンテクスト";
 $text['label-destination_context']['ko-kr'] = "문맥";
 
@@ -2483,7 +2483,7 @@ $text['label-answered']['ru-ru'] = "Отвечено";
 $text['label-answered']['sv-se'] = "Besvarad";
 $text['label-answered']['uk-ua'] = "відповів";
 $text['label-answered']['tr-tr'] = "Yanıtlandı";
-$text['label-answered']['zh-cn'] = "已回答";
+$text['label-answered']['zh-cn'] = "已接听";
 $text['label-answered']['ja-jp'] = "答えた";
 $text['label-answered']['ko-kr'] = "대답했다";
 
@@ -2510,7 +2510,7 @@ $text['label-duration']['ru-ru'] = "Продолжительность";
 $text['label-duration']['sv-se'] = "Samtalstid";
 $text['label-duration']['uk-ua'] = "Тривалість";
 $text['label-duration']['tr-tr'] = "Süre";
-$text['label-duration']['zh-cn'] = "期间";
+$text['label-duration']['zh-cn'] = "时长";
 $text['label-duration']['ja-jp'] = "間隔";
 $text['label-duration']['ko-kr'] = "지속";
 
@@ -2564,7 +2564,7 @@ $text['label-unique_callers']['ru-ru'] = "Уникальные абоненты"
 $text['label-unique_callers']['sv-se'] = "Unika uppringare";
 $text['label-unique_callers']['uk-ua'] = "Унікальні абоненти";
 $text['label-unique_callers']['tr-tr'] = "Benzersiz Arayanlar";
-$text['label-unique_callers']['zh-cn'] = "独特的来电者";
+$text['label-unique_callers']['zh-cn'] = "唯一主叫";
 $text['label-unique_callers']['ja-jp'] = "ユニークな発信者";
 $text['label-unique_callers']['ko-kr'] = "고유 발신자";
 

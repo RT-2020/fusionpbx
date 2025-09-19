@@ -77,7 +77,7 @@ $text['description-database_transactions']['ru-ru'] = "Отслеживайте 
 $text['description-database_transactions']['sv-se'] = "Spåra ändringar i databasen. Spåra när ändringarna gjordes, användaren och adressen till användaren som gjorde ändringarna. Ge ett alternativ för att ångra radering och uppdatering av transaktioner.";
 $text['description-database_transactions']['uk-ua'] = "Відстежуйте зміни до бази даних. Відстежуйте, коли внесені зміни, користувач та адреса користувача, який вніс зміни. Забезпечити варіант видалення та оновлення транзакцій.";
 $text['description-database_transactions']['tr-tr'] = "Veritabanındaki değişiklikleri izleyin. Değişikliklerin ne zaman yapıldığını, değişiklikleri yapan kullanıcının kullanıcısını ve adresini izleyin. İşlemleri silme ve güncellemeyi geri alma seçeneği sağlayın.";
-$text['description-database_transactions']['zh-cn'] = "跟踪对数据库的更改。 跟踪进行更改的时间、进行更改的用户和地址。 提供撤消删除和更新事务的选项。";
+$text['description-database_transactions']['zh-cn'] = "跟踪对数据库的更改。记录进行更改的时间、进行更改的用户和地址。提供撤销删除和更新事务的选项。";
 $text['description-database_transactions']['ja-jp'] = "データベースへの変更を追跡します。 変更がいつ行われたか、変更を行ったユーザーのユーザーとアドレスを追跡します。 トランザクションの削除と更新を元に戻すオプションを提供します。";
 $text['description-database_transactions']['ko-kr'] = "데이터베이스에 대한 변경 사항을 추적합니다. 변경된 시기, 사용자 및 변경한 사용자의 주소를 추적합니다. 트랜잭션 삭제 및 업데이트를 실행 취소하는 옵션을 제공합니다.";
 
@@ -158,7 +158,7 @@ $text['description-user_uuid']['ru-ru'] = "Транзакции пользова
 $text['description-user_uuid']['sv-se'] = "Användar transaktion";
 $text['description-user_uuid']['uk-ua'] = "Операція користувача.";
 $text['description-user_uuid']['tr-tr'] = "Kullanıcı işlemi.";
-$text['description-user_uuid']['zh-cn'] = "用户交易。";
+$text['description-user_uuid']['zh-cn'] = "用户事务。";
 $text['description-user_uuid']['ja-jp'] = "ユーザー取引。";
 $text['description-user_uuid']['ko-kr'] = "사용자 거래.";
 
@@ -212,7 +212,7 @@ $text['description-app_name']['ru-ru'] = "Имя приложения.";
 $text['description-app_name']['sv-se'] = "Applikation namn";
 $text['description-app_name']['uk-ua'] = "Назва заявки.";
 $text['description-app_name']['tr-tr'] = "Uygulama adı.";
-$text['description-app_name']['zh-cn'] = "应用名称。";
+$text['description-app_name']['zh-cn'] = "应用程序名称。";
 $text['description-app_name']['ja-jp'] = "アプリケーション名。";
 $text['description-app_name']['ko-kr'] = "애플리케이션 이름.";
 
@@ -239,7 +239,7 @@ $text['label-app_uuid']['ru-ru'] = "Id приложения";
 $text['label-app_uuid']['sv-se'] = "Applikation Id.";
 $text['label-app_uuid']['uk-ua'] = "Додаток Id";
 $text['label-app_uuid']['tr-tr'] = "Uygulama Kimliği";
-$text['label-app_uuid']['zh-cn'] = "申请编号";
+$text['label-app_uuid']['zh-cn'] = "应用程序UUID";
 $text['label-app_uuid']['ja-jp'] = "アプリケーションID";
 $text['label-app_uuid']['ko-kr'] = "애플리케이션 ID";
 
@@ -671,7 +671,7 @@ $text['label-true']['ru-ru'] = "Да";
 $text['label-true']['sv-se'] = "sann";
 $text['label-true']['uk-ua'] = "Справді";
 $text['label-true']['tr-tr'] = "doğru";
-$text['label-true']['zh-cn'] = "真的";
+$text['label-true']['zh-cn'] = "启用";
 $text['label-true']['ja-jp'] = "真実";
 $text['label-true']['ko-kr'] = "진실";
 
@@ -698,7 +698,7 @@ $text['label-false']['ru-ru'] = "Нет";
 $text['label-false']['sv-se'] = "falsk";
 $text['label-false']['uk-ua'] = "Логін";
 $text['label-false']['tr-tr'] = "YANLIŞ";
-$text['label-false']['zh-cn'] = "错误的";
+$text['label-false']['zh-cn'] = "关闭";
 $text['label-false']['ja-jp'] = "間違い";
 $text['label-false']['ko-kr'] = "거짓";
 

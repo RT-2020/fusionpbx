@@ -132,7 +132,7 @@ $text['title-user_manager']['ru-ru'] = "Управление пользоват�
 $text['title-user_manager']['sv-se'] = "Användar Inställningar";
 $text['title-user_manager']['uk-ua'] = "Користувачі";
 $text['title-user_manager']['tr-tr'] = "Kullanıcı yönetici";
-$text['title-user_manager']['zh-cn'] = "用户管理人";
+$text['title-user_manager']['zh-cn'] = "用户管理";
 $text['title-user_manager']['ja-jp'] = "ユーザーマネージャー";
 $text['title-user_manager']['ko-kr'] = "사용자 관리자";
 
@@ -186,7 +186,7 @@ $text['option-true']['ru-ru'] = "Да";
 $text['option-true']['sv-se'] = "Sann";
 $text['option-true']['uk-ua'] = "Так";
 $text['option-true']['tr-tr'] = "Doğru";
-$text['option-true']['zh-cn'] = "真";
+$text['option-true']['zh-cn'] = "启用";
 $text['option-true']['ja-jp'] = "真実";
 $text['option-true']['ko-kr'] = "진실";
 
@@ -294,7 +294,7 @@ $text['option-false']['ru-ru'] = "ЛОЖЬ";
 $text['option-false']['sv-se'] = "Falsk";
 $text['option-false']['uk-ua'] = "помилковий";
 $text['option-false']['tr-tr'] = "YANLIŞ";
-$text['option-false']['zh-cn'] = "错误的";
+$text['option-false']['zh-cn'] = "关闭";
 $text['option-false']['ja-jp'] = "間違い";
 $text['option-false']['ko-kr'] = "거짓";
 
@@ -1404,7 +1404,7 @@ $text['label-groups']['ru-ru'] = "Группы";
 $text['label-groups']['sv-se'] = "Grupper";
 $text['label-groups']['uk-ua'] = "Групи";
 $text['label-groups']['tr-tr'] = "Gruplar";
-$text['label-groups']['zh-cn'] = "团体";
+$text['label-groups']['zh-cn'] = "组";
 $text['label-groups']['ja-jp'] = "グループ";
 $text['label-groups']['ko-kr'] = "여러 떼";
 

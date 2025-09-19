@@ -23,7 +23,7 @@ $text['title-call_block']['ru-ru'] = "Черный список";
 $text['title-call_block']['sv-se'] = "Blockera Samtal";
 $text['title-call_block']['uk-ua'] = "Блокування дзвінків";
 $text['title-call_block']['tr-tr'] = "Çağrı Engelleme";
-$text['title-call_block']['zh-cn'] = "呼叫块";
+$text['title-call_block']['zh-cn'] = "呼叫拦截";
 $text['title-call_block']['ja-jp'] = "コールブロック";
 $text['title-call_block']['ko-kr'] = "통화 차단";
 
@@ -77,7 +77,7 @@ $text['heading-block_recent_calls']['ru-ru'] = "Блокировать неда�
 $text['heading-block_recent_calls']['sv-se'] = "Blockera Senaste Samtal";
 $text['heading-block_recent_calls']['uk-ua'] = "Блокувати недавній дзвінок";
 $text['heading-block_recent_calls']['tr-tr'] = "Son Aramaları Engelle";
-$text['heading-block_recent_calls']['zh-cn'] = "阻止最近通话";
+$text['heading-block_recent_calls']['zh-cn'] = "拦截最近通话";
 $text['heading-block_recent_calls']['ja-jp'] = "最近の通話をブロックする";
 $text['heading-block_recent_calls']['ko-kr'] = "최근 통화 차단";
 
@@ -185,7 +185,7 @@ $text['label-provide-name']['ru-ru'] = "Пожалуйста, введите: И
 $text['label-provide-name']['sv-se'] = "Ange: Namn";
 $text['label-provide-name']['uk-ua'] = "Введіть назву";
 $text['label-provide-name']['tr-tr'] = "Lütfen belirtin: Ad";
-$text['label-provide-name']['zh-cn'] = "请提供：姓名";
+$text['label-provide-name']['zh-cn'] = "请提供：名称";
 $text['label-provide-name']['ja-jp'] = "入力してください: 名前";
 $text['label-provide-name']['ko-kr'] = "제공하십시오: 이름";
 

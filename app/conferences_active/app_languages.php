@@ -104,7 +104,7 @@ $text['message-click_to_unmute']['ru-ru'] = "Нажмите, чтобы вклю
 $text['message-click_to_unmute']['sv-se'] = "Klicka för att Aktivera Deltagares Mikrofon";
 $text['message-click_to_unmute']['uk-ua'] = "Натисніть, щоб включити учасника";
 $text['message-click_to_unmute']['tr-tr'] = "Üyenin Sesini Açmak İçin Tıklayın";
-$text['message-click_to_unmute']['zh-cn'] = "单击以取消静音成员";
+$text['message-click_to_unmute']['zh-cn'] = "点击取消静音成员";
 $text['message-click_to_unmute']['ja-jp'] = "クリックしてメンバーのミュートを解除";
 $text['message-click_to_unmute']['ko-kr'] = "회원을 음소거 해제하려면 클릭하세요.";
 
@@ -158,7 +158,7 @@ $text['label-conference_center_room']['ru-ru'] = "Конференц-центр"
 $text['label-conference_center_room']['sv-se'] = "Konferenscenter";
 $text['label-conference_center_room']['uk-ua'] = "Конференц-центр";
 $text['label-conference_center_room']['tr-tr'] = "Konferans Merkezi Odası";
-$text['label-conference_center_room']['zh-cn'] = "会议中心室";
+$text['label-conference_center_room']['zh-cn'] = "会议中心房间";
 $text['label-conference_center_room']['ja-jp'] = "カンファレンスセンタールーム";
 $text['label-conference_center_room']['ko-kr'] = "컨퍼런스 센터룸";
 
@@ -185,7 +185,7 @@ $text['label-yes']['ru-ru'] = "Да";
 $text['label-yes']['sv-se'] = "Ja";
 $text['label-yes']['uk-ua'] = "Так";
 $text['label-yes']['tr-tr'] = "Evet";
-$text['label-yes']['zh-cn'] = "是的";
+$text['label-yes']['zh-cn'] = "是";
 $text['label-yes']['ja-jp'] = "はい";
 $text['label-yes']['ko-kr'] = "예";
 
@@ -212,7 +212,7 @@ $text['label-volume']['ru-ru'] = "Громкость";
 $text['label-volume']['sv-se'] = "Volym";
 $text['label-volume']['uk-ua'] = "Обсяг";
 $text['label-volume']['tr-tr'] = "Hacim";
-$text['label-volume']['zh-cn'] = "体积";
+$text['label-volume']['zh-cn'] = "音量";
 $text['label-volume']['ja-jp'] = "音量";
 $text['label-volume']['ko-kr'] = "용량";
 

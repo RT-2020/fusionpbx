@@ -50,7 +50,7 @@ $text['title-ring_group']['ru-ru'] = "Группа вызовов";
 $text['title-ring_group']['sv-se'] = "Ringgrupper";
 $text['title-ring_group']['uk-ua'] = "Групи";
 $text['title-ring_group']['tr-tr'] = "Yüzük Grubu";
-$text['title-ring_group']['zh-cn'] = "环组";
+$text['title-ring_group']['zh-cn'] = "振铃组";
 $text['title-ring_group']['ja-jp'] = "リンググループ";
 $text['title-ring_group']['ko-kr'] = "링 그룹";
 
@@ -131,7 +131,7 @@ $text['option-rollover']['ru-ru'] = "Переходить";
 $text['option-rollover']['sv-se'] = "Revolver";
 $text['option-rollover']['uk-ua'] = "Рушники";
 $text['option-rollover']['tr-tr'] = "Yuvarlanmak";
-$text['option-rollover']['zh-cn'] = "滚下";
+$text['option-rollover']['zh-cn'] = "轮转";
 $text['option-rollover']['ja-jp'] = "転がる";
 $text['option-rollover']['ko-kr'] = "롤오버";
 
@@ -148,7 +148,7 @@ $text['option-random']['fr-ca'] = "Aléatoire";
 $text['option-random']['fr-fr'] = "Aléatoire";
 $text['option-random']['he-il'] = "אקראי";
 $text['option-random']['it-it'] = "Casuale";
-$text['option-random']['ka-ge'] = "შემთხვევით";
+$text['option-random']['ka-ge'] = "შეuuმთხვევით";
 $text['option-random']['nl-nl'] = "Willekurig";
 $text['option-random']['pl-pl'] = "losowy";
 $text['option-random']['pt-br'] = "aleatório";
@@ -158,7 +158,7 @@ $text['option-random']['ru-ru'] = "Случайная";
 $text['option-random']['sv-se'] = "Slumpmässig";
 $text['option-random']['uk-ua'] = "Випадковий";
 $text['option-random']['tr-tr'] = "Rastgele";
-$text['option-random']['zh-cn'] = "随机的";
+$text['option-random']['zh-cn'] = "随机";
 $text['option-random']['ja-jp'] = "ランダム";
 $text['option-random']['ko-kr'] = "무작위의";
 
@@ -185,7 +185,7 @@ $text['option-ptring']['ru-ru'] = "pt-ring";
 $text['option-ptring']['sv-se'] = "pt-ring";
 $text['option-ptring']['uk-ua'] = "pt-ring";
 $text['option-ptring']['tr-tr'] = "pt-ring";
-$text['option-ptring']['zh-cn'] = "pt环";
+$text['option-ptring']['zh-cn'] = "PT振铃";
 $text['option-ptring']['ja-jp'] = "ptリング";
 $text['option-ptring']['ko-kr'] = "pt-링";
 
@@ -212,7 +212,7 @@ $text['option-itring']['ru-ru'] = "it-ring";
 $text['option-itring']['sv-se'] = "it-ring";
 $text['option-itring']['uk-ua'] = "it-ring";
 $text['option-itring']['tr-tr'] = "it-ring";
-$text['option-itring']['zh-cn'] = "戒指";
+$text['option-itring']['zh-cn'] = "IT振铃";
 $text['option-itring']['ja-jp'] = "それリング";
 $text['option-itring']['ko-kr'] = "잇링";
 
@@ -239,7 +239,7 @@ $text['option-frring']['ru-ru'] = "fr-ring";
 $text['option-frring']['sv-se'] = "fr-ring";
 $text['option-frring']['uk-ua'] = "fr-ring";
 $text['option-frring']['tr-tr'] = "fr-ring";
-$text['option-frring']['zh-cn'] = "弗林";
+$text['option-frring']['zh-cn'] = "FR振铃";
 $text['option-frring']['ja-jp'] = "FRリング";
 $text['option-frring']['ko-kr'] = "프 링";
 

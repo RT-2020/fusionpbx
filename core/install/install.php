@@ -42,7 +42,9 @@
 
 //start the session before text object stores values in session
 	//ini_set("session.cookie_httponly", True);
-	session_start();
+	if (!headers_sent()) {
+		session_start();
+	}
 
 //add multi-lingual support
 	$language = new text;

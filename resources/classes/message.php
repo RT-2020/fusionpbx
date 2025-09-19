@@ -30,7 +30,7 @@
 		static function add($message, $mood = null, $delay = null) {
 			//set mood and delay
 				$mood = $mood ?: 'positive';
-				$delay = $delay ?: (1000 * (float) $_SESSION['theme']['message_delay']['text']);
+				$delay = $delay ?: (1000 * (float) (isset($_SESSION['theme']['message_delay']['text']) ? $_SESSION['theme']['message_delay']['text'] : 3));
 			//ignore duplicate messages
 				if (isset($_SESSION["messages"]) && !empty($_SESSION["messages"][$mood]['message'])) {
 					if (!in_array($message, $_SESSION["messages"][$mood]['message'])) {

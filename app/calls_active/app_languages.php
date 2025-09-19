@@ -22,7 +22,7 @@ $text['title-2']['ro-ro'] = "Extensii active";
 $text['title-2']['ru-ru'] = "Активные внутренние номера";
 $text['title-2']['sv-se'] = "Aktiva anknytningar";
 $text['title-2']['uk-ua'] = "Активні розширення";
-$text['title-2']['zh-cn'] = "活动扩展";
+$text['title-2']['zh-cn'] = "活动分机";
 $text['title-2']['ja-jp'] = "アクティブな拡張機能";
 $text['title-2']['ko-kr'] = "활성 확장";
 
@@ -48,7 +48,7 @@ $text['title']['ro-ro'] = "Apeluri active";
 $text['title']['ru-ru'] = "Активные вызовы";
 $text['title']['sv-se'] = "Aktiva Samtal";
 $text['title']['uk-ua'] = "Активні дзвінки";
-$text['title']['zh-cn'] = "主动通话";
+$text['title']['zh-cn'] = "活动通话";
 $text['title']['ja-jp'] = "アクティブな通話";
 $text['title']['ko-kr'] = "활성 통화";
 
@@ -126,7 +126,7 @@ $text['label-status']['ro-ro'] = "stare";
 $text['label-status']['ru-ru'] = "Статус";
 $text['label-status']['sv-se'] = "Status";
 $text['label-status']['uk-ua'] = "Статус";
-$text['label-status']['zh-cn'] = "地位";
+$text['label-status']['zh-cn'] = "状态";
 $text['label-status']['ja-jp'] = "スターテス";
 $text['label-status']['ko-kr'] = "상태";
 
@@ -178,7 +178,7 @@ $text['label-secure']['ro-ro'] = "Sigur";
 $text['label-secure']['ru-ru'] = "Безопасный";
 $text['label-secure']['sv-se'] = "Skydda";
 $text['label-secure']['uk-ua'] = "Захищено";
-$text['label-secure']['zh-cn'] = "安全的";
+$text['label-secure']['zh-cn'] = "安全";
 $text['label-secure']['ja-jp'] = "安全";
 $text['label-secure']['ko-kr'] = "안전한";
 

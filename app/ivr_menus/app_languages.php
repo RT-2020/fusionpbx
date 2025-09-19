@@ -23,7 +23,7 @@ $text['title-option_edit']['ru-ru'] = "Редактор параметров Г�
 $text['title-option_edit']['sv-se'] = "Ändra IVR Meny Val";
 $text['title-option_edit']['uk-ua'] = "Відео Параметри меню Редагування";
 $text['title-option_edit']['tr-tr'] = "IVR Menü Seçeneği Düzenle";
-$text['title-option_edit']['zh-cn'] = "页: 1 Menu Alternative Edit";
+$text['title-option_edit']['zh-cn'] = "编辑IVR菜单选项";
 $text['title-option_edit']['ja-jp'] = "IVRについて メニューオプション編集";
 $text['title-option_edit']['ko-kr'] = "아이VR 메뉴 옵션 편집";
 
@@ -50,7 +50,7 @@ $text['title-option_add']['ru-ru'] = "Добавить опции Голосов
 $text['title-option_add']['sv-se'] = "Lägg Till IVR Meny Val";
 $text['title-option_add']['uk-ua'] = "Параметри меню IVR Додати";
 $text['title-option_add']['tr-tr'] = "IVR Menü Seçenek Ekle";
-$text['title-option_add']['zh-cn'] = "IVR 菜单选项 添加";
+$text['title-option_add']['zh-cn'] = "添加IVR菜单选项";
 $text['title-option_add']['ja-jp'] = "IVR メニュー オプションの追加";
 $text['title-option_add']['ko-kr'] = "IVR 메뉴 옵션 추가";
 
@@ -131,7 +131,7 @@ $text['title-ivr_menus_sub']['ru-ru'] = "Суб-опции Голосового 
 $text['title-ivr_menus_sub']['sv-se'] = "IVR Menyer - Sub";
 $text['title-ivr_menus_sub']['uk-ua'] = "IVR меню - суб";
 $text['title-ivr_menus_sub']['tr-tr'] = "IVR Menüleri - Alt";
-$text['title-ivr_menus_sub']['zh-cn'] = "IVR 菜单 - 子";
+$text['title-ivr_menus_sub']['zh-cn'] = "IVR子菜单";
 $text['title-ivr_menus_sub']['ja-jp'] = "IVR メニュー - サブ";
 $text['title-ivr_menus_sub']['ko-kr'] = "IVR 메뉴 - 하위";
 
@@ -158,7 +158,7 @@ $text['title-ivr_menus_other']['ru-ru'] = "Суб-опции Голосовог�
 $text['title-ivr_menus_other']['sv-se'] = "IVR Menyer - Other";
 $text['title-ivr_menus_other']['uk-ua'] = "Відео Кошик Інше";
 $text['title-ivr_menus_other']['tr-tr'] = "IVR Menüleri - Diğer";
-$text['title-ivr_menus_other']['zh-cn'] = "IVR 菜单 - 其他";
+$text['title-ivr_menus_other']['zh-cn'] = "IVR其他菜单";
 $text['title-ivr_menus_other']['ja-jp'] = "IVR メニュー - その他";
 $text['title-ivr_menus_other']['ko-kr'] = "IVR 메뉴 - 기타";
 
@@ -185,7 +185,7 @@ $text['option-exit']['ru-ru'] = "Выход";
 $text['option-exit']['sv-se'] = "exit";
 $text['option-exit']['uk-ua'] = "Вступ";
 $text['option-exit']['tr-tr'] = "çıkış";
-$text['option-exit']['zh-cn'] = "出口";
+$text['option-exit']['zh-cn'] = "退出";
 $text['option-exit']['ja-jp'] = "出口";
 $text['option-exit']['ko-kr'] = "출구";
 
@@ -239,7 +239,7 @@ $text['option-back']['ru-ru'] = "Назад";
 $text['option-back']['sv-se'] = "Tillbaka";
 $text['option-back']['uk-ua'] = "Зареєструватися";
 $text['option-back']['tr-tr'] = "Geri";
-$text['option-back']['zh-cn'] = "后退";
+$text['option-back']['zh-cn'] = "返回";
 $text['option-back']['ja-jp'] = "戻る";
 $text['option-back']['ko-kr'] = "뒤쪽에";
 

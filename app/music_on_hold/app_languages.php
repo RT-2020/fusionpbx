@@ -23,7 +23,7 @@ $text['title-music_on_hold_settings']['ru-ru'] = "Музыка на удержа
 $text['title-music_on_hold_settings']['sv-se'] = "Väntmusik inställningar";
 $text['title-music_on_hold_settings']['uk-ua'] = "Музика на утриманні настройки";
 $text['title-music_on_hold_settings']['tr-tr'] = "Bekleme Müziği Ayarları";
-$text['title-music_on_hold_settings']['zh-cn'] = "保留音乐设置";
+$text['title-music_on_hold_settings']['zh-cn'] = "保持音乐设置";
 $text['title-music_on_hold_settings']['ja-jp'] = "保留音の設定";
 $text['title-music_on_hold_settings']['ko-kr'] = "대기 중인 음악 설정";
 
@@ -50,7 +50,7 @@ $text['title-music_on_hold']['ru-ru'] = "Музыка на удержании";
 $text['title-music_on_hold']['sv-se'] = "Väntmusik";
 $text['title-music_on_hold']['uk-ua'] = "Музика на утриманні";
 $text['title-music_on_hold']['tr-tr'] = "Beklemedeki Müzik";
-$text['title-music_on_hold']['zh-cn'] = "保留音乐";
+$text['title-music_on_hold']['zh-cn'] = "保持音乐";
 $text['title-music_on_hold']['ja-jp'] = "保留音";
 $text['title-music_on_hold']['ko-kr'] = "음악 보류";
 
@@ -77,7 +77,7 @@ $text['option-local']['ru-ru'] = "Местный";
 $text['option-local']['sv-se'] = "Lokal";
 $text['option-local']['uk-ua'] = "місцевий";
 $text['option-local']['tr-tr'] = "Yerel";
-$text['option-local']['zh-cn'] = "当地的";
+$text['option-local']['zh-cn'] = "本地";
 $text['option-local']['ja-jp'] = "地元";
 $text['option-local']['ko-kr'] = "현지의";
 
@@ -104,7 +104,7 @@ $text['option-global']['ru-ru'] = "Глобальный";
 $text['option-global']['sv-se'] = "Global";
 $text['option-global']['uk-ua'] = "Глобальний";
 $text['option-global']['tr-tr'] = "Küresel";
-$text['option-global']['zh-cn'] = "全球的";
+$text['option-global']['zh-cn'] = "全局";
 $text['option-global']['ja-jp'] = "グローバル";
 $text['option-global']['ko-kr'] = "글로벌";
 
@@ -185,7 +185,7 @@ $text['message-nofiles']['ru-ru'] = "Файлы не найдены";
 $text['message-nofiles']['sv-se'] = "Ingen ljudfil.";
 $text['message-nofiles']['uk-ua'] = "Файлів не знайдено";
 $text['message-nofiles']['tr-tr'] = "Hiçbir dosya bulunamadı.";
-$text['message-nofiles']['zh-cn'] = "找不到文件。";
+$text['message-nofiles']['zh-cn'] = "未找到文件。";
 $text['message-nofiles']['ja-jp'] = "ファイルが見つかりません。";
 $text['message-nofiles']['ko-kr'] = "파일이 없습니다.";
 
@@ -239,7 +239,7 @@ $text['message-event-socket']['ru-ru'] = "Подключение к сокету
 $text['message-event-socket']['sv-se'] = "Kontakt till 'Event Socket' misslyckades.";
 $text['message-event-socket']['uk-ua'] = "Помилка підключення до сокета подій";
 $text['message-event-socket']['tr-tr'] = "Olay Soketine bağlantı başarısız oldu.";
-$text['message-event-socket']['zh-cn'] = "与事件套接字的连接失败。";
+$text['message-event-socket']['zh-cn'] = "连接 Event Socket 失败。";
 $text['message-event-socket']['ja-jp'] = "イベントソケットへの接続が失敗しました。";
 $text['message-event-socket']['ko-kr'] = "이벤트 소켓에 연결 실패.";
 
@@ -401,7 +401,7 @@ $text['label-shuffle']['ru-ru'] = "Перемешать";
 $text['label-shuffle']['sv-se'] = "Blanda";
 $text['label-shuffle']['uk-ua'] = "тасування";
 $text['label-shuffle']['tr-tr'] = "Karıştır";
-$text['label-shuffle']['zh-cn'] = "洗牌";
+$text['label-shuffle']['zh-cn'] = "随机播放";
 $text['label-shuffle']['ja-jp'] = "シャッフル";
 $text['label-shuffle']['ko-kr'] = "혼합";
 
@@ -482,7 +482,7 @@ $text['label-play']['ru-ru'] = "Проиграть";
 $text['label-play']['sv-se'] = "Spela Upp";
 $text['label-play']['uk-ua'] = "Відтворити";
 $text['label-play']['tr-tr'] = "Oynamak";
-$text['label-play']['zh-cn'] = "玩";
+$text['label-play']['zh-cn'] = "播放";
 $text['label-play']['ja-jp'] = "遊ぶ";
 $text['label-play']['ko-kr'] = "놀다";
 
@@ -509,7 +509,7 @@ $text['label-path']['ru-ru'] = "Путь";
 $text['label-path']['sv-se'] = "Sökväg";
 $text['label-path']['uk-ua'] = "Path";
 $text['label-path']['tr-tr'] = "Yol";
-$text['label-path']['zh-cn'] = "小路";
+$text['label-path']['zh-cn'] = "路径";
 $text['label-path']['ja-jp'] = "道";
 $text['label-path']['ko-kr'] = "길";
 
@@ -563,7 +563,7 @@ $text['label-mono']['ru-ru'] = "Моно";
 $text['label-mono']['sv-se'] = "sak";
 $text['label-mono']['uk-ua'] = "річ";
 $text['label-mono']['tr-tr'] = "Mono";
-$text['label-mono']['zh-cn'] = "单核细胞增多症";
+$text['label-mono']['zh-cn'] = "单声道";
 $text['label-mono']['ja-jp'] = "単核症";
 $text['label-mono']['ko-kr'] = "단핵증";
 
@@ -590,7 +590,7 @@ $text['label-music_on_hold']['ru-ru'] = "Музыка на удержании";
 $text['label-music_on_hold']['sv-se'] = "Väntmusik";
 $text['label-music_on_hold']['uk-ua'] = "Музика на утриманні";
 $text['label-music_on_hold']['tr-tr'] = "Beklemedeki Müzik";
-$text['label-music_on_hold']['zh-cn'] = "保留音乐";
+$text['label-music_on_hold']['zh-cn'] = "保持音乐";
 $text['label-music_on_hold']['ja-jp'] = "保留音";
 $text['label-music_on_hold']['ko-kr'] = "음악 보류";
 
@@ -617,7 +617,7 @@ $text['label-location']['ru-ru'] = "Место нахождения";
 $text['label-location']['sv-se'] = "Plats";
 $text['label-location']['uk-ua'] = "Розміщення";
 $text['label-location']['tr-tr'] = "Konum";
-$text['label-location']['zh-cn'] = "地点";
+$text['label-location']['zh-cn'] = "位置";
 $text['label-location']['ja-jp'] = "位置";
 $text['label-location']['ko-kr'] = "위치";
 
@@ -698,7 +698,7 @@ $text['label-global']['ru-ru'] = "Глобальный";
 $text['label-global']['sv-se'] = "Global";
 $text['label-global']['uk-ua'] = "Глобальний";
 $text['label-global']['tr-tr'] = "Küresel";
-$text['label-global']['zh-cn'] = "全球的";
+$text['label-global']['zh-cn'] = "全局";
 $text['label-global']['ja-jp'] = "グローバル";
 $text['label-global']['ko-kr'] = "글로벌";
 
@@ -833,7 +833,7 @@ $text['label-domain']['ru-ru'] = "Домен";
 $text['label-domain']['sv-se'] = "Domän";
 $text['label-domain']['uk-ua'] = "Домен";
 $text['label-domain']['tr-tr'] = "İhtisas";
-$text['label-domain']['zh-cn'] = "领域";
+$text['label-domain']['zh-cn'] = "域";
 $text['label-domain']['ja-jp'] = "ドメイン";
 $text['label-domain']['ko-kr'] = "도메인";
 
@@ -914,7 +914,7 @@ $text['label-chime_maximum']['ru-ru'] = "Максимальный перезво
 $text['label-chime_maximum']['sv-se'] = "maximala Chimes";
 $text['label-chime_maximum']['uk-ua'] = "максимум куранти";
 $text['label-chime_maximum']['tr-tr'] = "Maksimum Zil Sesi";
-$text['label-chime_maximum']['zh-cn'] = "最大钟声";
+$text['label-chime_maximum']['zh-cn'] = "提示音上限";
 $text['label-chime_maximum']['ja-jp'] = "チャイム最大値";
 $text['label-chime_maximum']['ko-kr'] = "차임 최대";
 
@@ -941,7 +941,7 @@ $text['label-chime_list']['ru-ru'] = "Файл перезвона";
 $text['label-chime_list']['sv-se'] = "chime File";
 $text['label-chime_list']['uk-ua'] = "передзвін файлу";
 $text['label-chime_list']['tr-tr'] = "Zil Dosyası";
-$text['label-chime_list']['zh-cn'] = "编钟文件";
+$text['label-chime_list']['zh-cn'] = "提示音文件";
 $text['label-chime_list']['ja-jp'] = "チャイムファイル";
 $text['label-chime_list']['ko-kr'] = "차임 파일";
 
@@ -968,7 +968,7 @@ $text['label-chime_frequency']['ru-ru'] = "Частота перезвона";
 $text['label-chime_frequency']['sv-se'] = "chime Frekvens";
 $text['label-chime_frequency']['uk-ua'] = "передзвін Частота";
 $text['label-chime_frequency']['tr-tr'] = "Zil Frekansı";
-$text['label-chime_frequency']['zh-cn'] = "奇梅频率";
+$text['label-chime_frequency']['zh-cn'] = "提示音频率";
 $text['label-chime_frequency']['ja-jp'] = "煙の頻度";
 $text['label-chime_frequency']['ko-kr'] = "차임 주파수";
 
@@ -1049,7 +1049,7 @@ $text['title_description-music_on_hold']['ru-ru'] = "Музыка на удер�
 $text['title_description-music_on_hold']['sv-se'] = "Väntmusik kan vara i formaten WAV eller MP3. För bästa prestanda, ladda upp 16 bit, 8/16/32/48 kHz mono WAV filer.";
 $text['title_description-music_on_hold']['uk-ua'] = "Музика на утриманні може бути в WAV або MP3 формат. Для кращої продуктивності завантаження 16 біт, моно 8/16/32/48 кГц WAV файлів.";
 $text['title_description-music_on_hold']['tr-tr'] = "Beklemedeki müzik WAV veya MP3 formatında olabilir. En iyi performans için 16 bit, 8/16/32/48 kHz <i>mono</i> WAV dosyalarını yükleyin.";
-$text['title_description-music_on_hold']['zh-cn'] = "等待音乐可以是 WAV 或 MP3 格式。 为获得最佳性能，请上传 16 位、8/16/32/48 kHz <i>单声道</i> WAV 文件。";
+$text['title_description-music_on_hold']['zh-cn'] = "保持音乐可以是 WAV 或 MP3 格式。为获得最佳性能，请上传 16 位、8/16/32/48 kHz <i>单声道</i> WAV 文件。";
 $text['title_description-music_on_hold']['ja-jp'] = "保留音は WAV または MP3 形式で保存できます。 最高のパフォーマンスを得るには、16 ビット、8/16/32/48 kHz の<i>モノラル</i> WAV ファイルをアップロードします。";
 $text['title_description-music_on_hold']['ko-kr'] = "대기 중인 음악은 WAV 또는 MP3 형식일 수 있습니다. 최상의 성능을 위해 16비트, 8/16/32/48kHz <i>모노</i> WAV 파일을 업로드하십시오.";
 

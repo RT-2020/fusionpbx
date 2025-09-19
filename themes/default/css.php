@@ -55,7 +55,7 @@ $logout_icon_color = $settings->get('theme', 'logout_icon_color', 'rgba(255,255,
 $logout_icon_color_hover = $settings->get('theme', 'logout_icon_color_hover', 'rgba(255,255,255,1.0)');
 $menu_main_toggle_color = $settings->get('theme', 'menu_main_toggle_color', 'rgba(255,255,255,0.8)');
 $menu_main_toggle_color_hover = $settings->get('theme', 'menu_main_toggle_color_hover', 'rgba(255,255,255,1.0)');
-$menu_side_state = $settings->get('theme', 'menu_side_state', null);
+$menu_side_state = 'expanded';
 $menu_side_width_expanded = $settings->get('theme', 'menu_side_width_expanded', 225);
 $menu_side_width_contracted = $settings->get('theme', 'menu_side_width_contracted', 60);
 $menu_main_icon_color = $settings->get('theme', 'menu_main_icon_color', '#fd9c03');
@@ -1054,35 +1054,12 @@ else { //default: white
 
 	@media (max-width: 575.98px) {
 		div#content_container {
-			<?php
-			if ($settings->get('theme', 'menu_style', '') == 'side') {
-				switch ($settings->get('theme', 'menu_side_state', '')) {
-					case 'expanded': $content_container_width = $settings->get('theme', 'menu_side_width_expanded', 225); break;
-					case 'hidden': $content_container_width = 0; break;
-					default: $content_container_width = $settings->get('theme', 'menu_side_width_contracted', 60);
-				}
-			}
-			else {
-				$content_container_width = 0;
-			}
-			?>
-			width: calc(100% - <?=$content_container_width?>);
+			width: calc(100% - <?=$menu_side_width_expanded?>px);
 			}
 	}
 	@media (min-width: 576px) {
 		div#content_container {
-			<?php
-			if ($menu_side_state == 'expanded') {
-				$content_container_width = $menu_side_width_expanded;
-			}
-			else if ($menu_side_state == 'hidden') {
-				$content_container_width = 0;
-			}
-			else {
-				$content_container_width = $menu_side_width_contracted;
-			}
-			?>
-			width: calc(100% - <?=$content_container_width?>px);
+			width: calc(100% - <?=$menu_side_width_expanded?>px);
 			float: right;
 			}
 	}

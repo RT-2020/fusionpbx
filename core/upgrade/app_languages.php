@@ -50,7 +50,7 @@ $text['title-upgrade_schema']['ru-ru'] = "Схема обновления";
 $text['title-upgrade_schema']['sv-se'] = "Uppgraderingsschema";
 $text['title-upgrade_schema']['uk-ua'] = "Схема оновлення";
 $text['title-upgrade_schema']['tr-tr'] = "Yükseltme Şeması";
-$text['title-upgrade_schema']['zh-cn'] = "升级架构";
+$text['title-upgrade_schema']['zh-cn'] = "升级数据库架构";
 $text['title-upgrade_schema']['ja-jp'] = "アップグレードスキーマ";
 $text['title-upgrade_schema']['ko-kr'] = "업그레이드 스키마";
 
@@ -77,7 +77,7 @@ $text['title-cli_upgrade']['ru-ru'] = "МЕНЮ ОБНОВЛЕНИЯ";
 $text['title-cli_upgrade']['sv-se'] = "UPPGRADERINGSMENY";
 $text['title-cli_upgrade']['uk-ua'] = "МЕНЮ ОНОВЛЕННЯ";
 $text['title-cli_upgrade']['tr-tr'] = "YÜKSELTME MENÜSÜ";
-$text['title-cli_upgrade']['zh-cn'] = "升级菜单";
+$text['title-cli_upgrade']['zh-cn'] = "命令行升级";
 $text['title-cli_upgrade']['ja-jp'] = "アップグレードメニュー";
 $text['title-cli_upgrade']['ko-kr'] = "업그레이드 메뉴";
 
@@ -104,7 +104,7 @@ $text['option-true']['ru-ru'] = "Истинный";
 $text['option-true']['sv-se'] = "Sann";
 $text['option-true']['uk-ua'] = "правда";
 $text['option-true']['tr-tr'] = "Doğru";
-$text['option-true']['zh-cn'] = "真的";
+$text['option-true']['zh-cn'] = "启用";
 $text['option-true']['ja-jp'] = "真実";
 $text['option-true']['ko-kr'] = "진실";
 
@@ -131,7 +131,7 @@ $text['option-false']['ru-ru'] = "ЛОЖЬ";
 $text['option-false']['sv-se'] = "Falsk";
 $text['option-false']['uk-ua'] = "помилковий";
 $text['option-false']['tr-tr'] = "YANLIŞ";
-$text['option-false']['zh-cn'] = "错误的";
+$text['option-false']['zh-cn'] = "关闭";
 $text['option-false']['ja-jp'] = "間違い";
 $text['option-false']['ko-kr'] = "거짓";
 

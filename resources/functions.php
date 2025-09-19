@@ -826,7 +826,7 @@
 
 	}
 
-	function switch_module_is_running($mod, event_socket $esl = null) {
+	function switch_module_is_running($mod, ?event_socket $esl = null) {
 		//if the object does not exist create it
 		if ($esl === null) {
 			$esl = event_socket::create();

@@ -126,7 +126,7 @@ $text['label-conference_center_name']['ro-ro'] = "Nume";
 $text['label-conference_center_name']['ru-ru'] = "Имя";
 $text['label-conference_center_name']['sv-se'] = "Namn";
 $text['label-conference_center_name']['uk-ua'] = "Назва";
-$text['label-conference_center_name']['zh-cn'] = "姓名";
+$text['label-conference_center_name']['zh-cn'] = "会议中心名称";
 $text['label-conference_center_name']['ja-jp'] = "お名前";
 $text['label-conference_center_name']['ko-kr'] = "이름";
 
@@ -152,7 +152,7 @@ $text['description-conference_center_name']['ro-ro'] = "Introduceți numele cent
 $text['description-conference_center_name']['ru-ru'] = "Введите имя конференц-центра.";
 $text['description-conference_center_name']['sv-se'] = "Ange namn på konferenscenter.";
 $text['description-conference_center_name']['uk-ua'] = "Введіть назву конференц-ценру";
-$text['description-conference_center_name']['zh-cn'] = "进入会议中心名称。";
+$text['description-conference_center_name']['zh-cn'] = "输入会议中心名称。";
 $text['description-conference_center_name']['ja-jp'] = "会議センター名を入力してください。";
 $text['description-conference_center_name']['ko-kr'] = "회의 센터 이름을 입력하십시오.";
 
@@ -178,7 +178,7 @@ $text['label-conference_center_extension']['ro-ro'] = "Estensione";
 $text['label-conference_center_extension']['ru-ru'] = "Внутренний номер";
 $text['label-conference_center_extension']['sv-se'] = "Anknytning";
 $text['label-conference_center_extension']['uk-ua'] = "Розширення (Extention)";
-$text['label-conference_center_extension']['zh-cn'] = "延期";
+$text['label-conference_center_extension']['zh-cn'] = "分机号";
 $text['label-conference_center_extension']['ja-jp'] = "エクステンション";
 $text['label-conference_center_extension']['ko-kr'] = "제품 정보";
 
@@ -204,7 +204,7 @@ $text['description-conference_center_extension']['ro-ro'] = "Introduceți număr
 $text['description-conference_center_extension']['ru-ru'] = "Введите внутренний номер конференц-центра.";
 $text['description-conference_center_extension']['sv-se'] = "Ange konferenscenter anknytningsnummer.";
 $text['description-conference_center_extension']['uk-ua'] = "Введіть номер розширення конференц-центру.";
-$text['description-conference_center_extension']['zh-cn'] = "进入会议中心展期。";
+$text['description-conference_center_extension']['zh-cn'] = "输入会议中心分机号。";
 $text['description-conference_center_extension']['ja-jp'] = "会議センターの延長番号を入力してください。";
 $text['description-conference_center_extension']['ko-kr'] = "회의 센터 확장 번호를 입력하십시오.";
 
@@ -230,7 +230,7 @@ $text['label-conference_center_pin_length']['ro-ro'] = "Lungimea PIN-ului";
 $text['label-conference_center_pin_length']['ru-ru'] = "Длина PIN кода";
 $text['label-conference_center_pin_length']['sv-se'] = "Pinkod Längd";
 $text['label-conference_center_pin_length']['uk-ua'] = "Довжина PIN-коду ";
-$text['label-conference_center_pin_length']['zh-cn'] = "胎体长度";
+$text['label-conference_center_pin_length']['zh-cn'] = "PIN码长度";
 $text['label-conference_center_pin_length']['ja-jp'] = "PINの長さ";
 $text['label-conference_center_pin_length']['ko-kr'] = "PIN 길이";
 

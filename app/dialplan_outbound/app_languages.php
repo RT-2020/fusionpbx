@@ -158,7 +158,7 @@ $text['label-toll_allow']['ru-ru'] = "Разрешить ВСЕ";
 $text['label-toll_allow']['sv-se'] = "Tillåta fjärrsamtal";
 $text['label-toll_allow']['uk-ua'] = "TOLL дозволено";
 $text['label-toll_allow']['tr-tr'] = "Geçiş ücretine izin ver";
-$text['label-toll_allow']['zh-cn'] = "通行费允许";
+$text['label-toll_allow']['zh-cn'] = "允许长途";
 $text['label-toll_allow']['ja-jp'] = "有料通行許可";
 $text['label-toll_allow']['ko-kr'] = "통행료 허용";
 
@@ -185,7 +185,7 @@ $text['label-pin_numbers']['ru-ru'] = "числа";
 $text['label-pin_numbers']['sv-se'] = "PIN-nummer";
 $text['label-pin_numbers']['uk-ua'] = "PIN Кількість";
 $text['label-pin_numbers']['tr-tr'] = "PIN Numaraları";
-$text['label-pin_numbers']['zh-cn'] = "密码";
+$text['label-pin_numbers']['zh-cn'] = "PIN码";
 $text['label-pin_numbers']['ja-jp'] = "PIN番号";
 $text['label-pin_numbers']['ko-kr'] = "PIN 번호";
 
@@ -239,7 +239,7 @@ $text['label-prefix']['ru-ru'] = "Префикс";
 $text['label-prefix']['sv-se'] = "Prefix";
 $text['label-prefix']['uk-ua'] = "Префікс";
 $text['label-prefix']['tr-tr'] = "Önek";
-$text['label-prefix']['zh-cn'] = "字首";
+$text['label-prefix']['zh-cn'] = "前缀";
 $text['label-prefix']['ja-jp'] = "プレフィックス";
 $text['label-prefix']['ko-kr'] = "접두사";
 

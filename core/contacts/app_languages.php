@@ -22,7 +22,7 @@ $text['title-contacts_import_google']['ro-ro'] = "Importați Agenda Google";
 $text['title-contacts_import_google']['ru-ru'] = "Импортировать контакты Google";
 $text['title-contacts_import_google']['sv-se'] = "Importera Google Kontakter";
 $text['title-contacts_import_google']['uk-ua'] = "Імпортувати контакти Google";
-$text['title-contacts_import_google']['zh-cn'] = "导入谷歌通讯录";
+$text['title-contacts_import_google']['zh-cn'] = "导入Google联系人";
 $text['title-contacts_import_google']['ja-jp'] = "Google コンタクトのインポート";
 $text['title-contacts_import_google']['ko-kr'] = "Google 주소록 가져오기";
 
@@ -100,7 +100,7 @@ $text['title-contact_properties']['ro-ro'] = "Contactați Proprietăți";
 $text['title-contact_properties']['ru-ru'] = "Свойства контакта";
 $text['title-contact_properties']['sv-se'] = "Kontakta Fastigheter";
 $text['title-contact_properties']['uk-ua'] = "Контактні властивості";
-$text['title-contact_properties']['zh-cn'] = "联系属性";
+$text['title-contact_properties']['zh-cn'] = "联系人属性";
 $text['title-contact_properties']['ja-jp'] = "連絡先のプロパティ";
 $text['title-contact_properties']['ko-kr'] = "연락처 속성";
 
@@ -126,7 +126,7 @@ $text['title-contact_email-edit']['ro-ro'] = "Editare e-mail de contact";
 $text['title-contact_email-edit']['ru-ru'] = "Редактировать контактный адрес электронной почты";
 $text['title-contact_email-edit']['sv-se'] = "Ändra Kontakt E-post";
 $text['title-contact_email-edit']['uk-ua'] = "Контактна адреса електронної пошти Редагувати";
-$text['title-contact_email-edit']['zh-cn'] = "联系人电子邮件编辑";
+$text['title-contact_email-edit']['zh-cn'] = "编辑联系人邮箱";
 $text['title-contact_email-edit']['ja-jp'] = "連絡先メール編集";
 $text['title-contact_email-edit']['ko-kr'] = "연락처 이메일 편집";
 
@@ -152,7 +152,7 @@ $text['title-contact_email-add']['ro-ro'] = "Contact Email Adaugă";
 $text['title-contact_email-add']['ru-ru'] = "Добавить контактный адрес электронной почты";
 $text['title-contact_email-add']['sv-se'] = "Lägg Till Kontakt E-post";
 $text['title-contact_email-add']['uk-ua'] = "Контактна адреса електронної пошти Додати";
-$text['title-contact_email-add']['zh-cn'] = "联系邮箱 添加";
+$text['title-contact_email-add']['zh-cn'] = "添加联系人邮箱";
 $text['title-contact_email-add']['ja-jp'] = "連絡先メールアドレス追加";
 $text['title-contact_email-add']['ko-kr'] = "연락처 이메일 추가";
 
@@ -178,7 +178,7 @@ $text['title-contact_url-edit']['ro-ro'] = "Modificare URL de contact";
 $text['title-contact_url-edit']['ru-ru'] = "Адрес для связи (URL): Изменить";
 $text['title-contact_url-edit']['sv-se'] = "Ändra Kontakt URL";
 $text['title-contact_url-edit']['uk-ua'] = "Змінити URL-адресу контакту";
-$text['title-contact_url-edit']['zh-cn'] = "联系网址编辑";
+$text['title-contact_url-edit']['zh-cn'] = "编辑联系人网址";
 $text['title-contact_url-edit']['ja-jp'] = "連絡先 URL 編集";
 $text['title-contact_url-edit']['ko-kr'] = "연락처 URL 편집";
 
@@ -204,7 +204,7 @@ $text['title-contact_url-add']['ro-ro'] = "Adresa URL de contact Adăugați";
 $text['title-contact_url-add']['ru-ru'] = "Адрес для связи (URL): Добавить";
 $text['title-contact_url-add']['sv-se'] = "Lägg Till Kontakt URL";
 $text['title-contact_url-add']['uk-ua'] = "Контакт URL Додати";
-$text['title-contact_url-add']['zh-cn'] = "联系网址 添加";
+$text['title-contact_url-add']['zh-cn'] = "添加联系人网址";
 $text['title-contact_url-add']['ja-jp'] = "連絡先 URL 追加";
 $text['title-contact_url-add']['ko-kr'] = "연락처 URL 추가";
 
@@ -230,7 +230,7 @@ $text['title-contact_time_edit']['ro-ro'] = "Time Edit";
 $text['title-contact_time_edit']['ru-ru'] = "Редактировать время";
 $text['title-contact_time_edit']['sv-se'] = "Redigera Tid";
 $text['title-contact_time_edit']['uk-ua'] = "час Редагувати";
-$text['title-contact_time_edit']['zh-cn'] = "时间编辑";
+$text['title-contact_time_edit']['zh-cn'] = "编辑联系人时间";
 $text['title-contact_time_edit']['ja-jp'] = "時間編集";
 $text['title-contact_time_edit']['ko-kr'] = "시간 편집";
 
@@ -672,7 +672,7 @@ $text['option-true']['ro-ro'] = "Adevărat";
 $text['option-true']['ru-ru'] = "Да";
 $text['option-true']['sv-se'] = "Sann";
 $text['option-true']['uk-ua'] = "Так";
-$text['option-true']['zh-cn'] = "真的";
+$text['option-true']['zh-cn'] = "启用";
 $text['option-true']['ja-jp'] = "真実";
 $text['option-true']['ko-kr'] = "진실";
 
@@ -1140,7 +1140,7 @@ $text['option-false']['ro-ro'] = "Fals";
 $text['option-false']['ru-ru'] = "Нет";
 $text['option-false']['sv-se'] = "Falsk";
 $text['option-false']['uk-ua'] = "Ні";
-$text['option-false']['zh-cn'] = "错误的";
+$text['option-false']['zh-cn'] = "关闭";
 $text['option-false']['ja-jp'] = "間違い";
 $text['option-false']['ko-kr'] = "거짓";
 
@@ -1996,7 +1996,7 @@ $text['label-true']['ro-ro'] = "Adevărat";
 $text['label-true']['ru-ru'] = "Да";
 $text['label-true']['sv-se'] = "Sann";
 $text['label-true']['uk-ua'] = "Так";
-$text['label-true']['zh-cn'] = "真的";
+$text['label-true']['zh-cn'] = "启用";
 $text['label-true']['ja-jp'] = "真実";
 $text['label-true']['ko-kr'] = "진실";
 
@@ -2906,7 +2906,7 @@ $text['label-false']['ro-ro'] = "Fals";
 $text['label-false']['ru-ru'] = "Нет";
 $text['label-false']['sv-se'] = "Falsk";
 $text['label-false']['uk-ua'] = "Ні";
-$text['label-false']['zh-cn'] = "错误的";
+$text['label-false']['zh-cn'] = "关闭";
 $text['label-false']['ja-jp'] = "間違い";
 $text['label-false']['ko-kr'] = "거짓";
 

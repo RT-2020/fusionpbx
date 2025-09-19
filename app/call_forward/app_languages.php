@@ -48,7 +48,7 @@ $text['title-follow_me']['ro-ro'] = "Urmați-mă";
 $text['title-follow_me']['ru-ru'] = "Перенаправление";
 $text['title-follow_me']['sv-se'] = "Följ Mig";
 $text['title-follow_me']['uk-ua'] = "Слідуй за мною";
-$text['title-follow_me']['zh-cn'] = "跟我来";
+$text['title-follow_me']['zh-cn'] = "呼叫跟随";
 $text['title-follow_me']['ja-jp'] = "フォローしてください";
 $text['title-follow_me']['ko-kr'] = "나를 따르라";
 
@@ -100,7 +100,7 @@ $text['table-tools']['ro-ro'] = "Instrumente";
 $text['table-tools']['ru-ru'] = "Инструменты";
 $text['table-tools']['sv-se'] = "Verktyg";
 $text['table-tools']['uk-ua'] = "Інструменти";
-$text['table-tools']['zh-cn'] = "도구";
+$text['table-tools']['zh-cn'] = "工具";
 $text['table-tools']['ja-jp'] = "ツール";
 $text['table-tools']['ko-kr'] = "工具";
 
@@ -126,7 +126,7 @@ $text['table-extension']['ro-ro'] = "Extensie";
 $text['table-extension']['ru-ru'] = "Внутренний номер";
 $text['table-extension']['sv-se'] = "Anknytning";
 $text['table-extension']['uk-ua'] = "Розширення (Extention)";
-$text['table-extension']['zh-cn'] = "扩大";
+$text['table-extension']['zh-cn'] = "分机";
 $text['table-extension']['ja-jp'] = "拡大";
 $text['table-extension']['ko-kr'] = "확대";
 
@@ -178,7 +178,7 @@ $text['label-ring-timeout']['ro-ro'] = "Pauză";
 $text['label-ring-timeout']['ru-ru'] = "Тайм-аут";
 $text['label-ring-timeout']['sv-se'] = "Tidsgräns";
 $text['label-ring-timeout']['uk-ua'] = "Таймаут";
-$text['label-ring-timeout']['zh-cn'] = "暂停";
+$text['label-ring-timeout']['zh-cn'] = "响铃超时";
 $text['label-ring-timeout']['ja-jp'] = "タイムアウト";
 $text['label-ring-timeout']['ko-kr'] = "타임아웃";
 
@@ -204,7 +204,7 @@ $text['label-ring-order']['ro-ro'] = "Comanda inelului";
 $text['label-ring-order']['ru-ru'] = "Последовательность вызовов";
 $text['label-ring-order']['sv-se'] = "Ring Ordning";
 $text['label-ring-order']['uk-ua'] = "Послідовність набору";
-$text['label-ring-order']['zh-cn'] = "戒指订单";
+$text['label-ring-order']['zh-cn'] = "响铃顺序";
 $text['label-ring-order']['ja-jp'] = "リングオーダー";
 $text['label-ring-order']['ko-kr'] = "링 오더";
 
@@ -230,7 +230,7 @@ $text['label-ring-delay']['ro-ro'] = "Întârziere";
 $text['label-ring-delay']['ru-ru'] = "Задержка";
 $text['label-ring-delay']['sv-se'] = "Fördröjning";
 $text['label-ring-delay']['uk-ua'] = "Затримка";
-$text['label-ring-delay']['zh-cn'] = "延迟";
+$text['label-ring-delay']['zh-cn'] = "响铃延迟";
 $text['label-ring-delay']['ja-jp'] = "遅れ";
 $text['label-ring-delay']['ko-kr'] = "지연";
 
@@ -412,7 +412,7 @@ $text['label-follow_me']['ro-ro'] = "Urmați-mă";
 $text['label-follow_me']['ru-ru'] = "Перенаправление";
 $text['label-follow_me']['sv-se'] = "Följ Mig";
 $text['label-follow_me']['uk-ua'] = "Слідуй за мною";
-$text['label-follow_me']['zh-cn'] = "跟我来";
+$text['label-follow_me']['zh-cn'] = "呼叫跟随";
 $text['label-follow_me']['ja-jp'] = "フォローしてください";
 $text['label-follow_me']['ko-kr'] = "나를 따르라";
 
@@ -1141,7 +1141,7 @@ $text['check-true']['ro-ro'] = "Adevărat";
 $text['check-true']['ru-ru'] = "Да";
 $text['check-true']['sv-se'] = "Sann";
 $text['check-true']['uk-ua'] = "Так";
-$text['check-true']['zh-cn'] = "真的";
+$text['check-true']['zh-cn'] = "启用";
 $text['check-true']['ja-jp'] = "真実";
 $text['check-true']['ko-kr'] = "진실";
 
@@ -1219,7 +1219,7 @@ $text['check-false']['ro-ro'] = "Fals";
 $text['check-false']['ru-ru'] = "Нет";
 $text['check-false']['sv-se'] = "Falsk";
 $text['check-false']['uk-ua'] = "Ні";
-$text['check-false']['zh-cn'] = "错误的";
+$text['check-false']['zh-cn'] = "关闭";
 $text['check-false']['ja-jp'] = "間違い";
 $text['check-false']['ko-kr'] = "거짓";
 
