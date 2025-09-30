@@ -347,7 +347,7 @@ $text['option-disabled']['ru-ru'] = "Выключено";
 $text['option-disabled']['sv-se'] = "Avaktiverad";
 $text['option-disabled']['uk-ua'] = "Виключено";
 $text['option-disabled']['tr-tr'] = "Engelli";
-$text['option-disabled']['zh-cn'] = "残疾人";
+$text['option-disabled']['zh-cn'] = "禁用";
 $text['option-disabled']['ja-jp'] = "無効";
 $text['option-disabled']['ko-kr'] = "장애가 있는";
 
@@ -455,7 +455,7 @@ $text['message-name']['ru-ru'] = "Пожалуйста укажите: Имя";
 $text['message-name']['sv-se'] = "Ange: Namn";
 $text['message-name']['uk-ua'] = "Будь ласка, заповніть: Ім'я";
 $text['message-name']['tr-tr'] = "Lütfen belirtin: Ad";
-$text['message-name']['zh-cn'] = "请提供：姓名";
+$text['message-name']['zh-cn'] = "请提供：名称";
 $text['message-name']['ja-jp'] = "入力してください: 名前";
 $text['message-name']['ko-kr'] = "제공하십시오: 이름";
 
@@ -779,7 +779,7 @@ $text['label-ring-group-extension']['ru-ru'] = "Группы вызовов вн
 $text['label-ring-group-extension']['sv-se'] = "Ringgrupp Anknytning";
 $text['label-ring-group-extension']['uk-ua'] = "Розширення групи з кільця";
 $text['label-ring-group-extension']['tr-tr'] = "Zil Grubu Uzantısı";
-$text['label-ring-group-extension']['zh-cn'] = "振铃组扩展";
+$text['label-ring-group-extension']['zh-cn'] = "振铃组分机";
 $text['label-ring-group-extension']['ja-jp'] = "リンググループの拡張";
 $text['label-ring-group-extension']['ko-kr'] = "전화 수신 그룹 확장";
 
@@ -995,7 +995,7 @@ $text['label-extension']['ru-ru'] = "Внутренний номер";
 $text['label-extension']['sv-se'] = "Anknytning";
 $text['label-extension']['uk-ua'] = "Розширення (Extention)";
 $text['label-extension']['tr-tr'] = "Eklenti";
-$text['label-extension']['zh-cn'] = "扩大";
+$text['label-extension']['zh-cn'] = "分机号";
 $text['label-extension']['ja-jp'] = "拡大";
 $text['label-extension']['ko-kr'] = "확대";
 
@@ -1319,7 +1319,7 @@ $text['label-destination_order']['ru-ru'] = "Приоритет";
 $text['label-destination_order']['sv-se'] = "Ordning";
 $text['label-destination_order']['uk-ua'] = "Порядок";
 $text['label-destination_order']['tr-tr'] = "Emir";
-$text['label-destination_order']['zh-cn'] = "命令";
+$text['label-destination_order']['zh-cn'] = "权重";
 $text['label-destination_order']['ja-jp'] = "注文";
 $text['label-destination_order']['ko-kr'] = "주문하다";
 
@@ -1454,7 +1454,7 @@ $text['label-context']['ru-ru'] = "Контекст";
 $text['label-context']['sv-se'] = "Context";
 $text['label-context']['uk-ua'] = "Контекст";
 $text['label-context']['tr-tr'] = "Bağlam";
-$text['label-context']['zh-cn'] = "语境";
+$text['label-context']['zh-cn'] = "拨号上下文";
 $text['label-context']['ja-jp'] = "コンテクスト";
 $text['label-context']['ko-kr'] = "문맥";
 

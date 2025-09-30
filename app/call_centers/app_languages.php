@@ -48,7 +48,7 @@ $text['title-call_center_tier_edit']['ro-ro'] = "Nivelul Call Center";
 $text['title-call_center_tier_edit']['ru-ru'] = "Компетенция Колл-центра";
 $text['title-call_center_tier_edit']['sv-se'] = "Call Center Nivå";
 $text['title-call_center_tier_edit']['uk-ua'] = "Рівень кол-центра";
-$text['title-call_center_tier_edit']['zh-cn'] = "编辑呼叫中心层级";
+$text['title-call_center_tier_edit']['zh-cn'] = "呼叫中心层级";
 $text['title-call_center_tier_edit']['ja-jp'] = "コールセンター層";
 $text['title-call_center_tier_edit']['ko-kr'] = "콜 센터 계층";
 
@@ -74,7 +74,7 @@ $text['title-call_center_queues_edit']['ro-ro'] = "Editați coada centrului de a
 $text['title-call_center_queues_edit']['ru-ru'] = "Редактировать очередь Колл-центра";
 $text['title-call_center_queues_edit']['sv-se'] = "Ändra Call Center Kö";
 $text['title-call_center_queues_edit']['uk-ua'] = "Редагувати чергу кол-центру";
-$text['title-call_center_queues_edit']['zh-cn'] = "编辑呼叫中心队列";
+$text['title-call_center_queues_edit']['zh-cn'] = "呼叫中心队列";
 $text['title-call_center_queues_edit']['ja-jp'] = "コール センター キューの編集";
 $text['title-call_center_queues_edit']['ko-kr'] = "콜 센터 대기열 편집";
 
@@ -1764,7 +1764,7 @@ $text['label-extension']['ro-ro'] = "Extensie";
 $text['label-extension']['ru-ru'] = "Внутренний номер";
 $text['label-extension']['sv-se'] = "Anknytning";
 $text['label-extension']['uk-ua'] = "Розширення (Extention)";
-$text['label-extension']['zh-cn'] = "扩大";
+$text['label-extension']['zh-cn'] = "分机号";
 $text['label-extension']['ja-jp'] = "拡大";
 $text['label-extension']['ko-kr'] = "확대";
 

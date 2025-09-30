@@ -1,7 +1,7 @@
 <?php
 
 	//application details
-		$apps[$x]['name'] = "Registrations";
+		$apps[$x]['name'] = "注册管理（Registrations）";
 		$apps[$x]['uuid'] = "5d9e7cd7-629e-3553-4cf5-f26e39fefa39";
 		$apps[$x]['category'] = "Switch";;
 		$apps[$x]['subcategory'] = "";

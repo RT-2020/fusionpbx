@@ -24,7 +24,7 @@
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "SIP Status";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "Стан SIP";
 	$apps[$x]['menu'][$y]['title']['tr-tr'] = "SIP Durumu";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "SIP 现况";
+	$apps[$x]['menu'][$y]['title']['zh-cn'] = "SIP 状态";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "SIP ステータス";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "SIP 상태";
 	$apps[$x]['menu'][$y]['uuid'] = "b7aea9f7-d3cf-711f-828e-46e56e2e5328";

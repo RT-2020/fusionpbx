@@ -1764,7 +1764,7 @@ $text['label-announce_name']['ro-ro'] = "Anunțați numele";
 $text['label-announce_name']['ru-ru'] = "Анонс";
 $text['label-announce_name']['sv-se'] = "Meddela Namn";
 $text['label-announce_name']['uk-ua'] = "Анонс";
-$text['label-announce_name']['zh-cn'] = "姓名";
+$text['label-announce_name']['zh-cn'] = "名称";
 $text['label-announce_name']['ja-jp'] = "発表者名";
 $text['label-announce_name']['ko-kr'] = "이름";
 

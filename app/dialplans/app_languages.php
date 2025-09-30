@@ -1103,7 +1103,7 @@ $text['option-context']['ru-ru'] = "Контекст";
 $text['option-context']['sv-se'] = "Sammanhang";
 $text['option-context']['uk-ua'] = "Контекст";
 $text['option-context']['tr-tr'] = "Bağlam";
-$text['option-context']['zh-cn'] = "语境";
+$text['option-context']['zh-cn'] = "拨号上下文";
 $text['option-context']['ja-jp'] = "コンテクスト";
 $text['option-context']['ko-kr'] = "문맥";
 
@@ -1616,7 +1616,7 @@ $text['label-domain']['ru-ru'] = "Домен";
 $text['label-domain']['sv-se'] = "Domän";
 $text['label-domain']['uk-ua'] = "Домен";
 $text['label-domain']['tr-tr'] = "İhtisas";
-$text['label-domain']['zh-cn'] = "领域";
+$text['label-domain']['zh-cn'] = "域";
 $text['label-domain']['ja-jp'] = "ドメイン";
 $text['label-domain']['ko-kr'] = "도메인";
 
@@ -1751,7 +1751,7 @@ $text['label-context']['ru-ru'] = "Контекст";
 $text['label-context']['sv-se'] = "Sammanhang";
 $text['label-context']['uk-ua'] = "Контекст";
 $text['label-context']['tr-tr'] = "Bağlam";
-$text['label-context']['zh-cn'] = "语境";
+$text['label-context']['zh-cn'] = "拨号上下文";
 $text['label-context']['ja-jp'] = "コンテクスト";
 $text['label-context']['ko-kr'] = "문맥";
 

@@ -22,7 +22,7 @@ $text['title-devices']['ro-ro'] = "Dispozitive";
 $text['title-devices']['ru-ru'] = "Устройства";
 $text['title-devices']['sv-se'] = "Enheter";
 $text['title-devices']['uk-ua'] = "Пристрої";
-$text['title-devices']['zh-cn'] = "设备";
+$text['title-devices']['zh-cn'] = "设备管理";
 $text['title-devices']['ja-jp'] = "デバイス";
 $text['title-devices']['ko-kr'] = "장치";
 
@@ -1297,7 +1297,7 @@ $text['label-device_profile_name']['ro-ro'] = "Nume";
 $text['label-device_profile_name']['ru-ru'] = "Название";
 $text['label-device_profile_name']['sv-se'] = "Namn";
 $text['label-device_profile_name']['uk-ua'] = "Назва";
-$text['label-device_profile_name']['zh-cn'] = "姓名";
+$text['label-device_profile_name']['zh-cn'] = "名称";
 $text['label-device_profile_name']['ja-jp'] = "名前";
 $text['label-device_profile_name']['ko-kr'] = "이름";
 
@@ -2934,7 +2934,7 @@ $text['label-expansion']['ro-ro'] = "Expansiune";
 $text['label-expansion']['ru-ru'] = "Донабор";
 $text['label-expansion']['sv-se'] = "Tillsats";
 $text['label-expansion']['uk-ua'] = "Розгортання";
-$text['label-expansion']['zh-cn'] = "扩展";
+$text['label-expansion']['zh-cn'] = "分机";
 $text['label-expansion']['ja-jp'] = "拡張";
 $text['label-expansion']['ko-kr'] = "확장";
 
@@ -6994,7 +6994,7 @@ $text['description-device_key_extension']['ro-ro'] = "Introduceți extensia.";
 $text['description-device_key_extension']['ru-ru'] = "Введите внутренний номер.";
 $text['description-device_key_extension']['sv-se'] = "Fyll i anknytning.";
 $text['description-device_key_extension']['uk-ua'] = "Введіть розширення.";
-$text['description-device_key_extension']['zh-cn'] = "输入扩展名。";
+$text['description-device_key_extension']['zh-cn'] = "输入分机号。";
 $text['description-device_key_extension']['ja-jp'] = "拡張子を入力します。";
 $text['description-device_key_extension']['ko-kr'] = "확장자를 입력합니다.";
 

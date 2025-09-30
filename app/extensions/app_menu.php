@@ -22,7 +22,7 @@
 	$apps[$x]['menu'][$y]['title']['ru-ru'] = "Внутренние номера";
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "Anknytningar";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "Розширення";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "扩展";
+	$apps[$x]['menu'][$y]['title']['zh-cn'] = "分机管理";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "拡張機能";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "확장 프로그램";
 	$apps[$x]['menu'][$y]['uuid'] = "d3036a99-9a9f-2ad6-a82a-1fe7bebbe2d3";

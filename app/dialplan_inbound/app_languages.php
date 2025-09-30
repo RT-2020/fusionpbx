@@ -887,7 +887,7 @@ $text['description-name']['ru-ru'] = "Введите название входя
 $text['description-name']['sv-se'] = "Var god ange ett namn för inkommande route.";
 $text['description-name']['uk-ua'] = "Введіть назву вхідного маршруту.";
 $text['description-name']['tr-tr'] = "Lütfen gelen rota adını girin.";
-$text['description-name']['zh-cn'] = "请输入入境路线名称。";
+$text['description-name']['zh-cn'] = "请输入入站路由名称。";
 $text['description-name']['ja-jp'] = "上り路線名を入力してください。";
 $text['description-name']['ko-kr'] = "인바운드 경로 이름을 입력하십시오.";
 

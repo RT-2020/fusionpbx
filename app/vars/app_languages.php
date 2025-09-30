@@ -23,7 +23,7 @@ $text['title-variables_advanced']['ru-ru'] = "Параметры FreeSwitch: Р�
 $text['title-variables_advanced']['sv-se'] = "Switch Variabler: Avancerat";
 $text['title-variables_advanced']['uk-ua'] = "Задання змінних: Додатково";
 $text['title-variables_advanced']['tr-tr'] = "Değişkenleri Değiştir: Gelişmiş";
-$text['title-variables_advanced']['zh-cn'] = "开关变量：高级";
+$text['title-variables_advanced']['zh-cn'] = "切换变量：高级";
 $text['title-variables_advanced']['ja-jp'] = "スイッチ変数: 詳細設定";
 $text['title-variables_advanced']['ko-kr'] = "스위치 변수: 고급";
 
@@ -77,7 +77,7 @@ $text['title-variable']['ru-ru'] = "Переменная";
 $text['title-variable']['sv-se'] = "Variabel";
 $text['title-variable']['uk-ua'] = "Змінна";
 $text['title-variable']['tr-tr'] = "Değişken";
-$text['title-variable']['zh-cn'] = "多变的";
+$text['title-variable']['zh-cn'] = "变量";
 $text['title-variable']['ja-jp'] = "変数";
 $text['title-variable']['ko-kr'] = "변하기 쉬운";
 
@@ -131,7 +131,7 @@ $text['option-set']['ru-ru'] = "Набор";
 $text['option-set']['sv-se'] = "Uppsättning";
 $text['option-set']['uk-ua'] = "встановити";
 $text['option-set']['tr-tr'] = "Ayarlamak";
-$text['option-set']['zh-cn'] = "集邮";
+$text['option-set']['zh-cn'] = "设置";
 $text['option-set']['ja-jp'] = "セット";
 $text['option-set']['ko-kr'] = "세트";
 
@@ -266,7 +266,7 @@ $text['header-variables_advanced']['ru-ru'] = "Параметры FreeSwitch: Р
 $text['header-variables_advanced']['sv-se'] = "Switch Variabler: Avancerat";
 $text['header-variables_advanced']['uk-ua'] = "Задання змінних: Додатково";
 $text['header-variables_advanced']['tr-tr'] = "Değişkenleri Değiştir: Gelişmiş";
-$text['header-variables_advanced']['zh-cn'] = "开关变量：高级";
+$text['header-variables_advanced']['zh-cn'] = "交换机变量：高级";
 $text['header-variables_advanced']['ja-jp'] = "スイッチ変数: 詳細設定";
 $text['header-variables_advanced']['ko-kr'] = "스위치 변수: 고급";
 
@@ -293,7 +293,7 @@ $text['header-variables']['ru-ru'] = "Параметры FreeSwitch";
 $text['header-variables']['sv-se'] = "Switch Variabler";
 $text['header-variables']['uk-ua'] = "Задання змінних";
 $text['header-variables']['tr-tr'] = "Değişkenleri Değiştir";
-$text['header-variables']['zh-cn'] = "切换变量";
+$text['header-variables']['zh-cn'] = "交换机变量";
 $text['header-variables']['ja-jp'] = "スイッチ変数";
 $text['header-variables']['ko-kr'] = "변수 전환";
 
@@ -320,7 +320,7 @@ $text['header-variable']['ru-ru'] = "Переменная";
 $text['header-variable']['sv-se'] = "Variabel";
 $text['header-variable']['uk-ua'] = "Змінна";
 $text['header-variable']['tr-tr'] = "Değişken";
-$text['header-variable']['zh-cn'] = "多变的";
+$text['header-variable']['zh-cn'] = "变量";
 $text['header-variable']['ja-jp'] = "変数";
 $text['header-variable']['ko-kr'] = "변하기 쉬운";
 

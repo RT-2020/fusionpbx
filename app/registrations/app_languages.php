@@ -374,7 +374,7 @@ $text['label-domain']['ru-ru'] = "Домен";
 $text['label-domain']['sv-se'] = "Domän";
 $text['label-domain']['uk-ua'] = "Домен";
 $text['label-domain']['tr-tr'] = "İhtisas";
-$text['label-domain']['zh-cn'] = "领域";
+$text['label-domain']['zh-cn'] = "域";
 $text['label-domain']['ja-jp'] = "ドメイン";
 $text['label-domain']['ko-kr'] = "도메인";
 
@@ -482,7 +482,7 @@ $text['header-registrations']['ru-ru'] = "Регистрация";
 $text['header-registrations']['sv-se'] = "Registreringar";
 $text['header-registrations']['uk-ua'] = "Реєстрації";
 $text['header-registrations']['tr-tr'] = "Kayıtlar";
-$text['header-registrations']['zh-cn'] = "登记";
+$text['header-registrations']['zh-cn'] = "注册";
 $text['header-registrations']['ja-jp'] = "登録";
 $text['header-registrations']['ko-kr'] = "등록";
 

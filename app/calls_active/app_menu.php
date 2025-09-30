@@ -23,7 +23,7 @@
 	$apps[$x]['menu'][$y]['title']['ru-ru'] = "Активные вызовы";
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "Aktiva samtal";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "Активні дзвінки";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "主动通话";
+	$apps[$x]['menu'][$y]['title']['zh-cn'] = "活跃通话";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "アクティブ コール";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "활성 통화";
 	$apps[$x]['menu'][$y]['uuid'] = "eba3d07f-dd5c-6b7b-6880-493b44113ade";

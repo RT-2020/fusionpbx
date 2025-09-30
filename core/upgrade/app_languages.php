@@ -968,7 +968,7 @@ $text['label-name']['ru-ru'] = "Имя";
 $text['label-name']['sv-se'] = "Namn";
 $text['label-name']['uk-ua'] = "Назва";
 $text['label-name']['tr-tr'] = "İsim";
-$text['label-name']['zh-cn'] = "姓名";
+$text['label-name']['zh-cn'] = "名称";
 $text['label-name']['ja-jp'] = "名前";
 $text['label-name']['ko-kr'] = "이름";
 

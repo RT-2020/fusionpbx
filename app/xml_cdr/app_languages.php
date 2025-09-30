@@ -23,7 +23,7 @@ $text['title2']['ru-ru'] = "Сведения о вызове";
 $text['title2']['sv-se'] = "Samtalsdetaljer";
 $text['title2']['uk-ua'] = "Деталі дзвінка";
 $text['title2']['tr-tr'] = "Arama Ayrıntıları";
-$text['title2']['zh-cn'] = "扩展摘要";
+$text['title2']['zh-cn'] = "分机摘要";
 $text['title2']['ja-jp'] = "拡張機能の概要";
 $text['title2']['ko-kr'] = "확장 요약";
 
@@ -50,7 +50,7 @@ $text['title-extension_summary']['ru-ru'] = "По всем номерам";
 $text['title-extension_summary']['sv-se'] = "Anknytnings Summering";
 $text['title-extension_summary']['uk-ua'] = "Резюме розширення";
 $text['title-extension_summary']['tr-tr'] = "Uzantı Özeti";
-$text['title-extension_summary']['zh-cn'] = "扩展摘要";
+$text['title-extension_summary']['zh-cn'] = "分机摘要";
 $text['title-extension_summary']['ja-jp'] = "拡張機能の概要";
 $text['title-extension_summary']['ko-kr'] = "확장 요약";
 
@@ -239,7 +239,7 @@ $text['label-name']['ru-ru'] = "Имя";
 $text['label-name']['sv-se'] = "Namn";
 $text['label-name']['uk-ua'] = "Назва";
 $text['label-name']['tr-tr'] = "İsim";
-$text['label-name']['zh-cn'] = "姓名";
+$text['label-name']['zh-cn'] = "名称";
 $text['label-name']['ja-jp'] = "名前";
 $text['label-name']['ko-kr'] = "이름";
 
@@ -1804,7 +1804,7 @@ $text['label-name']['ru-ru'] = "Имя";
 $text['label-name']['sv-se'] = "Namn";
 $text['label-name']['uk-ua'] = "Назва";
 $text['label-name']['tr-tr'] = "İsim";
-$text['label-name']['zh-cn'] = "姓名";
+$text['label-name']['zh-cn'] = "名称";
 $text['label-name']['ja-jp'] = "名前";
 $text['label-name']['ko-kr'] = "이름";
 
@@ -1858,7 +1858,7 @@ $text['label-local']['ru-ru'] = "Локальный";
 $text['label-local']['sv-se'] = "Lokal";
 $text['label-local']['uk-ua'] = "Локальний";
 $text['label-local']['tr-tr'] = "Yerel";
-$text['label-local']['zh-cn'] = "当地的";
+$text['label-local']['zh-cn'] = "本地";
 $text['label-local']['ja-jp'] = "地元";
 $text['label-local']['ko-kr'] = "현지의";
 
@@ -1912,7 +1912,7 @@ $text['label-inbound_duration']['ru-ru'] = "Продолжительность �
 $text['label-inbound_duration']['sv-se'] = "Inkommande Samtalstid";
 $text['label-inbound_duration']['uk-ua'] = "Тривалість входу";
 $text['label-inbound_duration']['tr-tr'] = "Gelen Süre";
-$text['label-inbound_duration']['zh-cn'] = "入境时长";
+$text['label-inbound_duration']['zh-cn'] = "入站时长";
 $text['label-inbound_duration']['ja-jp'] = "インバウンド期間";
 $text['label-inbound_duration']['ko-kr'] = "인바운드 기간";
 
@@ -1966,7 +1966,7 @@ $text['label-inbound']['ru-ru'] = "Входящие";
 $text['label-inbound']['sv-se'] = "Inkommande";
 $text['label-inbound']['uk-ua'] = "Вихідний";
 $text['label-inbound']['tr-tr'] = "Gelen";
-$text['label-inbound']['zh-cn'] = "入境";
+$text['label-inbound']['zh-cn'] = "入站";
 $text['label-inbound']['ja-jp'] = "インバウンド";
 $text['label-inbound']['ko-kr'] = "인바운드";
 
@@ -2074,7 +2074,7 @@ $text['label-extension']['ru-ru'] = "Внутренний номер";
 $text['label-extension']['sv-se'] = "Anknytning";
 $text['label-extension']['uk-ua'] = "Розширення (Extention)";
 $text['label-extension']['tr-tr'] = "Eklenti";
-$text['label-extension']['zh-cn'] = "扩大";
+$text['label-extension']['zh-cn'] = "分机号";
 $text['label-extension']['ja-jp'] = "拡大";
 $text['label-extension']['ko-kr'] = "확대";
 
@@ -2290,7 +2290,7 @@ $text['label-domain']['ru-ru'] = "Домен";
 $text['label-domain']['sv-se'] = "Domän";
 $text['label-domain']['uk-ua'] = "Домен";
 $text['label-domain']['tr-tr'] = "İhtisas";
-$text['label-domain']['zh-cn'] = "领域";
+$text['label-domain']['zh-cn'] = "域";
 $text['label-domain']['ja-jp'] = "ドメイン";
 $text['label-domain']['ko-kr'] = "도메인";
 
@@ -2398,7 +2398,7 @@ $text['label-context']['ru-ru'] = "Контекст";
 $text['label-context']['sv-se'] = "Context";
 $text['label-context']['uk-ua'] = "Контекст";
 $text['label-context']['tr-tr'] = "Bağlam";
-$text['label-context']['zh-cn'] = "语境";
+$text['label-context']['zh-cn'] = "拨号上下文";
 $text['label-context']['ja-jp'] = "コンテクスト";
 $text['label-context']['ko-kr'] = "문맥";
 
@@ -3396,7 +3396,7 @@ $text['label-order']['ru-ru'] = "Заказ";
 $text['label-order']['sv-se'] = "Ordning";
 $text['label-order']['uk-ua'] = "порядок";
 $text['label-order']['tr-tr'] = "Emir";
-$text['label-order']['zh-cn'] = "命令";
+$text['label-order']['zh-cn'] = "权重";
 $text['label-order']['ja-jp'] = "注文";
 $text['label-order']['ko-kr'] = "주문하다";
 
@@ -3960,7 +3960,7 @@ $text['button-extension_summary']['ru-ru'] = "По всем номерам";
 $text['button-extension_summary']['sv-se'] = "Anknytnings Summering";
 $text['button-extension_summary']['uk-ua'] = "Резюме розширення";
 $text['button-extension_summary']['tr-tr'] = "Uzantı Özeti";
-$text['button-extension_summary']['zh-cn'] = "扩展摘要";
+$text['button-extension_summary']['zh-cn'] = "分机摘要";
 $text['button-extension_summary']['ja-jp'] = "拡張機能の概要";
 $text['button-extension_summary']['ko-kr'] = "확장 요약";
 

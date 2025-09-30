@@ -464,7 +464,7 @@ $text['label-domain']['ro-ro'] = "Domeniu";
 $text['label-domain']['ru-ru'] = "Домен";
 $text['label-domain']['sv-se'] = "Domän";
 $text['label-domain']['uk-ua'] = "Домен";
-$text['label-domain']['zh-cn'] = "领域";
+$text['label-domain']['zh-cn'] = "域";
 $text['label-domain']['ja-jp'] = "ドメイン";
 $text['label-domain']['ko-kr'] = "도메인";
 

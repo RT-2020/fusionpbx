@@ -617,7 +617,7 @@ $text['label-extension']['ru-ru'] = "Внутренний Номер";
 $text['label-extension']['sv-se'] = "Anknytning";
 $text['label-extension']['uk-ua'] = "Продовжити";
 $text['label-extension']['tr-tr'] = "Eklenti";
-$text['label-extension']['zh-cn'] = "扩大";
+$text['label-extension']['zh-cn'] = "分机号";
 $text['label-extension']['ja-jp'] = "拡大";
 $text['label-extension']['ko-kr'] = "확대";
 

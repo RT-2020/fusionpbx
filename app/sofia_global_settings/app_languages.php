@@ -23,7 +23,7 @@ $text['title-sofia_global_settings']['ru-ru'] = "Мировые настройк
 $text['title-sofia_global_settings']['sv-se'] = "Sofia Global Inställningar";
 $text['title-sofia_global_settings']['uk-ua'] = "Софія Global Settings";
 $text['title-sofia_global_settings']['tr-tr'] = "Sofya Genel Ayarları";
-$text['title-sofia_global_settings']['zh-cn'] = "索非亚全局设置";
+$text['title-sofia_global_settings']['zh-cn'] = "Sofia（mod_sofia）全局设置";
 $text['title-sofia_global_settings']['ja-jp'] = "ソフィアグローバル設定";
 $text['title-sofia_global_settings']['ko-kr'] = "소피아 전역 설정";
 
@@ -50,7 +50,7 @@ $text['title-sofia_global_setting']['ru-ru'] = "София Глобальная"
 $text['title-sofia_global_setting']['sv-se'] = "Sofia global miljö";
 $text['title-sofia_global_setting']['uk-ua'] = "Софія глобальне налаштування";
 $text['title-sofia_global_setting']['tr-tr'] = "Sofya Küresel Ortam";
-$text['title-sofia_global_setting']['zh-cn'] = "索非亚全球设置";
+$text['title-sofia_global_setting']['zh-cn'] = "Sofia（mod_sofia）全局参数";
 $text['title-sofia_global_setting']['ja-jp'] = "ソフィアグローバル設定";
 $text['title-sofia_global_setting']['ko-kr'] = "소피아 전역 설정";
 
@@ -77,7 +77,7 @@ $text['title_description-sofia_global_settings']['ru-ru'] = "Используе�
 $text['title_description-sofia_global_settings']['sv-se'] = "Används för att definiera sofia globala inställningar.";
 $text['title_description-sofia_global_settings']['uk-ua'] = "Використовується для визначення глобальних налаштувань софії.";
 $text['title_description-sofia_global_settings']['tr-tr'] = "Sofya genel ayarlarını tanımlamak için kullanılır.";
-$text['title_description-sofia_global_settings']['zh-cn'] = "用于定义 苏菲亚 全局设置。";
+$text['title_description-sofia_global_settings']['zh-cn'] = "用于定义 FreeSWITCH 的 SIP 协议栈模块 Sofia（mod_sofia）的全局设置。Sofia 负责处理 SIP 注册、呼叫、会话以及 SIP 配置文件等相关配置。";
 $text['title_description-sofia_global_settings']['ja-jp'] = "ソフィアのグローバル設定を定義するために使用されます。";
 $text['title_description-sofia_global_settings']['ko-kr'] = "소피아 전역 설정을 정의하는 데 사용됩니다.";
 
@@ -104,7 +104,7 @@ $text['label-global_setting_name']['ru-ru'] = "Имя";
 $text['label-global_setting_name']['sv-se'] = "Namnnamn";
 $text['label-global_setting_name']['uk-ua'] = "Ім'я";
 $text['label-global_setting_name']['tr-tr'] = "İsim";
-$text['label-global_setting_name']['zh-cn'] = "姓名";
+$text['label-global_setting_name']['zh-cn'] = "名称";
 $text['label-global_setting_name']['ja-jp'] = "名前";
 $text['label-global_setting_name']['ko-kr'] = "이름";
 
@@ -131,7 +131,7 @@ $text['description-global_setting_name']['ru-ru'] = "Введите назван
 $text['description-global_setting_name']['sv-se'] = "Ange det globala inställningsnamnet.";
 $text['description-global_setting_name']['uk-ua'] = "Введіть назву глобального налаштування.";
 $text['description-global_setting_name']['tr-tr'] = "Genel ayar adını girin.";
-$text['description-global_setting_name']['zh-cn'] = "输入全局设置名称。";
+$text['description-global_setting_name']['zh-cn'] = "请输入全局设置名称。";
 $text['description-global_setting_name']['ja-jp'] = "グローバル設定名を入力します。";
 $text['description-global_setting_name']['ko-kr'] = "전역 설정 이름을 입력합니다.";
 
@@ -158,7 +158,7 @@ $text['label-global_setting_value']['ru-ru'] = "Стоимость";
 $text['label-global_setting_value']['sv-se'] = "Värde";
 $text['label-global_setting_value']['uk-ua'] = "Ціна";
 $text['label-global_setting_value']['tr-tr'] = "Değer";
-$text['label-global_setting_value']['zh-cn'] = "价值";
+$text['label-global_setting_value']['zh-cn'] = "值";
 $text['label-global_setting_value']['ja-jp'] = "価値";
 $text['label-global_setting_value']['ko-kr'] = "값";
 
@@ -185,7 +185,7 @@ $text['description-global_setting_value']['ru-ru'] = "Введите значе�
 $text['description-global_setting_value']['sv-se'] = "Ange det globala inställningsvärdet.";
 $text['description-global_setting_value']['uk-ua'] = "Введіть значення глобального налаштування.";
 $text['description-global_setting_value']['tr-tr'] = "Genel ayar değerini girin.";
-$text['description-global_setting_value']['zh-cn'] = "输入全局设置值。";
+$text['description-global_setting_value']['zh-cn'] = "请输入全局设置值。";
 $text['description-global_setting_value']['ja-jp'] = "グローバル設定値を入力します。";
 $text['description-global_setting_value']['ko-kr'] = "전역 설정 값을 입력합니다.";
 
@@ -239,7 +239,7 @@ $text['description-global_setting_enabled']['ru-ru'] = "Введите глоб�
 $text['description-global_setting_enabled']['sv-se'] = "Ange den globala inställningen aktiverad.";
 $text['description-global_setting_enabled']['uk-ua'] = "Увімкніть глобальне налаштування.";
 $text['description-global_setting_enabled']['tr-tr'] = "Etkinleştirilen genel ayarı girin.";
-$text['description-global_setting_enabled']['zh-cn'] = "输入启用的全局设置。";
+$text['description-global_setting_enabled']['zh-cn'] = "选择是否启用。";
 $text['description-global_setting_enabled']['ja-jp'] = "有効なグローバル設定を入力します。";
 $text['description-global_setting_enabled']['ko-kr'] = "전역 설정을 활성화로 입력하십시오.";
 
@@ -293,7 +293,7 @@ $text['description-global_setting_description']['ru-ru'] = "Введите оп�
 $text['description-global_setting_description']['sv-se'] = "Ange den globala inställningsbeskrivningen.";
 $text['description-global_setting_description']['uk-ua'] = "Введіть опис глобального налаштування.";
 $text['description-global_setting_description']['tr-tr'] = "Genel ayar açıklamasını girin.";
-$text['description-global_setting_description']['zh-cn'] = "输入全局设置说明。";
+$text['description-global_setting_description']['zh-cn'] = "请输入全局设置描述。";
 $text['description-global_setting_description']['ja-jp'] = "グローバル設定の説明を入力します。";
 $text['description-global_setting_description']['ko-kr'] = "전역 설정 설명을 입력합니다.";
 

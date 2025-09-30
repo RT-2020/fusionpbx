@@ -22,7 +22,7 @@
 	$apps[$x]['menu'][$y]['title']['ru-ru'] = "Мосты";
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "Broar";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "Міста";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "桥梁";
+	$apps[$x]['menu'][$y]['title']['zh-cn'] = "桥接";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "ブリッジ";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "교량";
 	$apps[$x]['menu'][$y]['uuid'] = "345f0aad-8321-4a8b-9f08-c4730297660c";

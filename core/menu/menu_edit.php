@@ -197,7 +197,24 @@
 	echo "	".$text['label-language']."\n";
 	echo "</td>\n";
 	echo "<td class='vtable' align='left'>\n";
-	echo "	<input class='formfld' type='text' name='menu_language' maxlength='255' value=\"".escape($menu_language ?? '')."\">\n";
+	echo "\t<select class='formfld' name='menu_language' id='menu_language'>\n";
+	echo "\t\t<option value=''></option>\n";
+	$sql = "select * from v_languages order by language asc ";
+	$languages = $database->select($sql, null, 'all');
+	if (!empty($languages) && is_array($languages) && sizeof($languages) != 0) {
+		foreach ($languages as $row) {
+			$language_codes[$row["code"]] = $row["language"];
+		}
+	}
+	unset($sql, $languages, $row);
+	if (is_array($_SESSION['app']['languages']) && sizeof($_SESSION['app']['languages']) != 0) {
+		$domain_language = $settings->get('domain', 'language', 'en-us');
+		foreach ($_SESSION['app']['languages'] as $code) {
+			$selected = (!empty($menu_language) && $code == $menu_language) || (empty($menu_language) && $code == $domain_language) ? "selected='selected'" : null;
+			echo "\t\t<option value='".escape($code)."' ".$selected.">".escape($language_codes[$code] ?? $code)." [".escape($code ?? '')."]</option>\n";
+		}
+	}
+	echo "\t</select>\n";
 	echo "<br />\n";
 	echo $text['description-language']."\n";
 	echo "</td>\n";

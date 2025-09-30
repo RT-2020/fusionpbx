@@ -22,7 +22,7 @@
 	$apps[$x]['menu'][$y]['title']['ru-ru'] = "Конференции Профили";
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "Konferensprofiler";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "Профілі конференції";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "会议简介";
+	$apps[$x]['menu'][$y]['title']['zh-cn'] = "会议配置文件";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "会議プロフィール";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "会議プロファイル";
 	$apps[$x]['menu'][$y]['uuid'] = "6ebe7b9c-e964-4349-a002-288ea6ad08ca";

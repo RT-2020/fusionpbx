@@ -3965,7 +3965,7 @@ $text['description-fax-sender']['ru-ru'] = "Введите имя отправи
 $text['description-fax-sender']['sv-se'] = "Ange sändarens namn för försättsbladet (frivilligt).";
 $text['description-fax-sender']['uk-ua'] = "Введіть ім'я відправника для листа кришки (за бажанням).";
 $text['description-fax-sender']['tr-tr'] = "Kapak sayfası için gönderenin adını girin (isteğe bağlı).";
-$text['description-fax-sender']['zh-cn'] = "为封面页输入发件人姓名（可选）。";
+$text['description-fax-sender']['zh-cn'] = "为封面页输入发件人名称（可选）。";
 $text['description-fax-sender']['ja-jp'] = "送付状の差出人の名前を入力します（オプション）。";
 $text['description-fax-sender']['ko-kr'] = "표지의 발신자 이름을 입력합니다(선택 사항).";
 
@@ -4019,7 +4019,7 @@ $text['description-fax-recipient']['ru-ru'] = "Введите имя получ�
 $text['description-fax-recipient']['sv-se'] = "Ange mottagarens namn för försättsbladet (frivilligt).";
 $text['description-fax-recipient']['uk-ua'] = "Введіть ім'я одержувача для листа кришки (за бажанням).";
 $text['description-fax-recipient']['tr-tr'] = "Kapak sayfası için alıcının adını girin (isteğe bağlı).";
-$text['description-fax-recipient']['zh-cn'] = "输入封面页的收件人姓名（可选）。";
+$text['description-fax-recipient']['zh-cn'] = "输入封面页的收件人名称（可选）。";
 $text['description-fax-recipient']['ja-jp'] = "カバーシートの受信者の名前を入力します (オプション)。";
 $text['description-fax-recipient']['ko-kr'] = "표지의 수신자 이름을 입력합니다(선택 사항).";
 

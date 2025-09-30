@@ -23,7 +23,7 @@ $text['title-users']['ru-ru'] = "Пользователи";
 $text['title-users']['sv-se'] = "Användare";
 $text['title-users']['uk-ua'] = "Користувачі";
 $text['title-users']['tr-tr'] = "Kullanıcılar";
-$text['title-users']['zh-cn'] = "用户";
+$text['title-users']['zh-cn'] = "用户管理";
 $text['title-users']['ja-jp'] = "ユーザー";
 $text['title-users']['ko-kr'] = "사용자";
 
@@ -1593,7 +1593,7 @@ $text['label-domain']['ru-ru'] = "Домен";
 $text['label-domain']['sv-se'] = "Domän";
 $text['label-domain']['uk-ua'] = "Домен";
 $text['label-domain']['tr-tr'] = "İhtisas";
-$text['label-domain']['zh-cn'] = "领域";
+$text['label-domain']['zh-cn'] = "域";
 $text['label-domain']['ja-jp'] = "ドメイン";
 $text['label-domain']['ko-kr'] = "도메인";
 

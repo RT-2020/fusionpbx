@@ -100,7 +100,7 @@ $text['label-call_recording_name']['ro-ro'] = "Nume";
 $text['label-call_recording_name']['ru-ru'] = "Имя";
 $text['label-call_recording_name']['sv-se'] = "namn";
 $text['label-call_recording_name']['uk-ua'] = "Ім'я";
-$text['label-call_recording_name']['zh-cn'] = "姓名";
+$text['label-call_recording_name']['zh-cn'] = "名称";
 $text['label-call_recording_name']['ja-jp'] = "名前";
 $text['label-call_recording_name']['ko-kr'] = "이름";
 
@@ -568,7 +568,7 @@ $text['label-inbound']['ro-ro'] = "Intrare";
 $text['label-inbound']['ru-ru'] = "Входящий";
 $text['label-inbound']['sv-se'] = "Inkommande";
 $text['label-inbound']['uk-ua'] = "Вхідний";
-$text['label-inbound']['zh-cn'] = "入境";
+$text['label-inbound']['zh-cn'] = "入站";
 $text['label-inbound']['ja-jp'] = "インバウンド";
 $text['label-inbound']['ko-kr'] = "인바운드";
 
@@ -620,7 +620,7 @@ $text['label-local']['ro-ro'] = "Local";
 $text['label-local']['ru-ru'] = "Местный";
 $text['label-local']['sv-se'] = "Lokal";
 $text['label-local']['uk-ua'] = "Місцевий";
-$text['label-local']['zh-cn'] = "当地的";
+$text['label-local']['zh-cn'] = "本地";
 $text['label-local']['ja-jp'] = "地元";
 $text['label-local']['ko-kr'] = "현지의";
 

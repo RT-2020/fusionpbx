@@ -22,7 +22,7 @@
 	$apps[$x]['menu'][$y]['title']['ru-ru'] = "Очереди";
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "Köer";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "Клей";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "尾巴";
+	$apps[$x]['menu'][$y]['title']['zh-cn'] = "FIFO队列";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "キュー";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "꼬리";
 	$apps[$x]['menu'][$y]['uuid'] = "c535ac0b-1da1-0f9c-4653-7934c6f4732c";

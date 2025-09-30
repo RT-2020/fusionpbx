@@ -23,7 +23,7 @@ $text['title-groups']['ru-ru'] = "Менеджер группы";
 $text['title-groups']['sv-se'] = "Grupp Inställningar";
 $text['title-groups']['uk-ua'] = "Менеджер групи";
 $text['title-groups']['tr-tr'] = "Grup Müdürü";
-$text['title-groups']['zh-cn'] = "组管理";
+$text['title-groups']['zh-cn'] = "角色管理";
 $text['title-groups']['ja-jp'] = "グループマネージャー";
 $text['title-groups']['ko-kr'] = "그룹 관리자";
 
@@ -50,7 +50,7 @@ $text['title-group']['ru-ru'] = "Менеджер группы";
 $text['title-group']['sv-se'] = "Grupp Inställningar";
 $text['title-group']['uk-ua'] = "Менеджер групи";
 $text['title-group']['tr-tr'] = "Grup Müdürü";
-$text['title-group']['zh-cn'] = "组管理";
+$text['title-group']['zh-cn'] = "角色管理";
 $text['title-group']['ja-jp'] = "グループマネージャー";
 $text['title-group']['ko-kr'] = "그룹 관리자";
 
@@ -239,7 +239,7 @@ $text['title-group_permissions']['ru-ru'] = "Групповые разрешен
 $text['title-group_permissions']['sv-se'] = "Grupp Rättigheter";
 $text['title-group_permissions']['uk-ua'] = "Дозволи групи";
 $text['title-group_permissions']['tr-tr'] = "Grup İzinleri";
-$text['title-group_permissions']['zh-cn'] = "组权限";
+$text['title-group_permissions']['zh-cn'] = "角色权限";
 $text['title-group_permissions']['ja-jp'] = "グループ権限";
 $text['title-group_permissions']['ko-kr'] = "그룹 권한";
 
@@ -266,7 +266,7 @@ $text['title-group_members']['ru-ru'] = "Участники группы";
 $text['title-group_members']['sv-se'] = "Grupp Medlemmar";
 $text['title-group_members']['uk-ua'] = "Члени групи";
 $text['title-group_members']['tr-tr'] = "Grup üyeleri";
-$text['title-group_members']['zh-cn'] = "小组成员";
+$text['title-group_members']['zh-cn'] = "组成员";
 $text['title-group_members']['ja-jp'] = "グループの人（仲間）たち";
 $text['title-group_members']['ko-kr'] = "그룹 구성원";
 
@@ -347,7 +347,7 @@ $text['option-true']['ru-ru'] = "Истинный";
 $text['option-true']['sv-se'] = "Sann";
 $text['option-true']['uk-ua'] = "правда";
 $text['option-true']['tr-tr'] = "Doğru";
-$text['option-true']['zh-cn'] = "启用";
+$text['option-true']['zh-cn'] = "是";
 $text['option-true']['ja-jp'] = "真実";
 $text['option-true']['ko-kr'] = "진실";
 
@@ -374,7 +374,7 @@ $text['option-on_break']['ru-ru'] = "В перерыве";
 $text['option-on_break']['sv-se'] = "På Rast";
 $text['option-on_break']['uk-ua'] = "На перерві";
 $text['option-on_break']['tr-tr'] = "Molada";
-$text['option-on_break']['zh-cn'] = "休息时";
+$text['option-on_break']['zh-cn'] = "休息中";
 $text['option-on_break']['ja-jp'] = "休んで";
 $text['option-on_break']['ko-kr'] = "쉬는 중";
 
@@ -428,7 +428,7 @@ $text['option-global']['ru-ru'] = "Глобальный";
 $text['option-global']['sv-se'] = "Global";
 $text['option-global']['uk-ua'] = "Глобальний";
 $text['option-global']['tr-tr'] = "Küresel";
-$text['option-global']['zh-cn'] = "全球的";
+$text['option-global']['zh-cn'] = "全局";
 $text['option-global']['ja-jp'] = "グローバル";
 $text['option-global']['ko-kr'] = "글로벌";
 
@@ -455,7 +455,7 @@ $text['option-false']['ru-ru'] = "ЛОЖЬ";
 $text['option-false']['sv-se'] = "Falsk";
 $text['option-false']['uk-ua'] = "помилковий";
 $text['option-false']['tr-tr'] = "YANLIŞ";
-$text['option-false']['zh-cn'] = "关闭";
+$text['option-false']['zh-cn'] = "否";
 $text['option-false']['ja-jp'] = "間違い";
 $text['option-false']['ko-kr'] = "거짓";
 
@@ -536,7 +536,7 @@ $text['option-available']['ru-ru'] = "Доступный";
 $text['option-available']['sv-se'] = "Tillgänglig";
 $text['option-available']['uk-ua'] = "в наявності";
 $text['option-available']['tr-tr'] = "Mevcut";
-$text['option-available']['zh-cn'] = "可用的";
+$text['option-available']['zh-cn'] = "可用";
 $text['option-available']['ja-jp'] = "利用可能";
 $text['option-available']['ko-kr'] = "사용 가능";
 
@@ -1076,7 +1076,7 @@ $text['label-status']['ru-ru'] = "Положение дел";
 $text['label-status']['sv-se'] = "Status";
 $text['label-status']['uk-ua'] = "Статус";
 $text['label-status']['tr-tr'] = "Durum";
-$text['label-status']['zh-cn'] = "地位";
+$text['label-status']['zh-cn'] = "状态";
 $text['label-status']['ja-jp'] = "スターテス";
 $text['label-status']['ko-kr'] = "상태";
 
@@ -1103,7 +1103,7 @@ $text['label-static']['ru-ru'] = "Статичный";
 $text['label-static']['sv-se'] = "Statisk";
 $text['label-static']['uk-ua'] = "статичний";
 $text['label-static']['tr-tr'] = "Statik";
-$text['label-static']['zh-cn'] = "静止的";
+$text['label-static']['zh-cn'] = "静态";
 $text['label-static']['ja-jp'] = "静的";
 $text['label-static']['ko-kr'] = "공전";
 
@@ -1157,7 +1157,7 @@ $text['label-right']['ru-ru'] = "Справа";
 $text['label-right']['sv-se'] = "Höger";
 $text['label-right']['uk-ua'] = "правий";
 $text['label-right']['tr-tr'] = "Sağ";
-$text['label-right']['zh-cn'] = "正确的";
+$text['label-right']['zh-cn'] = "右";
 $text['label-right']['ja-jp'] = "右";
 $text['label-right']['ko-kr'] = "오른쪽";
 
@@ -1184,7 +1184,7 @@ $text['label-reference']['ru-ru'] = "Видеть";
 $text['label-reference']['sv-se'] = "Referens";
 $text['label-reference']['uk-ua'] = "Побачити";
 $text['label-reference']['tr-tr'] = "Görmek";
-$text['label-reference']['zh-cn'] = "看";
+$text['label-reference']['zh-cn'] = "参见";
 $text['label-reference']['ja-jp'] = "見る";
 $text['label-reference']['ko-kr'] = "보다";
 
@@ -1400,7 +1400,7 @@ $text['label-left']['ru-ru'] = "Слева";
 $text['label-left']['sv-se'] = "Vänster";
 $text['label-left']['uk-ua'] = "лівий";
 $text['label-left']['tr-tr'] = "Sol";
-$text['label-left']['zh-cn'] = "左边";
+$text['label-left']['zh-cn'] = "左";
 $text['label-left']['ja-jp'] = "左";
 $text['label-left']['ko-kr'] = "왼쪽";
 
@@ -1454,7 +1454,7 @@ $text['label-inline']['ru-ru'] = "В соответствии";
 $text['label-inline']['sv-se'] = "I kö";
 $text['label-inline']['uk-ua'] = "В лінію";
 $text['label-inline']['tr-tr'] = "Çizgide";
-$text['label-inline']['zh-cn'] = "排队";
+$text['label-inline']['zh-cn'] = "内联";
 $text['label-inline']['ja-jp'] = "列をなして";
 $text['label-inline']['ko-kr'] = "인라인";
 
@@ -1508,7 +1508,7 @@ $text['label-groups']['ru-ru'] = "Группы";
 $text['label-groups']['sv-se'] = "Grupper";
 $text['label-groups']['uk-ua'] = "Групи";
 $text['label-groups']['tr-tr'] = "Gruplar";
-$text['label-groups']['zh-cn'] = "团体";
+$text['label-groups']['zh-cn'] = "组";
 $text['label-groups']['ja-jp'] = "グループ";
 $text['label-groups']['ko-kr'] = "여러 떼";
 
@@ -1616,7 +1616,7 @@ $text['label-group_name']['ru-ru'] = "Название";
 $text['label-group_name']['sv-se'] = "Namn";
 $text['label-group_name']['uk-ua'] = "Назва";
 $text['label-group_name']['tr-tr'] = "İsim";
-$text['label-group_name']['zh-cn'] = "姓名";
+$text['label-group_name']['zh-cn'] = "名称";
 $text['label-group_name']['ja-jp'] = "名前";
 $text['label-group_name']['ko-kr'] = "이름";
 
@@ -1751,7 +1751,7 @@ $text['label-group']['ru-ru'] = "Группа";
 $text['label-group']['sv-se'] = "Grupp";
 $text['label-group']['uk-ua'] = "Група";
 $text['label-group']['tr-tr'] = "Grup";
-$text['label-group']['zh-cn'] = "团体";
+$text['label-group']['zh-cn'] = "组";
 $text['label-group']['ja-jp'] = "グループ";
 $text['label-group']['ko-kr'] = "그룹";
 
@@ -1886,7 +1886,7 @@ $text['label-domain']['ru-ru'] = "Домен";
 $text['label-domain']['sv-se'] = "Domän";
 $text['label-domain']['uk-ua'] = "Домен";
 $text['label-domain']['tr-tr'] = "İhtisas";
-$text['label-domain']['zh-cn'] = "领域";
+$text['label-domain']['zh-cn'] = "域";
 $text['label-domain']['ja-jp'] = "ドメイン";
 $text['label-domain']['ko-kr'] = "도메인";
 
@@ -1994,7 +1994,7 @@ $text['label-characters']['ru-ru'] = "символов";
 $text['label-characters']['sv-se'] = "tecken";
 $text['label-characters']['uk-ua'] = "персонажі";
 $text['label-characters']['tr-tr'] = "Karakterler";
-$text['label-characters']['zh-cn'] = "人物";
+$text['label-characters']['zh-cn'] = "字符";
 $text['label-characters']['ja-jp'] = "キャラクター";
 $text['label-characters']['ko-kr'] = "캐릭터";
 
@@ -2372,7 +2372,7 @@ $text['header-group_members']['ru-ru'] = "Участники группы";
 $text['header-group_members']['sv-se'] = "Grupp Medlemmar";
 $text['header-group_members']['uk-ua'] = "Учасники групи";
 $text['header-group_members']['tr-tr'] = "Grup üyeleri";
-$text['header-group_members']['zh-cn'] = "小组成员";
+$text['header-group_members']['zh-cn'] = "组成员";
 $text['header-group_members']['ja-jp'] = "グループの人（仲間）たち";
 $text['header-group_members']['ko-kr'] = "그룹 구성원";
 
@@ -2399,7 +2399,7 @@ $text['header-group_manager']['ru-ru'] = "Управление группами"
 $text['header-group_manager']['sv-se'] = "Grupp Inställningar";
 $text['header-group_manager']['uk-ua'] = "Групи";
 $text['header-group_manager']['tr-tr'] = "Grup Müdürü";
-$text['header-group_manager']['zh-cn'] = "集团经理";
+$text['header-group_manager']['zh-cn'] = "角色管理";
 $text['header-group_manager']['ja-jp'] = "グループマネージャー";
 $text['header-group_manager']['ko-kr'] = "그룹 관리자";
 

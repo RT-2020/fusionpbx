@@ -23,7 +23,7 @@ $text['title-fifos']['ru-ru'] = "Очереди";
 $text['title-fifos']['sv-se'] = "Kö:er";
 $text['title-fifos']['uk-ua'] = "Клей";
 $text['title-fifos']['tr-tr'] = "Kuyruklar";
-$text['title-fifos']['zh-cn'] = "尾巴";
+$text['title-fifos']['zh-cn'] = "队列";
 $text['title-fifos']['ja-jp'] = "テイルス";
 $text['title-fifos']['ko-kr'] = "꼬리";
 
@@ -104,7 +104,7 @@ $text['label-fifo_name']['ru-ru'] = "Имя";
 $text['label-fifo_name']['sv-se'] = "namn";
 $text['label-fifo_name']['uk-ua'] = "Ім'я";
 $text['label-fifo_name']['tr-tr'] = "İsim";
-$text['label-fifo_name']['zh-cn'] = "姓名";
+$text['label-fifo_name']['zh-cn'] = "名称";
 $text['label-fifo_name']['ja-jp'] = "名前";
 $text['label-fifo_name']['ko-kr'] = "이름";
 
@@ -158,7 +158,7 @@ $text['label-fifo']['ru-ru'] = "Очереди";
 $text['label-fifo']['sv-se'] = "Kö:er";
 $text['label-fifo']['uk-ua'] = "Клей";
 $text['label-fifo']['tr-tr'] = "Kuyruklar";
-$text['label-fifo']['zh-cn'] = "尾巴";
+$text['label-fifo']['zh-cn'] = "队列";
 $text['label-fifo']['ja-jp'] = "テイルス";
 $text['label-fifo']['ko-kr'] = "꼬리";
 
@@ -185,7 +185,7 @@ $text['label-fifo_extension']['ru-ru'] = "Расширение";
 $text['label-fifo_extension']['sv-se'] = "Förlängning";
 $text['label-fifo_extension']['uk-ua'] = "Розширення";
 $text['label-fifo_extension']['tr-tr'] = "Eklenti";
-$text['label-fifo_extension']['zh-cn'] = "扩大";
+$text['label-fifo_extension']['zh-cn'] = "扩展";
 $text['label-fifo_extension']['ja-jp'] = "拡大";
 $text['label-fifo_extension']['ko-kr'] = "확대";
 
@@ -692,7 +692,7 @@ $text['label-fifo_order']['ru-ru'] = "Заказ";
 $text['label-fifo_order']['sv-se'] = "Beställa";
 $text['label-fifo_order']['uk-ua'] = "порядок";
 $text['label-fifo_order']['tr-tr'] = "Emir";
-$text['label-fifo_order']['zh-cn'] = "命令";
+$text['label-fifo_order']['zh-cn'] = "权重";
 $text['label-fifo_order']['ja-jp'] = "注文";
 $text['label-fifo_order']['ko-kr'] = "주문하다";
 

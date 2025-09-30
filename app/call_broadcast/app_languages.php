@@ -968,7 +968,7 @@ $text['confirm-name']['ru-ru'] = "Пожалуйста, укажите: Имя";
 $text['confirm-name']['sv-se'] = "Ange: Namn";
 $text['confirm-name']['uk-ua'] = "Введіть назву";
 $text['confirm-name']['tr-tr'] = "Lütfen belirtin: Ad";
-$text['confirm-name']['zh-cn'] = "请提供：姓名";
+$text['confirm-name']['zh-cn'] = "请提供：名称";
 $text['confirm-name']['ja-jp'] = "入力してください: 名前";
 $text['confirm-name']['ko-kr'] = "제공하십시오: 이름";
 

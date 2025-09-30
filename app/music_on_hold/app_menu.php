@@ -24,7 +24,7 @@
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "Väntmusik";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "Музика на утриманні";
 	$apps[$x]['menu'][$y]['title']['tr-tr'] = "Beklemedeki Müzik";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "保留音乐";
+	$apps[$x]['menu'][$y]['title']['zh-cn'] = "等候音乐";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "保留音";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "음악 보류";
 	$apps[$x]['menu'][$y]['uuid'] = "1cd1d6cb-912d-db32-56c3-e0d5699feb9d";

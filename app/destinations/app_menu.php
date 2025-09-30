@@ -24,7 +24,7 @@
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "Destinationer";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "Номери";
 	$apps[$x]['menu'][$y]['title']['tr-tr'] = "Destinasyonlar";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "目的地";
+	$apps[$x]['menu'][$y]['title']['zh-cn'] = "呼叫路由";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "行き先";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "목적지";
 	$apps[$x]['menu'][$y]['uuid'] = "fd2a708a-ff03-c707-c19d-5a4194375eba";

@@ -1509,7 +1509,7 @@ $text['header-destination_import']['ru-ru'] = "Импорт";
 $text['header-destination_import']['sv-se'] = "Importera";
 $text['header-destination_import']['uk-ua'] = "Імпортувати";
 $text['header-destination_import']['tr-tr'] = "Hedef İçe Aktarma";
-$text['header-destination_import']['zh-cn'] = "目的地进口";
+$text['header-destination_import']['zh-cn'] = "目的地导入";
 $text['header-destination_import']['ja-jp'] = "宛先インポート";
 $text['header-destination_import']['ko-kr'] = "대상 가져오기";
 
@@ -1619,7 +1619,7 @@ $text['description-monthly_price_buy']['ru-ru'] = "Введите ежемеся
 $text['description-monthly_price_buy']['sv-se'] = "Ange pris per månad som du betalar för denna destination (endast vid inkommande)";
 $text['description-monthly_price_buy']['uk-ua'] = "Введіть щомісячний тариф, який оплачуєте за цей номер (тільки для вхідних)";
 $text['description-monthly_price_buy']['tr-tr'] = "Bu varış noktası için ödeyeceğiniz aylık ücreti girin (yalnızca gelirken)";
-$text['description-monthly_price_buy']['zh-cn'] = "输入您为此目的地支付的月度价格（仅在入境时）";
+$text['description-monthly_price_buy']['zh-cn'] = "输入您为此目的地支付的月度价格（仅入站）";
 $text['description-monthly_price_buy']['ja-jp'] = "この目的地に対して支払う月額料金を入力してください (受信時のみ)";
 $text['description-monthly_price_buy']['ko-kr'] = "이 목적지에 대해 지불하는 월별 요금을 입력하세요(인바운드인 경우에만).";
 
@@ -1646,7 +1646,7 @@ $text['description-monthly_price']['ru-ru'] = "Введите месячную �
 $text['description-monthly_price']['sv-se'] = "Ange pris per månad till kund för denna destination (endast vid inkommande)";
 $text['description-monthly_price']['uk-ua'] = "Введіть щомісячний тариф для абонентів за цей номер (тільки для вхідних)";
 $text['description-monthly_price']['tr-tr'] = "Bu varış noktası için faturalandırılacak aylık fiyatı girin (yalnızca geldiğinizde)";
-$text['description-monthly_price']['zh-cn'] = "输入此目的地的月度价格（仅在入境时）";
+$text['description-monthly_price']['zh-cn'] = "输入此目的地的月度价格（仅入站）";
 $text['description-monthly_price']['ja-jp'] = "この宛先に対して請求する月額料金を入力してください (受信時のみ)";
 $text['description-monthly_price']['ko-kr'] = "이 목적지에 대해 청구할 월별 요금을 입력하세요(인바운드인 경우에만).";
 

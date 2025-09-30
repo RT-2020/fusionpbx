@@ -24,7 +24,7 @@
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "SIP Profiler";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "SIP профілі";
 	$apps[$x]['menu'][$y]['title']['tr-tr'] = "SIP Profilleri";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "SIP 配置文件";
+	$apps[$x]['menu'][$y]['title']['zh-cn'] = "SIP配置";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "SIP プロファイル";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "SIP 프로필";
 	$apps[$x]['menu'][$y]['uuid'] = "47014b1d-13ad-921c-313d-ca42c0424b37";

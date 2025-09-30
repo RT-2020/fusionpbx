@@ -23,7 +23,7 @@ $text['title-status']['ru-ru'] = "Статус";
 $text['title-status']['sv-se'] = "Status";
 $text['title-status']['uk-ua'] = "Стан";
 $text['title-status']['tr-tr'] = "Durum";
-$text['title-status']['zh-cn'] = "地位";
+$text['title-status']['zh-cn'] = "状态";
 $text['title-status']['ja-jp'] = "ステータス";
 $text['title-status']['ko-kr'] = "상태";
 
@@ -50,7 +50,7 @@ $text['title-sofia-status-profile']['ru-ru'] = "Профиль статуса so
 $text['title-sofia-status-profile']['sv-se'] = "sofia status profil";
 $text['title-sofia-status-profile']['uk-ua'] = "sofia status profile ";
 $text['title-sofia-status-profile']['tr-tr'] = "sofya durum profili";
-$text['title-sofia-status-profile']['zh-cn'] = "索菲亚状态简介";
+$text['title-sofia-status-profile']['zh-cn'] = "Sofia 状态配置文件";
 $text['title-sofia-status-profile']['ja-jp'] = "ソフィアのステータスプロフィール";
 $text['title-sofia-status-profile']['ko-kr'] = "소피아 상태 프로필";
 
@@ -77,7 +77,7 @@ $text['title-sofia-status']['ru-ru'] = "sofia статус";
 $text['title-sofia-status']['sv-se'] = "sofia status";
 $text['title-sofia-status']['uk-ua'] = "sofia status ";
 $text['title-sofia-status']['tr-tr'] = "sofya durumu";
-$text['title-sofia-status']['zh-cn'] = "索菲亚地位";
+$text['title-sofia-status']['zh-cn'] = "Sofia 状态";
 $text['title-sofia-status']['ja-jp'] = "ソフィアのステータス";
 $text['title-sofia-status']['ko-kr'] = "소피아 상태";
 
@@ -104,7 +104,7 @@ $text['title-sip_status']['ru-ru'] = "SIP Статус";
 $text['title-sip_status']['sv-se'] = "SIP Status";
 $text['title-sip_status']['uk-ua'] = "Стан SIP";
 $text['title-sip_status']['tr-tr'] = "SIP Durumu";
-$text['title-sip_status']['zh-cn'] = "状态";
+$text['title-sip_status']['zh-cn'] = "SIP 状态";
 $text['title-sip_status']['ja-jp'] = "SIPステータス";
 $text['title-sip_status']['ko-kr'] = "SIP 상태";
 
@@ -131,7 +131,7 @@ $text['label-action']['ru-ru'] = "Действие";
 $text['label-action']['sv-se'] = "Åtgärd";
 $text['label-action']['uk-ua'] = "Дія";
 $text['label-action']['tr-tr'] = "Aksiyon";
-$text['label-action']['zh-cn'] = "行动";
+$text['label-action']['zh-cn'] = "操作";
 $text['label-action']['ja-jp'] = "アクション";
 $text['label-action']['ko-kr'] = "행동";
 
@@ -185,7 +185,7 @@ $text['label-message']['ru-ru'] = "Сообщение";
 $text['label-message']['sv-se'] = "Meddelande";
 $text['label-message']['uk-ua'] = "Повідомлення";
 $text['label-message']['tr-tr'] = "İleti";
-$text['label-message']['zh-cn'] = "信息";
+$text['label-message']['zh-cn'] = "消息";
 $text['label-message']['ja-jp'] = "メッセージ";
 $text['label-message']['ko-kr'] = "메시지";
 
@@ -239,7 +239,7 @@ $text['label-profile']['ru-ru'] = "Профили";
 $text['label-profile']['sv-se'] = "Profiler";
 $text['label-profile']['uk-ua'] = "Профілі";
 $text['label-profile']['tr-tr'] = "Profil";
-$text['label-profile']['zh-cn'] = "轮廓";
+$text['label-profile']['zh-cn'] = "Profile";
 $text['label-profile']['ja-jp'] = "プロフィール";
 $text['label-profile']['ko-kr'] = "프로필";
 
@@ -428,7 +428,7 @@ $text['button-registrations']['ru-ru'] = "Регистрация";
 $text['button-registrations']['sv-se'] = "Registreringar";
 $text['button-registrations']['uk-ua'] = "Реєстрації";
 $text['button-registrations']['tr-tr'] = "Kayıtlar";
-$text['button-registrations']['zh-cn'] = "登记";
+$text['button-registrations']['zh-cn'] = "注册";
 $text['button-registrations']['ja-jp'] = "登録";
 $text['button-registrations']['ko-kr'] = "등록";
 
@@ -455,7 +455,7 @@ $text['button-flush_registrations']['ru-ru'] = "Сбросить регистр�
 $text['button-flush_registrations']['sv-se'] = "'Flush' Registreringar";
 $text['button-flush_registrations']['uk-ua'] = "Скинути реєстрації";
 $text['button-flush_registrations']['tr-tr'] = "Flush Kayıtları";
-$text['button-flush_registrations']['zh-cn'] = "同花顺注册";
+$text['button-flush_registrations']['zh-cn'] = "清除注册";
 $text['button-flush_registrations']['ja-jp'] = "フラッシュ登録";
 $text['button-flush_registrations']['ko-kr'] = "플러시 등록";
 

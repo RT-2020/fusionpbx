@@ -23,7 +23,7 @@ $text['title-gateways']['ru-ru'] = "Шлюзы";
 $text['title-gateways']['sv-se'] = "Inkörsport";
 $text['title-gateways']['uk-ua'] = "Шлюзи";
 $text['title-gateways']['tr-tr'] = "Ağ geçitleri";
-$text['title-gateways']['zh-cn'] = "网关";
+$text['title-gateways']['zh-cn'] = "网关管理";
 $text['title-gateways']['ja-jp'] = "ゲートウェイ";
 $text['title-gateways']['ko-kr'] = "게이트웨이";
 
@@ -50,7 +50,7 @@ $text['title-gateway']['ru-ru'] = "Шлюз";
 $text['title-gateway']['sv-se'] = "Inkörsport";
 $text['title-gateway']['uk-ua'] = "Шлюз";
 $text['title-gateway']['tr-tr'] = "Geçit";
-$text['title-gateway']['zh-cn'] = "网关";
+$text['title-gateway']['zh-cn'] = "网关管理";
 $text['title-gateway']['ja-jp'] = "ゲートウェイ";
 $text['title-gateway']['ko-kr'] = "게이트웨이";
 

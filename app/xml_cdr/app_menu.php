@@ -89,7 +89,7 @@
 	$apps[$x]['menu'][$y]['title']['ru-ru'] = "Общая по внутренним номерам";
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "Anknytnings Summering";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "Розширення резюме";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "扩展摘要";
+	$apps[$x]['menu'][$y]['title']['zh-cn'] = "分机摘要";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "拡張機能の概要";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "확장 요약";
 	$apps[$x]['menu'][$y]['uuid'] = "4e45a3c1-6db5-417f-9abb-1d30a4fd0bf2";

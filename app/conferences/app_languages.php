@@ -152,7 +152,7 @@ $text['table-name']['ro-ro'] = "Nume";
 $text['table-name']['ru-ru'] = "Имя";
 $text['table-name']['sv-se'] = "Namn";
 $text['table-name']['uk-ua'] = "Ім'я";
-$text['table-name']['zh-cn'] = "姓名";
+$text['table-name']['zh-cn'] = "名称";
 $text['table-name']['ja-jp'] = "名前";
 $text['table-name']['ko-kr'] = "이름";
 
@@ -178,7 +178,7 @@ $text['table-extension']['ro-ro'] = "Extensie";
 $text['table-extension']['ru-ru'] = "Внутренний Номер";
 $text['table-extension']['sv-se'] = "Anknytning";
 $text['table-extension']['uk-ua'] = "Розширення";
-$text['table-extension']['zh-cn'] = "扩大";
+$text['table-extension']['zh-cn'] = "分机号";
 $text['table-extension']['ja-jp'] = "拡大";
 $text['table-extension']['ko-kr'] = "확대";
 
@@ -230,7 +230,7 @@ $text['table-order']['ro-ro'] = "Ordin";
 $text['table-order']['ru-ru'] = "Приоритет";
 $text['table-order']['sv-se'] = "Ordning";
 $text['table-order']['uk-ua'] = "порядок";
-$text['table-order']['zh-cn'] = "命令";
+$text['table-order']['zh-cn'] = "权重";
 $text['table-order']['ja-jp'] = "注文";
 $text['table-order']['ko-kr'] = "주문하다";
 
@@ -516,7 +516,7 @@ $text['label-extension']['ro-ro'] = "Extensie";
 $text['label-extension']['ru-ru'] = "Внутренний Номер";
 $text['label-extension']['sv-se'] = "Anknytning";
 $text['label-extension']['uk-ua'] = "Extension";
-$text['label-extension']['zh-cn'] = "扩大";
+$text['label-extension']['zh-cn'] = "分机号";
 $text['label-extension']['ja-jp'] = "拡大";
 $text['label-extension']['ko-kr'] = "확대";
 

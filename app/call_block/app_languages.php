@@ -423,7 +423,7 @@ $text['label-local']['ru-ru'] = "Локальный";
 $text['label-local']['sv-se'] = "Lokal";
 $text['label-local']['uk-ua'] = "Місцевий";
 $text['label-local']['tr-tr'] = "Yerel";
-$text['label-local']['zh-cn'] = "当地的";
+$text['label-local']['zh-cn'] = "本地";
 $text['label-local']['ja-jp'] = "地元";
 $text['label-local']['ko-kr'] = "-현지의";
 
@@ -450,7 +450,7 @@ $text['label-inbound']['ru-ru'] = "Входящий";
 $text['label-inbound']['sv-se'] = "Inkommande";
 $text['label-inbound']['uk-ua'] = "Вихідний";
 $text['label-inbound']['tr-tr'] = "Gelen";
-$text['label-inbound']['zh-cn'] = "入境";
+$text['label-inbound']['zh-cn'] = "入站";
 $text['label-inbound']['ja-jp'] = "インバウンド";
 $text['label-inbound']['ko-kr'] = "인바운드";
 
@@ -852,7 +852,7 @@ $text['label-add-note']['ru-ru'] = "Блокировка вызовов от н�
 $text['label-add-note']['sv-se'] = "Blockera samtal från ett nummer. Välj antingen ett nummer från listan ovan eller fyll i nummer, namn och aktivera nedan.";
 $text['label-add-note']['uk-ua'] = "Блокувати дзвінки з номера. Або вибрати номер зі списку вище або введіть номер, ім'я і включити нижче.";
 $text['label-add-note']['tr-tr'] = "Bir numaradan gelen aramaları engelleyin. Yukarıdaki listeden bir numara seçin veya numarayı, adı girin ve aşağıya etkinleştirin.";
-$text['label-add-note']['zh-cn'] = "阻止来自某个号码的呼叫。 从上面的列表中选择一个号码，或者在下面输入号码、姓名并启用。";
+$text['label-add-note']['zh-cn'] = "阻止来自某个号码的呼叫。 从上面的列表中选择一个号码，或者在下面输入号码、名称并启用。";
 $text['label-add-note']['ja-jp'] = "番号からの通話をブロックします。 上のリストから番号を選択するか、番号、名前、有効化を下に入力します。";
 $text['label-add-note']['ko-kr'] = "번호에서 오는 전화를 차단합니다. 위 목록에서 번호를 선택하거나 번호, 이름을 입력하고 아래에 활성화하십시오.";
 

@@ -24,7 +24,7 @@
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "Antal översättning";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "кількість перекладів";
 	$apps[$x]['menu'][$y]['title']['tr-tr'] = "Numara Çevirileri";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "数字翻译";
+	$apps[$x]['menu'][$y]['title']['zh-cn'] = "号码转换";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "数の翻訳";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "숫자 번역";
 	$apps[$x]['menu'][$y]['uuid'] = "6ad5505c-4909-11e7-a919-92ebcb67fe33";

@@ -131,7 +131,7 @@ $text['label-dashboard_name']['ru-ru'] = "Имя";
 $text['label-dashboard_name']['sv-se'] = "namn";
 $text['label-dashboard_name']['uk-ua'] = "Назва";
 $text['label-dashboard_name']['tr-tr'] = "İsim";
-$text['label-dashboard_name']['zh-cn'] = "姓名";
+$text['label-dashboard_name']['zh-cn'] = "名称";
 $text['label-dashboard_name']['ja-jp'] = "名前";
 $text['label-dashboard_name']['ko-kr'] = "이름";
 
@@ -1535,7 +1535,7 @@ $text['label-dashboard_order']['ru-ru'] = "Заказ";
 $text['label-dashboard_order']['sv-se'] = "Beställa";
 $text['label-dashboard_order']['uk-ua'] = "порядок";
 $text['label-dashboard_order']['tr-tr'] = "Emir";
-$text['label-dashboard_order']['zh-cn'] = "命令";
+$text['label-dashboard_order']['zh-cn'] = "权重";
 $text['label-dashboard_order']['ja-jp'] = "注文";
 $text['label-dashboard_order']['ko-kr'] = "주문하다";
 

@@ -2299,6 +2299,8 @@
 									//allow characters found in the uuid only.
 										$parent_key_value = self::sanitize($parent_key_value);
 
+										//log::debug("parent_key_value: ".$parent_key_value); // 注释掉：避免 Class 'log' not found 错误
+
 									//get the parent field names
 										$parent_field_names = array();
 										if (is_array($parent_field_array)) {

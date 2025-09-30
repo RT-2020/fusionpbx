@@ -50,7 +50,7 @@ $text['title-extension_setting']['ru-ru'] = "Установка";
 $text['title-extension_setting']['sv-se'] = "Förlängningsinställning";
 $text['title-extension_setting']['uk-ua'] = "Налаштування розширення";
 $text['title-extension_setting']['tr-tr'] = "Uzantı Ayarı";
-$text['title-extension_setting']['zh-cn'] = "扩展设置";
+$text['title-extension_setting']['zh-cn'] = "分机设置";
 $text['title-extension_setting']['ja-jp'] = "拡張子の設定";
 $text['title-extension_setting']['ko-kr'] = "확장자 설정";
 
@@ -77,7 +77,7 @@ $text['title_description-extension_settings']['ru-ru'] = "Назначить п�
 $text['title_description-extension_settings']['sv-se'] = "Tilldela variabler och parametrar till denna förlängning.";
 $text['title_description-extension_settings']['uk-ua'] = "Призначте змінні та параметри до цього розширення.";
 $text['title_description-extension_settings']['tr-tr'] = "Bu uzantıya değişkenler ve parametreler atayın.";
-$text['title_description-extension_settings']['zh-cn'] = "为这个扩展分配变量和参数。";
+$text['title_description-extension_settings']['zh-cn'] = "为这个分机分配变量和参数。";
 $text['title_description-extension_settings']['ja-jp'] = "この拡張機能に変数とパラメーターを割り当てます。";
 $text['title_description-extension_settings']['ko-kr'] = "이 확장에 변수 및 매개변수를 할당합니다.";
 
@@ -131,7 +131,7 @@ $text['description-extension_setting_type']['ru-ru'] = "Введите подк�
 $text['description-extension_setting_type']['sv-se'] = "Ange förlängningsunderkategorin.";
 $text['description-extension_setting_type']['uk-ua'] = "Введіть підкатегорію розширення.";
 $text['description-extension_setting_type']['tr-tr'] = "Uzantı alt kategorisine girin.";
-$text['description-extension_setting_type']['zh-cn'] = "输入扩展子类别。";
+$text['description-extension_setting_type']['zh-cn'] = "输入分机设置子类别。";
 $text['description-extension_setting_type']['ja-jp'] = "拡張子のサブカテゴリを入力します。";
 $text['description-extension_setting_type']['ko-kr'] = "확장 하위 범주를 입력합니다.";
 
@@ -210,7 +210,7 @@ $text['label-extension_setting_name']['ru-ru'] = "Имя";
 $text['label-extension_setting_name']['sv-se'] = "Namnnamn";
 $text['label-extension_setting_name']['uk-ua'] = "Ім'я";
 $text['label-extension_setting_name']['tr-tr'] = "İsim";
-$text['label-extension_setting_name']['zh-cn'] = "姓名";
+$text['label-extension_setting_name']['zh-cn'] = "名称";
 $text['label-extension_setting_name']['ja-jp'] = "名前";
 $text['label-extension_setting_name']['ko-kr'] = "이름";
 
@@ -237,7 +237,7 @@ $text['description-extension_setting_name']['ru-ru'] = "Введите имя р
 $text['description-extension_setting_name']['sv-se'] = "Ange förlängningsnamnet.";
 $text['description-extension_setting_name']['uk-ua'] = "Введіть ім'я розширення.";
 $text['description-extension_setting_name']['tr-tr'] = "Uzantı adını girin.";
-$text['description-extension_setting_name']['zh-cn'] = "输入扩展名。";
+$text['description-extension_setting_name']['zh-cn'] = "输入设置名称。";
 $text['description-extension_setting_name']['ja-jp'] = "拡張機能名を入力します。";
 $text['description-extension_setting_name']['ko-kr'] = "확장명을 입력합니다.";
 
@@ -264,7 +264,7 @@ $text['label-extension_setting_value']['ru-ru'] = "Стоимость";
 $text['label-extension_setting_value']['sv-se'] = "Värde";
 $text['label-extension_setting_value']['uk-ua'] = "Ціна";
 $text['label-extension_setting_value']['tr-tr'] = "Değer";
-$text['label-extension_setting_value']['zh-cn'] = "价值";
+$text['label-extension_setting_value']['zh-cn'] = "值";
 $text['label-extension_setting_value']['ja-jp'] = "価値";
 $text['label-extension_setting_value']['ko-kr'] = "값";
 
@@ -291,7 +291,7 @@ $text['description-extension_setting_value']['ru-ru'] = "Введите знач
 $text['description-extension_setting_value']['sv-se'] = "Ange förlängningsvärdet.";
 $text['description-extension_setting_value']['uk-ua'] = "Введіть значення розширення.";
 $text['description-extension_setting_value']['tr-tr'] = "Uzantı değerini girin.";
-$text['description-extension_setting_value']['zh-cn'] = "输入扩展值。";
+$text['description-extension_setting_value']['zh-cn'] = "输入设置值。";
 $text['description-extension_setting_value']['ja-jp'] = "拡張子の値を入力します。";
 $text['description-extension_setting_value']['ko-kr'] = "확장 값을 입력합니다.";
 
@@ -345,7 +345,7 @@ $text['description-extension_setting_enabled']['ru-ru'] = "Введите рас
 $text['description-extension_setting_enabled']['sv-se'] = "Ange förlängningen aktiverad.";
 $text['description-extension_setting_enabled']['uk-ua'] = "Ввімкніть розширення.";
 $text['description-extension_setting_enabled']['tr-tr'] = "Etkinleştirilen uzantıyı girin.";
-$text['description-extension_setting_enabled']['zh-cn'] = "输入启用的扩展名。";
+$text['description-extension_setting_enabled']['zh-cn'] = "输入启用的设置名称。";
 $text['description-extension_setting_enabled']['ja-jp'] = "有効な拡張子を入力します。";
 $text['description-extension_setting_enabled']['ko-kr'] = "활성화된 확장을 입력합니다.";
 
@@ -399,7 +399,7 @@ $text['description-extension_setting_description']['ru-ru'] = "Введите о
 $text['description-extension_setting_description']['sv-se'] = "Ange förlängningsbeskrivningen.";
 $text['description-extension_setting_description']['uk-ua'] = "Введіть опис розширення.";
 $text['description-extension_setting_description']['tr-tr'] = "Uzantı açıklamasını girin.";
-$text['description-extension_setting_description']['zh-cn'] = "输入扩展描述。";
+$text['description-extension_setting_description']['zh-cn'] = "输入设置描述。";
 $text['description-extension_setting_description']['ja-jp'] = "拡張機能の説明を入力します。";
 $text['description-extension_setting_description']['ko-kr'] = "확장 설명을 입력합니다.";
 

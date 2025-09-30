@@ -507,7 +507,7 @@ $text['label-switch']['ru-ru'] = "FreeSwitch";
 $text['label-switch']['sv-se'] = "Switch";
 $text['label-switch']['uk-ua'] = "перемикач";
 $text['label-switch']['tr-tr'] = "Anahtar";
-$text['label-switch']['zh-cn'] = "转变";
+$text['label-switch']['zh-cn'] = "FreeSwitch"; // 这里本来是转变，但是转变的含义是改变，猜测Switch是FreeSWITCH的缩写，所以这里改为FreeSwitch
 $text['label-switch']['ja-jp'] = "スイッチ";
 $text['label-switch']['ko-kr'] = "스위치";
 
@@ -588,7 +588,7 @@ $text['label-git_commit']['ru-ru'] = "Фиксация";
 $text['label-git_commit']['sv-se'] = "Commit";
 $text['label-git_commit']['uk-ua'] = "здійснити";
 $text['label-git_commit']['tr-tr'] = "İşlemek";
-$text['label-git_commit']['zh-cn'] = "犯罪";
+$text['label-git_commit']['zh-cn'] = "提交（commit）";
 $text['label-git_commit']['ja-jp'] = "専念";
 $text['label-git_commit']['ko-kr'] = "저지르다";
 
@@ -615,7 +615,7 @@ $text['label-git_origin']['ru-ru'] = "Происхождение";
 $text['label-git_origin']['sv-se'] = "Ursprung";
 $text['label-git_origin']['uk-ua'] = "походження";
 $text['label-git_origin']['tr-tr'] = "Menşei";
-$text['label-git_origin']['zh-cn'] = "起源";
+$text['label-git_origin']['zh-cn'] = "源头（origin）";
 $text['label-git_origin']['ja-jp'] = "元";
 $text['label-git_origin']['ko-kr'] = "기원";
 
@@ -642,7 +642,7 @@ $text['label-git_status']['ru-ru'] = "Статус";
 $text['label-git_status']['sv-se'] = "Status";
 $text['label-git_status']['uk-ua'] = "Статус";
 $text['label-git_status']['tr-tr'] = "Durum";
-$text['label-git_status']['zh-cn'] = "地位";
+$text['label-git_status']['zh-cn'] = "状态";
 $text['label-git_status']['ja-jp'] = "スターテス";
 $text['label-git_status']['ko-kr'] = "상태";
 
@@ -669,7 +669,7 @@ $text['label-database_connections']['ru-ru'] = "Соединения";
 $text['label-database_connections']['sv-se'] = "Anslutningar";
 $text['label-database_connections']['uk-ua'] = "Зв'язки";
 $text['label-database_connections']['tr-tr'] = "Bağlantılar";
-$text['label-database_connections']['zh-cn'] = "连接";
+$text['label-database_connections']['zh-cn'] = "连接（connections）";
 $text['label-database_connections']['ja-jp'] = "接続";
 $text['label-database_connections']['ko-kr'] = "사이";
 

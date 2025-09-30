@@ -93,7 +93,7 @@
 
 //add the build db child menu list
 	function build_db_child_menu_list ($database, $menu_item_level, $menu_item_uuid) {
-		global $menu_uuid, $list_row_edit_button, $tmp_menu_item_order, $v_link_label_edit, $v_link_label_delete, $page, $text, $x;
+		global $menu_uuid, $list_row_edit_button, $tmp_menu_item_order, $v_link_label_edit, $v_link_label_delete, $page, $text, $x, $settings;
 
 		//check for sub menus
 		$menu_item_level = $menu_item_level+1;
@@ -165,6 +165,19 @@
 				//format icon
 				$menu_item_icon = !empty($menu_item_icon) ? "<i class='".$menu_item_icon."' style='margin-left: 7px; margin-top: 2px; ".(!empty($menu_item_icon_color) ? "color: ".$menu_item_icon_color.";" : "opacity: 0.4;")."'></i>" : null;
 
+				// 获取当前语言的本地化标题，作为提示
+				$menu_item_title_hint = '';
+				$menu_language_current = $settings->get('domain', 'language', 'en-us');
+				$sql = "select menu_item_title from v_menu_languages where menu_uuid = :menu_uuid and menu_item_uuid = :menu_item_uuid and menu_language = :menu_language ";
+				$parameters['menu_uuid'] = $menu_uuid;
+				$parameters['menu_item_uuid'] = $menu_item_uuid;
+				$parameters['menu_language'] = $menu_language_current;
+				$language_row = $database->select($sql, $parameters, 'row');
+				unset($sql, $parameters);
+				if (!empty($language_row['menu_item_title']) && $language_row['menu_item_title'] != $menu_item_title) {
+					$menu_item_title_hint = " <span class='translation-hint' style='color: #888;'>(".escape($language_row['menu_item_title']).")</span>";
+				}
+
 				//display the content of the list
 				if (permission_exists('menu_item_edit')) {
 					$list_row_url = 'menu_item_edit.php?id='.urlencode($menu_uuid)."&menu_item_uuid=".urlencode($menu_item_uuid)."&menu_item_parent_uuid=".urlencode($row2['menu_item_parent_uuid']);
@@ -178,10 +191,10 @@
 				}
 				echo "<td class='no-wrap".($menu_item_category != 'internal' ? "no-link" : null)."' style='padding-left: ".($menu_item_level * 25)."px;'>\n";
 				if (permission_exists('menu_item_edit')) {
-					echo "	<a href='".$list_row_url."' title=\"".$text['button-edit']."\">".escape($menu_item_title)."</a>".$menu_item_icon."\n";
+					echo "	<a href='".$list_row_url."' title=\"".$text['button-edit']."\">".escape($menu_item_title).$menu_item_title_hint."</a>".$menu_item_icon."\n";
 				}
 				else {
-					echo "	".escape($menu_item_title).$menu_item_icon;
+					echo "	".escape($menu_item_title).$menu_item_title_hint.$menu_item_icon;
 				}
 				echo "</td>\n";
 				echo "<td class='no-wrap overflow no-link hide-sm-dn'>".$menu_item_link."&nbsp;</td>\n";
@@ -247,8 +260,8 @@
 	//get the group list
 	$sql = "select group_uuid, group_name from v_groups ";
 	$database = new database;
-	$groups = $database->select($sql, $parameters, 'all');
-	unset($sql, $parameters);
+	$groups = $database->select($sql, null, 'all');
+	unset($sql);
 
 //create token
 	$object = new token;
@@ -377,6 +390,19 @@
 			//format icon
 				$menu_item_icon = !empty($menu_item_icon) ? "<i class='".$menu_item_icon."' style='margin-left: 7px; margin-top: 2px; ".(!empty($menu_item_icon_color) ? "color: ".$menu_item_icon_color.";" : "opacity: 0.4;")."'></i>" : null;
 
+			// 获取当前语言的本地化标题，作为提示
+				$menu_item_title_hint = '';
+				$menu_language_current = $settings->get('domain', 'language', 'en-us');
+				$sql = "select menu_item_title from v_menu_languages where menu_uuid = :menu_uuid and menu_item_uuid = :menu_item_uuid and menu_language = :menu_language ";
+				$parameters['menu_uuid'] = $menu_uuid;
+				$parameters['menu_item_uuid'] = $menu_item_uuid;
+				$parameters['menu_language'] = $menu_language_current;
+				$language_row = $database->select($sql, $parameters, 'row');
+				unset($sql, $parameters);
+				if (!empty($language_row['menu_item_title']) && $language_row['menu_item_title'] != $menu_item_title) {
+					$menu_item_title_hint = " <span class='translation-hint' style='color: #888;'>(".escape($language_row['menu_item_title']).")</span>";
+				}
+
 			//display the content of the list
 				if (permission_exists('menu_item_edit')) {
 					$list_row_url = 'menu_item_edit.php?id='.urlencode($menu_uuid)."&menu_item_uuid=".urlencode($menu_item_uuid)."&menu_uuid=".urlencode($menu_uuid);
@@ -390,10 +416,10 @@
 				}
 				echo "<td>\n";
 				if (permission_exists('menu_item_edit')) {
-					echo "	<a href='".$list_row_url."' title=\"".$text['button-edit']."\">".escape($menu_item_title)."</a>".$menu_item_icon."\n";
+					echo "	<a href='".$list_row_url."' title=\"".$text['button-edit']."\">".escape($menu_item_title).$menu_item_title_hint."</a>".$menu_item_icon."\n";
 				}
 				else {
-					echo "	".escape($menu_item_title).$menu_item_icon;
+					echo "	".escape($menu_item_title).$menu_item_title_hint.$menu_item_icon;
 				}
 				echo "</td>\n";
 				echo "<td class='no-wrap overflow no-link hide-sm-dn'>".$menu_item_link."&nbsp;</td>\n";

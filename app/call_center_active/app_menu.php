@@ -22,7 +22,7 @@
 	$apps[$x]['menu'][$y]['title']['ru-ru'] = "Активные Колл-центры";
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "Aktivt Call Center";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "Центр активного виклику";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "主动呼叫中心";
+	$apps[$x]['menu'][$y]['title']['zh-cn'] = "活跃呼叫中心";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "アクティブコールセンター";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "활성 콜 센터";
 	$apps[$x]['menu'][$y]['uuid'] = "7fb0dd87-e984-9980-c512-2c76b887aeb2";

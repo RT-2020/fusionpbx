@@ -1507,7 +1507,7 @@ $text['label-recorded_name']['ro-ro'] = "Nume";
 $text['label-recorded_name']['ru-ru'] = "Имя";
 $text['label-recorded_name']['sv-se'] = "Namn";
 $text['label-recorded_name']['uk-ua'] = "Назва";
-$text['label-recorded_name']['zh-cn'] = "姓名";
+$text['label-recorded_name']['zh-cn'] = "名称";
 $text['label-recorded_name']['ja-jp'] = "名前";
 $text['label-recorded_name']['ko-kr'] = "이름";
 

@@ -64,22 +64,22 @@
 						//prepare the description
 							switch ($sip_profile_name) {
 								case "internal":
-									$sip_profile_description = "The Internal profile by default requires registration which is used by the endpoints. ";
-									$sip_profile_description .= "By default the Internal profile binds to port 5060. ";
+									$sip_profile_description = "Internal 配置文件默认需要注册，供终端使用。 ";
+									$sip_profile_description .= "默认情况下，Internal 配置文件绑定到 5060 端口。 ";
 									break;
 								case "internal-ipv6":
-									$sip_profile_description = "The Internal IPV6 profile binds to the IP version 6 address and is similar to the Internal profile.\n";
+									$sip_profile_description = "Internal IPV6 配置文件绑定到 IPv6 地址，与 Internal 配置文件类似。\n";
 									break;
 								case "external":
-									$sip_profile_description = "The External profile external provides anonymous calling in the public context. ";
-									$sip_profile_description .= "By default the External profile binds to port 5080. ";
-									$sip_profile_description .= "Calls can be sent using a SIP URL \"voip.domain.com:5080\" ";
+									$sip_profile_description = "External 配置文件在公共（public）上下文中提供匿名呼叫。 ";
+									$sip_profile_description .= "默认情况下，External 配置文件绑定到 5080 端口。 ";
+									$sip_profile_description .= "可通过 SIP URL \"voip.domain.com:5080\" 发送呼叫 ";
 									break;
 								case "external-ipv6":
-									$sip_profile_description = "The External IPV6 profile binds to the IP version 6 address and is similar to the External profile.\n";
+									$sip_profile_description = "External IPV6 配置文件绑定到 IPv6 地址，与 External 配置文件类似。\n";
 									break;
 								case "lan":
-									$sip_profile_description = "The LAN profile is the same as the Internal profile except that it is bound to the LAN IP.\n";
+									$sip_profile_description = "LAN 配置文件与 Internal 配置文件相同，只是绑定到 LAN 的 IP。\n";
 									break;
 								default:
 									$sip_profile_description = '';

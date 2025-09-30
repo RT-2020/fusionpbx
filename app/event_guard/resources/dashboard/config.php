@@ -2,7 +2,8 @@
 
 //event guard
 $array['dashboard'][$x]['dashboard_uuid'] = 'e95f0221-d956-4baf-90c5-e38e16a20a4c';
-$array['dashboard'][$x]['dashboard_name'] = 'Event Guard';
+// $array['dashboard'][$x]['dashboard_name'] = 'Event Guard';
+$array['dashboard'][$x]['dashboard_name'] = '事件守卫';
 $array['dashboard'][$x]['dashboard_path'] = 'dashboard/icon';
 $array['dashboard'][$x]['dashboard_icon'] = 'fa-solid fa-person-military-pointing';
 $array['dashboard'][$x]['dashboard_icon_color'] = '#5D5CE3';
