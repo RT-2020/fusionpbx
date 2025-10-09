@@ -1778,7 +1778,7 @@ $text['label-global']['ru-ru'] = "Глобальный";
 $text['label-global']['sv-se'] = "Global";
 $text['label-global']['uk-ua'] = "Глобально";
 $text['label-global']['tr-tr'] = "Küresel";
-$text['label-global']['zh-cn'] = "全球的";
+$text['label-global']['zh-cn'] = "全局";
 $text['label-global']['ja-jp'] = "グローバル";
 $text['label-global']['ko-kr'] = "글로벌";
 

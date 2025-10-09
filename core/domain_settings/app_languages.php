@@ -995,7 +995,7 @@ $text['select-global']['ru-ru'] = "Глобальный";
 $text['select-global']['sv-se'] = "Global";
 $text['select-global']['uk-ua'] = "Глобальний";
 $text['select-global']['tr-tr'] = "Küresel";
-$text['select-global']['zh-cn'] = "全球的";
+$text['select-global']['zh-cn'] = "全局";
 $text['select-global']['ja-jp'] = "グローバル";
 $text['select-global']['ko-kr'] = "글로벌";
 
