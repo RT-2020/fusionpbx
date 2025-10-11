@@ -190,6 +190,36 @@
     JsSipClient.prototype.setupSessionListeners = function(session) {
         var self = this;
 
+        // *** 新增：在peerconnection创建时立即绑定媒体流 ***
+        session.on('peerconnection', function(e) {
+            console.log('🔗 PeerConnection 已创建');
+            var connection = e.peerconnection;
+            
+            // 立即设置 ontrack 监听器（在媒体轨道到达前）
+            connection.ontrack = function(event) {
+                console.log('📡 收到媒体轨道', event.track.kind, event);
+                
+                if (event.track.kind === 'audio') {
+                    var stream = event.streams.length ? event.streams[0] : new MediaStream([event.track]);
+                    var audio = new Audio();
+                    audio.srcObject = stream;
+                    audio.autoplay = true; // 自动播放
+                    audio.play().then(function() {
+                        console.log('🔊 远程音频流已播放');
+                    }).catch(function(err) {
+                        console.error('播放音频失败:', err);
+                        // 尝试用户交互后播放
+                        document.addEventListener('click', function playOnClick() {
+                            audio.play().then(function() {
+                                console.log('🔊 用户交互后音频已播放');
+                                document.removeEventListener('click', playOnClick);
+                            });
+                        }, { once: true });
+                    });
+                }
+            };
+        });
+
         // 通话进展
         session.on('progress', function(e) {
             console.log('📞 通话进展', e);
@@ -207,9 +237,11 @@
             self.isCallEstablished = true;
             self.isCalling = true;
             self.trigger('callEstablished', { session: session });
-
-            // 绑定媒体流
-            self.bindMedia(session);
+            
+            // confirmed时也尝试绑定（双重保险）
+            if (session.connection && !session.connection.ontrack) {
+                self.bindMedia(session);
+            }
         });
 
         // 通话结束

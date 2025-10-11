@@ -769,6 +769,34 @@ echo "<div id='cmd_response' style='display: none;'></div>\n";
 	<button class="btn btn-sm btn-danger" onclick="endConference()">结束</button>
 </div>
 
+<!-- 会议管理面板 -->
+<div id="conference-manage-modal" class="dispatcher-modal" style="display: none;">
+	<div class="modal-overlay" onclick="closeConferenceManageModal()"></div>
+	<div class="modal-content" style="max-width: 700px;">
+		<div class="modal-header">
+			<h3>会议管理</h3>
+			<button class="modal-close-btn" onclick="closeConferenceManageModal()">×</button>
+		</div>
+		<div class="modal-body">
+			<div class="conference-info">
+				<p><strong>会议时长：</strong><span id="conference-manage-duration">00:00</span></p>
+				<p><strong>参与人数：</strong><span id="conference-manage-count">0</span></p>
+			</div>
+			<div class="conference-controls" style="margin: 15px 0;">
+				<button class="btn btn-sm btn-warning" onclick="muteAllParticipants()">全部静音</button>
+				<button class="btn btn-sm btn-success" onclick="unmuteAllParticipants()">全部取消静音</button>
+			</div>
+			<div id="conference-participants-list" style="max-height: 400px; overflow-y: auto;">
+				<!-- 参与者列表 -->
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-danger" onclick="endConferenceFromManage()">结束会议</button>
+			<button class="btn btn-secondary" onclick="closeConferenceManageModal()">关闭</button>
+		</div>
+	</div>
+</div>
+
 <!-- 中继桥接面板 -->
 <div id="dispatcher-trunk-panel"></div>
 
@@ -1094,10 +1122,94 @@ function startConference() {
 	$('#conference-status-text').text('会议进行中 - ' + selectedExts.length + '人参与');
 }
 
-// 管理会议
+// 管理会议（打开管理面板）
 function manageConference() {
-	// TODO: 实现会议管理功能（静音、踢出等）
-	alert('会议管理功能开发中...');
+	updateConferenceManagePanel();
+	$('#conference-manage-modal').show();
+}
+
+// 关闭会议管理面板
+function closeConferenceManageModal() {
+	$('#conference-manage-modal').hide();
+}
+
+// 更新会议管理面板
+function updateConferenceManagePanel() {
+	var participants = dispatcherControl.conferenceParticipants;
+	var list = $('#conference-participants-list');
+	list.empty();
+	
+	$('#conference-manage-count').text(participants.length);
+	
+	if (participants.length === 0) {
+		list.html('<p style="text-align: center; color: #999; padding: 20px;">暂无参与者</p>');
+		return;
+	}
+	
+	participants.forEach(function(p) {
+		var item = $('<div class="participant-item"></div>');
+		var info = $('<div class="participant-info"></div>');
+		info.html('<strong>' + p.extension + '</strong><br><small>状态: ' + (p.muted ? '已静音' : '正常') + '</small>');
+		
+		var actions = $('<div class="participant-actions"></div>');
+		
+		if (p.muted) {
+			actions.append('<button class="btn btn-sm btn-success" onclick="unmuteParticipant(\'' + p.extension + '\')">取消静音</button>');
+		} else {
+			actions.append('<button class="btn btn-sm btn-warning" onclick="muteParticipant(\'' + p.extension + '\')">静音</button>');
+		}
+		
+		actions.append('<button class="btn btn-sm btn-danger" onclick="kickParticipant(\'' + p.extension + '\')">踢出</button>');
+		
+		item.append(info).append(actions);
+		list.append(item);
+	});
+	
+	// 更新会议时长
+	if (dispatcherControl.conferenceStartTime) {
+		var duration = Math.floor((Date.now() - dispatcherControl.conferenceStartTime) / 1000);
+		var minutes = Math.floor(duration / 60);
+		var seconds = duration % 60;
+		$('#conference-manage-duration').text(minutes + ':' + (seconds < 10 ? '0' : '') + seconds);
+	}
+}
+
+// 静音参与者
+function muteParticipant(extension) {
+	dispatcherControl.muteConferenceParticipant(extension);
+	updateConferenceManagePanel();
+}
+
+// 取消静音参与者
+function unmuteParticipant(extension) {
+	dispatcherControl.unmuteConferenceParticipant(extension);
+	updateConferenceManagePanel();
+}
+
+// 踢出参与者
+function kickParticipant(extension) {
+	if (confirm('确认踢出参与者 ' + extension + '？')) {
+		dispatcherControl.kickConferenceParticipant(extension);
+		updateConferenceManagePanel();
+	}
+}
+
+// 全部静音
+function muteAllParticipants() {
+	dispatcherControl.muteAllConferenceParticipants();
+	updateConferenceManagePanel();
+}
+
+// 全部取消静音
+function unmuteAllParticipants() {
+	dispatcherControl.unmuteAllConferenceParticipants();
+	updateConferenceManagePanel();
+}
+
+// 从管理面板结束会议
+function endConferenceFromManage() {
+	closeConferenceManageModal();
+	endConference();
 }
 
 // 结束会议

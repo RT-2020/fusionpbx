@@ -300,10 +300,53 @@
             return call.session !== data.session;
         });
         
-        // 从会议列表移除
-        this.conferenceParticipants = this.conferenceParticipants.filter(function(p) {
-            return p.session !== data.session;
-        });
+        // 移除结束的组呼会话
+        if (this.groupCallSessions) {
+            this.groupCallSessions = this.groupCallSessions.filter(function(s) {
+                return s.session !== data.session;
+            });
+            
+            // 检查是否所有组呼会话都已结束
+            if (this.groupCallActive && this.groupCallSessions.length === 0) {
+                console.log('所有组呼会话已结束');
+                this.groupCallActive = false;
+                $('#group-call-status').hide();
+                // 清除计时器
+                if (this.timers.groupCall) {
+                    clearInterval(this.timers.groupCall);
+                    this.timers.groupCall = null;
+                }
+            }
+        }
+        
+        // 移除会议参与者
+        if (this.conferenceParticipants) {
+            var index = this.conferenceParticipants.findIndex(function(p) {
+                return p.session === data.session;
+            });
+            
+            if (index !== -1) {
+                this.conferenceParticipants.splice(index, 1);
+                console.log('会议参与者已退出，剩余:', this.conferenceParticipants.length);
+                
+                // 更新会议状态显示
+                if (this.conferenceActive) {
+                    $('#conference-status-text').text('会议进行中 - ' + this.conferenceParticipants.length + '人参与');
+                    
+                    // 如果所有参与者都退出了，结束会议
+                    if (this.conferenceParticipants.length === 0) {
+                        console.log('所有会议参与者已退出');
+                        this.conferenceActive = false;
+                        $('#conference-status').hide();
+                        // 清除计时器
+                        if (this.timers.conference) {
+                            clearInterval(this.timers.conference);
+                            this.timers.conference = null;
+                        }
+                    }
+                }
+            }
+        }
         
         // 更新中继计数
         $('#dispatcher-trunk-count').text(this.trunkCalls.length);
@@ -1115,6 +1158,73 @@
         }
     };
 
+    // 静音会议参与者
+    DispatcherControl.prototype.muteConferenceParticipant = function(extension) {
+        var participant = this.conferenceParticipants.find(function(p) {
+            return p.extension === extension;
+        });
+        
+        if (participant && participant.session) {
+            this.sipClient.muteSession(participant.session._customId);
+            participant.muted = true;
+            console.log('静音参与者:', extension);
+        }
+    };
+
+    // 取消静音会议参与者
+    DispatcherControl.prototype.unmuteConferenceParticipant = function(extension) {
+        var participant = this.conferenceParticipants.find(function(p) {
+            return p.extension === extension;
+        });
+        
+        if (participant && participant.session) {
+            this.sipClient.unmuteSession(participant.session._customId);
+            participant.muted = false;
+            console.log('取消静音参与者:', extension);
+        }
+    };
+
+    // 踢出会议参与者
+    DispatcherControl.prototype.kickConferenceParticipant = function(extension) {
+        var self = this;
+        var index = this.conferenceParticipants.findIndex(function(p) {
+            return p.extension === extension;
+        });
+        
+        if (index !== -1) {
+            var participant = this.conferenceParticipants[index];
+            if (participant.session) {
+                participant.session.terminate();
+            }
+            this.conferenceParticipants.splice(index, 1);
+            console.log('踢出参与者:', extension);
+        }
+    };
+
+    // 全部静音
+    DispatcherControl.prototype.muteAllConferenceParticipants = function() {
+        var self = this;
+        this.conferenceParticipants.forEach(function(p) {
+            if (p.session) {
+                self.sipClient.muteSession(p.session._customId);
+                p.muted = true;
+            }
+        });
+        console.log('全部参与者已静音');
+    };
+
+    // 全部取消静音
+    DispatcherControl.prototype.unmuteAllConferenceParticipants = function() {
+        var self = this;
+        this.conferenceParticipants.forEach(function(p) {
+            if (p.session) {
+                self.sipClient.unmuteSession(p.session._customId);
+                p.muted = false;
+            }
+        });
+        console.log('全部参与者已取消静音');
+    };
+
     // ============ 分组管理 ============
 
     // 添加呼叫组
@@ -1185,13 +1295,16 @@
     DispatcherControl.prototype.getAllExtensions = function(callback) {
         var extensions = [];
         
-        // 从现有的操作面板获取所有分机号
-        $('.extension_box').each(function() {
+        // 从现有的操作面板获取所有在线分机号
+        // content.php中使用的CSS类是 .op_ext，div的id就是分机号
+        $('div.op_ext').each(function() {
             var ext = $(this).attr('id');
-            if (ext) {
+            if (ext && ext.match(/^\d+$/)) { // 确保是数字分机号
                 extensions.push(ext);
             }
         });
+        
+        console.log('从页面获取到分机:', extensions);
         
         // 如果页面上没有分机，从服务器获取
         if (extensions.length === 0) {
@@ -1208,7 +1321,8 @@
                     }
                 },
                 error: function() {
-                    if (callback) callback(extensions);
+                    console.warn('从服务器获取分机失败');
+                    if (callback) callback([]);
                 }
             });
         } else {

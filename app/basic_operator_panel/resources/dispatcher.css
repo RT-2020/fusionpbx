@@ -1207,3 +1207,47 @@
 .modal-overlay.show {
   display: block;
 }
+
+/* 会议管理面板 */
+.conference-info {
+  background: #f5f5f5;
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+.conference-info p {
+  margin: 5px 0;
+}
+
+.conference-controls {
+  text-align: center;
+}
+
+.participant-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  background: #f9f9f9;
+  margin-bottom: 8px;
+  border-radius: 4px;
+}
+
+.participant-item:hover {
+  background: #f0f0f0;
+}
+
+.participant-info {
+  flex: 1;
+}
+
+.participant-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.participant-actions button {
+  min-width: 80px;
+}
