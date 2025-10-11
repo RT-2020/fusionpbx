@@ -196,7 +196,12 @@
 
 <!-- autocomplete for contact lookup -->
 <link rel="stylesheet" type="text/css" href="<?php echo PROJECT_PATH; ?>/resources/jquery/jquery-ui.min.css">
+<link rel="stylesheet" type="text/css" href="<?php echo PROJECT_PATH; ?>/app/basic_operator_panel/resources/dispatcher.css">
 <script language="JavaScript" type="text/javascript" src="<?php echo PROJECT_PATH; ?>/resources/jquery/jquery-ui.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="<?php echo PROJECT_PATH; ?>/app/basic_operator_panel/resources/jssip.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="<?php echo PROJECT_PATH; ?>/app/basic_operator_panel/resources/jssip-client.js"></script>
+<script language="JavaScript" type="text/javascript" src="<?php echo PROJECT_PATH; ?>/app/basic_operator_panel/resources/dispatcher-control.js"></script>
+<script language="JavaScript" type="text/javascript" src="<?php echo PROJECT_PATH; ?>/app/basic_operator_panel/resources/dispatcher-logger.js"></script>
 <script type="text/javascript">
 
 <?php
@@ -588,8 +593,693 @@ if (is_array($_SESSION['user']['extension'])) {
 	}
 }
 
+?>
+
+<!-- 固定的调度状态栏和工具栏（不受AJAX刷新影响） -->
+<div id="dispatcher-fixed-toolbar" style="margin-bottom: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px;">
+	<table width="100%" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="50%">
+				<div class="dispatcher-status-inline">
+					<span id="sip-status-indicator" class="status-offline">●</span>
+					<span id="sip-status-text">未注册</span>
+					<button id="sip-register-btn" class="btn btn-sm" onclick="openSipRegisterModal()">注册</button>
+				</div>
+			</td>
+			<td width="50%" align="right">
+				<div class="dispatcher-toolbar">
+					<button id="group-call-btn" class="dispatcher-tool-btn" title="组呼" disabled onclick="openGroupCallModal()">
+						<i class="fas fa-users"></i>
+					</button>
+					<button id="broadcast-btn" class="dispatcher-tool-btn" title="全呼" disabled onclick="startBroadcastCall()">
+						<i class="fas fa-bullhorn"></i>
+					</button>
+					<button id="conference-btn" class="dispatcher-tool-btn" title="多方会议" disabled onclick="openConferenceModal()">
+						<i class="fas fa-video"></i>
+					</button>
+					<button id="trunk-mode-btn" class="dispatcher-tool-btn" title="中继模式" onclick="toggleTrunkMode()">
+						<i class="fas fa-exchange-alt"></i>
+					</button>
+					<button id="manage-groups-btn" class="dispatcher-tool-btn" title="分组管理" onclick="openGroupsModal()">
+						<i class="fas fa-cog"></i>
+					</button>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<?php
+
 echo "<div id='ajax_response'></div>\n";
 echo "<div id='cmd_response' style='display: none;'></div>\n";
+
+// 调度功能模态对话框
+?>
+
+<!-- SIP 注册模态对话框 -->
+<div id="sip-register-modal" class="dispatcher-modal" style="display: none;">
+	<div class="modal-overlay" onclick="closeSipRegisterModal()"></div>
+	<div class="modal-content">
+		<div class="modal-header">
+			<h3>SIP 注册</h3>
+			<button class="modal-close-btn" onclick="closeSipRegisterModal()">×</button>
+		</div>
+		<div class="modal-body">
+			<div class="alert alert-info" style="margin-bottom: 15px; padding: 10px; background: #e3f2fd; border-radius: 5px; font-size: 12px;">
+				<strong>⚠️ 重要提示：</strong>
+				<?php if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'): ?>
+					当前使用 HTTPS 访问，必须使用 <strong>WSS</strong> 协议
+				<?php else: ?>
+					当前使用 HTTP 访问，可以使用 <strong>WS</strong> 协议
+				<?php endif; ?>
+			</div>
+			<div class="form-group">
+				<label>WebSocket URL:</label>
+				<input type="text" id="sip-ws" class="form-control" placeholder="<?php echo (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'wss://192.168.2.200:7443' : 'ws://192.168.2.200:5066'; ?>" />
+			</div>
+			<div class="form-group">
+				<label>SIP URI:</label>
+				<input type="text" id="sip-uri" class="form-control" placeholder="sip:1000@192.168.2.200" />
+			</div>
+			<div class="form-group">
+				<label>用户名:</label>
+				<input type="text" id="sip-user" class="form-control" placeholder="1000" />
+			</div>
+			<div class="form-group">
+				<label>密码:</label>
+				<input type="password" id="sip-password" class="form-control" placeholder="密码" />
+			</div>
+			<div class="form-group">
+				<label>显示名称:</label>
+				<input type="text" id="sip-display-name" class="form-control" value="调度员" />
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-primary" onclick="doSipRegister()">注册</button>
+			<button class="btn btn-secondary" onclick="closeSipRegisterModal()">取消</button>
+		</div>
+	</div>
+</div>
+
+<!-- 组呼模态对话框 -->
+<div id="group-call-modal" class="dispatcher-modal" style="display: none;">
+	<div class="modal-overlay" onclick="closeGroupCallModal()"></div>
+	<div class="modal-content" style="max-width: 600px;">
+		<div class="modal-header">
+			<h3>发起组呼</h3>
+			<button class="modal-close-btn" onclick="closeGroupCallModal()">×</button>
+		</div>
+		<div class="modal-body">
+			<div class="form-group">
+				<label>分组筛选:</label>
+				<select id="group-call-filter" class="form-control" onchange="filterGroupCallExtensions()">
+					<option value="">全部分机</option>
+					<!-- 动态加载分组选项 -->
+				</select>
+			</div>
+			<div class="form-group">
+				<label>选择呼叫的分机:</label>
+				<div style="margin-bottom: 10px;">
+					<button class="btn btn-sm btn-secondary" onclick="selectAllExtensions()">全选</button>
+					<button class="btn btn-sm btn-secondary" onclick="deselectAllExtensions()">取消全选</button>
+				</div>
+				<div id="group-call-extension-list" style="max-height: 300px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; border-radius: 4px;">
+					<!-- 显示分机复选框列表 -->
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-success" onclick="startGroupCallWithSelected()">呼叫选中的分机</button>
+			<button class="btn btn-secondary" onclick="closeGroupCallModal()">取消</button>
+		</div>
+	</div>
+</div>
+
+<!-- 会议模态对话框 -->
+<div id="conference-modal" class="dispatcher-modal" style="display: none;">
+	<div class="modal-overlay" onclick="closeConferenceModal()"></div>
+	<div class="modal-content">
+		<div class="modal-header">
+			<h3>发起多方会议</h3>
+			<button class="modal-close-btn" onclick="closeConferenceModal()">×</button>
+		</div>
+		<div class="modal-body">
+			<div id="extension-checklist">
+				<!-- 显示可选分机的复选框列表 -->
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-primary" onclick="startConference()">发起会议</button>
+			<button class="btn btn-secondary" onclick="closeConferenceModal()">取消</button>
+		</div>
+	</div>
+</div>
+
+<!-- 分组管理模态对话框 -->
+<div id="groups-modal" class="dispatcher-modal" style="display: none;">
+	<div class="modal-overlay" onclick="closeGroupsModal()"></div>
+	<div class="modal-content">
+		<div class="modal-header">
+			<h3>管理呼叫分组</h3>
+			<button class="modal-close-btn" onclick="closeGroupsModal()">×</button>
+		</div>
+		<div class="modal-body">
+			<div id="groups-list">
+				<!-- 分组列表 -->
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-primary" onclick="addNewGroup()">新建分组</button>
+			<button class="btn btn-secondary" onclick="closeGroupsModal()">关闭</button>
+		</div>
+	</div>
+</div>
+
+<!-- 组呼状态栏 -->
+<div id="group-call-status" class="call-status-bar" style="display: none;">
+	<span id="group-call-status-text">组呼进行中</span>
+	<button class="btn btn-sm btn-danger" onclick="endGroupCall()">结束</button>
+</div>
+
+<!-- 会议状态栏 -->
+<div id="conference-status" class="call-status-bar" style="display: none;">
+	<span id="conference-status-text">会议进行中</span>
+	<button class="btn btn-sm btn-warning" onclick="manageConference()">管理</button>
+	<button class="btn btn-sm btn-danger" onclick="endConference()">结束</button>
+</div>
+
+<!-- 中继桥接面板 -->
+<div id="dispatcher-trunk-panel"></div>
+
+<!-- 来电提示 -->
+<div id="dispatcher-alerts"></div>
+
+<!-- 日志模态框 -->
+<div id="dispatcher-logs-modal" style="display: none;"></div>
+
+<script type="text/javascript">
+// 全局调度控制实例
+var dispatcherControl;
+var dispatcherLogger;
+
+$(document).ready(function() {
+	// 初始化调度控制
+	dispatcherControl = new DispatcherControl();
+	dispatcherLogger = new DispatcherLogger();
+	
+	// 从localStorage恢复SIP注册状态
+	restoreSipStatus();
+	
+	// 加载分组列表
+	updateGroupsList();
+	
+	// 监听SIP状态更新
+	dispatcherControl.on('registered', function() {
+		updateSipStatus('online', '已注册');
+		enableDispatcherFunctions();
+		saveSipStatus('online', '已注册'); // 保存状态
+	});
+	
+	dispatcherControl.on('unregistered', function() {
+		updateSipStatus('offline', '未注册');
+		disableDispatcherFunctions();
+		saveSipStatus('offline', '未注册'); // 保存状态
+	});
+	
+	dispatcherControl.on('registrationFailed', function() {
+		updateSipStatus('offline', '注册失败');
+		saveSipStatus('offline', '注册失败'); // 保存状态
+	});
+	
+	dispatcherControl.on('connecting', function() {
+		updateSipStatus('connecting', '连接中...');
+	});
+});
+
+// 保存SIP状态到localStorage
+function saveSipStatus(status, text) {
+	localStorage.setItem('dispatcher_sip_status', JSON.stringify({
+		status: status,
+		text: text,
+		timestamp: Date.now()
+	}));
+}
+
+// 从localStorage恢复SIP状态
+function restoreSipStatus() {
+	var saved = localStorage.getItem('dispatcher_sip_status');
+	if (saved) {
+		try {
+			var data = JSON.parse(saved);
+			// 如果状态在5分钟内且为在线状态，尝试恢复
+			if (Date.now() - data.timestamp < 300000 && data.status === 'online') {
+				updateSipStatus(data.status, data.text);
+				// 检查SIP客户端实际状态
+				if (dispatcherControl.sipClient && dispatcherControl.sipClient.isRegistered) {
+					enableDispatcherFunctions();
+				}
+			}
+		} catch (e) {
+			console.error('恢复SIP状态失败:', e);
+		}
+	}
+}
+
+// 更新SIP状态显示
+function updateSipStatus(status, text) {
+	$('#sip-status-indicator').removeClass('status-offline status-connecting status-online').addClass('status-' + status);
+	$('#sip-status-text').text(text);
+	if (status === 'online') {
+		$('#sip-register-btn').text('注销').attr('onclick', 'doSipUnregister()');
+	} else {
+		$('#sip-register-btn').text('注册').attr('onclick', 'openSipRegisterModal()');
+	}
+}
+
+// 打开SIP注册模态对话框
+function openSipRegisterModal() {
+	$('#sip-register-modal').show();
+}
+
+// 关闭SIP注册模态对话框
+function closeSipRegisterModal() {
+	$('#sip-register-modal').hide();
+}
+
+// 执行SIP注册
+function doSipRegister() {
+	var config = {
+		uri: $('#sip-uri').val(),
+		wsServers: $('#sip-ws').val(),
+		authUser: $('#sip-user').val(),
+		password: $('#sip-password').val(),
+		displayName: $('#sip-display-name').val()
+	};
+
+	if (!config.uri || !config.wsServers || !config.authUser || !config.password) {
+		alert('请填写所有必填项');
+		return;
+	}
+
+	dispatcherControl.register(config)
+		.then(function() {
+			closeSipRegisterModal();
+		})
+		.catch(function(error) {
+			alert('注册失败: ' + error.message);
+		});
+}
+
+// 执行SIP注销
+function doSipUnregister() {
+	dispatcherControl.unregister()
+		.then(function() {
+			updateSipStatus('offline', '已注销');
+			disableDispatcherFunctions();
+		});
+}
+
+// 启用调度功能按钮
+function enableDispatcherFunctions() {
+	$('#group-call-btn, #broadcast-btn, #conference-btn').prop('disabled', false);
+}
+
+// 禁用调度功能按钮
+function disableDispatcherFunctions() {
+	$('#group-call-btn, #broadcast-btn, #conference-btn').prop('disabled', true);
+}
+
+// 快速拨号
+function quickDial() {
+	var number = $('#quick-dial-number').val();
+	if (!number) {
+		alert('请输入号码');
+		return;
+	}
+
+	var serverHost = dispatcherControl.getServerHost();
+	var target = 'sip:' + number + '@' + serverHost;
+
+	dispatcherControl.sipClient.makeCall(target, { audio: true, video: false })
+		.then(function() {
+			$('#quick-dial-number').val('');
+			alert('呼叫已发起');
+		})
+		.catch(function(error) {
+			alert('拨打失败: ' + error.message);
+		});
+}
+
+// 切换中继模式
+function toggleTrunkMode() {
+	var btn = $('#trunk-mode-btn');
+	if (btn.hasClass('active')) {
+		dispatcherControl.autoTrunkMode = false;
+		btn.removeClass('active');
+		alert('中继模式已关闭');
+	} else {
+		dispatcherControl.autoTrunkMode = true;
+		btn.addClass('active');
+		alert('中继模式已启用 - 来电将自动转接');
+	}
+}
+
+// 打开组呼模态对话框
+function openGroupCallModal() {
+	// 加载分组选项
+	var groups = dispatcherControl.callGroups;
+	var filterSelect = $('#group-call-filter');
+	filterSelect.find('option:not(:first)').remove();
+	
+	for (var groupId in groups) {
+		if (groups.hasOwnProperty(groupId)) {
+			filterSelect.append('<option value="' + groupId + '">' + groups[groupId].name + '</option>');
+		}
+	}
+	
+	// 加载全部分机
+	loadGroupCallExtensions('');
+	
+	$('#group-call-modal').show();
+}
+
+// 加载分机列表
+function loadGroupCallExtensions(groupId) {
+	var extensions = dispatcherControl.getAllExtensions();
+	var list = $('#group-call-extension-list');
+	list.empty();
+	
+	// 如果选择了分组，只显示该分组的分机
+	if (groupId && dispatcherControl.callGroups[groupId]) {
+		extensions = dispatcherControl.callGroups[groupId].extensions;
+	}
+	
+	if (extensions.length === 0) {
+		list.html('<p style="text-align: center; color: #999; padding: 20px;">没有可用的分机</p>');
+		return;
+	}
+	
+	extensions.forEach(function(ext) {
+		var item = $('<div class="extension-checkbox-item"></div>');
+		var checkbox = $('<input type="checkbox" class="group-call-ext-checkbox" value="' + ext + '">');
+		var label = $('<label class="extension-checkbox-label">' + ext + '</label>');
+		label.click(function() {
+			checkbox.prop('checked', !checkbox.prop('checked'));
+		});
+		item.append(checkbox).append(label);
+		list.append(item);
+	});
+}
+
+// 分组筛选
+function filterGroupCallExtensions() {
+	var groupId = $('#group-call-filter').val();
+	loadGroupCallExtensions(groupId);
+}
+
+// 全选
+function selectAllExtensions() {
+	$('.group-call-ext-checkbox').prop('checked', true);
+}
+
+// 取消全选
+function deselectAllExtensions() {
+	$('.group-call-ext-checkbox').prop('checked', false);
+}
+
+// 发起选中分机的组呼
+function startGroupCallWithSelected() {
+	var selectedExts = [];
+	$('.group-call-ext-checkbox:checked').each(function() {
+		selectedExts.push($(this).val());
+	});
+	
+	if (selectedExts.length === 0) {
+		alert('请至少选择一个分机');
+		return;
+	}
+	
+	// 使用选中的分机发起组呼
+	dispatcherControl.startGroupCallWithExtensions(selectedExts);
+	closeGroupCallModal();
+	
+	// 显示组呼状态栏
+	$('#group-call-status').show();
+	$('#group-call-status-text').text('组呼进行中 - 呼叫 ' + selectedExts.length + ' 个分机');
+}
+
+// 关闭组呼模态对话框
+function closeGroupCallModal() {
+	$('#group-call-modal').hide();
+}
+
+// 结束组呼
+function endGroupCall() {
+	dispatcherControl.endGroupCall();
+	$('#group-call-status').hide();
+}
+
+// 全呼
+function startBroadcastCall() {
+	if (confirm('确认向所有分机发起全呼？')) {
+		dispatcherControl.startBroadcastCall();
+		$('#group-call-status').show();
+		$('#group-call-status-text').text('全呼进行中...');
+	}
+}
+
+// 打开会议模态对话框
+function openConferenceModal() {
+	var extensions = dispatcherControl.getAllExtensions();
+	var checklist = $('#extension-checklist');
+	checklist.empty();
+	
+	extensions.forEach(function(ext) {
+		var item = $('<div class="extension-checkbox-item"></div>');
+		var checkbox = $('<input type="checkbox" value="' + ext + '">');
+		var label = $('<label class="extension-checkbox-label">' + ext + '</label>');
+		label.click(function() {
+			checkbox.prop('checked', !checkbox.prop('checked'));
+		});
+		item.append(checkbox).append(label);
+		checklist.append(item);
+	});
+	
+	$('#conference-modal').show();
+}
+
+// 关闭会议模态对话框
+function closeConferenceModal() {
+	$('#conference-modal').hide();
+}
+
+// 发起会议
+function startConference() {
+	var selectedExts = [];
+	$('#extension-checklist input[type="checkbox"]:checked').each(function() {
+		selectedExts.push($(this).val());
+	});
+	
+	if (selectedExts.length < 2) {
+		alert('至少选择2个分机');
+		return;
+	}
+	
+	dispatcherControl.startConference(selectedExts);
+	closeConferenceModal();
+	
+	// 显示会议状态栏
+	$('#conference-status').show();
+	$('#conference-status-text').text('会议进行中 - ' + selectedExts.length + '人参与');
+}
+
+// 管理会议
+function manageConference() {
+	// TODO: 实现会议管理功能（静音、踢出等）
+	alert('会议管理功能开发中...');
+}
+
+// 结束会议
+function endConference() {
+	dispatcherControl.endConference();
+	$('#conference-status').hide();
+}
+
+// 打开分组管理模态对话框
+function openGroupsModal() {
+	updateGroupsList();
+	$('#groups-modal').show();
+}
+
+// 关闭分组管理模态对话框
+function closeGroupsModal() {
+	$('#groups-modal').hide();
+}
+
+// 更新分组列表
+function updateGroupsList() {
+	var groups = dispatcherControl.callGroups;
+	var html = '';
+	
+	for (var groupId in groups) {
+		if (groups.hasOwnProperty(groupId)) {
+			var group = groups[groupId];
+			html += '<div class="group-item">' +
+				'<div class="group-item-header">' +
+				'<span class="group-item-name">' + group.name + ' (' + groupId + ')</span>' +
+				'<div class="group-item-actions">' +
+				'<button class="btn btn-sm btn-danger" onclick="deleteGroup(\'' + groupId + '\')">删除</button>' +
+				'</div>' +
+				'</div>' +
+				'<div class="group-extensions">成员: ' + (group.extensions.length > 0 ? group.extensions.join(', ') : '无') + '</div>' +
+				'<div style="margin-top: 8px;">' +
+				'<button class="btn btn-sm btn-primary" onclick="addExtensionToGroupDialog(\'' + groupId + '\')">添加成员</button> ' +
+				'<button class="btn btn-sm btn-success" onclick="startGroupCallById(\'' + groupId + '\')">发起组呼</button>' +
+				'</div>' +
+				'</div>';
+		}
+	}
+	
+	if (html === '') {
+		html = '<p style="text-align: center; color: #999; padding: 20px;">暂无分组，请点击下方按钮创建</p>';
+	}
+	
+	$('#groups-list').html(html);
+}
+
+// 添加新分组
+function addNewGroup() {
+	var groupId = prompt('请输入组ID（英文字母、数字）:');
+	if (!groupId) return;
+	
+	if (dispatcherControl.callGroups[groupId]) {
+		alert('该组已存在');
+		return;
+	}
+	
+	var groupName = prompt('请输入组名称:');
+	if (!groupName) return;
+	
+	dispatcherControl.addCallGroup(groupId, groupName);
+	updateGroupsList();
+}
+
+// 添加成员到组
+function addExtensionToGroupDialog(groupId) {
+	var extension = prompt('请输入要添加的分机号:');
+	if (extension) {
+		dispatcherControl.addExtensionToGroup(groupId, extension.trim());
+		updateGroupsList();
+		alert('成员已添加');
+	}
+}
+
+// 删除分组
+function deleteGroup(groupId) {
+	if (confirm('确认删除该分组？')) {
+		dispatcherControl.deleteCallGroup(groupId);
+		updateGroupsList();
+	}
+}
+
+// 按组ID发起组呼
+function startGroupCallById(groupId) {
+	dispatcherControl.startGroupCall(groupId);
+	closeGroupsModal();
+	$('#group-call-status').show();
+	$('#group-call-status-text').text('组呼进行中...');
+}
+
+// 使面板可拖拽（已废弃，保留以防需要）
+function makeDispatcherDraggable() {
+	var panel = document.getElementById('dispatcher-control-panel');
+	if (!panel) return; // 如果面板不存在则返回
+	var header = panel.querySelector('.dispatcher-header');
+	var isDragging = false;
+	var currentX;
+	var currentY;
+	var initialX;
+	var initialY;
+	var xOffset = 0;
+	var yOffset = 0;
+
+	header.addEventListener('mousedown', dragStart);
+	document.addEventListener('mousemove', drag);
+	document.addEventListener('mouseup', dragEnd);
+
+	function dragStart(e) {
+		initialX = e.clientX - xOffset;
+		initialY = e.clientY - yOffset;
+
+		if (e.target === header || header.contains(e.target)) {
+			isDragging = true;
+			header.classList.add('dragging');
+		}
+	}
+
+	function drag(e) {
+		if (isDragging) {
+			e.preventDefault();
+			currentX = e.clientX - initialX;
+			currentY = e.clientY - initialY;
+
+			xOffset = currentX;
+			yOffset = currentY;
+
+			setTranslate(currentX, currentY, panel);
+		}
+	}
+
+	function dragEnd(e) {
+		initialX = currentX;
+		initialY = currentY;
+		isDragging = false;
+		header.classList.remove('dragging');
+	}
+
+	function setTranslate(xPos, yPos, el) {
+		el.style.transform = 'translate3d(' + xPos + 'px, ' + yPos + 'px, 0)';
+	}
+}
+
+// 切换面板显示
+function toggleDispatcherPanel() {
+	$('#dispatcher-control-panel').toggleClass('minimized');
+	$('.dispatcher-body').slideToggle();
+}
+
+// 显示日志面板
+function showLogsPanel() {
+	if (dispatcherLogger) {
+		dispatcherLogger.showLogsPanel();
+	}
+}
+
+// 更新统计显示
+function updateStatisticsDisplay() {
+	if (dispatcherLogger) {
+		var stats = dispatcherLogger.getStatistics();
+		$('#dispatcher-total-calls').text(stats.totalCalls);
+	}
+}
+
+// 记录通话结束
+function logCallEnd(type, data) {
+	if (dispatcherLogger) {
+		dispatcherLogger.logCall(type, data);
+		updateStatisticsDisplay();
+	}
+}
+
+// 关闭日志面板
+function closeLogsPanel() {
+	$('#dispatcher-logs-modal').hide();
+	$('.modal-overlay').remove();
+}
+</script>
+
+<?php
 echo "<br><br>\n";
 
 //include the footer

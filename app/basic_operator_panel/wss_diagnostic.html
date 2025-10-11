@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>WSS 连接诊断工具 - FusionPBX 调度终端</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+          'Microsoft YaHei', sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .header {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .header h1 {
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      .header p {
+        color: #666;
+      }
+
+      .status-banner {
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        color: white;
+        font-size: 18px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .status-banner.ok {
+        background: #10b981;
+      }
+
+      .status-banner.warning {
+        background: #f59e0b;
+      }
+
+      .status-banner.error {
+        background: #ef4444;
+      }
+
+      .status-banner .icon {
+        font-size: 32px;
+      }
+
+      .checks-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+
+      .check-card {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .check-card .check-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .check-card .check-name {
+        font-weight: 600;
+        color: #333;
+      }
+
+      .check-card .check-status {
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 500;
+      }
+
+      .check-status.ok {
+        background: #d1fae5;
+        color: #065f46;
+      }
+
+      .check-status.warning {
+        background: #fef3c7;
+        color: #92400e;
+      }
+
+      .check-status.error {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+
+      .check-card .check-value {
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+
+      .check-card .check-message {
+        color: #888;
+        font-size: 13px;
+        line-height: 1.5;
+      }
+
+      .recommendations {
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+      }
+
+      .recommendations h2 {
+        color: #333;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .recommendation {
+        background: #f9fafb;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        border-left: 4px solid;
+      }
+
+      .recommendation.critical {
+        border-color: #dc2626;
+      }
+
+      .recommendation.high {
+        border-color: #f59e0b;
+      }
+
+      .recommendation.medium {
+        border-color: #3b82f6;
+      }
+
+      .recommendation .rec-title {
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .recommendation .rec-message {
+        color: #666;
+        margin-bottom: 8px;
+        font-size: 14px;
+      }
+
+      .recommendation .rec-action {
+        background: #1f2937;
+        color: #10b981;
+        padding: 10px;
+        border-radius: 5px;
+        font-family: 'Courier New', monospace;
+        font-size: 13px;
+        overflow-x: auto;
+      }
+
+      .websocket-info {
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+      }
+
+      .websocket-info h2 {
+        color: #333;
+        margin-bottom: 15px;
+      }
+
+      .websocket-url {
+        background: #1f2937;
+        color: #10b981;
+        padding: 15px;
+        border-radius: 5px;
+        font-family: 'Courier New', monospace;
+        font-size: 16px;
+        text-align: center;
+        user-select: all;
+        cursor: pointer;
+      }
+
+      .websocket-url:hover {
+        background: #374151;
+      }
+
+      .actions {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .btn {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .btn-primary {
+        background: #667eea;
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: #5568d3;
+      }
+
+      .btn-secondary {
+        background: #6b7280;
+        color: white;
+      }
+
+      .btn-secondary:hover {
+        background: #4b5563;
+      }
+
+      .loading {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid #f3f3f3;
+        border-top: 3px solid #667eea;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .timestamp {
+        text-align: center;
+        color: white;
+        margin-top: 20px;
+        opacity: 0.8;
+      }
+
+      .config-display {
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+      }
+
+      .config-display h2 {
+        color: #333;
+        margin-bottom: 15px;
+      }
+
+      .config-display pre {
+        background: #1f2937;
+        color: #10b981;
+        padding: 15px;
+        border-radius: 5px;
+        overflow-x: auto;
+        font-size: 13px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>🔍 WSS 连接诊断工具</h1>
+        <p>自动检测 FreeSWITCH WebSocket Secure 配置状态</p>
+      </div>
+
+      <div id="diagnosticResults">
+        <div
+          style="
+            text-align: center;
+            padding: 50px;
+            background: white;
+            border-radius: 10px;
+          "
+        >
+          <div class="loading"></div>
+          <p style="margin-top: 15px; color: #666">正在执行诊断检查...</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      async function runDiagnostics() {
+        try {
+          const response = await fetch('wss_diagnostic.php')
+          const data = await response.json()
+          displayResults(data)
+        } catch (error) {
+          document.getElementById('diagnosticResults').innerHTML = `
+                    <div class="status-banner error">
+                        <span class="icon">❌</span>
+                        <div>
+                            <div>诊断失败</div>
+                            <div style="font-size: 14px; opacity: 0.9; margin-top: 5px;">错误: ${error.message}</div>
+                        </div>
+                    </div>
+                `
+        }
+      }
+
+      function displayResults(data) {
+        let html = ''
+
+        // 状态横幅
+        const statusIcons = {
+          ok: '✅',
+          warning: '⚠️',
+          error: '❌',
+        }
+
+        const statusTexts = {
+          ok: '所有检查通过',
+          warning: '发现警告',
+          error: '发现错误',
+        }
+
+        html += `
+                <div class="status-banner ${data.status}">
+                    <span class="icon">${statusIcons[data.status]}</span>
+                    <div>
+                        <div>${statusTexts[data.status]}</div>
+                        <div style="font-size: 14px; opacity: 0.9; margin-top: 5px;">${
+                          data.summary || ''
+                        }</div>
+                    </div>
+                </div>
+            `
+
+        // WebSocket URL
+        html += `
+                <div class="websocket-info">
+                    <h2>📡 推荐的 WebSocket URL</h2>
+                    <div class="websocket-url" onclick="copyToClipboard(this.textContent)" title="点击复制">
+                        ${data.websocket_url}
+                    </div>
+                    <p style="margin-top: 10px; color: #666; font-size: 14px; text-align: center;">
+                        点击 URL 可复制到剪贴板
+                    </p>
+                </div>
+            `
+
+        // 检查结果
+        html += '<div class="checks-grid">'
+        for (const [key, check] of Object.entries(data.checks)) {
+          const statusLabels = {
+            ok: '正常',
+            warning: '警告',
+            error: '错误',
+          }
+
+          html += `
+                    <div class="check-card">
+                        <div class="check-header">
+                            <div class="check-name">${check.name}</div>
+                            <span class="check-status ${check.status}">${
+            statusLabels[check.status]
+          }</span>
+                        </div>
+                        <div class="check-value">${check.value}</div>
+                        <div class="check-message">${check.message}</div>
+                    </div>
+                `
+        }
+        html += '</div>'
+
+        // 建议
+        if (data.recommendations && data.recommendations.length > 0) {
+          html += `
+                    <div class="recommendations">
+                        <h2>💡 修复建议</h2>
+                `
+
+          const priorityLabels = {
+            critical: '🔴 严重',
+            high: '🟠 重要',
+            medium: '🔵 一般',
+          }
+
+          for (const rec of data.recommendations) {
+            html += `
+                        <div class="recommendation ${rec.priority}">
+                            <div class="rec-title">
+                                ${priorityLabels[rec.priority]} ${rec.title}
+                            </div>
+                            <div class="rec-message">${rec.message}</div>
+                            <div class="rec-action">${rec.action}</div>
+                        </div>
+                    `
+          }
+
+          html += '</div>'
+        }
+
+        // 当前配置
+        if (data.current_config) {
+          html += `
+                    <div class="config-display">
+                        <h2>⚙️ 当前配置</h2>
+                        <pre>${JSON.stringify(
+                          data.current_config,
+                          null,
+                          2
+                        )}</pre>
+                    </div>
+                `
+        }
+
+        // 操作按钮
+        html += `
+                <div class="actions">
+                    <button class="btn btn-primary" onclick="runDiagnostics()">🔄 重新诊断</button>
+                    <button class="btn btn-secondary" onclick="window.open('WSS_SETUP.md', '_blank')">📖 查看配置指南</button>
+                    <button class="btn btn-secondary" onclick="window.location.href='index.php'">🏠 返回调度终端</button>
+                </div>
+            `
+
+        // 时间戳
+        html += `
+                <div class="timestamp">
+                    诊断时间: ${data.timestamp}
+                </div>
+            `
+
+        document.getElementById('diagnosticResults').innerHTML = html
+      }
+
+      function copyToClipboard(text) {
+        navigator.clipboard
+          .writeText(text)
+          .then(() => {
+            alert('已复制到剪贴板: ' + text)
+          })
+          .catch((err) => {
+            console.error('复制失败:', err)
+          })
+      }
+
+      // 页面加载时自动运行诊断
+      window.addEventListener('DOMContentLoaded', runDiagnostics)
+    </script>
+  </body>
+</html>
