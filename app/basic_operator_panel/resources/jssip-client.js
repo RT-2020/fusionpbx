@@ -12,6 +12,7 @@
         this.currentSession = null; // 当前主会话
         this.incomingSession = null; // 来电会话
         this.conferenceSessions = []; // 会议会话列表
+        this.audioElements = {}; // 存储每个session的audio元素
         
         // 状态标志
         this.isRegistered = false;
@@ -34,6 +35,36 @@
             onCallProgress: null
         };
     }
+
+	// 计算 WebRTC pcConfig（支持内网/公网自适应）
+	JsSipClient.prototype._getPcConfig = function() {
+		// 默认禁用 STUN（内网环境更快、更稳定）
+		var useStun = false;
+		try {
+			// 允许通过 localStorage 打开回退 STUN（dispatcher_use_stun=1）
+			useStun = (localStorage.getItem('dispatcher_use_stun') === '1');
+			// 若主机非内网地址，自动启用 STUN
+			var host = location.hostname || '';
+			var isPrivate = (
+				host === 'localhost' || host === '127.0.0.1' ||
+				host.startsWith('10.') ||
+				/^192\.168\./.test(host) ||
+				/^172\.(1[6-9]|2[0-9]|3[0-1])\./.test(host)
+			);
+			if (!isPrivate) useStun = true;
+		} catch (e) {}
+
+		if (useStun) {
+			return {
+				iceServers: [
+					{ urls: 'stun.qq.com' },
+					{ urls: 'miwifi.com' }
+				]
+			};
+		}
+
+		return { iceServers: [] };
+	};
 
     // 设置回调
     JsSipClient.prototype.on = function(event, callback) {
@@ -83,7 +114,7 @@
         
         console.log('WebSocket 配置:', { wsServers: params.wsServers, isSecure: isSecure, socketConfig: socketConfig });
 
-        var configuration = {
+		var configuration = {
             sockets: [new JsSIP.WebSocketInterface(params.wsServers, socketConfig)],
             uri: params.uri,
             authorization_user: params.authUser,
@@ -91,12 +122,7 @@
             display_name: params.displayName || 'Dispatcher',
             session_timers: false,
             register: true,
-            pcConfig: {
-                iceServers: [
-                    { urls: ['stun:stun.l.google.com:19302'] },
-                    { urls: ['stun:stun1.l.google.com:19302'] }
-                ]
-            }
+			pcConfig: self._getPcConfig()
         };
 
         console.log('创建 JsSIP UA，配置:', configuration);
@@ -144,6 +170,19 @@
         self.ua.on('newRTCSession', function(e) {
             var session = e.session;
             console.log('📞 收到 RTC 会话', e);
+            
+            // 根据来电显示名称标记通话类型
+            var callerIdName = session.remote_identity.display_name || '';
+            if (callerIdName.indexOf('插入讲话') !== -1 || callerIdName.indexOf('ThreeWay') !== -1 || callerIdName.indexOf('Barge') !== -1) {
+                session._callType = 'three-way'; // 三方通话
+            } else if (callerIdName.indexOf('组呼会议') !== -1 || callerIdName.indexOf('group-call') !== -1 || callerIdName.indexOf('调度中心') !== -1 || callerIdName.indexOf('dispatch') !== -1) {
+                session._callType = 'conference'; // 会议/组呼
+            } else if (callerIdName.indexOf('监听') !== -1 || callerIdName.indexOf('Eavesdrop') !== -1 || callerIdName.indexOf('Listen') !== -1) {
+                session._callType = 'eavesdrop'; // 监听
+            } else {
+                session._callType = 'normal'; // 普通通话
+            }
+            console.log('🏷️ 通话类型:', session._callType, '来电显示:', callerIdName);
 
             // 处理来电
             if (session.direction === 'incoming') {
@@ -194,28 +233,134 @@
         session.on('peerconnection', function(e) {
             console.log('🔗 PeerConnection 已创建');
             var connection = e.peerconnection;
+
+			// 检测来电类型
+			var callerIdName = session.remote_identity.display_name || '';
+			var isThreeWay = callerIdName.indexOf('插入讲话') !== -1 || 
+			                 callerIdName.indexOf('ThreeWay') !== -1 || 
+			                 callerIdName.indexOf('Barge') !== -1;
+			var isConference = callerIdName.indexOf('组呼会议') !== -1 || 
+			                   callerIdName.indexOf('group-call') !== -1 || 
+			                   callerIdName.indexOf('调度中心') !== -1 || 
+			                   callerIdName.indexOf('dispatch') !== -1;
+			
+			// 只在监听模式时添加 recvonly transceiver
+			// 三方通话和会议模式不添加，让 JsSIP 根据 mediaConstraints 自动创建 sendrecv
+			if (!isThreeWay && !isConference) {
+				try {
+					if (connection && typeof connection.addTransceiver === 'function') {
+						connection.addTransceiver('audio', {direction: 'recvonly'});
+						console.log('🎚️ 已添加 recvonly 音频 transceiver（监听模式）');
+					}
+				} catch (err) {
+					console.warn('添加音频 transceiver 失败:', err);
+				}
+			} else {
+				console.log('🎚️ 三方通话/会议模式，让 JsSIP 自动创建 sendrecv transceiver');
+			}
+
+			// ICE 与连接状态日志，便于诊断无声问题
+			try {
+				connection.oniceconnectionstatechange = function() {
+					console.log('ICE 状态:', connection.iceConnectionState);
+					// 失败时尝试一次 ICE 重启
+					if (connection.iceConnectionState === 'failed' && typeof connection.restartIce === 'function') {
+						try {
+							connection.restartIce();
+							console.log('🔁 已触发 ICE 重启');
+						} catch (reErr) {
+							console.warn('ICE 重启失败:', reErr);
+						}
+					}
+				};
+				connection.onconnectionstatechange = function() {
+					console.log('PeerConnection 状态:', connection.connectionState);
+				};
+				connection.onsignalingstatechange = function() {
+					console.log('Signaling 状态:', connection.signalingState);
+				};
+				connection.onicegatheringstatechange = function() {
+					console.log('ICE Gathering 状态:', connection.iceGatheringState);
+				};
+				connection.onicecandidate = function(ev) {
+					if (ev && ev.candidate) {
+						console.log('ICE 候选:', ev.candidate.type || ev.candidate.candidate);
+					} else {
+						console.log('ICE 候选收集完成');
+					}
+				};
+			} catch (err) {
+				console.warn('绑定连接状态日志失败:', err);
+			}
             
             // 立即设置 ontrack 监听器（在媒体轨道到达前）
             connection.ontrack = function(event) {
-                console.log('📡 收到媒体轨道', event.track.kind, event);
+                console.log('收到媒体轨道', event.track.kind, event);
                 
                 if (event.track.kind === 'audio') {
-                    var stream = event.streams.length ? event.streams[0] : new MediaStream([event.track]);
-                    var audio = new Audio();
+                    var stream = event.streams[0] || new MediaStream([event.track]);
+                    var sessionId = session._customId || 'default';
+                    
+					// 创建或获取audio元素
+                    if (!self.audioElements[sessionId]) {
+                        var audio = document.createElement('audio');
+                        audio.autoplay = true;
+                        audio.id = 'remote-audio-' + sessionId;
+                        // 确保音频元素有正确的属性
+                        audio.controls = false;
+                        audio.muted = false; // 确保不是静音状态
+                        audio.volume = 1.0; // 设置最大音量
+						// 兼容移动端内联播放，避免系统接管
+						audio.playsInline = true;
+						audio.setAttribute('playsinline', 'true');
+						audio.setAttribute('webkit-playsinline', 'true');
+						audio.setAttribute('x5-playsinline', 'true');
+                        document.body.appendChild(audio); // 附加到DOM
+                        self.audioElements[sessionId] = audio;
+                        console.log('🔊 创建并附加audio元素到DOM:', audio.id);
+                    }
+                    
+                    var audio = self.audioElements[sessionId];
                     audio.srcObject = stream;
-                    audio.autoplay = true; // 自动播放
-                    audio.play().then(function() {
-                        console.log('🔊 远程音频流已播放');
-                    }).catch(function(err) {
-                        console.error('播放音频失败:', err);
-                        // 尝试用户交互后播放
-                        document.addEventListener('click', function playOnClick() {
-                            audio.play().then(function() {
-                                console.log('🔊 用户交互后音频已播放');
-                                document.removeEventListener('click', playOnClick);
+                    
+					// 确保音频元素已加载并尝试播放
+                    audio.load();
+
+					// 如果用户设置了输出设备，尝试路由到该设备
+					try {
+						var sinkId = localStorage.getItem('dispatcher_audio_output_device_id');
+						if (sinkId && typeof audio.setSinkId === 'function') {
+							audio.setSinkId(sinkId).then(function(){
+								console.log('🔈 输出设备已设置为:', sinkId);
+							}).catch(function(err){
+								console.warn('设置输出设备失败:', err);
+							});
+						}
+					} catch (eSink) {
+						console.warn('设置输出设备时异常:', eSink);
+					}
+                    
+                    // 使用用户交互来启动音频播放
+                    var playAudio = function() {
+                        audio.play().then(function() {
+                            console.log('🔊 音频播放成功');
+                        }).catch(function(err) {
+                            console.error('播放失败:', err);
+                            // 尝试创建一个临时的用户交互事件
+                            var clickEvent = new MouseEvent('click', {
+                                bubbles: true,
+                                cancelable: true,
+                                view: window
                             });
-                        }, { once: true });
-                    });
+                            document.body.dispatchEvent(clickEvent);
+                        });
+                    };
+                    
+                    // 尝试立即播放
+                    playAudio();
+                    
+                    // 如果立即播放失败，尝试延迟播放
+                    setTimeout(playAudio, 100);
                 }
             };
         });
@@ -238,9 +383,127 @@
             self.isCalling = true;
             self.trigger('callEstablished', { session: session });
             
+            // 检查是否为三方通话或会议，记录 transceiver 信息用于调试
+            var callerIdName = session.remote_identity.display_name || '';
+            var isThreeWay = callerIdName.indexOf('插入讲话') !== -1 || 
+                             callerIdName.indexOf('ThreeWay') !== -1 || 
+                             callerIdName.indexOf('Barge') !== -1;
+            var isConference = callerIdName.indexOf('组呼会议') !== -1 || 
+                               callerIdName.indexOf('group-call') !== -1 || 
+                               callerIdName.indexOf('调度中心') !== -1 || 
+                               callerIdName.indexOf('dispatch') !== -1;
+            
+            if ((isThreeWay || isConference) && session.connection && session.connection.getTransceivers) {
+                var callMode = isThreeWay ? '三方通话' : '会议';
+                console.log('📡 ' + callMode + '已建立，检查 transceiver 状态:');
+                var transceivers = session.connection.getTransceivers();
+                transceivers.forEach(function(transceiver, idx) {
+                    if (transceiver.receiver && transceiver.receiver.track && transceiver.receiver.track.kind === 'audio') {
+                        console.log('  Audio Transceiver #' + idx + ': direction=' + transceiver.direction + ', currentDirection=' + transceiver.currentDirection);
+                    }
+                });
+                
+                // 检查发送器状态
+                var senders = session.connection.getSenders();
+                senders.forEach(function(sender, idx) {
+                    if (sender.track && sender.track.kind === 'audio') {
+                        console.log('  Audio Sender #' + idx + ': track.enabled=' + sender.track.enabled + ', track.muted=' + sender.track.muted);
+                    }
+                });
+            }
+            
             // confirmed时也尝试绑定（双重保险）
             if (session.connection && !session.connection.ontrack) {
                 self.bindMedia(session);
+            }
+            
+            // 确保音频流在通话建立后也能正确处理
+            if (session.connection && session.connection.getReceivers) {
+                var receivers = session.connection.getReceivers();
+                if (receivers.length > 0) {
+                    console.log('🔊 检查音频接收器:', receivers.length);
+                    var audioTracks = [];
+                    receivers.forEach(function(receiver) {
+                        if (receiver.track && receiver.track.kind === 'audio') {
+                            console.log('🎵 找到音频轨道:', receiver.track);
+                            
+                            // 确保音频轨道已启用
+                            if (receiver.track.enabled === false) {
+                                receiver.track.enabled = true;
+                                console.log('🔊 已启用音频轨道');
+                            }
+                            audioTracks.push(receiver.track);
+                        }
+                    });
+                    
+                    // 如果 ontrack 未及时触发，则直接用 receivers 组装并播放远端音频
+                    if (audioTracks.length > 0) {
+                        var sessionId = session._customId || 'default';
+                        if (!self.audioElements[sessionId]) {
+							var audio = document.createElement('audio');
+							audio.autoplay = true;
+							audio.id = 'remote-audio-' + sessionId;
+							audio.controls = false;
+							audio.muted = false;
+							audio.volume = 1.0;
+							// 兼容移动端内联播放
+							audio.playsInline = true;
+							audio.setAttribute('playsinline', 'true');
+							audio.setAttribute('webkit-playsinline', 'true');
+							audio.setAttribute('x5-playsinline', 'true');
+							document.body.appendChild(audio);
+                            self.audioElements[sessionId] = audio;
+                            console.log('🔊(receivers) 创建audio元素:', audio.id);
+                        }
+                        var audioEl = self.audioElements[sessionId];
+                        var stream = new MediaStream(audioTracks);
+                        audioEl.srcObject = stream;
+                        audioEl.load();
+                        
+                        // 如果用户设置了输出设备，尝试路由到该设备
+                        try {
+                            var sinkId = localStorage.getItem('dispatcher_audio_output_device_id');
+                            if (sinkId && typeof audioEl.setSinkId === 'function') {
+                                audioEl.setSinkId(sinkId).then(function(){
+                                    console.log('🔈 输出设备已设置为:', sinkId);
+                                }).catch(function(err){
+                                    console.warn('设置输出设备失败:', err);
+                                });
+                            }
+                        } catch (eSink) {
+                            console.warn('设置输出设备时异常:', eSink);
+                        }
+                        
+                        var play = function() {
+                            audioEl.play().then(function(){
+                                console.log('🔊(receivers) 音频播放成功');
+                            }).catch(function(err){
+                                console.error('(receivers) 播放失败:', err);
+                            });
+                        };
+                        play();
+                        setTimeout(play, 100);
+                    }
+                }
+            }
+            
+            // 检查发送器（本地音频）
+            if (session.connection && session.connection.getSenders) {
+                var senders = session.connection.getSenders();
+                if (senders.length > 0) {
+                    console.log('🎤 检查音频发送器:', senders.length);
+                    senders.forEach(function(sender) {
+                        if (sender.track && sender.track.kind === 'audio') {
+                            console.log('🎤 找到本地音频轨道:', sender.track);
+                            
+                            // 确保本地音频轨道已启用
+                            if (sender.track.enabled === false) {
+                                sender.track.enabled = true;
+                                console.log('🔊 已启用本地音频轨道');
+                            }
+                        }
+                    });
+                }
             }
         });
 
@@ -285,6 +548,7 @@
 
     // 绑定媒体流
     JsSipClient.prototype.bindMedia = function(session) {
+        var self = this;
         var connection = session.connection;
 
         if (!connection) {
@@ -298,12 +562,49 @@
 
             if (event.track.kind === 'audio') {
                 var stream = event.streams.length ? event.streams[0] : new MediaStream([event.track]);
-                var audio = new Audio();
+                var sessionId = session._customId || 'default';
+                
+                // 创建或获取audio元素
+                if (!self.audioElements[sessionId]) {
+                    var audio = document.createElement('audio');
+                    audio.autoplay = true;
+                    audio.id = 'remote-audio-' + sessionId;
+                    // 确保音频元素有正确的属性
+                    audio.controls = false;
+                    audio.muted = false; // 确保不是静音状态
+                    audio.volume = 1.0; // 设置最大音量
+                    document.body.appendChild(audio); // 附加到DOM
+                    self.audioElements[sessionId] = audio;
+                    console.log('🔊 创建并附加audio元素到DOM:', audio.id);
+                }
+                
+                var audio = self.audioElements[sessionId];
                 audio.srcObject = stream;
-                audio.play().catch(function(err) {
-                    console.error('播放音频失败:', err);
-                });
-                console.log('🔊 远程音频流已播放');
+                
+                // 确保音频元素已加载并尝试播放
+                audio.load();
+                
+                // 使用用户交互来启动音频播放
+                var playAudio = function() {
+                    audio.play().then(function() {
+                        console.log('🔊 音频播放成功');
+                    }).catch(function(err) {
+                        console.error('播放失败:', err);
+                        // 尝试创建一个临时的用户交互事件
+                        var clickEvent = new MouseEvent('click', {
+                            bubbles: true,
+                            cancelable: true,
+                            view: window
+                        });
+                        document.body.dispatchEvent(clickEvent);
+                    });
+                };
+                
+                // 尝试立即播放
+                playAudio();
+                
+                // 如果立即播放失败，尝试延迟播放
+                setTimeout(playAudio, 100);
             }
         };
     };
@@ -358,10 +659,83 @@
         });
     };
 
+    // 检查媒体权限
+    JsSipClient.prototype.checkMediaPermissions = function() {
+        var self = this;
+        
+        return new Promise(function(resolve, reject) {
+            // 检查是否支持getUserMedia
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                reject(new Error('您的浏览器不支持音频访问'));
+                return;
+            }
+            
+            // 检查权限状态
+            navigator.permissions.query({ name: 'microphone' })
+                .then(function(permissionStatus) {
+                    if (permissionStatus.state === 'denied') {
+                        reject(new Error('麦克风权限被拒绝，请在浏览器设置中允许麦克风访问'));
+                    } else if (permissionStatus.state === 'prompt') {
+                        // 权限未决定，将在getUserMedia时提示
+                        resolve();
+                    } else {
+                        // 权限已授予
+                        resolve();
+                    }
+                })
+                .catch(function(error) {
+                    // 某些浏览器不支持permissions API，直接尝试getUserMedia
+                    resolve();
+                });
+        });
+    };
+
+    // 请求媒体权限
+    JsSipClient.prototype.requestMediaAccess = function() {
+        var self = this;
+        
+        return navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+            .then(function(stream) {
+                // 立即停止流，只是为了获取权限
+                stream.getTracks().forEach(function(track) {
+                    track.stop();
+                });
+                return Promise.resolve();
+            })
+            .catch(function(error) {
+                console.error('获取媒体权限失败:', error);
+                return Promise.reject(error);
+            });
+    };
+
+    // 解锁浏览器音频自动播放限制（在用户手势触发的调用流程中调用）
+    JsSipClient.prototype.unlockAudioPlayback = function() {
+        try {
+            if (this._audioUnlocked) return;
+            var AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (AudioContext) {
+                if (!this._audioCtx) this._audioCtx = new AudioContext();
+                if (this._audioCtx.state === 'suspended') {
+                    this._audioCtx.resume().then(function(){
+                        console.log('🔓 AudioContext 已恢复');
+                    }).catch(function(err){
+                        console.warn('恢复 AudioContext 失败:', err);
+                    });
+                }
+            }
+            this._audioUnlocked = true;
+        } catch (e) {
+            console.warn('解锁音频播放时异常:', e);
+        }
+    };
+
     // 拨打电话
     JsSipClient.prototype.makeCall = function(target, options) {
         var self = this;
         options = options || {};
+
+        // 尝试在用户手势链路内解锁自动播放
+        try { self.unlockAudioPlayback(); } catch(e) {}
 
         if (!this.ua) {
             return Promise.reject(new Error('UA 未就绪'));
@@ -370,52 +744,68 @@
         if (!this.ua.isRegistered()) {
             return Promise.reject(new Error('未注册，无法拨打电话'));
         }
-
-        console.log('📞 开始拨打电话到:', target, '选项:', options);
-
-        var callOptions = {
-            mediaConstraints: {
-                audio: options.audio !== false,
-                video: options.video || false
-            },
-            rtcOfferConstraints: {
-                offerToReceiveAudio: options.audio !== false,
-                offerToReceiveVideo: options.video || false
-            },
-            pcConfig: {
-                iceServers: [
-                    { urls: 'stun:stun.l.google.com:19302' },
-                    { urls: 'stun:stun1.l.google.com:19302' }
-                ]
-            }
-        };
-
-        return new Promise(function(resolve, reject) {
-            try {
-                var session = self.ua.call(target, callOptions);
-                var sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        
+        // 检查和请求媒体权限
+        return this.checkMediaPermissions()
+            .then(function() {
+                return self.requestMediaAccess();
+            })
+            .then(function() {
+                // 权限获取成功，继续原有逻辑
+                console.log('📞 开始拨打电话到:', target, '选项:', options);
                 
-                self.sessions[sessionId] = session;
-                session._customId = sessionId;
-                
-                if (!self.currentSession) {
-                    self.currentSession = session;
+				var callOptions = {
+                    mediaConstraints: {
+                        audio: true,
+                        video: false
+                    },
+                    rtcOfferConstraints: {
+                        offerToReceiveAudio: true,
+                        offerToReceiveVideo: false
+                    },
+					pcConfig: self._getPcConfig()
+                };
+
+                return new Promise(function(resolve, reject) {
+                    try {
+                        var session = self.ua.call(target, callOptions);
+                        var sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                        
+                        self.sessions[sessionId] = session;
+                        session._customId = sessionId;
+                        
+                        if (!self.currentSession) {
+                            self.currentSession = session;
+                        }
+                        
+                        self.isCalling = true;
+
+                        console.log('📤 呼叫已发起', session);
+
+                        // 设置监听器
+                        self.setupSessionListeners(session);
+                        
+                        resolve({ session: session, sessionId: sessionId });
+                    } catch (error) {
+                        console.error('❌ 拨打电话失败:', error);
+                        self.isCalling = false;
+                        reject(error);
+                    }
+                });
+            })
+            .catch(function(error) {
+                // 权限获取失败，提供用户友好的错误信息
+                var errorMessage = error.message || '未知错误';
+                if (error.name === 'NotAllowedError') {
+                    errorMessage = '麦克风权限被拒绝。请点击地址栏左侧的麦克风图标，选择"允许"，然后重试。';
+                } else if (error.name === 'NotFoundError') {
+                    errorMessage = '未检测到麦克风设备。请确保麦克风已连接并正常工作。';
+                } else if (error.name === 'NotReadableError') {
+                    errorMessage = '麦克风被其他应用程序占用。请关闭其他使用麦克风的应用程序，然后重试。';
                 }
                 
-                self.isCalling = true;
-
-                console.log('📤 呼叫已发起', session);
-
-                // 设置监听器
-                self.setupSessionListeners(session);
-                
-                resolve({ session: session, sessionId: sessionId });
-            } catch (error) {
-                console.error('❌ 拨打电话失败:', error);
-                self.isCalling = false;
-                reject(error);
-            }
-        });
+                return Promise.reject(new Error(errorMessage));
+            });
     };
 
     // 批量拨打电话（用于组呼/全呼）
@@ -451,6 +841,19 @@
                 }
 
                 self.endCall();
+                
+                // 清理音频元素
+                if (sessionId && self.audioElements[sessionId]) {
+                    var audio = self.audioElements[sessionId];
+                    audio.pause();
+                    audio.srcObject = null;
+                    if (audio.parentNode) {
+                        audio.parentNode.removeChild(audio);
+                    }
+                    delete self.audioElements[sessionId];
+                    console.log('🗑️ 已清理audio元素:', sessionId);
+                }
+                
                 resolve();
             } catch (error) {
                 console.error('挂断时发生错误:', error);
@@ -470,6 +873,29 @@
             }
         }
 
+        return Promise.all(promises);
+    };
+    
+    // 按通话类型挂断（用于模式切换）
+    JsSipClient.prototype.hangupByType = function(callType) {
+        var self = this;
+        var promises = [];
+        var hangupCount = 0;
+
+        console.log('🔍 查找并挂断类型为 "' + callType + '" 的通话...');
+
+        for (var sessionId in self.sessions) {
+            if (self.sessions.hasOwnProperty(sessionId)) {
+                var session = self.sessions[sessionId];
+                if (session._callType === callType) {
+                    console.log('  ✂️ 挂断会话:', sessionId, '类型:', session._callType);
+                    promises.push(self.hangup(sessionId));
+                    hangupCount++;
+                }
+            }
+        }
+
+        console.log('📊 共挂断 ' + hangupCount + ' 个 "' + callType + '" 类型的通话');
         return Promise.all(promises);
     };
 
@@ -498,46 +924,70 @@
         var self = this;
         options = options || {};
 
+        // 尝试在用户手势链路内解锁自动播放
+        try { self.unlockAudioPlayback(); } catch(e) {}
+
         if (!this.incomingSession) {
             return Promise.reject(new Error('没有来电可接听'));
         }
 
         console.log('接听来电', options);
 
+        var needAudio = options.audio !== false;
         var callOptions = {
             mediaConstraints: {
-                audio: options.audio !== false,
+                audio: needAudio,
                 video: options.video || false
             },
-            pcConfig: {
-                iceServers: [
-                    { urls: 'stun:stun.l.google.com:19302' },
-                    { urls: 'stun:stun1.l.google.com:19302' }
-                ]
-            }
+            pcConfig: self._getPcConfig()
         };
 
-        return new Promise(function(resolve, reject) {
-            try {
-                self.incomingSession.answer(callOptions);
-                
-                var sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-                self.incomingSession._customId = sessionId;
-                self.sessions[sessionId] = self.incomingSession;
-                
-                self.currentSession = self.incomingSession;
-                self.hasIncomingCall = false;
-                self.isCalling = true;
-                console.log('✅ 已接听来电');
-                resolve({ session: self.incomingSession, sessionId: sessionId });
-            } catch (error) {
-                console.error('接听来电失败:', error);
-                self.hasIncomingCall = false;
-                self.incomingCallerInfo = null;
-                self.incomingSession = null;
-                reject(error);
-            }
-        });
+        // 若需要发送本地语音，确保获取到实时麦克风流并注入到 answer 选项
+        var ensureMicStream = function() {
+            if (!needAudio) return Promise.resolve(null);
+            // 与 makeCall 不同：此处需要活跃的流，不可在获取后立即 stop
+            return navigator.mediaDevices && navigator.mediaDevices.getUserMedia
+                ? navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+                : Promise.reject(new Error('浏览器不支持音频访问'));
+        };
+
+        return ensureMicStream()
+            .then(function(stream) {
+                if (stream) {
+                    try { callOptions.mediaStream = stream; } catch(e) {}
+                }
+                return new Promise(function(resolve, reject) {
+                    try {
+                        self.incomingSession.answer(callOptions);
+                        
+                        var sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                        self.incomingSession._customId = sessionId;
+                        self.sessions[sessionId] = self.incomingSession;
+                        
+                        self.currentSession = self.incomingSession;
+                        self.hasIncomingCall = false;
+                        self.isCalling = true;
+                        console.log('✅ 已接听来电');
+                        resolve({ session: self.incomingSession, sessionId: sessionId });
+                    } catch (error) {
+                        console.error('接听来电失败:', error);
+                        self.hasIncomingCall = false;
+                        self.incomingCallerInfo = null;
+                        self.incomingSession = null;
+                        reject(error);
+                    }
+                });
+            })
+            .catch(function(error) {
+                // 权限或设备问题
+                var msg = error && (error.message || error.name) || '无法获取麦克风';
+                if (error && error.name === 'NotAllowedError') {
+                    msg = '麦克风权限被拒绝。请允许麦克风访问后重试。';
+                } else if (error && error.name === 'NotFoundError') {
+                    msg = '未检测到麦克风设备。请连接设备后重试。';
+                }
+                return Promise.reject(new Error(msg));
+            });
     };
 
     // 拒绝来电

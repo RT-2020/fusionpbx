@@ -796,6 +796,31 @@
   font-size: 18px;
 }
 
+/* 直接拨号按钮样式 */
+.btn-call-direct {
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 2px 6px;
+  cursor: pointer;
+  font-size: 11px;
+  margin-left: 5px;
+}
+
+.btn-call-direct:hover {
+  background: #218838;
+}
+
+.btn-call-direct:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.btn-call-direct i {
+  font-size: 10px;
+}
+
 .conference-controls {
   display: flex;
   gap: 12px;

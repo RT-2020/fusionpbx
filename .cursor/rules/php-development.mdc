@@ -1,0 +1,104 @@
+---
+globs: *.php
+---
+
+# PHP 开发规则
+
+## 代码风格
+
+### 缩进和格式
+
+- 使用 Tab 缩进（不是空格）
+- 变量使用下划线命名法：`$user_name`、`$domain_uuid`
+- 函数使用下划线命名法：`function get_user_info()`
+- 类名使用下划线命名法：`class database_connection`
+
+### 安全最佳实践
+
+- 始终使用 PDO 预处理语句防止 SQL 注入
+- 使用 `check_str()` 函数清理用户输入
+- 使用 `permission_exists()` 检查权限
+- 使用 `is_uuid()` 验证 UUID 格式
+- 使用 `htmlentities()` 或 `escape()` 转义输出
+
+### 数据库操作
+
+- 优先使用全局 `$database` 对象
+- 使用 `$database->select()` 进行查询
+- 使用 `$database->execute()` 进行增删改操作
+- 所有主键使用 UUID（36 字符）
+- 表名使用 `v_` 前缀
+
+### Session 管理
+
+- 使用 `$_SESSION` 存储用户状态
+- 多租户使用 `$_SESSION['domain_uuid']`
+- 权限检查使用 `$_SESSION['user']['permissions']`
+- 用户信息存储在 `$_SESSION['user']`
+
+## 常用函数
+
+### 全局函数（resources/functions.php）
+
+- `permission_exists($permission)` - 检查权限
+- `is_uuid($uuid)` - 验证 UUID 格式
+- `check_str($str)` - 清理字符串
+- `escape($str)` - 转义 HTML
+- `format_phone($phone)` - 格式化电话号码
+- `byte_convert($bytes)` - 字节单位转换
+
+### 数据库类（resources/classes/database.php）
+
+- `$database->select($sql, $parameters, $mode)` - 查询
+- `$database->execute($sql, $parameters)` - 执行
+- `$database->count($sql, $parameters)` - 计数
+
+### 设置类（resources/classes/settings.php）
+
+- `$settings->get($category, $subcategory, $name)` - 获取设置
+- `$settings->set($category, $subcategory, $name, $value)` - 设置值
+
+## 模块开发
+
+### 创建新模块
+
+- 在 `/app/` 下创建模块目录
+- 必须包含 `app_config.php`
+- 使用 `app_languages.php` 实现国际化
+- 在 `app_menu.php` 中定义菜单项
+
+### 数据库表
+
+- 表名格式：`v_{module_name}`
+- 主键命名：`{table_name}_uuid`
+- 必须包含：`domain_uuid`（多租户）
+- 审计字段：`insert_date`、`insert_user`、`update_date`、`update_user`
+
+### 权限系统
+
+- 权限命名：`{module}_{action}`（如：`extension_view`、`extension_add`）
+- 使用 `permission_exists()` 检查权限
+- 在 `app_config.php` 中定义权限
+
+## 多租户支持
+
+### 数据隔离
+
+- 所有查询必须包含 `domain_uuid` 过滤
+- 使用 `$_SESSION['domain_uuid']` 获取当前域
+- 检查用户是否有 `domain_all` 权限
+
+### 配置管理
+
+- 使用 `v_default_settings` 存储全局配置
+- 使用 `v_domain_settings` 存储域级配置
+- 优先级：用户设置 > 域设置 > 默认设置
+
+## 错误处理
+
+- 使用 try-catch 包装可能失败的操作
+- 提供用户友好的错误消息
+- 记录详细错误信息到日志
+- 使用 `message::add()` 显示消息
+- 区分错误、警告和成功消息
+- 提供可操作的错误提示

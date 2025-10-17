@@ -567,4 +567,37 @@ $text['button-all']['zh-cn'] = "全部";
 $text['button-all']['ja-jp'] = "全て";
 $text['button-all']['ko-kr'] = "모두";
 
+$text['label-three_way']['en-us'] = "Three Way";
+$text['label-three_way']['en-gb'] = "Three Way";
+$text['label-three_way']['de-de'] = "Drei-Wege-Gespräch";
+$text['label-three_way']['es-cl'] = "Tres vías";
+$text['label-three_way']['fr-fr'] = "Trois voies";
+$text['label-three_way']['pt-br'] = "Três vias";
+$text['label-three_way']['ru-ru'] = "Трёхсторонний";
+$text['label-three_way']['zh-cn'] = "插入讲话";
+$text['label-three_way']['ja-jp'] = "三者通話";
+$text['label-three_way']['ko-kr'] = "삼자 통화";
+
+$text['label-hangup_both']['en-us'] = "Hangup Both";
+$text['label-hangup_both']['en-gb'] = "Hangup Both";
+$text['label-hangup_both']['de-de'] = "Beide auflegen";
+$text['label-hangup_both']['es-cl'] = "Colgar ambos";
+$text['label-hangup_both']['fr-fr'] = "Raccrocher les deux";
+$text['label-hangup_both']['pt-br'] = "Desligar ambos";
+$text['label-hangup_both']['ru-ru'] = "Повесить обоих";
+$text['label-hangup_both']['zh-cn'] = "拆除双方";
+$text['label-hangup_both']['ja-jp'] = "両方を切断";
+$text['label-hangup_both']['ko-kr'] = "양쪽 끊기";
+
+$text['label-whisper']['en-us'] = "Whisper";
+$text['label-whisper']['en-gb'] = "Whisper";
+$text['label-whisper']['de-de'] = "Flüstern";
+$text['label-whisper']['es-cl'] = "Susurro";
+$text['label-whisper']['fr-fr'] = "Chuchoter";
+$text['label-whisper']['pt-br'] = "Sussurrar";
+$text['label-whisper']['ru-ru'] = "Шептать";
+$text['label-whisper']['zh-cn'] = "插话";
+$text['label-whisper']['ja-jp'] = "ささやき";
+$text['label-whisper']['ko-kr'] = "속삭임";
+
 ?>

@@ -26,6 +26,24 @@ $action = $_GET['action'] ?? $_POST['action'] ?? '';
 //process request
 switch ($action) {
 	
+	case 'reloadxml':
+		//重载FreeSWITCH的XML配置
+		$esl = event_socket::create();
+		if ($esl && $esl->is_connected()) {
+			$response = $esl->request("api reloadxml");
+			echo json_encode([
+				'success' => true,
+				'message' => 'Reloaded XML configuration',
+				'response' => $response
+			]);
+		} else {
+			echo json_encode([
+				'success' => false,
+				'error' => 'Failed to connect to FreeSWITCH'
+			]);
+		}
+		break;
+		
 	case 'get_extensions':
 		//获取所有分机列表
 		$sql = "select ";

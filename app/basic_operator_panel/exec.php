@@ -79,16 +79,59 @@ if (count($_GET) > 0) {
 				$destination = preg_replace($num_pattern,'',$_GET['destination']);
 				$api_cmd = 'uuid_transfer ' . $uuid . ' ' . $destination . ' XML ' . trim($_SESSION['user_context']);
 			}
-			else if ($switch_cmd == 'uuid_eavesdrop') {
-				$chan_uuid = preg_replace($uuid_pattern,'',$_GET['chan_uuid']);
-				$ext = preg_replace($num_pattern,'',$_GET['ext']);
-				$destination = preg_replace($num_pattern,'',$_GET['destination']);
+		else if ($switch_cmd == 'uuid_eavesdrop') {
+			$chan_uuid = preg_replace($uuid_pattern,'',$_GET['chan_uuid']);
+			$ext = preg_replace($num_pattern,'',$_GET['ext']);
+			$destination = preg_replace($num_pattern,'',$_GET['destination']);
+			$mode = trim($_GET['mode'] ?? 'listen');
 
-				$language = new text;
-				$text = $language->get();
+			$language = new text;
+			$text = $language->get();
 
-				$api_cmd = 'bgapi originate {origination_caller_id_name=' . $text['label-eavesdrop'] . ',origination_caller_id_number=' . $ext . '}user/' . $destination . '@' . $_SESSION['domain_name'] . ' &eavesdrop(' . $chan_uuid . ')';
+		// 根据模式选择不同的 FreeSWITCH 应用
+		$caller_id_name = $text['label-eavesdrop'];
+		$app = '&eavesdrop(' . $chan_uuid . ')'; // 默认监听
+		$domain_name = $_SESSION['domain_name'];
+		
+		if ($mode == 'three-way') {
+			// 使用 conference（会议室）方案实现真正的三方通话
+			// 这是 FusionPBX 标准的三方通话实现方式
+			$caller_id_name = $text['label-three_way'] ?? '插入讲话';
+			
+			// 步骤1: 创建临时会议室（使用时间戳+随机数避免冲突）
+			$conference_name = 'barge-' . time() . '-' . substr(md5(uniqid()), 0, 8);
+			
+			// 步骤2: 将现有通话转移到会议室
+			// uuid_transfer 命令将指定 UUID 的通话转移到会议室
+			// 使用 '-both' 参数将通话的两端都转移到会议室
+			$transfer_cmd = 'uuid_transfer ' . $chan_uuid . ' -both conference:' . $conference_name . '@default inline';
+			$transfer_result = event_socket::api($transfer_cmd);
+			
+			// 调试输出
+			error_log("三方通话 - 会议室: $conference_name, 转移结果: $transfer_result");
+			
+			// 如果转移失败，输出错误并退出
+			if (stripos($transfer_result, '-ERR') !== false) {
+				echo "转移到会议室失败: " . $transfer_result . "\n会议室: " . $conference_name;
+				return;
 			}
+			
+			// 步骤3: 呼叫插入方并加入会议室
+			// 使用 conference 应用，profile 设置为 default
+			// 会议室参数说明：
+			// - +flags{mute|deaf} 可以控制静音/静听
+			// - 不带任何标志表示正常模式（能听能说）
+			$app = '&conference(' . $conference_name . '@default)';
+			
+			// 设置会议室参数和 WebRTC 音频参数
+			// conference_member_flags 确保成员能正常说话和听（不静音、不静听）
+			$api_cmd = 'originate {origination_caller_id_name=' . $caller_id_name . ',origination_caller_id_number=' . $ext . ',sip_auto_answer=true,conference_member_flags=,originate_timeout=10}user/' . $destination . '@' . $domain_name . ' ' . $app;
+		}
+		else {
+			// 监听模式使用 eavesdrop
+			$api_cmd = 'originate {origination_caller_id_name=' . $caller_id_name . ',origination_caller_id_number=' . $ext . ',sip_auto_answer=true,originate_timeout=10}user/' . $destination . '@' . $domain_name . ' ' . $app;
+		}
+		}
 			else if ($switch_cmd == 'uuid_kill') {
 				$call_id = preg_replace($uuid_pattern,'',$_GET['call_id']);
 				$api_cmd = 'uuid_kill ' . $call_id;
@@ -98,10 +141,23 @@ if (count($_GET) > 0) {
 				return;
 			}
 
-			//run the command
-			$switch_result = event_socket::api($api_cmd);
+		//run the command
+		$switch_result = event_socket::api($api_cmd);
+		
+		// 输出FreeSWITCH返回结果（用于调试）
+		echo $switch_result;
+		
+		// 如果失败，追加目标分机的联系信息与用户状态帮助定位（临时调试）
+		if (stripos($switch_result, '-ERR') !== false) {
+			$domain_name = $_SESSION['domain_name'];
+			$contact_info = @event_socket::api('sofia_contact ' . $destination . '@' . $domain_name);
+			$user_status = @event_socket::api('sofia status user ' . $destination . '@' . $domain_name);
+			echo "\nCONTACT: " . trim((string)$contact_info);
+			echo "\nUSER_STATUS: " . trim((string)$user_status);
+			echo "\nCMD: " . $api_cmd;
+		}
 
-			/*
+		/*
 			//record stop
 			if ($action == "record") {
 				if (trim($_GET["action2"]) == "stop") {

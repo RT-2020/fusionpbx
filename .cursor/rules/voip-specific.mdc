@@ -1,0 +1,443 @@
+---
+alwaysApply: true
+---
+
+# VoIP 和通信系统特定规则
+
+## SIP 和拨号计划
+
+### 拨号计划开发
+
+XML 拨号计划位于 `/app/dialplans/`，使用条件判断和正则表达式：
+
+```xml
+<extension name="local_extension">
+    <condition field="destination_number" expression="^(\d{4})$">
+        <action application="set" data="dialed_extension=$1"/>
+        <action application="export" data="dialed_extension=$1"/>
+        <action application="bridge" data="user/${dialed_extension}@${domain_name}"/>
+    </condition>
+</extension>
+```
+
+### 多租户拨号计划
+
+考虑多租户场景（domain_uuid 隔离）：
+
+```xml
+<extension name="outbound" continue="true">
+    <condition field="${domain_uuid}" expression="^${domain_uuid}$">
+        <condition field="destination_number" expression="^(\d{10,11})$">
+            <action application="set" data="effective_caller_id_number=${outbound_caller_id_number}"/>
+            <action application="set" data="effective_caller_id_name=${outbound_caller_id_name}"/>
+            <action application="bridge" data="sofia/gateway/${gateway_name}/$1"/>
+        </condition>
+    </condition>
+</extension>
+```
+
+## FreeSWITCH 集成
+
+### Event Socket Layer (ESL) 通信
+
+```php
+// 连接到 FreeSWITCH
+$fp = fsockopen($switch_host, $switch_port, $errno, $errstr, 10);
+
+if (!$fp) {
+    // 连接失败处理
+    message::add("无法连接到 FreeSWITCH: $errstr ($errno)", 'negative');
+    return;
+}
+
+// 发送命令
+fwrite($fp, "api originate user/1001 &echo\n\n");
+
+// 读取响应
+$response = fgets($fp, 1024);
+
+// 关闭连接
+fclose($fp);
+```
+
+### 通过 switch.php 执行 FreeSWITCH 命令
+
+```php
+// 执行 FreeSWITCH API 命令
+$cmd = "originate user/1001 &echo";
+$response = switch_command($cmd);
+
+// 检查响应
+if ($response !== "+OK") {
+    message::add("命令执行失败: $response", 'negative');
+    return;
+}
+```
+
+### 通话状态和事件处理
+
+```php
+// 获取通话状态
+$sql = "SELECT * FROM v_channels WHERE domain_uuid = :domain_uuid";
+$parameters = array('domain_uuid' => $_SESSION['domain_uuid']);
+$channels = $database->select($sql, $parameters, 'all');
+
+// 处理通话事件
+foreach ($channels as $channel) {
+    $call_uuid = $channel['call_uuid'];
+    $caller_id_number = $channel['caller_id_number'];
+    $destination_number = $channel['destination_number'];
+
+    // 处理通话状态
+    if ($channel['callstate'] === 'ACTIVE') {
+        // 活动通话处理
+    }
+}
+```
+
+## 设备配置
+
+### 设备模板
+
+模板位于 `/resources/templates/`，支持多品牌设备：
+
+```php
+// 获取设备模板
+$template_path = $_SERVER['DOCUMENT_ROOT'] . '/resources/templates/yealink/';
+
+// 读取模板文件
+$template_content = file_get_contents($template_path . 'template.cfg');
+
+// 替换变量
+$variables = array(
+    '{mac_address}' => $mac_address,
+    '{extension}' => $extension,
+    '{display_name}' => $display_name,
+    '{server_address}' => $_SESSION['domain_name']
+);
+
+foreach ($variables as $key => $value) {
+    $template_content = str_replace($key, $value, $template_content);
+}
+
+// 输出配置文件
+header('Content-Type: application/octet-stream');
+header('Content-Disposition: attachment; filename="' . $mac_address . '.cfg"');
+echo $template_content;
+```
+
+### 多品牌设备支持
+
+```php
+// 根据设备品牌选择模板
+switch ($device_vendor) {
+    case 'yealink':
+        $template_path = $_SERVER['DOCUMENT_ROOT'] . '/resources/templates/yealink/';
+        break;
+    case 'grandstream':
+        $template_path = $_SERVER['DOCUMENT_ROOT'] . '/resources/templates/grandstream/';
+        break;
+    case 'cisco':
+        $template_path = $_SERVER['DOCUMENT_ROOT'] . '/resources/templates/cisco/';
+        break;
+    default:
+        message::add("不支持的设备品牌: $device_vendor", 'negative');
+        return;
+}
+```
+
+## 实时通信
+
+### WebSocket 通信
+
+```javascript
+// 连接到 WebSocket
+var protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
+var wsUrl = protocol + '//' + window.location.host + '/ws'
+var ws = new WebSocket(wsUrl)
+
+ws.onopen = function (event) {
+  console.log('WebSocket 连接已建立')
+}
+
+ws.onmessage = function (event) {
+  var data = JSON.parse(event.data)
+
+  switch (data.type) {
+    case 'call_event':
+      handleCallEvent(data)
+      break
+    case 'registration_event':
+      handleRegistrationEvent(data)
+      break
+    default:
+      console.log('未知事件类型:', data.type)
+  }
+}
+
+function handleCallEvent(data) {
+  // 处理通话事件
+  if (data.event_subtype === 'CHANNEL_CREATE') {
+    // 新通话创建
+    addCallToPanel(data)
+  } else if (data.event_subtype === 'CHANNEL_DESTROY') {
+    // 通话结束
+    removeCallFromPanel(data)
+  }
+}
+```
+
+### WebRTC 集成
+
+```javascript
+// 创建 WebRTC 连接
+var pc = new RTCPeerConnection({
+  iceServers: [{ urls: 'stun.qq.com' }, { urls: 'miwifi.com' }],
+})
+
+// 处理 ICE 候选
+pc.onicecandidate = function (event) {
+  if (event.candidate) {
+    // 发送 ICE 候选到服务器
+    sendIceCandidate(event.candidate)
+  }
+}
+
+// 处理远程流
+pc.ontrack = function (event) {
+  var remoteVideo = document.getElementById('remote-video')
+  remoteVideo.srcObject = event.streams[0]
+}
+
+// 创建 offer
+pc.createOffer()
+  .then(function (offer) {
+    return pc.setLocalDescription(offer)
+  })
+  .then(function () {
+    // 发送 offer 到服务器
+    sendOffer(pc.localDescription)
+  })
+  .catch(function (error) {
+    console.error('创建 offer 失败:', error)
+  })
+```
+
+## 通话控制
+
+### 发起通话
+
+```php
+// 发起通话
+function originate_call($extension, $destination) {
+    $cmd = "originate user/" . $extension . " &bridge(user/" . $destination . ")";
+    $response = switch_command($cmd);
+
+    if ($response !== "+OK") {
+        message::add("发起通话失败: $response", 'negative');
+        return false;
+    }
+
+    return true;
+}
+```
+
+### 挂断通话
+
+```php
+// 挂断通话
+function hangup_call($uuid) {
+    $cmd = "uuid_kill " . $uuid;
+    $response = switch_command($cmd);
+
+    if ($response !== "+OK") {
+        message::add("挂断通话失败: $response", 'negative');
+        return false;
+    }
+
+    return true;
+}
+```
+
+### 通话转移
+
+```php
+// 通话转移
+function transfer_call($uuid, $destination) {
+    $cmd = "uuid_transfer " . $uuid . " " . $destination;
+    $response = switch_command($cmd);
+
+    if ($response !== "+OK") {
+        message::add("通话转移失败: $response", 'negative');
+        return false;
+    }
+
+    return true;
+}
+```
+
+## 语音邮件
+
+### 语音邮件设置
+
+```php
+// 设置语音邮件
+function set_voicemail($extension, $voicemail_password, $voicemail_email) {
+    $sql = "UPDATE v_voicemails SET ";
+    $sql .= "voicemail_password = :voicemail_password, ";
+    $sql .= "voicemail_email = :voicemail_email, ";
+    $sql .= "voicemail_enabled = 'true', ";
+    $sql .= "update_date = :update_date, ";
+    $sql .= "update_user = :update_user ";
+    $sql .= "WHERE domain_uuid = :domain_uuid AND voicemail_id = :voicemail_id";
+
+    $parameters = array(
+        'voicemail_password' => $voicemail_password,
+        'voicemail_email' => $voicemail_email,
+        'update_date' => 'now()',
+        'update_user' => $_SESSION['user']['user_uuid'],
+        'domain_uuid' => $_SESSION['domain_uuid'],
+        'voicemail_id' => $extension
+    );
+
+    $database->execute($sql, $parameters);
+}
+```
+
+### 语音邮件通知
+
+```php
+// 发送语音邮件通知邮件
+function send_voicemail_notification($voicemail_id, $message_id) {
+    // 获取语音邮件信息
+    $sql = "SELECT * FROM v_voicemails WHERE domain_uuid = :domain_uuid AND voicemail_id = :voicemail_id";
+    $parameters = array(
+        'domain_uuid' => $_SESSION['domain_uuid'],
+        'voicemail_id' => $voicemail_id
+    );
+    $voicemail = $database->select($sql, $parameters, 'row');
+
+    // 获取消息信息
+    $sql = "SELECT * FROM v_voicemail_messages WHERE domain_uuid = :domain_uuid AND voicemail_message_uuid = :voicemail_message_uuid";
+    $parameters = array(
+        'domain_uuid' => $_SESSION['domain_uuid'],
+        'voicemail_message_uuid' => $message_id
+    );
+    $message = $database->select($sql, $parameters, 'row');
+
+    // 发送邮件
+    $subject = "新语音邮件 - " . $message['caller_id_name'] . " (" . $message['caller_id_number'] . ")";
+    $body = "您有一封新的语音邮件：\n\n";
+    $body .= "来电号码: " . $message['caller_id_number'] . "\n";
+    $body .= "来电姓名: " . $message['caller_id_name'] . "\n";
+    $body .= "留言时间: " . $message['created_date'] . "\n";
+    $body .= "留言时长: " . $message['message_length'] . " 秒\n";
+
+    // 发送邮件代码...
+}
+```
+
+## 呼叫中心
+
+### 队列管理
+
+```php
+// 添加到队列
+function add_to_queue($queue_name, $extension) {
+    $cmd = "callcenter_config queue add member " . $queue_name . " " . $extension;
+    $response = switch_command($cmd);
+
+    if ($response !== "+OK") {
+        message::add("添加到队列失败: $response", 'negative');
+        return false;
+    }
+
+    return true;
+}
+
+// 从队列移除
+function remove_from_queue($queue_name, $extension) {
+    $cmd = "callcenter_config queue remove member " . $queue_name . " " . $extension;
+    $response = switch_command($cmd);
+
+    if ($response !== "+OK") {
+        message::add("从队列移除失败: $response", 'negative');
+        return false;
+    }
+
+    return true;
+}
+```
+
+### 坐席状态
+
+```php
+// 更新坐席状态
+function update_agent_status($extension, $status) {
+    $cmd = "callcenter_config agent set status " . $extension . " '" . $status . "'";
+    $response = switch_command($cmd);
+
+    if ($response !== "+OK") {
+        message::add("更新坐席状态失败: $response", 'negative');
+        return false;
+    }
+
+    return true;
+}
+```
+
+## 调试和监控
+
+### FreeSWITCH 调试
+
+```php
+// 获取注册状态
+function get_registration_status($extension) {
+    $cmd = "sofia status profile internal reg " . $extension;
+    $response = switch_command($cmd);
+
+    // 解析响应
+    if (strpos($response, 'Registered') !== false) {
+        return 'registered';
+    } else {
+        return 'unregistered';
+    }
+}
+
+// 获取网关状态
+function get_gateway_status($gateway_name) {
+    $cmd = "sofia status gateway " . $gateway_name;
+    $response = switch_command($cmd);
+
+    // 解析响应
+    if (strpos($response, 'REGED') !== false) {
+        return 'registered';
+    } else {
+        return 'unregistered';
+    }
+}
+```
+
+### 通话监控
+
+```php
+// 获取活动通话
+function get_active_calls() {
+    $sql = "SELECT * FROM v_channels WHERE domain_uuid = :domain_uuid";
+    $parameters = array('domain_uuid' => $_SESSION['domain_uuid']);
+    $channels = $database->select($sql, $parameters, 'all');
+
+    $calls = array();
+    foreach ($channels as $channel) {
+        $calls[] = array(
+            'uuid' => $channel['call_uuid'],
+            'caller_id_number' => $channel['caller_id_number'],
+            'destination_number' => $channel['destination_number'],
+            'callstate' => $channel['callstate'],
+            'created' => $channel['created']
+        );
+    }
+
+    return $calls;
+}
+```

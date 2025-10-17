@@ -1,0 +1,130 @@
+---
+globs: *.lua
+---
+
+# Lua 开发规则
+
+## FreeSWITCH Lua 脚本规范
+
+### 基本要求
+
+- 使用 `freeswitch.consoleLog()` 记录日志
+- 使用 `session:ready()` 检查会话状态
+- 正确处理 hangup 事件
+- 使用 `api:execute()` 调用 FreeSWITCH API
+
+### 错误处理
+
+- 始终检查 session 是否有效
+- 使用 pcall() 包装可能失败的操作
+- 记录详细的错误信息
+
+## 代码示例
+
+### 基本脚本结构
+
+```lua
+-- 检查会话状态
+if not session:ready() then
+    return
+end
+
+-- 获取变量
+local caller_id_number = session:getVariable("caller_id_number")
+local destination_number = session:getVariable("destination_number")
+
+-- 记录日志
+freeswitch.consoleLog("INFO", "Call from " .. caller_id_number .. " to " .. destination_number .. "\n")
+```
+
+### API 调用
+
+```lua
+-- 获取 API 对象
+local api = freeswitch.API()
+
+-- 执行命令
+local result = api:execute("originate", "user/1001 &echo")
+
+-- 检查结果
+if result ~= "+OK" then
+    freeswitch.consoleLog("ERR", "Originate failed: " .. result .. "\n")
+end
+```
+
+### 错误处理
+
+```lua
+-- 使用 pcall 包装可能失败的操作
+local success, result = pcall(function()
+    -- 可能失败的操作
+    local value = tonumber(session:getVariable("some_variable"))
+    if not value then
+        error("Invalid number value")
+    end
+    return value * 2
+end)
+
+if not success then
+    freeswitch.consoleLog("ERR", "Operation failed: " .. result .. "\n")
+    -- 处理错误
+    session:hangup("NORMAL_CLEARING")
+    return
+end
+
+-- 使用结果
+freeswitch.consoleLog("INFO", "Result: " .. result .. "\n")
+```
+
+### 事件处理
+
+```lua
+-- 处理 DTMF
+function on_dtmf(session, type, obj, arg)
+    local digit = obj:getDigit()
+    freeswitch.consoleLog("INFO", "DTMF digit: " .. digit .. "\n")
+
+    if digit == "#" then
+        -- 处理特殊按键
+        session:execute("playback", "ivr/ivr-you_entered.wav")
+        session:execute("say", "en number pronounced " .. entered_digits)
+        entered_digits = ""
+    else
+        -- 收集数字
+        entered_digits = entered_digits .. digit
+    end
+end
+
+-- 注册回调
+session:setInputCallback("on_dtmf", "")
+
+-- 处理挂机事件
+function on_hangup(session, type, obj, arg)
+    local hangup_cause = session:getVariable("hangup_cause")
+    freeswitch.consoleLog("INFO", "Call ended with cause: " .. hangup_cause .. "\n")
+end
+
+-- 注册挂机回调
+session:setHangupHook("on_hangup", "")
+```
+
+## 性能优化
+
+- 避免在循环中创建不必要的变量
+- 使用局部变量而不是全局变量
+- 合理使用表缓存
+- 避免频繁的字符串连接
+
+## 安全考虑
+
+- 验证所有输入参数
+- 避免执行动态代码
+- 限制文件系统访问
+- 记录敏感操作
+
+## 调试技巧
+
+- 使用 `freeswitch.consoleLog()` 输出调试信息
+- 检查 `/var/log/freeswitch/` 下的日志
+- 使用 `fs_cli` 命令行工具测试脚本
+- 使用 `lua` 命令行工具独立测试脚本片段

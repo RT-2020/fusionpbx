@@ -360,22 +360,67 @@ unset($refresh_default);
 	function refresh_start() {
 		if (document.getElementById('refresh_state')) { document.getElementById('refresh_state').innerHTML = "<?php echo button::create(['type'=>'button','title'=>$text['label-refresh_pause'],'icon'=>'sync-alt fa-spin','onclick'=>'refresh_stop()']); ?>"; }
 		refresh_stop();
-		interval_timer_id = setInterval( function() {
-			url = source_url;
-			url += '&vd_ext_from=' + document.getElementById('vd_ext_from').value;
-			url += '&vd_ext_to=' + document.getElementById('vd_ext_to').value;
-			url += '&group=' + ((document.getElementById('group')) ? document.getElementById('group').value : '');
-			url += '&filter=' + ((document.getElementById('search')) ? document.getElementById('search').value : '');
-			url += '&eavesdrop_dest=' + ((document.getElementById('eavesdrop_dest')) ? document.getElementById('eavesdrop_dest').value : '');
-			if (document.getElementById('sort1'))
-				if (document.getElementById('sort1').value == '1') url += '&sort';
-			<?php
-			if (isset($_GET['debug'])) {
-				echo "url += '&debug';";
-			}
-			?>
-			new loadXmlHttp(url, 'ajax_response');
+		
+		// 恢复使用全页面内容刷新，保证状态与DOM一致
+		interval_timer_id = setInterval(function() {
+			requestTime();
 		}, refresh);
+	}
+
+	// 增量更新函数
+	function incrementalUpdate() {
+		$.ajax({
+			url: 'incremental_update.php',
+			type: 'GET',
+			dataType: 'json',
+			data: {
+				group: $('#group').val() || '',
+				filter: $('#search').val() || ''
+			},
+			success: function(data) {
+				if (data.success && data.extensions) {
+					data.extensions.forEach(function(ext) {
+						updateExtensionUI(ext);
+					});
+				}
+			},
+			error: function(xhr, status, error) {
+				console.error('增量更新失败:', error);
+				// 失败时回退到全页面刷新
+				location.reload();
+			}
+		});
+	}
+
+	// 更新单个分机的UI
+	function updateExtensionUI(extData) {
+		var extDiv = $('div[data-extension="' + extData.extension + '"]');
+		if (extDiv.length === 0) return;
+		
+		// 只更新变化的部分
+		var currentState = extDiv.attr('data-state');
+		if (currentState !== extData.state) {
+			// 更新状态图标
+			extDiv.find('.op_ext_icon img').attr('src', 
+				'resources/images/status_' + extData.status_icon + '.png');
+			extDiv.attr('data-state', extData.state);
+			extDiv.attr('data-status-icon', extData.status_icon);
+		}
+		
+		// 更新通话时长
+		var callLengthSpan = extDiv.find('.op_call_info');
+		if (callLengthSpan.length > 0 && callLengthSpan.text() !== extData.call_length) {
+			callLengthSpan.text(extData.call_length);
+			extDiv.attr('data-call-length', extData.call_length);
+		}
+		
+		// 更新来电信息
+		if (extData.caller_id_name || extData.caller_id_number) {
+			var callerInfo = extDiv.find('.op_caller_info');
+			if (callerInfo.length > 0) {
+				// 这里可以根据需要更新来电显示信息
+			}
+		}
 	}
 
 //call or transfer to destination
@@ -408,6 +453,16 @@ unset($refresh_default);
 //eavesdrop call
 	function eavesdrop_call(ext, chan_uuid) {
 		if (ext != '' && chan_uuid != '') {
+			// 进入监听模式前，先挂断所有插入讲话通话（避免重复听到声音）
+			try {
+				if (window.dispatcherControl && dispatcherControl.sipClient && dispatcherControl.sipClient.hangupByType) {
+					console.log('🔄 监听模式：挂断所有插入讲话通话');
+					dispatcherControl.sipClient.hangupByType('three-way');
+				}
+			} catch (e) {
+				console.warn('挂断插入讲话通话失败:', e);
+			}
+			
 			cmd = get_eavesdrop_cmd(ext, chan_uuid, document.getElementById('eavesdrop_dest').value);
 			if (cmd != '') {
 				send_cmd(cmd);
@@ -426,16 +481,31 @@ unset($refresh_default);
 	}
 
 //used by call control and ajax refresh functions
-	function send_cmd(url) {
+	function send_cmd(url, callback) {
+		var xmlhttp;
 		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
-			xmlhttp=new XMLHttpRequest();
+			xmlhttp = new XMLHttpRequest();
 		}
 		else {// code for IE6, IE5
-			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
 		}
-		xmlhttp.open("GET",url,false);
+		
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4) {
+				var respDiv = document.getElementById('cmd_response');
+				if (respDiv) {
+					respDiv.innerHTML = xmlhttp.responseText;
+				}
+				console.log('send_cmd response:', xmlhttp.responseText);
+				
+				if (callback && typeof callback === 'function') {
+					callback(xmlhttp.responseText, xmlhttp.status);
+				}
+			}
+		};
+		
+		xmlhttp.open("GET", url, true);
 		xmlhttp.send(null);
-		document.getElementById('cmd_response').innerHTML=xmlhttp.responseText;
 	}
 
 //hide/show destination input field
@@ -508,14 +578,248 @@ unset($refresh_default);
 		return url;
 	}
 
-	function get_eavesdrop_cmd(ext, chan_uuid, destination) {
-		url = "exec.php?cmd=uuid_eavesdrop&ext=" + ext + "&chan_uuid=" + chan_uuid + "&destination=" + destination;
+	function get_eavesdrop_cmd(ext, chan_uuid, destination, mode) {
+		mode = mode || 'listen';
+		url = "exec.php?cmd=uuid_eavesdrop&ext=" + ext + "&chan_uuid=" + chan_uuid + "&destination=" + destination + "&mode=" + mode;
 		return url;
 	}
 
 	function get_record_cmd(uuid) {
 		url = "exec.php?cmd=uuid_record&uuid=" + uuid;
 		return url;
+	}
+
+// 直呼封装：使用落地分机对目标分机外呼
+function call_direct(ext) {
+    var operator_ext = (document.getElementById('eavesdrop_dest')) ? document.getElementById('eavesdrop_dest').value : '';
+    if (!operator_ext) {
+        alert('未检测到落地分机，请先在顶部选择或绑定分机');
+        return;
+    }
+    if (operator_ext === ext) {
+        alert('不能对自身分机发起直呼');
+        return;
+    }
+    var url = get_originate_cmd(operator_ext, ext);
+    send_cmd(url, function(response, status) {
+        console.log('call_direct response:', response.substring(0, 200));
+        if (response.indexOf('-ERR') !== -1 || response.indexOf('access denied') !== -1) {
+            alert('发起失败: ' + response.substring(0, 200));
+        } else {
+            console.log('已发起呼叫');
+        }
+    });
+}
+
+// 无阻塞通话：忙则插入/监听，闲则直呼
+	function unblocked_call(ext, chan_uuid) {
+		var operator_ext = (document.getElementById('eavesdrop_dest')) ? document.getElementById('eavesdrop_dest').value : '';
+		if (!operator_ext) {
+			alert('未检测到落地分机，请先在顶部选择或绑定分机');
+			return;
+		}
+		if (operator_ext === ext) {
+			alert('不能对自身分机发起直呼');
+			return;
+		}
+		var url = '';
+		if (chan_uuid && chan_uuid !== '') {
+			// 目标分机忙 -> 使用 three-way 插入讲话（双向）
+			// 一次性自动接听插入支路（浏览器JsSIP）
+			try { window.__autoAnswerBargeNext = true; } catch (e) {}
+			try {
+				if (window.dispatcherControl && dispatcherControl.sipClient && dispatcherControl.sipClient.unlockAudioPlayback) {
+					dispatcherControl.sipClient.unlockAudioPlayback();
+				}
+			} catch (e) {}
+			url = get_eavesdrop_cmd(ext, chan_uuid, operator_ext, 'three-way');
+		} else {
+			// 目标分机空闲 -> 由调度分机直接外呼
+			url = get_originate_cmd(operator_ext, ext);
+		}
+	if (!url) {
+		alert('无法构造请求，请检查参数');
+		return;
+	}
+	console.log('unblocked_call', { operator_ext: operator_ext, target_ext: ext, chan_uuid: chan_uuid });
+	console.log('send_cmd', url);
+	send_cmd(url, function(response, status) {
+		console.log('unblocked_call response:', response.substring(0, 200));
+		if (response.indexOf('-ERR') !== -1 || response.indexOf('access denied') !== -1) {
+			alert('发起失败: ' + response.substring(0, 200));
+		} else {
+			console.log('已发起插入/呼叫');
+		}
+	});
+}
+
+// 临时存储：插入讲话时的目标信息
+var __threeWayTarget = { ext: null, chan_uuid: null };
+
+// 打开插入分机选择对话框
+function openThreeWayExtModal(ext, chan_uuid) {
+	// 调试日志：显示接收到的参数
+	console.log('openThreeWayExtModal 调用参数:', {
+		ext: ext,
+		ext_type: typeof ext,
+		chan_uuid: chan_uuid,
+		chan_uuid_type: typeof chan_uuid,
+		chan_uuid_length: chan_uuid ? chan_uuid.length : 0
+	});
+	
+	__threeWayTarget.ext = ext;
+	__threeWayTarget.chan_uuid = chan_uuid;
+	
+	// 确认存储
+	console.log('已存储到 __threeWayTarget:', __threeWayTarget);
+	
+	// 加载分机列表
+	var selector = document.getElementById('three-way-ext-selector');
+	if (!selector) return;
+	
+	selector.innerHTML = '<option value="">加载中...</option>';
+	
+	// 从 dispatcher API 获取分机列表
+	$.ajax({
+		url: 'dispatcher_api.php?action=get_extensions',
+		type: 'GET',
+		dataType: 'json',
+		success: function(response) {
+			if (response.success && response.data) {
+				selector.innerHTML = '';
+				
+				// 当前落地分机（默认选中）
+				var currentExt = (document.getElementById('eavesdrop_dest')) ? 
+					document.getElementById('eavesdrop_dest').value : '';
+				
+				response.data.forEach(function(extData) {
+					var option = document.createElement('option');
+					option.value = extData.extension;
+					var label = extData.extension;
+					if (extData.effective_caller_id_name) {
+						label += ' (' + extData.effective_caller_id_name + ')';
+					}
+					option.text = label;
+					if (extData.extension === currentExt) {
+						option.selected = true;
+					}
+					selector.appendChild(option);
+				});
+			}
+		},
+		error: function() {
+			selector.innerHTML = '<option value="">加载失败</option>';
+		}
+	});
+	
+	// 显示对话框
+	document.getElementById('three-way-ext-modal').style.display = 'flex';
+}
+
+// 关闭插入分机选择对话框
+function closeThreeWayExtModal() {
+	document.getElementById('three-way-ext-modal').style.display = 'none';
+	__threeWayTarget = { ext: null, chan_uuid: null };
+}
+
+// 确认并执行插入讲话
+function confirmThreeWayExt() {
+	var selector = document.getElementById('three-way-ext-selector');
+	var selectedExt = selector ? selector.value : '';
+	
+	if (!selectedExt) {
+		alert('请选择一个分机');
+		return;
+	}
+	
+	// 调试日志：确认 __threeWayTarget 的值
+	console.log('confirmThreeWayExt - __threeWayTarget:', __threeWayTarget);
+	console.log('confirmThreeWayExt - selectedExt:', selectedExt);
+	
+	// 保存 __threeWayTarget 的值（因为 closeThreeWayExtModal 会清空它）
+	var targetExt = __threeWayTarget.ext;
+	var targetChanUuid = __threeWayTarget.chan_uuid;
+	
+	var remember = document.getElementById('three-way-remember-ext');
+	if (remember && remember.checked) {
+		// 更新默认落地分机
+		var eavesdropDest = document.getElementById('eavesdrop_dest');
+		if (eavesdropDest) {
+			eavesdropDest.value = selectedExt;
+		}
+	}
+	
+	// 关闭对话框
+	closeThreeWayExtModal();
+	
+	// 调用原有的插入讲话逻辑，传入选定的分机（使用保存的值）
+	three_way_call_with_ext(targetExt, targetChanUuid, selectedExt);
+}
+
+// 内部插入讲话执行函数（接受自定义 operator_ext）
+function three_way_call_with_ext(ext, chan_uuid, operator_ext) {
+	// 详细的参数日志
+	console.log('three_way_call_with_ext 接收参数:', {
+		ext: ext,
+		ext_type: typeof ext,
+		chan_uuid: chan_uuid,
+		chan_uuid_type: typeof chan_uuid,
+		chan_uuid_value: JSON.stringify(chan_uuid),
+		operator_ext: operator_ext,
+		operator_ext_type: typeof operator_ext
+	});
+	
+	if (!operator_ext) {
+		alert('未选择插入分机');
+		return;
+	}
+	
+	// 进入插入讲话模式前，先挂断所有监听通话（避免重复听到声音）
+	try {
+		if (window.dispatcherControl && dispatcherControl.sipClient && dispatcherControl.sipClient.hangupByType) {
+			console.log('🔄 插入讲话模式：挂断所有监听通话');
+			dispatcherControl.sipClient.hangupByType('eavesdrop');
+		}
+	} catch (e) {
+		console.warn('挂断监听通话失败:', e);
+	}
+	
+	// 一次性自动接听插入支路（浏览器JsSIP）
+	try { window.__autoAnswerBargeNext = true; } catch (e) {}
+	try {
+		if (window.dispatcherControl && dispatcherControl.sipClient && dispatcherControl.sipClient.unlockAudioPlayback) {
+			dispatcherControl.sipClient.unlockAudioPlayback();
+		}
+	} catch (e) {}
+	
+	var url = get_eavesdrop_cmd(ext, chan_uuid, operator_ext, 'three-way');
+	console.log('three_way_call_with_ext', { operator_ext: operator_ext, target_ext: ext, chan_uuid: chan_uuid });
+	console.log('构造的命令URL:', url);
+	
+	send_cmd(url, function(response, status) {
+		console.log('three_way_call response:', response.substring(0, 200));
+		if (response.indexOf('-ERR') !== -1 || response.indexOf('access denied') !== -1) {
+			alert('插入讲话失败，可能原因：\n1. 原通话已结束\n2. 所选分机不可用\n3. 权限不足\n\n详细信息: ' + response.substring(0, 150));
+		} else {
+			console.log('已发起三方插入');
+		}
+	});
+}
+
+// 插入讲话：三方通话模式（弹出分机选择对话框）
+	function three_way_call(ext, chan_uuid) {
+		// 弹出分机选择对话框
+		openThreeWayExtModal(ext, chan_uuid);
+	}
+
+// 强拆（双路）: 同时拆除两端通话
+	function hangup_both(uuid_a, uuid_b) {
+		if (uuid_a) {
+			send_cmd('exec.php?cmd=uuid_kill&call_id=' + uuid_a);
+		}
+		if (uuid_b && uuid_b !== uuid_a) {
+			send_cmd('exec.php?cmd=uuid_kill&call_id=' + uuid_b);
+		}
 	}
 
 //virtual functions
@@ -585,7 +889,7 @@ unset($refresh_default);
 
 <?php
 
-//create simple array of users own extensions
+// create simple array of users own extensions
 unset($_SESSION['user']['extensions']);
 if (is_array($_SESSION['user']['extension'])) {
 	foreach ($_SESSION['user']['extension'] as $assigned_extensions) {
@@ -623,6 +927,9 @@ if (is_array($_SESSION['user']['extension'])) {
 					<button id="manage-groups-btn" class="dispatcher-tool-btn" title="分组管理" onclick="openGroupsModal()">
 						<i class="fas fa-cog"></i>
 					</button>
+					<button id="check-mic-btn" class="dispatcher-tool-btn" title="检查麦克风权限" onclick="checkMicrophonePermission()">
+						<i class="fas fa-microphone"></i>
+					</button>
 				</div>
 			</td>
 		</tr>
@@ -655,20 +962,39 @@ echo "<div id='cmd_response' style='display: none;'></div>\n";
 				<?php endif; ?>
 			</div>
 			<div class="form-group">
+				<label>麦克风权限：</label>
+				<div class="alert alert-info" style="padding: 10px; background: #fff3cd; border-radius: 5px; font-size: 12px;">
+					<i class="fas fa-info-circle"></i> 
+					使用通话功能需要麦克风权限。如果浏览器提示，请选择"允许"。
+					<br><small>
+						如果已拒绝权限，请点击地址栏左侧的麦克风图标，选择"允许"，然后刷新页面。
+					</small>
+				</div>
+			</div>
+			<div class="form-group">
+				<label>快速选择账号:</label>
+				<select id="sip-account-select" class="form-control" onchange="loadSelectedAccount()">
+					<option value="0">调度员1 (5001)</option>
+					<option value="1">调度员2 (5002)</option>
+					<option value="2">调度员3 (5003)</option>
+					<option value="-1">自定义配置</option>
+				</select>
+			</div>
+			<div class="form-group">
 				<label>WebSocket URL:</label>
-				<input type="text" id="sip-ws" class="form-control" placeholder="<?php echo (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'wss://192.168.2.200:7443' : 'ws://192.168.2.200:5066'; ?>" />
+				<input type="text" id="sip-ws" class="form-control" value="wss://192.168.2.200:7443" placeholder="<?php echo (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'wss://192.168.2.200:7443' : 'ws://192.168.2.200:5066'; ?>" />
 			</div>
 			<div class="form-group">
 				<label>SIP URI:</label>
-				<input type="text" id="sip-uri" class="form-control" placeholder="sip:1000@192.168.2.200" />
+				<input type="text" id="sip-uri" class="form-control" value="sip:5001@192.168.2.200" placeholder="sip:1000@192.168.2.200" />
 			</div>
 			<div class="form-group">
 				<label>用户名:</label>
-				<input type="text" id="sip-user" class="form-control" placeholder="1000" />
+				<input type="text" id="sip-user" class="form-control" value="5001" placeholder="1000" />
 			</div>
 			<div class="form-group">
 				<label>密码:</label>
-				<input type="password" id="sip-password" class="form-control" placeholder="密码" />
+				<input type="password" id="sip-password" class="form-control" value="1234" placeholder="密码" />
 			</div>
 			<div class="form-group">
 				<label>显示名称:</label>
@@ -708,9 +1034,15 @@ echo "<div id='cmd_response' style='display: none;'></div>\n";
 					<!-- 显示分机复选框列表 -->
 				</div>
 			</div>
+			<div class="form-group" style="margin-top: 15px;">
+				<label>添加外线号码（可选）：</label>
+				<input type="text" id="external-numbers" class="form-control" 
+					   placeholder="多个号码用逗号分隔，如: 13812345678,02188888888">
+				<small class="form-text text-muted">支持手机号、固定电话等外线号码</small>
+			</div>
 		</div>
 		<div class="modal-footer">
-			<button class="btn btn-success" onclick="startGroupCallWithSelected()">呼叫选中的分机</button>
+			<button class="btn btn-success" onclick="startGroupCallWithSelected()">开始呼叫</button>
 			<button class="btn btn-secondary" onclick="closeGroupCallModal()">取消</button>
 		</div>
 	</div>
@@ -752,6 +1084,35 @@ echo "<div id='cmd_response' style='display: none;'></div>\n";
 		<div class="modal-footer">
 			<button class="btn btn-primary" onclick="addNewGroup()">新建分组</button>
 			<button class="btn btn-secondary" onclick="closeGroupsModal()">关闭</button>
+		</div>
+	</div>
+</div>
+
+<!-- 插入讲话分机选择对话框 -->
+<div id="three-way-ext-modal" class="dispatcher-modal" style="display: none;">
+	<div class="modal-overlay" onclick="closeThreeWayExtModal()"></div>
+	<div class="modal-content" style="max-width: 500px;">
+		<div class="modal-header">
+			<h3>选择插入分机</h3>
+			<button class="modal-close-btn" onclick="closeThreeWayExtModal()">×</button>
+		</div>
+		<div class="modal-body">
+			<div class="form-group">
+				<label>选择用于插入的分机：</label>
+				<select id="three-way-ext-selector" class="form-control" style="width: 100%;">
+					<!-- 动态加载分机列表 -->
+				</select>
+			</div>
+			<div class="form-group" style="margin-top: 10px;">
+				<label style="display: flex; align-items: center;">
+					<input type="checkbox" id="three-way-remember-ext" style="margin-right: 8px;">
+					记住此选择（设为默认落地分机）
+				</label>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-primary" onclick="confirmThreeWayExt()">确认插入</button>
+			<button class="btn btn-secondary" onclick="closeThreeWayExtModal()">取消</button>
 		</div>
 	</div>
 </div>
@@ -811,10 +1172,72 @@ echo "<div id='cmd_response' style='display: none;'></div>\n";
 var dispatcherControl;
 var dispatcherLogger;
 
+// 默认SIP配置 - 提供多个备用账号
+var DEFAULT_SIP_ACCOUNTS = [
+	{
+		ws: 'wss://192.168.2.200:7443',
+		uri: 'sip:5001@192.168.2.200',
+		user: '5001',
+		password: '1234',
+		displayName: '调度员1'
+	},
+	{
+		ws: 'wss://192.168.2.200:7443',
+		uri: 'sip:5002@192.168.2.200',
+		user: '5002',
+		password: '1234',
+		displayName: '调度员2'
+	},
+	{
+		ws: 'wss://192.168.2.200:7443',
+		uri: 'sip:5003@192.168.2.200',
+		user: '5003',
+		password: '1234',
+		displayName: '调度员3'
+	}
+];
+
+// 默认使用第一个账号
+var DEFAULT_SIP_CONFIG = DEFAULT_SIP_ACCOUNTS[0];
+
+// 初始化SIP注册表单默认值
+function initSipRegisterForm() {
+	$('#sip-ws').val(DEFAULT_SIP_CONFIG.ws);
+	$('#sip-uri').val(DEFAULT_SIP_CONFIG.uri);
+	$('#sip-user').val(DEFAULT_SIP_CONFIG.user);
+	$('#sip-password').val(DEFAULT_SIP_CONFIG.password);
+	$('#sip-display-name').val(DEFAULT_SIP_CONFIG.displayName);
+}
+
+// 加载选中的账号配置
+function loadSelectedAccount() {
+	var selectedIndex = parseInt($('#sip-account-select').val());
+	
+	if (selectedIndex === -1) {
+		// 自定义配置，清空表单让用户手动填写
+		$('#sip-ws').val('');
+		$('#sip-uri').val('');
+		$('#sip-user').val('');
+		$('#sip-password').val('');
+		$('#sip-display-name').val('');
+		return;
+	}
+	
+	var account = DEFAULT_SIP_ACCOUNTS[selectedIndex];
+	$('#sip-ws').val(account.ws);
+	$('#sip-uri').val(account.uri);
+	$('#sip-user').val(account.user);
+	$('#sip-password').val(account.password);
+	$('#sip-display-name').val(account.displayName);
+}
+
 $(document).ready(function() {
 	// 初始化调度控制
 	dispatcherControl = new DispatcherControl();
 	dispatcherLogger = new DispatcherLogger();
+	
+	// 初始化SIP注册表单
+	initSipRegisterForm();
 	
 	// 从localStorage恢复SIP注册状态
 	restoreSipStatus();
@@ -862,15 +1285,31 @@ function restoreSipStatus() {
 			var data = JSON.parse(saved);
 			// 如果状态在5分钟内且为在线状态，尝试恢复
 			if (Date.now() - data.timestamp < 300000 && data.status === 'online') {
+				console.log('恢复SIP状态:', data.status, data.text);
 				updateSipStatus(data.status, data.text);
-				// 检查SIP客户端实际状态
-				if (dispatcherControl.sipClient && dispatcherControl.sipClient.isRegistered) {
+				
+				// *** 关键修复：检查dispatcherControl是否实际已注册 ***
+				if (dispatcherControl && dispatcherControl.isRegistered && dispatcherControl.isRegistered()) {
+					console.log('✅ SIP实际已连接，启用功能按钮');
 					enableDispatcherFunctions();
+				} else {
+					console.log('⚠️ localStorage显示已注册，但实际未连接，清除状态');
+					// 清除错误的状态
+					localStorage.removeItem('dispatcher_sip_status');
+					updateSipStatus('offline', '未注册');
+					disableDispatcherFunctions();
 				}
+			} else {
+				// 状态过期或非在线状态
+				disableDispatcherFunctions();
 			}
 		} catch (e) {
 			console.error('恢复SIP状态失败:', e);
+			disableDispatcherFunctions();
 		}
+	} else {
+		// 默认状态
+		disableDispatcherFunctions();
 	}
 }
 
@@ -898,11 +1337,11 @@ function closeSipRegisterModal() {
 // 执行SIP注册
 function doSipRegister() {
 	var config = {
-		uri: $('#sip-uri').val(),
-		wsServers: $('#sip-ws').val(),
-		authUser: $('#sip-user').val(),
-		password: $('#sip-password').val(),
-		displayName: $('#sip-display-name').val()
+		uri: $('#sip-uri').val() || DEFAULT_SIP_CONFIG.uri,
+		wsServers: $('#sip-ws').val() || DEFAULT_SIP_CONFIG.ws,
+		authUser: $('#sip-user').val() || DEFAULT_SIP_CONFIG.user,
+		password: $('#sip-password').val() || DEFAULT_SIP_CONFIG.password,
+		displayName: $('#sip-display-name').val() || DEFAULT_SIP_CONFIG.displayName
 	};
 
 	if (!config.uri || !config.wsServers || !config.authUser || !config.password) {
@@ -915,7 +1354,17 @@ function doSipRegister() {
 			closeSipRegisterModal();
 		})
 		.catch(function(error) {
-			alert('注册失败: ' + error.message);
+			// 改进错误提示
+			var errorMsg = '注册失败: ' + error.message;
+			
+			// 检查是否是账号已被占用
+			if (error.message.indexOf('403') !== -1 || 
+				error.message.indexOf('Forbidden') !== -1 ||
+				error.message.indexOf('already') !== -1) {
+				errorMsg += '\n\n可能原因：\n1. 该账号已在其他设备登录\n2. 密码错误\n\n建议：\n- 尝试使用其他调度员账号（5002或5003）\n- 或联系管理员';
+			}
+			
+			alert(errorMsg);
 		});
 }
 
@@ -1043,8 +1492,19 @@ function startGroupCallWithSelected() {
 		selectedExts.push($(this).val());
 	});
 	
+	// 获取外线号码
+	var externalNumbers = $('#external-numbers').val().trim();
+	if (externalNumbers) {
+		var numbers = externalNumbers.split(',').map(function(n) {
+			return n.trim();
+		}).filter(function(n) {
+			return n.length > 0;
+		});
+		selectedExts = selectedExts.concat(numbers);
+	}
+	
 	if (selectedExts.length === 0) {
-		alert('请至少选择一个分机');
+		alert('请至少选择一个分机或输入一个外线号码');
 		return;
 	}
 	
@@ -1052,9 +1512,12 @@ function startGroupCallWithSelected() {
 	dispatcherControl.startGroupCallWithExtensions(selectedExts);
 	closeGroupCallModal();
 	
+	// 清空外线号码输入框
+	$('#external-numbers').val('');
+	
 	// 显示组呼状态栏
 	$('#group-call-status').show();
-	$('#group-call-status-text').text('组呼进行中 - 呼叫 ' + selectedExts.length + ' 个分机');
+	$('#group-call-status-text').text('组呼进行中 - 呼叫 ' + selectedExts.length + ' 个号码');
 }
 
 // 关闭组呼模态对话框
@@ -1124,86 +1587,252 @@ function startConference() {
 
 // 管理会议（打开管理面板）
 function manageConference() {
-	updateConferenceManagePanel();
+	// 启动实时更新
+	startConferenceManagePanelUpdate();
 	$('#conference-manage-modal').show();
 }
 
 // 关闭会议管理面板
 function closeConferenceManageModal() {
 	$('#conference-manage-modal').hide();
+	// 停止实时更新
+	stopConferenceManagePanelUpdate();
+}
+
+// 会议管理面板更新定时器
+var conferenceManagePanelInterval = null;
+
+// 启动会议管理面板实时更新
+function startConferenceManagePanelUpdate() {
+	// 清除之前的定时器
+	stopConferenceManagePanelUpdate();
+	
+	// 立即更新一次
+	updateConferenceManagePanelWithRefresh();
+	
+	// 每2秒更新一次
+	conferenceManagePanelInterval = setInterval(function() {
+		updateConferenceManagePanelWithRefresh();
+	}, 2000);
+}
+
+// 停止会议管理面板实时更新
+function stopConferenceManagePanelUpdate() {
+	if (conferenceManagePanelInterval) {
+		clearInterval(conferenceManagePanelInterval);
+		conferenceManagePanelInterval = null;
+	}
+}
+
+// 从服务器刷新数据后更新面板
+function updateConferenceManagePanelWithRefresh() {
+	if (!dispatcherControl.conferenceRoom) {
+		return;
+	}
+	
+	// 从服务器获取最新数据
+	$.ajax({
+		url: 'dispatcher_conference_api.php',
+		type: 'GET',
+		data: {
+			action: 'get_conference_members',
+			conference_room: dispatcherControl.conferenceRoom
+		},
+		dataType: 'json',
+		success: function(response) {
+			if (response.success) {
+				// 更新数据
+				dispatcherControl.conferenceParticipants = response.members;
+				// 更新UI
+				updateConferenceManagePanel();
+			}
+		},
+		error: function(error) {
+			console.error('获取会议成员失败:', error);
+		}
+	});
 }
 
 // 更新会议管理面板
 function updateConferenceManagePanel() {
-	var participants = dispatcherControl.conferenceParticipants;
+	var participants = dispatcherControl.conferenceParticipants || [];
 	var list = $('#conference-participants-list');
 	list.empty();
 	
-	$('#conference-manage-count').text(participants.length);
+	// 获取authUser（修复：使用正确的路径）
+	var authUser = null;
+	if (dispatcherControl.config && dispatcherControl.config.authUser) {
+		authUser = dispatcherControl.config.authUser;
+	} else if (dispatcherControl.sipClient && dispatcherControl.sipClient.ua && dispatcherControl.sipClient.ua._configuration) {
+		// 从UA中获取authUser
+		authUser = dispatcherControl.sipClient.ua._configuration.authorization_user;
+	}
 	
-	if (participants.length === 0) {
+	// 如果仍然无法获取，使用默认值
+	if (!authUser) {
+		authUser = $('#sip-user').val() || 'unknown';
+	}
+	
+	console.log('会议管理面板 - authUser:', authUser, '参与者数量:', participants.length);
+	
+	// 过滤掉调度员自己
+	var filtered = participants.filter(function(p) {
+		return p.caller_id_number !== authUser;
+	});
+	
+	$('#conference-manage-count').text(filtered.length);
+	
+	if (filtered.length === 0) {
 		list.html('<p style="text-align: center; color: #999; padding: 20px;">暂无参与者</p>');
 		return;
 	}
 	
-	participants.forEach(function(p) {
+	filtered.forEach(function(p) {
 		var item = $('<div class="participant-item"></div>');
 		var info = $('<div class="participant-info"></div>');
-		info.html('<strong>' + p.extension + '</strong><br><small>状态: ' + (p.muted ? '已静音' : '正常') + '</small>');
+		var displayName = p.caller_id_name || p.caller_id_number;
+		var statusText = p.muted ? '已静音' : '正常';
+		info.html('<strong>' + displayName + '</strong><br><small>号码: ' + p.caller_id_number + ' | 状态: ' + statusText + '</small>');
 		
 		var actions = $('<div class="participant-actions"></div>');
 		
 		if (p.muted) {
-			actions.append('<button class="btn btn-sm btn-success" onclick="unmuteParticipant(\'' + p.extension + '\')">取消静音</button>');
+			actions.append('<button class="btn btn-sm btn-success" onclick="unmuteParticipantById(\'' + p.id + '\')">取消静音</button>');
 		} else {
-			actions.append('<button class="btn btn-sm btn-warning" onclick="muteParticipant(\'' + p.extension + '\')">静音</button>');
+			actions.append('<button class="btn btn-sm btn-warning" onclick="muteParticipantById(\'' + p.id + '\')">静音</button>');
 		}
 		
-		actions.append('<button class="btn btn-sm btn-danger" onclick="kickParticipant(\'' + p.extension + '\')">踢出</button>');
+		actions.append('<button class="btn btn-sm btn-danger" onclick="kickParticipantById(\'' + p.id + '\')">踢出</button>');
 		
 		item.append(info).append(actions);
 		list.append(item);
 	});
 	
 	// 更新会议时长
-	if (dispatcherControl.conferenceStartTime) {
-		var duration = Math.floor((Date.now() - dispatcherControl.conferenceStartTime) / 1000);
+	if (dispatcherControl.groupCallStartTime) {
+		var duration = Math.floor((Date.now() - dispatcherControl.groupCallStartTime) / 1000);
 		var minutes = Math.floor(duration / 60);
 		var seconds = duration % 60;
 		$('#conference-manage-duration').text(minutes + ':' + (seconds < 10 ? '0' : '') + seconds);
 	}
 }
 
-// 静音参与者
-function muteParticipant(extension) {
-	dispatcherControl.muteConferenceParticipant(extension);
-	updateConferenceManagePanel();
+// 静音参与者（基于member_id）
+function muteParticipantById(memberId) {
+	$.post('dispatcher_conference_api.php', {
+		action: 'mute_participant',
+		conference_room: dispatcherControl.conferenceRoom,
+		member_id: memberId
+	}, function(response) {
+		console.log('静音参与者:', memberId, response);
+		// 修复：刷新数据后更新UI
+		setTimeout(function() {
+			updateConferenceManagePanelWithRefresh();
+		}, 500);
+	});
 }
 
-// 取消静音参与者
-function unmuteParticipant(extension) {
-	dispatcherControl.unmuteConferenceParticipant(extension);
-	updateConferenceManagePanel();
+// 取消静音参与者（基于member_id）
+function unmuteParticipantById(memberId) {
+	$.post('dispatcher_conference_api.php', {
+		action: 'unmute_participant',
+		conference_room: dispatcherControl.conferenceRoom,
+		member_id: memberId
+	}, function(response) {
+		console.log('取消静音参与者:', memberId, response);
+		// 修复：刷新数据后更新UI
+		setTimeout(function() {
+			updateConferenceManagePanelWithRefresh();
+		}, 500);
+	});
 }
 
-// 踢出参与者
-function kickParticipant(extension) {
-	if (confirm('确认踢出参与者 ' + extension + '？')) {
-		dispatcherControl.kickConferenceParticipant(extension);
-		updateConferenceManagePanel();
+// 踢出参与者（基于member_id）
+function kickParticipantById(memberId) {
+	if (confirm('确认踢出该参与者？')) {
+		$.post('dispatcher_conference_api.php', {
+			action: 'kick_participant',
+			conference_room: dispatcherControl.conferenceRoom,
+			member_id: memberId
+		}, function(response) {
+			console.log('踢出参与者:', memberId, response);
+			// 修复：刷新数据后更新UI
+			setTimeout(function() {
+				updateConferenceManagePanelWithRefresh();
+			}, 500);
+		});
 	}
+}
+
+// 旧版函数保留兼容（已废弃，使用基于 member_id 的新版本）
+function muteParticipant(extension) {
+	console.warn('muteParticipant() is deprecated, use muteParticipantById()');
+}
+
+// 旧版函数保留兼容（已废弃）
+function unmuteParticipant(extension) {
+	console.warn('unmuteParticipant() is deprecated, use unmuteParticipantById()');
+}
+
+// 踢出参与者（旧版，已废弃）
+function kickParticipant(extension) {
+	console.warn('kickParticipant() is deprecated, use kickParticipantById()');
 }
 
 // 全部静音
 function muteAllParticipants() {
-	dispatcherControl.muteAllConferenceParticipants();
-	updateConferenceManagePanel();
+	var participants = dispatcherControl.conferenceParticipants || [];
+	
+	// 修复：使用正确的authUser获取路径
+	var authUser = null;
+	if (dispatcherControl.config && dispatcherControl.config.authUser) {
+		authUser = dispatcherControl.config.authUser;
+	}
+	
+	var filtered = participants.filter(function(p) {
+		return p.caller_id_number !== authUser;
+	});
+	
+	filtered.forEach(function(p) {
+		$.post('dispatcher_conference_api.php', {
+			action: 'mute_participant',
+			conference_room: dispatcherControl.conferenceRoom,
+			member_id: p.id
+		});
+	});
+	
+	// 修复：刷新数据后更新UI
+	setTimeout(function() {
+		updateConferenceManagePanelWithRefresh();
+	}, 800);
 }
 
 // 全部取消静音
 function unmuteAllParticipants() {
-	dispatcherControl.unmuteAllConferenceParticipants();
-	updateConferenceManagePanel();
+	var participants = dispatcherControl.conferenceParticipants || [];
+	
+	// 修复：使用正确的authUser获取路径
+	var authUser = null;
+	if (dispatcherControl.config && dispatcherControl.config.authUser) {
+		authUser = dispatcherControl.config.authUser;
+	}
+	
+	var filtered = participants.filter(function(p) {
+		return p.caller_id_number !== authUser;
+	});
+	
+	filtered.forEach(function(p) {
+		$.post('dispatcher_conference_api.php', {
+			action: 'unmute_participant',
+			conference_room: dispatcherControl.conferenceRoom,
+			member_id: p.id
+		});
+	});
+	
+	// 修复：刷新数据后更新UI
+	setTimeout(function() {
+		updateConferenceManagePanelWithRefresh();
+	}, 800);
 }
 
 // 从管理面板结束会议
@@ -1227,6 +1856,109 @@ function openGroupsModal() {
 // 关闭分组管理模态对话框
 function closeGroupsModal() {
 	$('#groups-modal').hide();
+}
+
+// 直接呼叫分机
+function callExtensionDirect(extension) {
+	// 检查SIP注册状态
+	if (!dispatcherControl || !dispatcherControl.isRegistered()) {
+		alert('请先注册SIP账号');
+		return;
+	}
+	
+	// 从localStorage获取服务器地址
+	var sipConfig = localStorage.getItem('sip_config');
+	var serverHost = '192.168.2.200'; // 默认值
+	if (sipConfig) {
+		try {
+			var config = JSON.parse(sipConfig);
+			var match = config.uri.match(/@([^:]+)/);
+			if (match) {
+				serverHost = match[1];
+			}
+		} catch(e) {
+			console.error('解析SIP配置失败:', e);
+		}
+	}
+	
+	var sipUri = 'sip:' + extension + '@' + serverHost;
+	
+	console.log('发起直接呼叫到:', sipUri);
+	
+	// 使用JsSIP客户端直接拨号
+	dispatcherControl.sipClient.makeCall(sipUri, {
+		audio: true,
+		video: false
+	}).then(function(result) {
+		console.log('呼叫已发起，session ID:', result.sessionId);
+		showDirectCallStatus(extension, result.sessionId);
+	}).catch(function(error) {
+		console.error('呼叫失败:', error);
+		
+		// 提供更详细的错误信息
+		var errorMessage = error.message || '呼叫失败';
+		
+		if (errorMessage.includes('麦克风权限')) {
+			errorMessage += '\n\n提示：点击地址栏左侧的麦克风图标，选择"允许"，然后重试。';
+		}
+		
+		alert(errorMessage);
+	});
+}
+
+// 显示直接呼叫状态
+function showDirectCallStatus(extension, sessionId) {
+	// 显示通话中状态
+	var statusHtml = '<div id="direct-call-status-' + sessionId + '" class="call-status-bar">';
+	statusHtml += '与 ' + extension + ' 通话中 ';
+	statusHtml += '<button class="btn btn-sm btn-danger" onclick="hangupDirectCall(\'' + sessionId + '\')">挂断</button>';
+	statusHtml += '</div>';
+	$('body').append(statusHtml);
+}
+
+// 挂断直接呼叫
+function hangupDirectCall(sessionId) {
+	if (dispatcherControl && dispatcherControl.sipClient) {
+		dispatcherControl.sipClient.hangup(sessionId).then(function() {
+			// 确保状态栏被移除
+			$('#direct-call-status-' + sessionId).remove();
+			console.log('已挂断直接呼叫并清理状态:', sessionId);
+		}).catch(function(error) {
+			console.error('挂断直接呼叫失败:', error);
+			// 即使挂断失败，也尝试清理状态栏
+			$('#direct-call-status-' + sessionId).remove();
+		});
+	}
+}
+
+// 检查麦克风权限
+function checkMicrophonePermission() {
+	if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+		alert('您的浏览器不支持音频访问功能');
+		return;
+	}
+	
+	navigator.permissions.query({ name: 'microphone' })
+		.then(function(permissionStatus) {
+			if (permissionStatus.state === 'granted') {
+				alert('麦克风权限已授予 ✓');
+			} else if (permissionStatus.state === 'denied') {
+				alert('麦克风权限被拒绝 ✗\n\n请按以下步骤操作：\n1. 点击地址栏左侧的锁或麦克风图标\n2. 在麦克风权限中选择"允许"\n3. 刷新页面');
+			} else {
+				alert('麦克风权限未设置，将在首次使用时提示');
+			}
+		})
+		.catch(function(error) {
+			// 浏览器不支持permissions API，尝试直接获取权限
+			navigator.mediaDevices.getUserMedia({ audio: true })
+				.then(function(stream) {
+					stream.getTracks().forEach(function(track) { track.stop(); });
+					alert('麦克风权限正常 ✓');
+				})
+				.catch(function(err) {
+					alert('无法访问麦克风，请检查浏览器权限设置');
+				});
+		});
 }
 
 // 更新分组列表
