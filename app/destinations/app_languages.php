@@ -1050,7 +1050,7 @@ $text['label-destination_distinctive_ring']['ru-ru'] = "Отличительны
 $text['label-destination_distinctive_ring']['sv-se'] = "Distinkt Ringning";
 $text['label-destination_distinctive_ring']['uk-ua'] = "Дитинктивне кільце";
 $text['label-destination_distinctive_ring']['tr-tr'] = "Ayırt Edici Yüzük";
-$text['label-destination_distinctive_ring']['zh-cn'] = "特色戒指";
+$text['label-destination_distinctive_ring']['zh-cn'] = "特征铃声";
 $text['label-destination_distinctive_ring']['ja-jp'] = "特徴的なリング";
 $text['label-destination_distinctive_ring']['ko-kr'] = "독특한 반지";
 

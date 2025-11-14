@@ -199,10 +199,26 @@
 <link rel="stylesheet" type="text/css" href="<?php echo PROJECT_PATH; ?>/app/basic_operator_panel/resources/dispatcher.css">
 <script language="JavaScript" type="text/javascript" src="<?php echo PROJECT_PATH; ?>/resources/jquery/jquery-ui.min.js"></script>
 <script language="JavaScript" type="text/javascript" src="<?php echo PROJECT_PATH; ?>/app/basic_operator_panel/resources/jssip.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="<?php echo PROJECT_PATH; ?>/app/basic_operator_panel/resources/dispatcher-utils.js"></script>
 <script language="JavaScript" type="text/javascript" src="<?php echo PROJECT_PATH; ?>/app/basic_operator_panel/resources/jssip-client.js"></script>
 <script language="JavaScript" type="text/javascript" src="<?php echo PROJECT_PATH; ?>/app/basic_operator_panel/resources/dispatcher-control.js"></script>
 <script language="JavaScript" type="text/javascript" src="<?php echo PROJECT_PATH; ?>/app/basic_operator_panel/resources/dispatcher-logger.js"></script>
+<script language="JavaScript" type="text/javascript" src="<?php echo PROJECT_PATH; ?>/app/basic_operator_panel/resources/emergency-audio.js"></script>
 <script type="text/javascript">
+
+<?php
+// 从数据库或配置文件中获取 TURN 服务器配置
+// 示例配置，请替换为实际的动态获取逻辑
+$turn_config_json = json_encode([
+    'urls' => 'turn:your-turn-server.com:3478',
+    'username' => 'your-username',
+    'password' => 'your-password'
+]);
+?>
+
+window.turnConfig = <?php echo $turn_config_json; ?>;
+
+window.dispatcherEmergencyAudio = { src: '<?php echo PROJECT_PATH; ?>/app/basic_operator_panel/resources/sounds/emergency_alert.mp3' };
 
 <?php
 //determine refresh rate
@@ -263,9 +279,14 @@ unset($refresh_default);
 			return;
 		}
 
-		if (this.xmlHttp.readyState == 4 && (this.xmlHttp.status == 200 || !/^http/.test(window.location.href)))
-			//this.el.innerHTML = this.xmlHttp.responseText;
-			document.getElementById('ajax_response').innerHTML = this.xmlHttp.responseText;
+        if (this.xmlHttp.readyState == 4 && (this.xmlHttp.status == 200 || !/^http/.test(window.location.href))) {
+            document.getElementById('ajax_response').innerHTML = this.xmlHttp.responseText;
+            try {
+                if (window.dispatcherControl && typeof window.dispatcherControl.updateUI === 'function') {
+                    window.dispatcherControl.updateUI();
+                }
+            } catch (e) {}
+        }
 		if (document.getElementById('sort')) {
 			if (document.getElementById('sort').value != "")
 				document.getElementById('sort1').value=document.getElementById('sort').value;
@@ -290,12 +311,14 @@ unset($refresh_default);
 		refresh_start();
 	}
 
-	if (window.addEventListener) {
-		window.addEventListener('load', requestTime, false);
-	}
-	else if (window.attachEvent) {
-		window.attachEvent('onload', requestTime);
-	}
+if (window.addEventListener) {
+    window.addEventListener('load', requestTime, false);
+    window.addEventListener('load', function(){ try{ resourceHeartbeat_start() }catch(e){} }, false);
+}
+else if (window.attachEvent) {
+    window.attachEvent('onload', requestTime);
+    window.attachEvent('onload', function(){ try{ resourceHeartbeat_start() }catch(e){} });
+}
 
 
 //drag/drop functionality
@@ -352,76 +375,19 @@ unset($refresh_default);
 	}
 
 //refresh controls
-	function refresh_stop() {
-		clearInterval(interval_timer_id);
-		if (document.getElementById('refresh_state')) { document.getElementById('refresh_state').innerHTML = "<?php echo button::create(['type'=>'button','title'=>$text['label-refresh_enable'],'icon'=>'pause','onclick'=>'refresh_start()']); ?>"; }
-	}
+    function refresh_stop() {
+        clearInterval(interval_timer_id);
+        if (document.getElementById('refresh_state')) { document.getElementById('refresh_state').innerHTML = "<?php echo button::create(['type'=>'button','title'=>$text['label-refresh_enable'],'icon'=>'pause','onclick'=>'refresh_start()']); ?>"; }
+    }
 
-	function refresh_start() {
-		if (document.getElementById('refresh_state')) { document.getElementById('refresh_state').innerHTML = "<?php echo button::create(['type'=>'button','title'=>$text['label-refresh_pause'],'icon'=>'sync-alt fa-spin','onclick'=>'refresh_stop()']); ?>"; }
-		refresh_stop();
-		
-		// 恢复使用全页面内容刷新，保证状态与DOM一致
-		interval_timer_id = setInterval(function() {
-			requestTime();
-		}, refresh);
-	}
+    function refresh_start() {
+        if (document.getElementById('refresh_state')) { document.getElementById('refresh_state').innerHTML = "<?php echo button::create(['type'=>'button','title'=>$text['label-refresh_pause'],'icon'=>'sync-alt fa-spin','onclick'=>'refresh_stop()']); ?>"; }
+        refresh_stop();
+        var throttled = (window.DispatcherUtils && DispatcherUtils.throttle) ? DispatcherUtils.throttle(requestTime, Math.max(500, refresh)) : requestTime;
+        interval_timer_id = setInterval(function(){ throttled() }, refresh);
+    }
 
-	// 增量更新函数
-	function incrementalUpdate() {
-		$.ajax({
-			url: 'incremental_update.php',
-			type: 'GET',
-			dataType: 'json',
-			data: {
-				group: $('#group').val() || '',
-				filter: $('#search').val() || ''
-			},
-			success: function(data) {
-				if (data.success && data.extensions) {
-					data.extensions.forEach(function(ext) {
-						updateExtensionUI(ext);
-					});
-				}
-			},
-			error: function(xhr, status, error) {
-				console.error('增量更新失败:', error);
-				// 失败时回退到全页面刷新
-				location.reload();
-			}
-		});
-	}
-
-	// 更新单个分机的UI
-	function updateExtensionUI(extData) {
-		var extDiv = $('div[data-extension="' + extData.extension + '"]');
-		if (extDiv.length === 0) return;
-		
-		// 只更新变化的部分
-		var currentState = extDiv.attr('data-state');
-		if (currentState !== extData.state) {
-			// 更新状态图标
-			extDiv.find('.op_ext_icon img').attr('src', 
-				'resources/images/status_' + extData.status_icon + '.png');
-			extDiv.attr('data-state', extData.state);
-			extDiv.attr('data-status-icon', extData.status_icon);
-		}
-		
-		// 更新通话时长
-		var callLengthSpan = extDiv.find('.op_call_info');
-		if (callLengthSpan.length > 0 && callLengthSpan.text() !== extData.call_length) {
-			callLengthSpan.text(extData.call_length);
-			extDiv.attr('data-call-length', extData.call_length);
-		}
-		
-		// 更新来电信息
-		if (extData.caller_id_name || extData.caller_id_number) {
-			var callerInfo = extDiv.find('.op_caller_info');
-			if (callerInfo.length > 0) {
-				// 这里可以根据需要更新来电显示信息
-			}
-		}
-	}
+    // 已移除增量更新逻辑，统一通过控制器刷新与差分渲染
 
 //call or transfer to destination
 	function go_destination(from_ext, destination, which, call_id) {
@@ -480,33 +446,8 @@ unset($refresh_default);
 		}
 	}
 
-//used by call control and ajax refresh functions
-	function send_cmd(url, callback) {
-		var xmlhttp;
-		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
-			xmlhttp = new XMLHttpRequest();
-		}
-		else {// code for IE6, IE5
-			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-		}
-		
-		xmlhttp.onreadystatechange = function() {
-			if (xmlhttp.readyState == 4) {
-				var respDiv = document.getElementById('cmd_response');
-				if (respDiv) {
-					respDiv.innerHTML = xmlhttp.responseText;
-				}
-				console.log('send_cmd response:', xmlhttp.responseText);
-				
-				if (callback && typeof callback === 'function') {
-					callback(xmlhttp.responseText, xmlhttp.status);
-				}
-			}
-		};
-		
-		xmlhttp.open("GET", url, true);
-		xmlhttp.send(null);
-	}
+// 统一通过工具模块发送命令
+function send_cmd(url, callback){ try { if (window.DispatcherUtils && DispatcherUtils.sendCmd){ DispatcherUtils.sendCmd(url, callback) } } catch(e){} }
 
 //hide/show destination input field
 	function toggle_destination(ext, which) {
@@ -568,43 +509,27 @@ unset($refresh_default);
 		}
 	}
 
-	function get_transfer_cmd(uuid, destination) {
-		url = "exec.php?cmd=uuid_transfer&uuid=" + uuid + "&destination=" + destination
-		return url;
-	}
-
-	function get_originate_cmd(source, destination) {
-		url = "exec.php?cmd=originate&source=" + source + "&destination=" + destination
-		return url;
-	}
-
-	function get_eavesdrop_cmd(ext, chan_uuid, destination, mode) {
-		mode = mode || 'listen';
-		url = "exec.php?cmd=uuid_eavesdrop&ext=" + ext + "&chan_uuid=" + chan_uuid + "&destination=" + destination + "&mode=" + mode;
-		return url;
-	}
-
-	function get_record_cmd(uuid) {
-		url = "exec.php?cmd=uuid_record&uuid=" + uuid;
-		return url;
-	}
+function get_transfer_cmd(uuid, destination){ return DispatcherUtils.getTransferCmd(uuid, destination) }
+function get_originate_cmd(source, destination){ return DispatcherUtils.getOriginateCmd(source, destination) }
+function get_eavesdrop_cmd(ext, chan_uuid, destination, mode){ return DispatcherUtils.getEavesdropCmd(ext, chan_uuid, destination, mode) }
+function get_record_cmd(uuid){ return DispatcherUtils.getRecordCmd(uuid) }
 
 // 直呼封装：使用落地分机对目标分机外呼
 function call_direct(ext) {
     var operator_ext = (document.getElementById('eavesdrop_dest')) ? document.getElementById('eavesdrop_dest').value : '';
     if (!operator_ext) {
-        alert('未检测到落地分机，请先在顶部选择或绑定分机');
+        DispatcherUtils.alert('未检测到落地分机，请先在顶部选择或绑定分机', 'warn');
         return;
     }
     if (operator_ext === ext) {
-        alert('不能对自身分机发起直呼');
+        DispatcherUtils.alert('不能对自身分机发起直呼', 'warn');
         return;
     }
     var url = get_originate_cmd(operator_ext, ext);
     send_cmd(url, function(response, status) {
         console.log('call_direct response:', response.substring(0, 200));
         if (response.indexOf('-ERR') !== -1 || response.indexOf('access denied') !== -1) {
-            alert('发起失败: ' + response.substring(0, 200));
+            DispatcherUtils.alert('发起失败: ' + response.substring(0, 200), 'error');
         } else {
             console.log('已发起呼叫');
         }
@@ -612,16 +537,16 @@ function call_direct(ext) {
 }
 
 // 无阻塞通话：忙则插入/监听，闲则直呼
-	function unblocked_call(ext, chan_uuid) {
-		var operator_ext = (document.getElementById('eavesdrop_dest')) ? document.getElementById('eavesdrop_dest').value : '';
-		if (!operator_ext) {
-			alert('未检测到落地分机，请先在顶部选择或绑定分机');
-			return;
-		}
-		if (operator_ext === ext) {
-			alert('不能对自身分机发起直呼');
-			return;
-		}
+function unblocked_call(ext, chan_uuid) {
+    var operator_ext = (document.getElementById('eavesdrop_dest')) ? document.getElementById('eavesdrop_dest').value : '';
+    if (!operator_ext) {
+        DispatcherUtils.alert('未检测到落地分机，请先在顶部选择或绑定分机', 'warn');
+        return;
+    }
+    if (operator_ext === ext) {
+        DispatcherUtils.alert('不能对自身分机发起直呼', 'warn');
+        return;
+    }
 		var url = '';
 		if (chan_uuid && chan_uuid !== '') {
 			// 目标分机忙 -> 使用 three-way 插入讲话（双向）
@@ -637,19 +562,19 @@ function call_direct(ext) {
 			// 目标分机空闲 -> 由调度分机直接外呼
 			url = get_originate_cmd(operator_ext, ext);
 		}
-	if (!url) {
-		alert('无法构造请求，请检查参数');
-		return;
-	}
+    if (!url) {
+        DispatcherUtils.alert('无法构造请求，请检查参数', 'error');
+        return;
+    }
 	console.log('unblocked_call', { operator_ext: operator_ext, target_ext: ext, chan_uuid: chan_uuid });
 	console.log('send_cmd', url);
 	send_cmd(url, function(response, status) {
 		console.log('unblocked_call response:', response.substring(0, 200));
-		if (response.indexOf('-ERR') !== -1 || response.indexOf('access denied') !== -1) {
-			alert('发起失败: ' + response.substring(0, 200));
-		} else {
-			console.log('已发起插入/呼叫');
-		}
+    if (response.indexOf('-ERR') !== -1 || response.indexOf('access denied') !== -1) {
+        DispatcherUtils.alert('发起失败: ' + response.substring(0, 200), 'error');
+    } else {
+        console.log('已发起插入/呼叫');
+    }
 	});
 }
 
@@ -724,13 +649,13 @@ function closeThreeWayExtModal() {
 
 // 确认并执行插入讲话
 function confirmThreeWayExt() {
-	var selector = document.getElementById('three-way-ext-selector');
-	var selectedExt = selector ? selector.value : '';
-	
-	if (!selectedExt) {
-		alert('请选择一个分机');
-		return;
-	}
+    var selector = document.getElementById('three-way-ext-selector');
+    var selectedExt = selector ? selector.value : '';
+    
+    if (!selectedExt) {
+        DispatcherUtils.alert('请选择一个分机', 'warn');
+        return;
+    }
 	
 	// 调试日志：确认 __threeWayTarget 的值
 	console.log('confirmThreeWayExt - __threeWayTarget:', __threeWayTarget);
@@ -769,10 +694,10 @@ function three_way_call_with_ext(ext, chan_uuid, operator_ext) {
 		operator_ext_type: typeof operator_ext
 	});
 	
-	if (!operator_ext) {
-		alert('未选择插入分机');
-		return;
-	}
+    if (!operator_ext) {
+        DispatcherUtils.alert('未选择插入分机', 'warn');
+        return;
+    }
 	
 	// 进入插入讲话模式前，先挂断所有监听通话（避免重复听到声音）
 	try {
@@ -798,11 +723,11 @@ function three_way_call_with_ext(ext, chan_uuid, operator_ext) {
 	
 	send_cmd(url, function(response, status) {
 		console.log('three_way_call response:', response.substring(0, 200));
-		if (response.indexOf('-ERR') !== -1 || response.indexOf('access denied') !== -1) {
-			alert('插入讲话失败，可能原因：\n1. 原通话已结束\n2. 所选分机不可用\n3. 权限不足\n\n详细信息: ' + response.substring(0, 150));
-		} else {
-			console.log('已发起三方插入');
-		}
+        if (response.indexOf('-ERR') !== -1 || response.indexOf('access denied') !== -1) {
+            DispatcherUtils.alert('插入讲话失败，可能原因：\n1. 原通话已结束\n2. 所选分机不可用\n3. 权限不足\n\n详细信息: ' + response.substring(0, 150), 'error');
+        } else {
+            console.log('已发起三方插入');
+        }
 	});
 }
 
@@ -885,6 +810,17 @@ function three_way_call_with_ext(ext, chan_uuid, operator_ext) {
 		border-collapse: collapse;
 		border: none;
 		}
+
+    #dispatcher-lines-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+    .line-card { border:1px solid #ddd; border-radius:6px; padding:8px; }
+    .line-status { display:flex; align-items:center; gap:6px; font-size:12px; }
+    .status-ok { background:#e8f5e9; }
+    .status-warn { background:#fff8e1; }
+    .status-held { background:#e3f2fd; }
+    .status-error { background:#fdecea; }
+    @media (max-width: 480px) { #dispatcher-lines-grid { grid-template-columns:repeat(1,1fr); } }
+    @media (min-width: 481px) and (max-width: 1366px) { #dispatcher-lines-grid { grid-template-columns:repeat(2,1fr); } }
+    @media (min-width: 1367px) { #dispatcher-lines-grid { grid-template-columns:repeat(3,1fr); } }
 </style>
 
 <?php
@@ -911,26 +847,35 @@ if (is_array($_SESSION['user']['extension'])) {
 				</div>
 			</td>
 			<td width="50%" align="right">
-				<div class="dispatcher-toolbar">
+                <div class="dispatcher-toolbar">
 					<button id="group-call-btn" class="dispatcher-tool-btn" title="组呼" disabled onclick="openGroupCallModal()">
 						<i class="fas fa-users"></i>
 					</button>
 					<button id="broadcast-btn" class="dispatcher-tool-btn" title="全呼" disabled onclick="startBroadcastCall()">
 						<i class="fas fa-bullhorn"></i>
 					</button>
-					<button id="conference-btn" class="dispatcher-tool-btn" title="多方会议" disabled onclick="openConferenceModal()">
-						<i class="fas fa-video"></i>
-					</button>
-					<button id="trunk-mode-btn" class="dispatcher-tool-btn" title="中继模式" onclick="toggleTrunkMode()">
+				<button id="conference-btn" class="dispatcher-tool-btn" title="多方会议" disabled onclick="openConferenceModal()">
+					<i class="fas fa-video"></i>
+				</button>
+				<button id="emergency-btn" class="dispatcher-tool-btn emergency-btn" title="急呼" disabled onclick="openEmergencyModal()">
+					<i class="fas fa-exclamation-triangle"></i>
+				</button>
+				<button id="trunk-mode-btn" class="dispatcher-tool-btn" title="中继模式" onclick="toggleTrunkMode()">
 						<i class="fas fa-exchange-alt"></i>
 					</button>
 					<button id="manage-groups-btn" class="dispatcher-tool-btn" title="分组管理" onclick="openGroupsModal()">
 						<i class="fas fa-cog"></i>
 					</button>
-					<button id="check-mic-btn" class="dispatcher-tool-btn" title="检查麦克风权限" onclick="checkMicrophonePermission()">
-						<i class="fas fa-microphone"></i>
-					</button>
-				</div>
+                    <button id="check-mic-btn" class="dispatcher-tool-btn" title="检查麦克风权限" onclick="checkMicrophonePermission()">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                    <button id="audio-test-btn" class="dispatcher-tool-btn" title="声音测试" onclick="testEmergencyAudio()">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <button id="audio-mute-btn" class="dispatcher-tool-btn" title="静音切换" onclick="toggleEmergencyMute()">
+                        <i class="fas fa-volume-mute"></i>
+                    </button>
+                </div>
 			</td>
 		</tr>
 	</table>
@@ -939,10 +884,23 @@ if (is_array($_SESSION['user']['extension'])) {
 <?php
 
 echo "<div id='ajax_response'></div>\n";
+echo "<div id=\"dispatcher-alerts\" style=\"display:none; position:fixed; right:16px; bottom:96px; z-index:9999; max-width:420px;\"></div>\n";
 echo "<div id='cmd_response' style='display: none;'></div>\n";
 
 // 调度功能模态对话框
 ?>
+
+<div id="dispatcher-lines-wrapper" style="margin:10px 0;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+        <div style="font-weight:600;">通话线路</div>
+        <div>
+            <button class="btn btn-sm btn-danger" onclick="hangupAllLines()">全部挂断</button>
+        </div>
+    </div>
+    <div id="dispatcher-lines-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;"></div>
+    <div id="dispatcher-busy-queue" style="display:none;color:#b71c1c;background:#fdecea;border:1px solid #f5c2c7;padding:6px 10px;border-radius:4px;margin-top:6px;">调度忙，来电已排队</div>
+    <div id="dispatcher-lines-toast" style="display:none;position:fixed;right:16px;bottom:16px;background:#333;color:#fff;padding:8px 12px;border-radius:4px;opacity:0.9;"></div>
+ </div>
 
 <!-- SIP 注册模态对话框 -->
 <div id="sip-register-modal" class="dispatcher-modal" style="display: none;">
@@ -1117,6 +1075,55 @@ echo "<div id='cmd_response' style='display: none;'></div>\n";
 	</div>
 </div>
 
+<!-- 急呼模态对话框 -->
+<div id="emergency-modal" class="dispatcher-modal" style="display: none;">
+	<div class="modal-overlay" onclick="closeEmergencyModal()"></div>
+	<div class="modal-content" style="max-width: 600px;">
+		<div class="modal-header" style="background: #dc3545; color: white;">
+			<h3><i class="fas fa-exclamation-triangle"></i> 急呼</h3>
+			<button class="modal-close-btn" onclick="closeEmergencyModal()">×</button>
+		</div>
+		<div class="modal-body">
+			<div class="alert alert-warning" style="padding: 10px; margin-bottom: 15px;">
+				<strong>⚠️ 急呼说明：</strong><br>
+				- 被叫将收到特殊振铃提示<br>
+				- 15秒内未接听将自动应答（优先扬声器模式）<br>
+				- 通话将自动录音
+			</div>
+			<div class="form-group">
+				<label>急呼类型:</label>
+				<select id="emergency-type" class="form-control" onchange="updateEmergencyTargets()">
+					<option value="single">单个用户</option>
+					<option value="group">组呼</option>
+					<option value="broadcast">全呼</option>
+				</select>
+			</div>
+			<div class="form-group" id="emergency-single-target">
+				<label>目标分机:</label>
+				<input type="text" id="emergency-target-ext" class="form-control" placeholder="输入分机号">
+			</div>
+			<div class="form-group" id="emergency-group-target" style="display: none;">
+				<label>选择分组:</label>
+				<select id="emergency-group-select" class="form-control">
+					<!-- 动态加载分组 -->
+				</select>
+			</div>
+			<div class="form-group" id="emergency-broadcast-confirm" style="display: none;">
+				<div class="alert alert-danger" style="padding: 10px;">
+					<strong>⚠️ 全呼警告：</strong><br>
+					将对所有用户发起急呼，请谨慎操作！
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-danger" onclick="initiateEmergencyCall()">
+				<i class="fas fa-phone"></i> 发起急呼
+			</button>
+			<button class="btn btn-secondary" onclick="closeEmergencyModal()">取消</button>
+		</div>
+	</div>
+</div>
+
 <!-- 组呼状态栏 -->
 <div id="group-call-status" class="call-status-bar" style="display: none;">
 	<span id="group-call-status-text">组呼进行中</span>
@@ -1171,6 +1178,7 @@ echo "<div id='cmd_response' style='display: none;'></div>\n";
 // 全局调度控制实例
 var dispatcherControl;
 var dispatcherLogger;
+var emergencyAudio;
 
 // 默认SIP配置 - 提供多个备用账号
 var DEFAULT_SIP_ACCOUNTS = [
@@ -1233,8 +1241,9 @@ function loadSelectedAccount() {
 
 $(document).ready(function() {
 	// 初始化调度控制
-	dispatcherControl = new DispatcherControl();
-	dispatcherLogger = new DispatcherLogger();
+    dispatcherControl = new DispatcherControl();
+    dispatcherLogger = new DispatcherLogger();
+    emergencyAudio = new EmergencyAudioService();
 	
 	// 初始化SIP注册表单
 	initSipRegisterForm();
@@ -1250,6 +1259,7 @@ $(document).ready(function() {
 		updateSipStatus('online', '已注册');
 		enableDispatcherFunctions();
 		saveSipStatus('online', '已注册'); // 保存状态
+		if (dispatcherControl.renderLinesGrid) { dispatcherControl.renderLinesGrid(); }
 	});
 	
 	dispatcherControl.on('unregistered', function() {
@@ -1379,12 +1389,12 @@ function doSipUnregister() {
 
 // 启用调度功能按钮
 function enableDispatcherFunctions() {
-	$('#group-call-btn, #broadcast-btn, #conference-btn').prop('disabled', false);
+	$('#group-call-btn, #broadcast-btn, #conference-btn, #emergency-btn').prop('disabled', false);
 }
 
 // 禁用调度功能按钮
 function disableDispatcherFunctions() {
-	$('#group-call-btn, #broadcast-btn, #conference-btn').prop('disabled', true);
+	$('#group-call-btn, #broadcast-btn, #conference-btn, #emergency-btn').prop('disabled', true);
 }
 
 // 快速拨号
@@ -1420,6 +1430,13 @@ function toggleTrunkMode() {
 		btn.addClass('active');
 		alert('中继模式已启用 - 来电将自动转接');
 	}
+}
+
+function hangupAllLines() {
+	if (!dispatcherControl || !dispatcherControl.sipClient) return;
+	dispatcherControl.sipClient.hangupAll().then(function(){
+		if (dispatcherControl.renderLinesGrid) { dispatcherControl.renderLinesGrid(); }
+	}).catch(function(){});
 }
 
 // 打开组呼模态对话框
@@ -1961,6 +1978,19 @@ function checkMicrophonePermission() {
 		});
 }
 
+function testEmergencyAudio(){
+    try{ if (dispatcherControl && dispatcherControl.sipClient && dispatcherControl.sipClient.unlockAudioPlayback){ dispatcherControl.sipClient.unlockAudioPlayback() } }catch(e){}
+    try{ emergencyAudio.test() }catch(e){}
+}
+
+function toggleEmergencyMute(){
+    try{
+        emergencyAudio.setMuted(!emergencyAudio.muted)
+        var btn=document.getElementById('audio-mute-btn');
+        if(btn){ if(emergencyAudio.muted){ btn.style.color='#b71c1c' } else { btn.style.color='' } }
+    }catch(e){}
+}
+
 // 更新分组列表
 function updateGroupsList() {
 	var groups = dispatcherControl.callGroups;
@@ -2013,9 +2043,9 @@ function addNewGroup() {
 function addExtensionToGroupDialog(groupId) {
 	var extension = prompt('请输入要添加的分机号:');
 	if (extension) {
-		dispatcherControl.addExtensionToGroup(groupId, extension.trim());
-		updateGroupsList();
-		alert('成员已添加');
+        dispatcherControl.addExtensionToGroup(groupId, extension.trim());
+        updateGroupsList();
+        DispatcherUtils.alert('成员已添加');
 	}
 }
 
@@ -2035,57 +2065,7 @@ function startGroupCallById(groupId) {
 	$('#group-call-status-text').text('组呼进行中...');
 }
 
-// 使面板可拖拽（已废弃，保留以防需要）
-function makeDispatcherDraggable() {
-	var panel = document.getElementById('dispatcher-control-panel');
-	if (!panel) return; // 如果面板不存在则返回
-	var header = panel.querySelector('.dispatcher-header');
-	var isDragging = false;
-	var currentX;
-	var currentY;
-	var initialX;
-	var initialY;
-	var xOffset = 0;
-	var yOffset = 0;
-
-	header.addEventListener('mousedown', dragStart);
-	document.addEventListener('mousemove', drag);
-	document.addEventListener('mouseup', dragEnd);
-
-	function dragStart(e) {
-		initialX = e.clientX - xOffset;
-		initialY = e.clientY - yOffset;
-
-		if (e.target === header || header.contains(e.target)) {
-			isDragging = true;
-			header.classList.add('dragging');
-		}
-	}
-
-	function drag(e) {
-		if (isDragging) {
-			e.preventDefault();
-			currentX = e.clientX - initialX;
-			currentY = e.clientY - initialY;
-
-			xOffset = currentX;
-			yOffset = currentY;
-
-			setTranslate(currentX, currentY, panel);
-		}
-	}
-
-	function dragEnd(e) {
-		initialX = currentX;
-		initialY = currentY;
-		isDragging = false;
-		header.classList.remove('dragging');
-	}
-
-	function setTranslate(xPos, yPos, el) {
-		el.style.transform = 'translate3d(' + xPos + 'px, ' + yPos + 'px, 0)';
-	}
-}
+// 已移除旧拖拽逻辑，减少全局事件监听与重排
 
 // 切换面板显示
 function toggleDispatcherPanel() {
@@ -2121,6 +2101,602 @@ function closeLogsPanel() {
 	$('#dispatcher-logs-modal').hide();
 	$('.modal-overlay').remove();
 }
+
+// ============ 急呼相关函数 ============
+
+// 打开急呼模态对话框
+function openEmergencyModal() {
+	// 加载分组列表
+	var groups = dispatcherControl.callGroups;
+	var groupSelect = $('#emergency-group-select');
+	groupSelect.empty();
+	for (var groupId in groups) {
+		if (groups.hasOwnProperty(groupId)) {
+			groupSelect.append('<option value="' + groupId + '">' + groups[groupId].name + '</option>');
+		}
+	}
+	
+	$('#emergency-modal').show();
+}
+
+// 关闭急呼模态对话框
+function closeEmergencyModal() {
+	$('#emergency-modal').hide();
+}
+
+// 更新急呼目标选择界面
+function updateEmergencyTargets() {
+	var type = $('#emergency-type').val();
+	$('#emergency-single-target').hide();
+	$('#emergency-group-target').hide();
+	$('#emergency-broadcast-confirm').hide();
+	
+	if (type === 'single') {
+		$('#emergency-single-target').show();
+	} else if (type === 'group') {
+		$('#emergency-group-target').show();
+	} else if (type === 'broadcast') {
+		$('#emergency-broadcast-confirm').show();
+	}
+}
+
+// 发起急呼
+function initiateEmergencyCall() {
+	var type = $('#emergency-type').val();
+	var targets = [];
+	var targetExt = '';
+	
+	if (type === 'single') {
+		targetExt = $('#emergency-target-ext').val().trim();
+        if (!targetExt) {
+            DispatcherUtils.alert('请输入目标分机号', 'warn');
+            return;
+        }
+		targets = [targetExt];
+	} else if (type === 'group') {
+		var groupId = $('#emergency-group-select').val();
+        if (!groupId || !dispatcherControl.callGroups[groupId]) {
+            DispatcherUtils.alert('请选择有效的分组', 'warn');
+            return;
+        }
+		targets = dispatcherControl.callGroups[groupId].extensions;
+	} else if (type === 'broadcast') {
+		if (!confirm('确认对所有用户发起急呼？此操作将呼叫所有分机！')) {
+			return;
+		}
+		targets = dispatcherControl.getAllExtensions();
+	}
+	
+    if (targets.length === 0) {
+        DispatcherUtils.alert('没有可用的目标', 'warn');
+        return;
+    }
+	
+	// 获取调度员分机
+	var operatorExt = $('#eavesdrop_dest').val();
+    if (!operatorExt) {
+        DispatcherUtils.alert('未检测到调度员分机', 'warn');
+        return;
+    }
+	
+	closeEmergencyModal();
+	
+	// 显示急呼状态栏
+	showEmergencyStatus(type, targets);
+	
+	// 创建急呼记录
+	$.post('dispatcher_api.php', {
+		action: 'initiate_emergency_call',
+		emergency_type: type,
+		targets: targets
+	}, function(response) {
+		if (response.success) {
+			var emergencyUuid = response.emergency_uuid;
+			
+			// 更新进度
+			updateEmergencyProgress(10, '正在发起急呼...');
+			
+			// 逐个发起急呼
+			targets.forEach(function(ext, index) {
+				setTimeout(function() {
+					// 更新目标状态为响铃中
+					updateTargetStatus(ext, 'ringing');
+					
+					// 发起急呼
+					initiateEmergencyToExtension(ext, operatorExt, emergencyUuid, function(success) {
+						if (success) {
+							updateTargetStatus(ext, 'answered');
+						} else {
+							updateTargetStatus(ext, 'failed');
+						}
+						
+						// 更新总体进度
+						var progress = calculateEmergencyProgress();
+						var completed = Object.keys(window.emergencyTargets).filter(function(e) {
+							return window.emergencyTargets[e] === 'answered' || window.emergencyTargets[e] === 'failed';
+						}).length;
+						
+						updateEmergencyProgress(
+							10 + (progress * 0.9), 
+							`已完成 ${completed}/${targets.length} 个急呼`
+						);
+						
+						// 如果所有急呼都完成，3秒后隐藏状态栏
+						if (progress === 100) {
+							setTimeout(function() {
+								hideEmergencyStatus();
+							}, 3000);
+						}
+					});
+				}, index * 500); // 每个呼叫间隔500ms
+			});
+        } else {
+            DispatcherUtils.alert('发起急呼失败: ' + (response.error || '未知错误'), 'error');
+            hideEmergencyStatus();
+        }
+	}, 'json');
+}
+
+// 对单个分机发起急呼
+function initiateEmergencyToExtension(targetExt, operatorExt, emergencyUuid, callback) {
+	// 使用FreeSWITCH的originate命令发起呼叫，让被叫用户自动接听
+	var url = 'exec.php?cmd=originate&source=' + operatorExt + '&destination=' + targetExt + '&emergency=true';
+	
+	// 添加调试日志
+	console.log('Initiating emergency call:', {
+		target: targetExt,
+		operator: operatorExt,
+		uuid: emergencyUuid,
+		url: url
+	});
+	
+	send_cmd(url, function(response, status) {
+		console.log('Emergency call to ' + targetExt + ':', response);
+		console.log('Response status:', status);
+		
+		// 记录急呼状态
+		if (response.indexOf('-ERR') === -1) {
+			// 解析Job-UUID
+			var jobUuidMatch = response.match(/Job-UUID:\s*([a-f0-9\-]+)/i);
+			var jobUuid = jobUuidMatch ? jobUuidMatch[1] : '';
+			
+			console.log('Parsed Job-UUID:', jobUuid);
+			
+			if (!jobUuid) {
+				console.error('Failed to parse Job-UUID from response:', response);
+				if (typeof callback === 'function') {
+					callback(false);
+				}
+				return;
+			}
+			
+			$.ajax({
+				url: 'dispatcher_api.php',
+				type: 'POST',
+				data: {
+					action: 'log_emergency_call',
+					emergency_uuid: emergencyUuid,
+					call_uuid: jobUuid,
+					status: 'initiated'
+				},
+				success: function(logResponse) {
+					console.log('Log initiated response:', logResponse);
+				},
+				error: function(xhr, status, error) {
+					console.error('Failed to log initiated status:', error);
+				}
+			});
+			
+			// 由于现在直接桥接，不需要等待被叫接听后再连接调度员
+			// 直接标记为已发起，等待FreeSWITCH完成桥接
+			$.ajax({
+				url: 'dispatcher_api.php',
+				type: 'POST',
+				data: {
+					action: 'log_emergency_call',
+					emergency_uuid: emergencyUuid,
+					call_uuid: jobUuid,
+					status: 'ringing'
+				},
+				success: function(logResponse) {
+					console.log('Log ringing response:', logResponse);
+				},
+				error: function(xhr, status, error) {
+					console.error('Failed to log ringing status:', error);
+				}
+			});
+			
+			// 改进状态检查，增加延迟重试机制
+			var checkCount = 0;
+			var maxChecks = 15; // 增加最大检查次数（15秒）
+			var initialDelay = 500; // 初始延迟500毫秒
+			var currentDelay = initialDelay;
+			
+			var checkInterval = setInterval(function() {
+				checkCount++;
+				console.log('Checking call status, attempt:', checkCount, 'delay:', currentDelay + 'ms');
+				
+				// 检查通话状态
+				$.ajax({
+					url: 'exec.php',
+					type: 'POST',
+					data: {
+						cmd: 'get_channel_uuid',
+						destination: targetExt
+					},
+					success: function(response) {
+						console.log('Channel UUID response:', response);
+						
+						// 处理空响应或无效响应
+						if (!response || response.trim() === '' || response.trim() === 'false') {
+							console.warn('Channel UUID not found for:', targetExt, 'attempt:', checkCount);
+							response = 'false';
+						}
+						
+						if (response !== 'false') {
+							// 找到通话UUID，表示通话已建立
+							console.log('Call established for:', targetExt, 'UUID:', response);
+							clearInterval(checkInterval);
+							
+							// 对于急呼，需要桥接到调度员
+							$.ajax({
+								url: 'dispatcher_api.php',
+								type: 'POST',
+								data: {
+									action: 'bridge_emergency_call',
+									destination: targetExt
+								},
+								success: function(bridgeResponse) {
+									console.log('Bridge response:', bridgeResponse);
+									
+									if (bridgeResponse.success) {
+										// 桥接成功
+										$.ajax({
+											url: 'dispatcher_api.php',
+											type: 'POST',
+											data: {
+												action: 'log_emergency_call',
+												emergency_uuid: emergencyUuid,
+												call_uuid: bridgeResponse.channel_uuid,
+												status: 'answered'
+											},
+											success: function(logResponse) {
+												console.log('Log answered response:', logResponse);
+											},
+											error: function(xhr, status, error) {
+												console.error('Failed to log answered status:', error);
+											}
+										});
+										
+										// 更新前端状态显示
+										if (typeof window.updateEmergencyCallStatus === 'function') {
+											window.updateEmergencyCallStatus(targetExt, 'answered');
+										}
+										
+										// 调用回调函数
+										if (typeof callback === 'function') {
+											callback(true);
+										}
+									} else {
+										// 桥接失败
+										console.error('Bridge failed:', bridgeResponse.error);
+										$.ajax({
+											url: 'dispatcher_api.php',
+											type: 'POST',
+											data: {
+												action: 'log_emergency_call',
+												emergency_uuid: emergencyUuid,
+												call_uuid: jobUuid,
+												status: 'failed'
+											},
+											success: function(logResponse) {
+												console.log('Log failed response:', logResponse);
+											},
+											error: function(xhr, status, error) {
+												console.error('Failed to log failed status:', error);
+											}
+										});
+										
+										// 更新前端状态显示
+										if (typeof window.updateEmergencyCallStatus === 'function') {
+											window.updateEmergencyCallStatus(targetExt, 'failed');
+										}
+										
+										// 调用回调函数
+										if (typeof callback === 'function') {
+											callback(false);
+										}
+									}
+								},
+								error: function(xhr, status, error) {
+									console.error('Error bridging call:', error);
+									// 桥接请求失败
+									$.ajax({
+										url: 'dispatcher_api.php',
+										type: 'POST',
+										data: {
+											action: 'log_emergency_call',
+											emergency_uuid: emergencyUuid,
+											call_uuid: jobUuid,
+											status: 'failed'
+										},
+										success: function(logResponse) {
+											console.log('Log failed response:', logResponse);
+										},
+										error: function(xhr, status, error) {
+											console.error('Failed to log failed status:', error);
+										}
+									});
+									
+									// 更新前端状态显示
+									if (typeof window.updateEmergencyCallStatus === 'function') {
+										window.updateEmergencyCallStatus(targetExt, 'failed');
+									}
+									
+									// 调用回调函数
+									if (typeof callback === 'function') {
+										callback(false);
+									}
+								}
+							});
+						} else if (checkCount >= maxChecks) {
+							// 通话未找到或超时
+							console.log('Call not found or timeout for:', targetExt, 'attempts:', checkCount);
+							clearInterval(checkInterval);
+							
+							$.ajax({
+								url: 'dispatcher_api.php',
+								type: 'POST',
+								data: {
+									action: 'log_emergency_call',
+									emergency_uuid: emergencyUuid,
+									call_uuid: jobUuid,
+									status: 'failed'
+								},
+								success: function(logResponse) {
+									console.log('Log failed response:', logResponse);
+								},
+								error: function(xhr, status, error) {
+									console.error('Failed to log failed status:', error);
+								}
+							});
+							
+							// 更新前端状态显示
+							if (typeof window.updateEmergencyCallStatus === 'function') {
+								window.updateEmergencyCallStatus(targetExt, 'failed');
+							}
+							
+							// 调用回调函数
+							if (typeof callback === 'function') {
+								callback(false);
+							}
+						} else {
+							// 通道未找到，但未达到最大检查次数，增加延迟时间
+							currentDelay = Math.min(currentDelay * 1.2, 2000); // 每次增加20%，最大2秒
+							clearInterval(checkInterval);
+							checkInterval = setInterval(arguments.callee, currentDelay);
+						}
+					},
+					error: function(xhr, status, error) {
+						console.error('Error checking channel UUID:', error);
+						// 网络错误时也增加延迟时间
+						currentDelay = Math.min(currentDelay * 1.2, 2000);
+						clearInterval(checkInterval);
+						checkInterval = setInterval(arguments.callee, currentDelay);
+					}
+				});
+			}, currentDelay);
+		} else {
+			console.error('Emergency call failed with error:', response);
+			
+			$.ajax({
+				url: 'dispatcher_api.php',
+				type: 'POST',
+				data: {
+					action: 'log_emergency_call',
+					emergency_uuid: emergencyUuid,
+					status: 'failed'
+				},
+				success: function(logResponse) {
+					console.log('Log failed response:', logResponse);
+				},
+				error: function(xhr, status, error) {
+					console.error('Failed to log failed status:', error);
+				}
+			});
+			
+			// 调用回调函数
+			if (typeof callback === 'function') {
+				callback(false);
+			}
+		}
+	})
+}
+
+// 显示急呼状态栏
+function showEmergencyStatus(type, targets) {
+	// 移除已存在的状态栏
+	var existingStatus = document.getElementById('emergency-status');
+	if (existingStatus) {
+		existingStatus.remove();
+	}
+	
+	// 创建状态栏HTML
+	var statusHtml = '<div id="emergency-status" class="emergency-status-bar">';
+	statusHtml += '<div class="emergency-header">';
+	statusHtml += '<i class="fas fa-exclamation-triangle"></i> ';
+	statusHtml += '<span class="status-title">急呼进行中</span>';
+	statusHtml += '<button class="emergency-close-btn" onclick="hideEmergencyStatus()">×</button>';
+	statusHtml += '</div>';
+	
+	// 添加目标分机列表
+	statusHtml += '<div class="emergency-targets">';
+	statusHtml += '<div class="target-label">目标分机：</div>';
+	statusHtml += '<div class="target-list">';
+	
+	// 初始化目标状态
+	window.emergencyTargets = {};
+	
+	if (Array.isArray(targets)) {
+		targets.forEach(function(ext) {
+			statusHtml += '<div class="target-item" id="emergency-target-' + ext + '">';
+			statusHtml += '<span class="target-extension">' + ext + '</span>';
+			statusHtml += '<span class="target-status pending">等待中</span>';
+			statusHtml += '</div>';
+			window.emergencyTargets[ext] = 'pending';
+		});
+	} else if (typeof targets === 'string') {
+		statusHtml += '<div class="target-item" id="emergency-target-' + targets + '">';
+		statusHtml += '<span class="target-extension">' + targets + '</span>';
+		statusHtml += '<span class="target-status pending">等待中</span>';
+		statusHtml += '</div>';
+		window.emergencyTargets[targets] = 'pending';
+	}
+	
+	statusHtml += '</div>';
+	statusHtml += '</div>';
+	
+	// 添加进度指示器
+	statusHtml += '<div class="emergency-progress">';
+	statusHtml += '<div class="progress-bar">';
+	statusHtml += '<div class="progress-fill" id="emergency-progress-fill"></div>';
+	statusHtml += '</div>';
+	statusHtml += '<div class="progress-text" id="emergency-progress-text">准备发起急呼...</div>';
+	statusHtml += '</div>';
+	
+	statusHtml += '</div>';
+	
+	// 添加到页面
+	$('body').prepend(statusHtml);
+	
+	// 初始化进度
+	updateEmergencyProgress(0, '准备发起急呼...');
+}
+
+// 结束急呼
+function endEmergencyCall() {
+	if (confirm('确认结束急呼？')) {
+		$('#emergency-status').remove();
+		// TODO: 挂断所有急呼通话
+	}
+}
+
+// 启用急呼按钮（在SIP注册成功后调用）
+function enableEmergencyFunction() {
+	$('#emergency-btn').prop('disabled', false);
+}
+
+// 更新急呼状态显示
+function updateEmergencyCallStatus(extension, status) {
+	console.log('Emergency call status update:', extension, status);
+	
+	// 更新目标分机状态
+	updateTargetStatus(extension, status);
+	
+	// 更新总体进度
+	var progress = calculateEmergencyProgress();
+	var completed = Object.keys(window.emergencyTargets).filter(function(e) {
+		return window.emergencyTargets[e] === 'answered' || window.emergencyTargets[e] === 'failed';
+	}).length;
+	var total = Object.keys(window.emergencyTargets).length;
+	
+	updateEmergencyProgress(
+		10 + (progress * 0.9), 
+		`已完成 ${completed}/${total} 个急呼`
+	);
+	
+	// 如果所有急呼都完成，3秒后隐藏状态栏
+	if (progress === 100) {
+		setTimeout(function() {
+			hideEmergencyStatus();
+		}, 3000);
+	}
+}
+
+// 隐藏急呼状态栏
+function hideEmergencyStatus() {
+	var statusElement = document.getElementById('emergency-status');
+	if (statusElement) {
+		statusElement.style.display = 'none';
+	}
+}
+
+// 更新急呼进度
+function updateEmergencyProgress(percentage, text) {
+	var progressFill = document.getElementById('emergency-progress-fill');
+	var progressText = document.getElementById('emergency-progress-text');
+	
+	if (progressFill) {
+		progressFill.style.width = percentage + '%';
+	}
+	
+	if (progressText) {
+		progressText.textContent = text;
+	}
+}
+
+// 更新目标分机状态
+function updateTargetStatus(extension, status) {
+	var targetElement = document.getElementById('emergency-target-' + extension);
+	if (targetElement) {
+		var statusElement = targetElement.querySelector('.target-status');
+		if (statusElement) {
+			// 移除所有状态类
+			statusElement.classList.remove('pending', 'ringing', 'answered', 'failed');
+			
+			// 添加新状态类和文本
+			statusElement.classList.add(status);
+			switch (status) {
+				case 'pending':
+					statusElement.textContent = '等待中';
+					break;
+				case 'ringing':
+					statusElement.textContent = '响铃中';
+					break;
+				case 'answered':
+					statusElement.textContent = '已接听';
+					break;
+				case 'failed':
+					statusElement.textContent = '失败';
+					break;
+			}
+		}
+	}
+	
+	// 更新全局状态
+	if (window.emergencyTargets) {
+		window.emergencyTargets[extension] = status;
+	}
+}
+
+// 计算急呼总体进度
+function calculateEmergencyProgress() {
+	if (!window.emergencyTargets) return 0;
+	
+	var targets = Object.keys(window.emergencyTargets);
+	if (targets.length === 0) return 0;
+	
+	var completed = 0;
+	targets.forEach(function(ext) {
+		var status = window.emergencyTargets[ext];
+		if (status === 'answered' || status === 'failed') {
+			completed++;
+		}
+	});
+	
+	return Math.round((completed / targets.length) * 100);
+}
+
+// 诊断与验证
+function __dispatcherDiagnostics(){
+    try{
+        var report = (dispatcherControl && dispatcherControl.sipClient && dispatcherControl.sipClient.getResourceReport) ? dispatcherControl.sipClient.getResourceReport() : {}
+        console.log('[Diagnostics] ResourceReport:', report)
+        console.log('[Diagnostics] Utils:', !!window.DispatcherUtils)
+        console.log('[Diagnostics] EmergencyAudio:', !!window.EmergencyAudioService)
+        return report
+    }catch(e){ console.error(e); return {} }
+}
 </script>
 
 <?php
@@ -2130,3 +2706,17 @@ echo "<br><br>\n";
 	require_once "resources/footer.php";
 
 ?>
+<script type="text/javascript">
+    var heartbeat_timer_id;
+    function resourceHeartbeat(){
+        try{
+            if (!window.DispatcherUtils || !DispatcherUtils.ResourceManager) { return; }
+            var snap = DispatcherUtils.ResourceManager.verifyReleased()
+            if (snap.modals > 0 || snap.overlays > 0) { DispatcherUtils.ResourceManager.destroyUiPopups() }
+            if (snap.audioNodes > 0 && snap.emergencyAlerts === 0) { DispatcherUtils.ResourceManager.destroyUiPopups() }
+            try{ if (window.$ && $.get) { $.get('dispatcher_api.php', { action:'heartbeat', active:snap.activeSessions, alerts:snap.emergencyAlerts }) } }catch(e){}
+        }catch(e){}
+    }
+    function resourceHeartbeat_start(){ try{ clearInterval(heartbeat_timer_id) }catch(e){}; heartbeat_timer_id = setInterval(resourceHeartbeat, 30000) }
+    function resourceHeartbeat_stop(){ try{ clearInterval(heartbeat_timer_id) }catch(e){} }
+</script>

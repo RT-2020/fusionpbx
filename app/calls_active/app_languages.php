@@ -256,7 +256,7 @@ $text['label-profile']['ro-ro'] = "Profil";
 $text['label-profile']['ru-ru'] = "Профиль";
 $text['label-profile']['sv-se'] = "Profil";
 $text['label-profile']['uk-ua'] = "Профіль";
-$text['label-profile']['zh-cn'] = "轮廓";
+$text['label-profile']['zh-cn'] = "配置文件";
 $text['label-profile']['ja-jp'] = "プロフィール";
 $text['label-profile']['ko-kr'] = "프로필";
 

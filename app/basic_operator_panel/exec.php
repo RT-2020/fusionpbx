@@ -49,12 +49,12 @@
 // 	}
 
 //process the requests
-if (count($_GET) > 0) {
+if (count($_REQUEST) > 0) {
 	//set the variables
-		$switch_cmd = trim($_GET["cmd"] ?? '');
-		$action = trim($_GET["action"] ?? '');
-		$data = trim($_GET["data"] ?? '');
-		$direction = trim($_GET["direction"] ?? '');
+		$switch_cmd = trim($_REQUEST["cmd"] ?? '');
+		$action = trim($_REQUEST["action"] ?? '');
+		$data = trim($_REQUEST["data"] ?? '');
+		$direction = trim($_REQUEST["direction"] ?? '');
 
 	//setup the event socket connection
 		$esl = event_socket::create();
@@ -65,25 +65,72 @@ if (count($_GET) > 0) {
 			$uuid_pattern = '/[^-A-Fa-f0-9]/';
 			$num_pattern = '/[^-A-Za-z0-9()*#]/';
 
-			if ($switch_cmd == 'originate') {
-				$source = preg_replace($num_pattern,'',$_GET['source']);
-				$destination = preg_replace($num_pattern,'',$_GET['destination']);
-				$api_cmd = 'bgapi originate {sip_auto_answer=true,origination_caller_id_number=' . $source . ',sip_h_Call-Info=_undef_}user/' . $source . '@' . $_SESSION['domain_name'] . ' ' . $destination . ' XML ' . trim($_SESSION['user_context']);
+		if ($switch_cmd == 'originate') {
+			$source = preg_replace($num_pattern,'',$_REQUEST['source']);
+			$destination = preg_replace($num_pattern,'',$_REQUEST['destination']);
+			$emergency = $_REQUEST['emergency'] ?? 'false'; // 急呼标识
+			
+			// 构建 originate 参数
+			$originate_params = [];
+			$originate_params[] = 'sip_auto_answer=true';
+			$originate_params[] = 'origination_caller_id_number=' . $source;
+			$originate_params[] = 'sip_h_Call-Info=_undef_';
+			
+			if ($emergency === 'true') {
+				// 急呼模式：添加特殊参数
+				$originate_params[] = 'emergency_call=true';
+				$originate_params[] = 'origination_caller_id_name=急呼';
+				
+				// 多品牌设备兼容的自动应答配置
+				// 使用更通用的SIP头
+				$originate_params[] = 'sip_h_Call-Info=answer-after=0';
+				$originate_params[] = 'sip_h_Alert-Info=info=emergency';
+				
+				// P-Auto-Answer: 通用自动应答头
+				$originate_params[] = 'sip_h_P-Auto-Answer=normal'; // 或 'speaker' 优先扬声器
+				
+				// 自动录音
+				$recording_dir = $_SESSION['switch']['recordings']['dir'] . '/' . $_SESSION['domain_name'] . '/emergency/' . date('Y/m/d');
+				if (!is_dir($recording_dir)) {
+					@mkdir($recording_dir, 0755, true);
+				}
+				$recording_file = $recording_dir . '/emergency_' . time() . '_' . $destination . '.wav';
+				$originate_params[] = 'execute_on_answer=uuid_record ${uuid} start ' . $recording_file;
 			}
+			
+			$params_string = '{' . implode(',', $originate_params) . '}';
+			// 对于急呼，使用特殊的命令格式
+			if ($emergency === 'true') {
+				// 急呼模式：先呼叫目标分机（被叫），然后自动接听并连接到调度员（主叫）
+				// 使用特殊的拨号计划，确保急呼的特殊行为
+				$api_cmd = 'bgapi originate ' . $params_string . 'user/' . $destination . '@' . $_SESSION['domain_name'] . ' &park()';
+				
+				// 记录原始命令，用于后续桥接
+				$_SESSION['emergency_bridge'][$destination] = [
+					'source' => $source,
+					'destination' => $destination,
+					'job_uuid' => '',
+					'timestamp' => time()
+				];
+			} else {
+				// 普通模式：直接呼叫
+				$api_cmd = 'bgapi originate ' . $params_string . 'user/' . $source . '@' . $_SESSION['domain_name'] . ' ' . $destination . ' XML ' . trim($_SESSION['user_context']);
+			}
+		}
 			else if ($switch_cmd == 'uuid_record') {
-				$uuid = preg_replace($uuid_pattern,'',$_GET['uuid']);
+				$uuid = preg_replace($uuid_pattern,'',$_REQUEST['uuid']);
 				$api_cmd = 'uuid_record ' . $uuid . ' start ' . $_SESSION['switch']['recordings']['dir'] . '/' . $_SESSION['domain_name'] . '/archive/' . date('Y/M/d') . '/' . $uuid . '.wav';
 			}
 			else if ($switch_cmd == 'uuid_transfer') {
-				$uuid = preg_replace($uuid_pattern,'',$_GET['uuid']);
-				$destination = preg_replace($num_pattern,'',$_GET['destination']);
+				$uuid = preg_replace($uuid_pattern,'',$_REQUEST['uuid']);
+				$destination = preg_replace($num_pattern,'',$_REQUEST['destination']);
 				$api_cmd = 'uuid_transfer ' . $uuid . ' ' . $destination . ' XML ' . trim($_SESSION['user_context']);
 			}
 		else if ($switch_cmd == 'uuid_eavesdrop') {
-			$chan_uuid = preg_replace($uuid_pattern,'',$_GET['chan_uuid']);
-			$ext = preg_replace($num_pattern,'',$_GET['ext']);
-			$destination = preg_replace($num_pattern,'',$_GET['destination']);
-			$mode = trim($_GET['mode'] ?? 'listen');
+			$chan_uuid = preg_replace($uuid_pattern,'',$_REQUEST['chan_uuid']);
+			$ext = preg_replace($num_pattern,'',$_REQUEST['ext']);
+			$destination = preg_replace($num_pattern,'',$_REQUEST['destination']);
+			$mode = trim($_REQUEST['mode'] ?? 'listen');
 
 			$language = new text;
 			$text = $language->get();
@@ -133,8 +180,21 @@ if (count($_GET) > 0) {
 		}
 		}
 			else if ($switch_cmd == 'uuid_kill') {
-				$call_id = preg_replace($uuid_pattern,'',$_GET['call_id']);
+				$call_id = preg_replace($uuid_pattern,'',$_REQUEST['call_id']);
 				$api_cmd = 'uuid_kill ' . $call_id;
+			}
+			else if ($switch_cmd == 'uuid_exists') {
+				$uuid = preg_replace($uuid_pattern,'',$_REQUEST['uuid']);
+				$api_cmd = 'uuid_exists ' . $uuid;
+			}
+			else if ($switch_cmd == 'uuid_bridge') {
+				$uuid = preg_replace($uuid_pattern,'',$_REQUEST['uuid']);
+				$destination = preg_replace($num_pattern,'',$_REQUEST['destination']);
+				$api_cmd = 'uuid_bridge ' . $uuid . ' ' . $destination;
+			}
+			else if ($switch_cmd == 'get_channel_uuid') {
+				$destination = preg_replace($num_pattern,'',$_REQUEST['destination']);
+				$api_cmd = 'show channels as json';
 			}
 			else {
 				echo 'access denied';
@@ -144,8 +204,112 @@ if (count($_GET) > 0) {
 		//run the command
 		$switch_result = event_socket::api($api_cmd);
 		
-		// 输出FreeSWITCH返回结果（用于调试）
-		echo $switch_result;
+		// 输出FreeSWITCH返回结果（用于调试），get_channel_uuid 除外
+		if ($switch_cmd != 'get_channel_uuid') {
+			echo $switch_result;
+		}
+		
+		// 特殊处理get_channel_uuid命令
+		if ($switch_cmd == 'get_channel_uuid') {
+			$destination = $_REQUEST['destination'];
+			$channels = json_decode($switch_result, true);
+			
+			// 添加调试日志
+			error_log("Channel UUID Debug - Looking for destination: " . $destination);
+			error_log("Channel UUID Debug - Total channels: " . (is_array($channels) && isset($channels['rows']) ? count($channels['rows']) : 0));
+			
+			if (is_array($channels) && isset($channels['rows'])) {
+				foreach ($channels['rows'] as $channel) {
+					// 记录所有通道信息用于调试
+					error_log("Channel UUID Debug - Channel: " . json_encode($channel));
+					
+					// 检查是否是目标分机的通道（多种方式）
+					$found = false;
+					
+					// 优先检查park通道（急呼场景）
+					if (isset($channel['application']) && $channel['application'] === 'park' && 
+						isset($channel['name']) && strpos($channel['name'], $destination) !== false) {
+						$found = true;
+						error_log("Channel UUID Debug - Found park channel for " . $destination);
+					}
+					
+					// 方式1：检查destination_number
+					if (!$found && isset($channel['destination_number']) && $channel['destination_number'] == $destination) {
+						$found = true;
+					}
+					
+					// 方式2：检查caller_id_number（对于急呼场景）
+					if (!$found && isset($channel['caller_id_number']) && $channel['caller_id_number'] == $destination) {
+						$found = true;
+					}
+					
+					// 方式3：检查presence_id（某些情况下可能使用）
+					if (!$found && isset($channel['presence_id']) && strpos($channel['presence_id'], $destination) !== false) {
+						$found = true;
+					}
+					
+					// 方式4：检查channel_name中是否包含目标分机
+					if (!$found && isset($channel['name']) && strpos($channel['name'], $destination) !== false) {
+						$found = true;
+					}
+					
+					if ($found) {
+						// 找到目标分机的通道，返回UUID
+						error_log("Channel UUID Debug - Found channel for " . $destination . ": " . $channel['uuid']);
+						echo $channel['uuid'];
+						return;
+					}
+				}
+			}
+			
+			// 没有找到目标分机的通道
+			error_log("Channel UUID Debug - No channel found for: " . $destination);
+			echo 'false';
+			return;
+		}
+		
+		// 添加调试日志
+		if ($switch_cmd == 'originate' && $emergency === 'true') {
+			error_log("Emergency Call Debug - Command: " . $api_cmd);
+			error_log("Emergency Call Debug - Response: " . $switch_result);
+			error_log("Emergency Call Debug - Source: " . $source . ", Destination: " . $destination);
+			error_log("Emergency Call Debug - Parameters: " . $params_string);
+			
+			// 检查响应是否包含Job-UUID
+			if (preg_match('/Job-UUID:\s*([a-f0-9\-]+)/i', $switch_result, $matches)) {
+				$job_uuid = $matches[1];
+				error_log("Emergency Call Debug - Job UUID: " . $job_uuid);
+				
+				// 更新session中的Job-UUID
+				if (isset($_SESSION['emergency_bridge'][$destination])) {
+					$_SESSION['emergency_bridge'][$destination]['job_uuid'] = $job_uuid;
+				}
+				
+				// 立即检查通道状态
+				$channels_cmd = 'show channels as json';
+				$channels_result = event_socket::api($channels_cmd);
+				$channels = json_decode($channels_result, true);
+				
+				if (is_array($channels) && isset($channels['rows'])) {
+					error_log("Emergency Call Debug - Active channels after originate: " . count($channels['rows']));
+					foreach ($channels['rows'] as $channel) {
+						if (isset($channel['destination_number']) && 
+							($channel['destination_number'] == $destination || $channel['destination_number'] == $source)) {
+							error_log("Emergency Call Debug - Found related channel: " . json_encode($channel));
+						}
+					}
+				}
+			} else {
+				error_log("Emergency Call Debug - No Job UUID found in response");
+			}
+		}
+		
+		// 添加uuid_exists调试日志
+		if ($switch_cmd == 'uuid_exists') {
+			error_log("UUID Exists Debug - Command: " . $api_cmd);
+			error_log("UUID Exists Debug - Response: " . $switch_result);
+			error_log("UUID Exists Debug - UUID: " . $uuid);
+		}
 		
 		// 如果失败，追加目标分机的联系信息与用户状态帮助定位（临时调试）
 		if (stripos($switch_result, '-ERR') !== false) {
@@ -155,6 +319,11 @@ if (count($_GET) > 0) {
 			echo "\nCONTACT: " . trim((string)$contact_info);
 			echo "\nUSER_STATUS: " . trim((string)$user_status);
 			echo "\nCMD: " . $api_cmd;
+			
+			// 添加错误日志
+			error_log("Emergency Call Failed - Destination: " . $destination . ", Error: " . $switch_result);
+			error_log("Emergency Call Failed - Contact: " . trim((string)$contact_info));
+			error_log("Emergency Call Failed - Status: " . trim((string)$user_status));
 		}
 
 		/*

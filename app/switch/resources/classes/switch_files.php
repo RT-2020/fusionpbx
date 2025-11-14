@@ -76,12 +76,15 @@
 			if (file_exists($conf['switch.scripts.dir'])) {
 				$destination_directory = $conf['switch.scripts.dir'];
 			}
-			elseif (file_exists('/etc/freeswitch/scripts')) {
-				$destination_directory = '/etc/freeswitch/scripts';
-			}
-			elseif (file_exists('/usr/local/freeswitch/scripts')) {
-				$destination_directory = '/usr/local/freeswitch/scripts';
-			}
+            elseif (file_exists('/etc/freeswitch/scripts')) {
+                $destination_directory = '/etc/freeswitch/scripts';
+            }
+            elseif (file_exists('/usr/local/freeswitch/scripts')) {
+                $destination_directory = '/usr/local/freeswitch/scripts';
+            }
+            elseif (file_exists('/usr/share/freeswitch/scripts')) {
+                $destination_directory = '/usr/share/freeswitch/scripts';
+            }
 
 			//copy the scripts directory
 			if (!empty($source_directory) && is_readable($source_directory)) {

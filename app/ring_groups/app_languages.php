@@ -860,7 +860,7 @@ $text['label-ring_group_follow_me_enabled']['ru-ru'] = "Подписывайте
 $text['label-ring_group_follow_me_enabled']['sv-se'] = "Följ mig";
 $text['label-ring_group_follow_me_enabled']['uk-ua'] = "Слідуй за мною";
 $text['label-ring_group_follow_me_enabled']['tr-tr'] = "Beni takip et";
-$text['label-ring_group_follow_me_enabled']['zh-cn'] = "跟我来";
+$text['label-ring_group_follow_me_enabled']['zh-cn'] = "跟随我";
 $text['label-ring_group_follow_me_enabled']['ja-jp'] = "フォローしてください";
 $text['label-ring_group_follow_me_enabled']['ko-kr'] = "나를 따르라";
 
@@ -1076,7 +1076,7 @@ $text['label-distinctive_ring']['ru-ru'] = "Отличительный вызо�
 $text['label-distinctive_ring']['sv-se'] = "Distinkt Ringning";
 $text['label-distinctive_ring']['uk-ua'] = "Дитинктивне кільце";
 $text['label-distinctive_ring']['tr-tr'] = "Ayırt Edici Yüzük";
-$text['label-distinctive_ring']['zh-cn'] = "特色戒指";
+$text['label-distinctive_ring']['zh-cn'] = "特征铃声";
 $text['label-distinctive_ring']['ja-jp'] = "特徴的なリング";
 $text['label-distinctive_ring']['ko-kr'] = "독특한 반지";
 

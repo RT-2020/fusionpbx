@@ -556,21 +556,9 @@ if (is_array($activity)) {
 			}
 		}
 		else {
-			//call
-			if (in_array($extension, $_SESSION['user']['extensions'])) {
-				$block .= "\t\t<img id='destination_control_".escape($extension)."_call' class='destination_control' src='resources/images/keypad_call.png' style='width: 12px; height: 12px; border: none; margin-top: 26px; margin-right: 1px; cursor: pointer;' align='right' onclick=\"toggle_destination('".escape($extension)."', 'call');\" ".$onhover_pause_refresh.">\n";
-				$block .= "\t\t<form id='frm_destination_".escape($extension)."_call' onsubmit=\"go_destination('".escape($extension)."', document.getElementById('destination_".escape($extension)."_call').value, 'call'); return false;\">\n";
-				$block .= "\t\t\t<input type='text' class='formfld' id='destination_".escape($extension)."_call' style='width: 100px; min-width: 100px; max-width: 100px; margin-top: 10px; text-align: center; display: none;' onblur=\"toggle_destination('".escape($extension)."', 'call');\">\n";
-				$block .= "\t\t</form>\n";
-			}
+            // 移除用户自有分机拨号入口（统一用新版面板）
 			// 空闲分机的快捷“直呼”按钮（与拨号入口并存）
-			if (permission_exists('operator_panel_manage')) {
-				$own_dest = $_SESSION['user']['extension'][0]['destination'] ?? '';
-				if ($own_dest !== $extension) {
-					$block .= "\t\t<img src='resources/images/keypad_call.png' style='width: 12px; height: 12px; border: none; margin-top: 26px; margin-right: 1px; cursor: pointer;' align='right' title='直呼' aria-label='直呼' onclick=\"call_direct('".escape($extension)."');\" ".$onhover_pause_refresh.">\n";
-					$block .= "\t\t<span class='op_action_label' style='font-size: 10px; margin-left: 2px;'>直呼</span>\n";
-				}
-			}
+            
 		}
 		$block .= "		</td>\n";
 		$block .= "	</tr>\n";

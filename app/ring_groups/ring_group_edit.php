@@ -1111,11 +1111,22 @@
 	echo "	".$text['label-distinctive_ring']."\n";
 	echo "</td>\n";
 	echo "<td class='vtable' align='left'>\n";
-	echo "  <input class='formfld' type='text' name='ring_group_distinctive_ring' maxlength='255' value='".escape($ring_group_distinctive_ring)."'>\n";
-	echo "<br />\n";
-	echo $text['description-distinctive_ring']." \n";
-	echo "</td>\n";
-	echo "</tr>\n";
+    echo "  <input class='formfld' type='text' name='ring_group_distinctive_ring' id='ring_group_distinctive_ring' maxlength='255' value='".escape($ring_group_distinctive_ring)."'>\n";
+    echo "<br />\n";
+    echo $text['description-distinctive_ring']." \n";
+    echo "</td>\n";
+    echo "</tr>\n";
+
+    echo "<tr>\n";
+    echo "<td class='vncell' valign='top' align='left' nowrap='nowrap'>\n";
+    echo "    启用紧急呼叫\n";
+    echo "</td>\n";
+    echo "<td class='vtable' align='left'>\n";
+    $emergency_enabled = (stripos($ring_group_distinctive_ring, 'emergency') !== false);
+    echo "    <label><input type='checkbox' id='rg_emergency_enable' ".($emergency_enabled ? "checked='checked'" : null)."> 启用后将向被叫下发急呼铃音，调度终端进行报警显示</label>\n";
+    echo "    <br><small>仅设置铃音与识别标志；若话机支持，还可配合自动应答与录音。</small>\n";
+    echo "</td>\n";
+    echo "</tr>\n";
 
 	echo "<tr>\n";
 	echo "<td class='vncell' valign='top' align='left' nowrap='nowrap'>\n";
@@ -1337,15 +1348,33 @@
 	echo "</td>\n";
 	echo "</tr>\n";
 
-	echo "</table>";
-	echo "</div>\n";
-	echo "<br><br>";
+echo "</table>";
+echo "</div>\n";
+echo "<br><br>";
 
-	if (!empty($dialplan_uuid)) {
-		echo "<input type='hidden' name='dialplan_uuid' value='".escape($dialplan_uuid)."'>\n";
-	}
-	if (!empty($ring_group_uuid)) {
-		echo "<input type='hidden' name='ring_group_uuid' value='".escape($ring_group_uuid)."'>\n";
+echo "<script type=\"text/javascript\">\n";
+echo "(function(){\n";
+echo "  var cb = document.getElementById('rg_emergency_enable');\n";
+echo "  var dr = document.getElementById('ring_group_distinctive_ring');\n";
+echo "  if (!cb || !dr) return;\n";
+echo "  var DEFAULT_EMERGENCY = '<http://fusionpbx/emergency>;info=emergency';\n";
+echo "  cb.addEventListener('change', function(){\n";
+echo "    var v = (dr.value||'');\n";
+echo "    var has = v.toLowerCase().indexOf('emergency') !== -1;\n";
+echo "    if (this.checked){\n";
+echo "      if (!has || v.trim()===''){ dr.value = DEFAULT_EMERGENCY; }\n";
+echo "    } else {\n";
+echo "      if (v === DEFAULT_EMERGENCY){ dr.value = ''; }\n";
+echo "    }\n";
+echo "  });\n";
+echo "})();\n";
+echo "</script>\n";
+
+if (!empty($dialplan_uuid)) {
+    echo "<input type='hidden' name='dialplan_uuid' value='".escape($dialplan_uuid)."'>\n";
+}
+if (!empty($ring_group_uuid)) {
+    echo "<input type='hidden' name='ring_group_uuid' value='".escape($ring_group_uuid)."'>\n";
 	}
 	echo "<input type='hidden' name='".$token['name']."' value='".$token['hash']."'>\n";
 

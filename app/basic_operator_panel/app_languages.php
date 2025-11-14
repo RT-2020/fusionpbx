@@ -600,4 +600,64 @@ $text['label-whisper']['zh-cn'] = "插话";
 $text['label-whisper']['ja-jp'] = "ささやき";
 $text['label-whisper']['ko-kr'] = "속삭임";
 
+$text['label-emergency_call']['zh-cn'] = "急呼";
+$text['label-emergency_call']['en-us'] = "Emergency Call";
+$text['label-emergency_call']['de-de'] = "Notruf";
+$text['label-emergency_call']['es-cl'] = "Llamada de emergencia";
+$text['label-emergency_call']['fr-fr'] = "Appel d'urgence";
+$text['label-emergency_call']['pt-br'] = "Chamada de emergência";
+$text['label-emergency_call']['ru-ru'] = "Экстренный вызов";
+$text['label-emergency_call']['ja-jp'] = "緊急通話";
+$text['label-emergency_call']['ko-kr'] = "긴급 통화";
+
+$text['button-emergency_call']['zh-cn'] = "急呼";
+$text['button-emergency_call']['en-us'] = "Emergency";
+$text['button-emergency_call']['de-de'] = "Notfall";
+$text['button-emergency_call']['es-cl'] = "Emergencia";
+$text['button-emergency_call']['fr-fr'] = "Urgence";
+$text['button-emergency_call']['pt-br'] = "Emergência";
+$text['button-emergency_call']['ru-ru'] = "Срочно";
+$text['button-emergency_call']['ja-jp'] = "緊急";
+$text['button-emergency_call']['ko-kr'] = "긴급";
+
+$text['label-emergency_incoming']['zh-cn'] = "急呼来电";
+$text['label-emergency_incoming']['en-us'] = "Emergency Incoming";
+$text['label-emergency_incoming']['de-de'] = "Eingehender Notruf";
+$text['label-emergency_incoming']['es-cl'] = "Emergencia entrante";
+$text['label-emergency_incoming']['fr-fr'] = "Urgence entrante";
+$text['label-emergency_incoming']['pt-br'] = "Emergência recebida";
+$text['label-emergency_incoming']['ru-ru'] = "Входящий экстренный";
+$text['label-emergency_incoming']['ja-jp'] = "緊急着信";
+$text['label-emergency_incoming']['ko-kr'] = "긴급 수신";
+
+$text['label-emergency_group']['zh-cn'] = "急呼组呼";
+$text['label-emergency_group']['en-us'] = "Emergency Group Call";
+$text['label-emergency_group']['de-de'] = "Notruf-Gruppenanruf";
+$text['label-emergency_group']['es-cl'] = "Llamada grupal de emergencia";
+$text['label-emergency_group']['fr-fr'] = "Appel de groupe d'urgence";
+$text['label-emergency_group']['pt-br'] = "Chamada em grupo de emergência";
+$text['label-emergency_group']['ru-ru'] = "Групповой экстренный вызов";
+$text['label-emergency_group']['ja-jp'] = "緊急グループ通話";
+$text['label-emergency_group']['ko-kr'] = "긴급 그룹 통화";
+
+$text['label-emergency_broadcast']['zh-cn'] = "急呼全呼";
+$text['label-emergency_broadcast']['en-us'] = "Emergency Broadcast";
+$text['label-emergency_broadcast']['de-de'] = "Notruf-Rundsendu";
+$text['label-emergency_broadcast']['es-cl'] = "Transmisión de emergencia";
+$text['label-emergency_broadcast']['fr-fr'] = "Diffusion d'urgence";
+$text['label-emergency_broadcast']['pt-br'] = "Transmissão de emergência";
+$text['label-emergency_broadcast']['ru-ru'] = "Экстренное оповещение";
+$text['label-emergency_broadcast']['ja-jp'] = "緊急一斉通知";
+$text['label-emergency_broadcast']['ko-kr'] = "긴급 방송";
+
+$text['message-emergency_initiated']['zh-cn'] = "急呼已发起";
+$text['message-emergency_initiated']['en-us'] = "Emergency call initiated";
+$text['message-emergency_initiated']['de-de'] = "Notruf initiiert";
+$text['message-emergency_initiated']['es-cl'] = "Llamada de emergencia iniciada";
+$text['message-emergency_initiated']['fr-fr'] = "Appel d'urgence initié";
+$text['message-emergency_initiated']['pt-br'] = "Chamada de emergência iniciada";
+$text['message-emergency_initiated']['ru-ru'] = "Экстренный вызов инициирован";
+$text['message-emergency_initiated']['ja-jp'] = "緊急通話を開始";
+$text['message-emergency_initiated']['ko-kr'] = "긴급 통화 시작됨";
+
 ?>

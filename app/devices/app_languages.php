@@ -6056,7 +6056,7 @@ $text['header-profile']['ro-ro'] = "Profil";
 $text['header-profile']['ru-ru'] = "Профиль";
 $text['header-profile']['sv-se'] = "Profil";
 $text['header-profile']['uk-ua'] = "Профіль";
-$text['header-profile']['zh-cn'] = "轮廓";
+$text['header-profile']['zh-cn'] = "配置文件";
 $text['header-profile']['ja-jp'] = "プロフィール";
 $text['header-profile']['ko-kr'] = "프로필";
 

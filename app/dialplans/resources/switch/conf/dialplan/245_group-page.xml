@@ -1,0 +1,7 @@
+<extension name="group-page" number="9998" context="${domain_name}" continue="false" app_uuid="4e79a1f0-3fbe-4f3a-9e1a-5f0f4e6b8b98" enabled="true" order="245">
+	<condition field="destination_number" expression="^9998$" >
+		<action application="set" data="caller_id_name=Group Page" />
+		<action application="set" data="caller_id_number=" />
+		<action application="lua" data="group.lua" />
+	</condition>
+</extension>

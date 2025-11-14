@@ -600,18 +600,22 @@
 /* 来电提示 */
 #dispatcher-alerts {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: white;
-  border: 3px solid #ff5722;
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  right: 16px;
+  bottom: 96px;
+  top: auto;
+  left: auto;
+  transform: none;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
   z-index: 10000;
-  min-width: 400px;
+  width: 380px;
+  max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
   display: none;
-  animation: slideIn 0.3s;
 }
 
 @keyframes slideIn {
@@ -637,6 +641,16 @@
   margin: 8px 0;
   color: #333;
   font-size: 14px;
+}
+
+#dispatcher-alerts .incoming-call,
+#dispatcher-alerts .trunk-incoming-call {
+  background: #ffffff;
+  border: 2px solid #ff5722;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  margin-top: 12px;
 }
 
 .call-actions,
@@ -1275,4 +1289,223 @@
 
 .participant-actions button {
   min-width: 80px;
+}
+
+/* ============================================
+   急呼功能样式
+   ============================================ */
+
+/* 急呼按钮样式 */
+.emergency-btn {
+  background: #dc3545 !important;
+  color: white !important;
+}
+
+.emergency-btn:hover:not(:disabled) {
+  background: #c82333 !important;
+}
+
+.emergency-btn:disabled {
+  background: #ccc !important;
+  opacity: 0.5;
+}
+
+/* 急呼来电特殊显示 */
+.emergency-incoming {
+  background: #dc3545 !important;
+  color: white !important;
+  animation: emergency-blink 1s infinite;
+  border: 3px solid #ff0000 !important;
+}
+
+@keyframes emergency-blink {
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0.5;
+  }
+}
+
+/* 急呼状态栏 */
+.emergency-status-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: #dc3545;
+  color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  font-family: Arial, sans-serif;
+  max-width: 600px;
+  margin: 20px auto;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.emergency-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 15px;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.emergency-header i {
+  margin-right: 8px;
+  font-size: 18px;
+}
+
+.status-title {
+  font-weight: bold;
+  font-size: 16px;
+  flex-grow: 1;
+}
+
+.emergency-close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.emergency-close-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.emergency-targets {
+  padding: 15px;
+}
+
+.target-label {
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.target-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.target-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.target-extension {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.target-status {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+.target-status.pending {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.target-status.ringing {
+  background: #ffc107;
+  color: #212529;
+  animation: pulse 1.5s infinite;
+}
+
+.target-status.answered {
+  background: #28a745;
+  color: white;
+}
+
+.target-status.failed {
+  background: #dc3545;
+  color: white;
+}
+
+.emergency-progress {
+  padding: 0 15px 15px;
+}
+
+.progress-bar {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #28a745;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  font-size: 12px;
+  text-align: center;
+  opacity: 0.8;
+}
+
+/* 动画效果 */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 193, 7, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 193, 7, 0);
+  }
+}
+
+/* 急呼模态对话框样式增强 */
+#emergency-modal .modal-header {
+  background: #dc3545;
+  color: white;
+}
+
+#emergency-modal .modal-close-btn {
+  color: white;
+}
+
+#emergency-modal .modal-close-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+#emergency-modal .alert-warning {
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+#emergency-modal .alert-danger {
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
+  padding: 10px;
 }

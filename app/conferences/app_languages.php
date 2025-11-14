@@ -204,7 +204,7 @@ $text['table-profile']['ro-ro'] = "Profil";
 $text['table-profile']['ru-ru'] = "Профиль";
 $text['table-profile']['sv-se'] = "Profil";
 $text['table-profile']['uk-ua'] = "Профіль";
-$text['table-profile']['zh-cn'] = "轮廓";
+$text['table-profile']['zh-cn'] = "配置文件";
 $text['table-profile']['ja-jp'] = "プロフィール";
 $text['table-profile']['ko-kr'] = "프로필";
 
@@ -958,9 +958,64 @@ $text['label-flags']['ro-ro'] = "Steaguri";
 $text['label-flags']['ru-ru'] = "Флаги";
 $text['label-flags']['sv-se'] = "Flaggor";
 $text['label-flags']['uk-ua'] = "Прапори";
-$text['label-flags']['zh-cn'] = "旗帜";
+$text['label-flags']['zh-cn'] = "标志";
 $text['label-flags']['ja-jp'] = "フラグ";
 $text['label-flags']['ko-kr'] = "플래그";
+
+// call mode labels and options
+$text['label-call_mode']['en-us'] = "Call Mode";
+$text['label-call_mode']['en-gb'] = "Call Mode";
+$text['label-call_mode']['zh-cn'] = "呼叫模式";
+$text['label-call_mode']['ja-jp'] = "呼び出しモード";
+$text['label-call_mode']['ko-kr'] = "호출 모드";
+
+$text['description-call_mode']['en-us'] = "Select how calls to this conference extension should be handled.";
+$text['description-call_mode']['en-gb'] = "Select how calls to this conference extension should be handled.";
+$text['description-call_mode']['zh-cn'] = "选择呼叫至该会议分机的处理方式。";
+$text['description-call_mode']['ja-jp'] = "この会議内線への呼び出しの処理方法を選択します。";
+$text['description-call_mode']['ko-kr'] = "이 회의 내선에 대한 호출 처리 방식을 선택하세요.";
+
+$text['option-single_call']['en-us'] = "Single Call";
+$text['option-single_call']['en-gb'] = "Single Call";
+$text['option-single_call']['zh-cn'] = "单呼";
+$text['option-single_call']['ja-jp'] = "単一呼";
+$text['option-single_call']['ko-kr'] = "단일 호출";
+
+$text['option-group_call']['en-us'] = "Group Call";
+$text['option-group_call']['en-gb'] = "Group Call";
+$text['option-group_call']['zh-cn'] = "组呼";
+$text['option-group_call']['ja-jp'] = "グループ呼";
+$text['option-group_call']['ko-kr'] = "그룹 호출";
+
+$text['option-all_call']['en-us'] = "All Call";
+$text['option-all_call']['en-gb'] = "All Call";
+$text['option-all_call']['zh-cn'] = "全呼";
+$text['option-all_call']['ja-jp'] = "全体呼";
+$text['option-all_call']['ko-kr'] = "전체 호출";
+
+$text['label-call_mode_group']['en-us'] = "Target Extension";
+$text['label-call_mode_group']['en-gb'] = "Target Extension";
+$text['label-call_mode_group']['zh-cn'] = "目标分机";
+$text['label-call_mode_group']['ja-jp'] = "対象内線";
+$text['label-call_mode_group']['ko-kr'] = "대상 내선";
+
+$text['description-call_mode_group']['en-us'] = "When using Group Call, select the extension to invite.";
+$text['description-call_mode_group']['en-gb'] = "When using Group Call, select the extension to invite.";
+$text['description-call_mode_group']['zh-cn'] = "选择组呼时，请选择需要邀请的分机号。";
+$text['description-call_mode_group']['ja-jp'] = "グループ呼使用時に招待する内線番号を選択してください。";
+$text['description-call_mode_group']['ko-kr'] = "그룹 호출 사용 시 초대할 내선 번호를 선택하세요.";
+
+$text['message-call_mode-group-required']['en-us'] = "Target Extension is required for Group Call.";
+$text['message-call_mode-group-required']['en-gb'] = "Target Extension is required for Group Call.";
+$text['message-call_mode-group-required']['zh-cn'] = "组呼模式下必须选择目标分机。";
+$text['message-call_mode-group-required']['ja-jp'] = "グループ呼では対象内線が必須です。";
+$text['message-call_mode-group-required']['ko-kr'] = "그룹 호출에서는 대상 내선 선택이 필요합니다.";
+
+$text['confirm-all_call']['en-us'] = "All Call will ring all invited users concurrently. Continue?";
+$text['confirm-all_call']['en-gb'] = "All Call will ring all invited users concurrently. Continue?";
+$text['confirm-all_call']['zh-cn'] = "全呼将并发振铃所有被邀请用户，是否继续？";
+$text['confirm-all_call']['ja-jp'] = "全体呼は招待された全ユーザーに同時に発信します。続行しますか？";
+$text['confirm-all_call']['ko-kr'] = "전체 호출은 초대된 모든 사용자에게 동시 발신합니다. 계속하시겠습니까?";
 
 $text['label-account_code']['en-us'] = "Account Code";
 $text['label-account_code']['en-gb'] = "Account Code";
@@ -1010,8 +1065,26 @@ $text['label-view']['ro-ro'] = "Vedere";
 $text['label-view']['ru-ru'] = "Просмотр";
 $text['label-view']['sv-se'] = "Visa";
 $text['label-view']['uk-ua'] = "Перегляд";
-$text['label-view']['zh-cn'] = "看法";
+$text['label-view']['zh-cn'] = "查看";
 $text['label-view']['ja-jp'] = "意見";
 $text['label-view']['ko-kr'] = "보다";
 
+$text['label-call_mode_targets']['zh-cn'] = "目标分机（多选/输入）";
+$text['description-call_mode_targets']['zh-cn'] = "英文逗号分隔，空格/分号自动转换。";
+$text['label-exclude_caller']['zh-cn'] = "排除主叫";
+$text['description-exclude_caller']['zh-cn'] = "启用后主叫不会被邀请。";
+$text['message-targets-invalid']['zh-cn'] = "包含不存在分机：%s";
+$text['message-targets-empty']['zh-cn'] = "组呼模式下至少需要一个目标分机。";
+$text['label-enforce_authorized_callers']['en-us'] = "Enforce Authorized Callers";
+$text['label-enforce_authorized_callers']['en-gb'] = "Enforce Authorized Callers";
+$text['label-enforce_authorized_callers']['zh-cn'] = "启用拨入授权";
+$text['description-enforce_authorized_callers']['en-us'] = "Only users assigned to this conference may dial the extension.";
+$text['description-enforce_authorized_callers']['en-gb'] = "Only users assigned to this conference may dial the extension.";
+$text['description-enforce_authorized_callers']['zh-cn'] = "仅授权用户可拨打此会议分机号。";
+$text['label-authorized_extensions']['en-us'] = "Authorized Extensions";
+$text['label-authorized_extensions']['en-gb'] = "Authorized Extensions";
+$text['label-authorized_extensions']['zh-cn'] = "授权分机（可拨入）";
+$text['description-authorized_extensions']['en-us'] = "When enabled, only selected extensions may dial this conference.";
+$text['description-authorized_extensions']['en-gb'] = "When enabled, only selected extensions may dial this conference.";
+$text['description-authorized_extensions']['zh-cn'] = "启用拨入授权时，仅此处选择的分机可拨打会议分机号。";
 ?>

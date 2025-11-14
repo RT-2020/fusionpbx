@@ -285,6 +285,12 @@
 					$this->destinations[$x]['result']['data'][$y]['name'] = '*411';
 					$this->destinations[$x]['result']['data'][$y]['destination'] = '*411 XML ${context}';
 					$y++;
+					// add set action option
+					$this->destinations[$x]['result']['data'][$y]['label'] = 'set';
+					$this->destinations[$x]['result']['data'][$y]['name'] = 'set';
+					$this->destinations[$x]['result']['data'][$y]['application'] = 'set';
+					$this->destinations[$x]['result']['data'][$y]['destination'] = '';
+					$y++;
 					$this->destinations[$x]['result']['data'][$y]['label'] = 'hangup';
 					$this->destinations[$x]['result']['data'][$y]['name'] = 'hangup';
 					$this->destinations[$x]['result']['data'][$y]['application'] = 'hangup';
@@ -649,6 +655,11 @@
 				$this->destinations[$x]['result']['data'][$y]['name'] = 'company_directory';
 				$this->destinations[$x]['result']['data'][$y]['destination'] = '*411 XML ${context}';
 				$y++;
+				// add set action option
+				$this->destinations[$x]['result']['data'][$y]['name'] = 'set';
+				$this->destinations[$x]['result']['data'][$y]['application'] = 'set';
+				$this->destinations[$x]['result']['data'][$y]['destination'] = '';
+				$y++;
 				$this->destinations[$x]['result']['data'][$y]['name'] = 'hangup';
 				$this->destinations[$x]['result']['data'][$y]['application'] = 'hangup';
 				$this->destinations[$x]['result']['data'][$y]['destination'] = '';
@@ -861,6 +872,11 @@
 				$this->destinations[$x]['result']['data'][$y]['extension'] = '*411';
 				$this->destinations[$x]['result']['data'][$y]['destination'] = '*411 XML ${context}';
 				$y++;
+				// add set action option
+				$this->destinations[$x]['result']['data'][$y]['name'] = 'set';
+				$this->destinations[$x]['result']['data'][$y]['application'] = 'set';
+				$this->destinations[$x]['result']['data'][$y]['destination'] = '';
+				$y++;
 				$this->destinations[$x]['result']['data'][$y]['name'] = 'hangup';
 				$this->destinations[$x]['result']['data'][$y]['application'] = 'hangup';
 				$this->destinations[$x]['result']['data'][$y]['destination'] = '';
@@ -1007,6 +1023,11 @@
 		public function valid($destination, $type = 'dialplan') {
 			//allow an empty destination
 			if ($destination == ':') {
+				return true;
+			}
+
+			// allow set application with arbitrary data for dialplans
+			if ($type === 'dialplan' && preg_match('/^set:/i', $destination)) {
 				return true;
 			}
 

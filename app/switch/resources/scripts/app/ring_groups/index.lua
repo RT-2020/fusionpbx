@@ -816,14 +816,20 @@ log = require "resources.functions.log".ring_group
 						ring_group_cid_number_prefix = row.ring_group_cid_number_prefix;
 						ring_group_distinctive_ring = row.ring_group_distinctive_ring;
 						ring_group_ringback = row.ring_group_ringback;
-						destination_number = row.destination_number;
-						destination_delay = row.destination_delay;
-						destination_timeout = row.destination_timeout;
-						destination_prompt = row.destination_prompt;
-						group_confirm_key = row.group_confirm_key;
-						group_confirm_file = row.group_confirm_file;
-						toll_allow = row.toll_allow;
-						user_exists = row.user_exists;
+		destination_number = row.destination_number;
+					destination_delay = row.destination_delay;
+					destination_timeout = row.destination_timeout;
+					destination_prompt = row.destination_prompt;
+					group_confirm_key = row.group_confirm_key;
+					group_confirm_file = row.group_confirm_file;
+					toll_allow = row.toll_allow;
+					user_exists = row.user_exists;
+
+					local emergency_enabled = false
+					if (ring_group_distinctive_ring and string.len(ring_group_distinctive_ring) > 0) then
+						local s = string.lower(ring_group_distinctive_ring)
+						if string.find(s, "emergency", 1, true) then emergency_enabled = true end
+					end
 
 					--follow the forwards
 						if (row.ring_group_call_forward_enabled == "true") then
@@ -894,17 +900,19 @@ log = require "resources.functions.log".ring_group
 						end
 
 					--determine confirm prompt
-						if (ring_group_call_screen_enabled ~= nil and ring_group_call_screen_enabled == 'true') then
-							group_confirm = "group_confirm_key=exec,group_confirm_file=lua ".. scripts_dir:gsub('\\','/') .."/confirm.lua,confirm=true,";
-						elseif (destination_prompt == nil) then
-							group_confirm = "confirm=false,";
-						elseif (destination_prompt == "1") then
-							group_confirm = "group_confirm_key=exec,group_confirm_file=lua ".. scripts_dir:gsub('\\','/') .."/confirm.lua,confirm=true,";
-						elseif (destination_prompt == "2") then
-							group_confirm = "group_confirm_key=exec,group_confirm_file=lua ".. scripts_dir:gsub('\\','/') .."/confirm.lua,confirm=true,";
-						else
-							group_confirm = "confirm=false,";
-						end
+					if emergency_enabled then
+						group_confirm = "confirm=false,"
+					elseif (ring_group_call_screen_enabled ~= nil and ring_group_call_screen_enabled == 'true') then
+						group_confirm = "group_confirm_key=exec,group_confirm_file=lua ".. scripts_dir:gsub('\\','/') .."/confirm.lua,confirm=true,";
+					elseif (destination_prompt == nil) then
+						group_confirm = "confirm=false,";
+					elseif (destination_prompt == "1") then
+						group_confirm = "group_confirm_key=exec,group_confirm_file=lua ".. scripts_dir:gsub('\\','/') .."/confirm.lua,confirm=true,";
+					elseif (destination_prompt == "2") then
+						group_confirm = "group_confirm_key=exec,group_confirm_file=lua ".. scripts_dir:gsub('\\','/') .."/confirm.lua,confirm=true,";
+					else
+						group_confirm = "confirm=false,";
+					end
 
 					--get user_record value and determine whether to record the session
 						cmd = "user_data ".. destination_number .."@"..domain_name.." var user_record";
@@ -925,13 +933,25 @@ log = require "resources.functions.log".ring_group
 						end
 
 					--record the session
-						if (record_session) then
-							record_session = ",api_on_answer='uuid_record "..uuid.." start ".. record_path .. "/" .. record_name .. "',record_path='".. record_path .."',record_name="..record_name;
-							session:setVariable("record_path", record_path);
-						else
-							record_session = '';
+					if (record_session) then
+						record_session = ",api_on_answer='uuid_record "..uuid.." start ".. record_path .. "/" .. record_name .. "',record_path='".. record_path .."',record_name="..record_name;
+						session:setVariable("record_path", record_path);
+					else
+						record_session = '';
+					end
+
+					if emergency_enabled then
+						local e_dir = recordings_dir .. "/" .. domain_name .. "/emergency/" .. os.date("%Y/%m/%d")
+						e_dir = e_dir:gsub("\\", "/")
+						if (not file_exists(e_dir)) then
+							mkdir(e_dir);
 						end
-						row.record_session = record_session
+						local e_file = "emergency_"..os.time().."_"..destination_number..".wav"
+						local e_full = e_dir .. "/" .. e_file
+						record_session = ",api_on_answer='uuid_record "..uuid.." start ".. e_full .. "',record_path='".. e_dir .."',record_name=".. e_file
+					end
+
+					row.record_session = record_session
 
 					--call timeout ignored with enterprise adjust the destinaton_timeout to honor the call timeout
 						if (ring_group_strategy == "enterprise") then
@@ -968,10 +988,13 @@ log = require "resources.functions.log".ring_group
 							end
 
 							--send to user
-							local dial_string_user = "[sip_invite_domain="..domain_name..",call_direction="..call_direction..",";
-							dial_string_user = dial_string_user .. group_confirm..","..timeout_name.."="..destination_timeout..",";
-							dial_string_user = dial_string_user .. delay_name.."="..destination_delay..",";
-							dial_string_user = dial_string_user .. "dialed_extension=" .. row.destination_number .. ",";
+						local dial_string_user = "[sip_invite_domain="..domain_name..",call_direction="..call_direction..",";
+						if emergency_enabled then
+							dial_string_user = dial_string_user .. "sip_auto_answer=true,sip_h_Call-Info=<http://fusionpbx/emergency>;answer-after=30,sip_h_P-Auto-Answer=speaker,"
+						end
+						dial_string_user = dial_string_user .. group_confirm..","..timeout_name.."="..destination_timeout..",";
+						dial_string_user = dial_string_user .. delay_name.."="..destination_delay..",";
+						dial_string_user = dial_string_user .. "dialed_extension=" .. row.destination_number .. ",";
 							if (hold_music ~= nil) and (string.len(hold_music) > 0) then
 								dial_string_user = dial_string_user .. "hold_music=" .. hold_music .. ",";
 							end
@@ -986,7 +1009,11 @@ log = require "resources.functions.log".ring_group
 							end
 						elseif (tonumber(destination_number) == nil) then
 							--sip uri
-							dial_string = "[sip_invite_domain="..domain_name..",domain_name="..domain_name..",call_direction="..call_direction..","..group_confirm..""..timeout_name.."="..destination_timeout..","..delay_name.."="..destination_delay.."]" .. row.destination_number;
+							local prefix = "[sip_invite_domain="..domain_name..",domain_name="..domain_name..",call_direction="..call_direction..","..group_confirm..""..timeout_name.."="..destination_timeout..","..delay_name.."="..destination_delay..",";
+							if emergency_enabled then
+								prefix = prefix .. "sip_auto_answer=true,sip_h_Call-Info=<http://fusionpbx/emergency>;answer-after=30,sip_h_P-Auto-Answer=speaker,"
+							end
+							dial_string = prefix:sub(1,-2) .. "]" .. row.destination_number;
 						else
 							--external number
 								-- have to double destination_delay here due a FS bug requiring a 50% delay value for internal externsions, but not external calls.
@@ -1034,7 +1061,11 @@ log = require "resources.functions.log".ring_group
 								end
 
 							--set the destination dial string
-								dial_string = "["..diversion_header.."toll_allow=".. toll_allow ..",".. caller_id ..",sip_invite_domain="..domain_name..",domain_name="..domain_name..",domain_uuid="..domain_uuid..",call_direction="..call_direction..","..group_confirm..""..timeout_name.."="..destination_timeout..","..delay_name.."="..destination_delay.."]"..route_bridge
+								local prefix = "["..diversion_header.."toll_allow=".. toll_allow ..",".. caller_id ..",sip_invite_domain="..domain_name..",domain_name="..domain_name..",domain_uuid="..domain_uuid..",call_direction="..call_direction..","..group_confirm..""..timeout_name.."="..destination_timeout..","..delay_name.."="..destination_delay..",";
+								if emergency_enabled then
+									prefix = prefix .. "sip_auto_answer=true,sip_h_Call-Info=<http://fusionpbx/emergency>;answer-after=30,sip_h_P-Auto-Answer=speaker,"
+								end
+								dial_string = prefix:sub(1,-2) .. "]"..route_bridge
 						end
 
 					--add a delimiter between destinations
@@ -1115,15 +1146,17 @@ log = require "resources.functions.log".ring_group
 								destination_prompt = row.destination_prompt;
 
 							--determine confirm prompt
-								if (destination_prompt == nil) then
-									group_confirm = "confirm=false,";
-								elseif (destination_prompt == "1") then
-									group_confirm = "group_confirm_key=exec,group_confirm_file=lua ".. scripts_dir:gsub('\\','/') .."/confirm.lua,confirm=true,";
-								elseif (destination_prompt == "2") then
-									group_confirm = "group_confirm_key=exec,group_confirm_file=lua ".. scripts_dir:gsub('\\','/') .."/confirm.lua,confirm=true,";
-								else
-									group_confirm = "confirm=false,";
-								end
+							if emergency_enabled then
+								group_confirm = "confirm=false,"
+							elseif (destination_prompt == nil) then
+								group_confirm = "confirm=false,";
+							elseif (destination_prompt == "1") then
+								group_confirm = "group_confirm_key=exec,group_confirm_file=lua ".. scripts_dir:gsub('\\','/') .."/confirm.lua,confirm=true,";
+							elseif (destination_prompt == "2") then
+								group_confirm = "group_confirm_key=exec,group_confirm_file=lua ".. scripts_dir:gsub('\\','/') .."/confirm.lua,confirm=true,";
+							else
+								group_confirm = "confirm=false,";
+							end
 
 							--if the timeout was reached exit the loop and go to the timeout action
 								if (tonumber(ring_group_call_timeout) == timeout) then
@@ -1132,11 +1165,23 @@ log = require "resources.functions.log".ring_group
 
 							--send the call to the destination
 								if (user_exists == "true") then
-									dial_string = "["..group_confirm.."sip_invite_domain="..domain_name..",originate_timeout="..destination_timeout..",call_direction="..call_direction..",dialed_extension=" .. destination_number .. ",domain_name="..domain_name..",domain_uuid="..domain_uuid..row.record_session.."]user/" .. destination_number .. "@" .. domain_name;
+									local prefix = "["..group_confirm.."sip_invite_domain="..domain_name..",originate_timeout="..destination_timeout..",call_direction="..call_direction..",dialed_extension=" .. destination_number .. ",domain_name="..domain_name..",domain_uuid="..domain_uuid..row.record_session..",";
+									if emergency_enabled then
+										prefix = prefix .. "sip_auto_answer=true,sip_h_Call-Info=<http://fusionpbx/emergency>;answer-after=30,sip_h_P-Auto-Answer=speaker,"
+									end
+									dial_string = prefix:sub(1,-2) .. "]user/" .. destination_number .. "@" .. domain_name;
 								elseif (tonumber(destination_number) == nil) then
-									dial_string = "["..group_confirm.."sip_invite_domain="..domain_name..",originate_timeout="..destination_timeout..",call_direction=outbound,domain_name="..domain_name..",domain_uuid="..domain_uuid.."]" .. destination_number;
+									local prefix = "["..group_confirm.."sip_invite_domain="..domain_name..",originate_timeout="..destination_timeout..",call_direction=outbound,domain_name="..domain_name..",domain_uuid="..domain_uuid..",";
+									if emergency_enabled then
+										prefix = prefix .. "sip_auto_answer=true,sip_h_Call-Info=<http://fusionpbx/emergency>;answer-after=30,sip_h_P-Auto-Answer=speaker,"
+									end
+									dial_string = prefix:sub(1,-2) .. "]" .. destination_number;
 								else
-									dial_string = "["..group_confirm.."sip_invite_domain="..domain_name..",originate_timeout="..destination_timeout..",domain_name="..domain_name..",domain_uuid="..domain_uuid..",call_direction=outbound]loopback/" .. destination_number;
+									local prefix = "["..group_confirm.."sip_invite_domain="..domain_name..",originate_timeout="..destination_timeout..",domain_name="..domain_name..",domain_uuid="..domain_uuid..",call_direction=outbound,"
+									if emergency_enabled then
+										prefix = prefix .. "sip_auto_answer=true,sip_h_Call-Info=<http://fusionpbx/emergency>;answer-after=30,sip_h_P-Auto-Answer=speaker,"
+									end
+									dial_string = prefix:sub(1,-2) .. "]loopback/" .. destination_number;
 								end
 
 							--add the delimiter

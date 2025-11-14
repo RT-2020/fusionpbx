@@ -402,7 +402,7 @@ $text['label-bridge_profile']['ru-ru'] = "Профиль";
 $text['label-bridge_profile']['sv-se'] = "Profil";
 $text['label-bridge_profile']['uk-ua'] = "Профіль";
 $text['label-bridge_profile']['tr-tr'] = "Profil";
-$text['label-bridge_profile']['zh-cn'] = "轮廓";
+$text['label-bridge_profile']['zh-cn'] = "配置文件";
 $text['label-bridge_profile']['ja-jp'] = "プロフィール";
 $text['label-bridge_profile']['ko-kr'] = "프로필";
 

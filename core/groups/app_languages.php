@@ -2804,7 +2804,7 @@ $text['description-contact_view']['ru-ru'] = "Просмотр";
 $text['description-contact_view']['sv-se'] = "Granska";
 $text['description-contact_view']['uk-ua'] = "Перегляд";
 $text['description-contact_view']['tr-tr'] = "Görüş";
-$text['description-contact_view']['zh-cn'] = "看法";
+$text['description-contact_view']['zh-cn'] = "查看";
 $text['description-contact_view']['ja-jp'] = "意見";
 $text['description-contact_view']['ko-kr'] = "보다";
 

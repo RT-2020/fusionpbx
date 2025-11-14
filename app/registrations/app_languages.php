@@ -455,7 +455,7 @@ $text['label-sip_profile_name']['ru-ru'] = "Профили";
 $text['label-sip_profile_name']['sv-se'] = "Profiler";
 $text['label-sip_profile_name']['uk-ua'] = "профілі";
 $text['label-sip_profile_name']['tr-tr'] = "Profil";
-$text['label-sip_profile_name']['zh-cn'] = "轮廓";
+$text['label-sip_profile_name']['zh-cn'] = "配置文件";
 $text['label-sip_profile_name']['ja-jp'] = "プロフィール";
 $text['label-sip_profile_name']['ko-kr'] = "프로필";
 

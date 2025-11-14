@@ -38,6 +38,11 @@
             groupCall: null,
             conference: null
         };
+        this.transferring = {};
+        this.holdTimers = {};
+        this.holdRemaining = {};
+        this.emergencyPending = {};
+        this.emergencySessions = {};
         
         // 事件监听器
         this.eventHandlers = {};
@@ -87,8 +92,20 @@
         
         // 添加统一的通话事件监听
         this.sipClient.on('callEnded', function(data) {
-            self.updateCallStatus('ended', data.sessionId, '通话已结束');
+            var sid = (data && data.session && data.session._customId) ? data.session._customId : data.sessionId;
+            self.updateCallStatus('ended', sid, '通话已结束');
+            if (self.transferring && self.transferring[sid]) {
+                self.showToast('转接完成 (Transfer completed)', 'success');
+                delete self.transferring[sid];
+            }
+            try { if (window.DispatcherUtils && DispatcherUtils.ResourceManager) DispatcherUtils.ResourceManager.stopEmergencyTone(sid) } catch(e) {}
+            try{ if (window.DispatcherUtils && DispatcherUtils.ResourceManager) DispatcherUtils.ResourceManager.releaseEmergencyOwner(sid) }catch(e){}
+            try{ if (self.emergencySessions && self.emergencySessions[sid]){ delete self.emergencySessions[sid]; if (window.hideEmergencyStatus) hideEmergencyStatus(); if (window.DispatcherUtils && DispatcherUtils.showEmergencyEndConfirm) DispatcherUtils.showEmergencyEndConfirm('通话线路已结束'); } }catch(e){}
+            try { self.cleanupIncomingUI(sid) } catch(e){}
+            try{ if (window.dispatcherLogger && typeof dispatcherLogger.logEvent === 'function'){ dispatcherLogger.logEvent('emergency_call_end', { sessionId: sid }) } }catch(e){}
             self.onCallEnded(data);
+            try{ self.updateUI() }catch(e){}
+            if (self.renderLinesGrid) self.renderLinesGrid();
         });
 
         this.sipClient.on('callFailed', function(data) {
@@ -96,12 +113,24 @@
             if (data.error && data.error.message) {
                 errorMessage = data.error.message;
             }
-            self.updateCallStatus('failed', data.sessionId, errorMessage);
+            var sid = (data && data.session && data.session._customId) ? data.session._customId : data.sessionId;
+            try { var code = (data && data.error && (data.error.response && data.error.response.status_code || data.error.status_code)) || null; self.handleSipError(code, sid, 'callFailed') } catch(e){}
+            self.updateCallStatus('failed', sid, errorMessage);
+            if (self.transferring && self.transferring[sid]) {
+                self.showToast('转接失败 (Transfer failed): '+errorMessage, 'error');
+                delete self.transferring[sid];
+            }
+            try { if (window.DispatcherUtils && DispatcherUtils.ResourceManager) DispatcherUtils.ResourceManager.stopEmergencyTone(sid) }catch(e){}
+            try{ if (window.DispatcherUtils && DispatcherUtils.ResourceManager) DispatcherUtils.ResourceManager.releaseEmergencyOwner(sid) }catch(e){}
+            try { self.cleanupIncomingUI(sid) } catch(e){}
+            try{ if (self.emergencySessions && self.emergencySessions[sid]){ delete self.emergencySessions[sid]; if (window.hideEmergencyStatus) hideEmergencyStatus(); } }catch(e){}
             self.onCallFailed(data);
+            if (self.renderLinesGrid) self.renderLinesGrid();
         });
 
         this.sipClient.on('callEstablished', function(data) {
             self.updateCallStatus('connected', data.sessionId, '通话已建立');
+            if (self.renderLinesGrid) self.renderLinesGrid();
         });
 
         this.sipClient.on('incomingCall', function(data) {
@@ -119,6 +148,7 @@
                             console.log('自动接听插入支路成功');
                             // 自动接听成功后不弹提示
                             self.updateUI();
+                            if (self.renderLinesGrid) self.renderLinesGrid();
                         })
                         .catch(function(err){
                             console.error('自动接听失败:', err);
@@ -128,6 +158,13 @@
                     return;
                 }
             } catch (e) { /* 忽略 */ }
+            try {
+                if (self.sipClient && self.sipClient.isCalling) {
+                    $('#dispatcher-busy-queue').show();
+                } else {
+                    $('#dispatcher-busy-queue').hide();
+                }
+            } catch(e) {}
             self.onIncomingCall(data);
         });
 
@@ -259,6 +296,11 @@
         if (config) {
             this.config = $.extend(this.config, config);
             
+            // 添加 TURN 服务器配置
+            if (window.turnConfig) {
+                this.config.turn_server = window.turnConfig;
+            }
+
             // 保存SIP配置供后续使用
             this.sipConfig = {
                 uri: config.uri,
@@ -314,19 +356,39 @@
     DispatcherControl.prototype.onIncomingCall = function(callerInfo) {
         console.log('收到来电:', callerInfo);
         
-        // 检查是否是中继呼叫（根据号码前缀判断，可配置）
-        if (this.isTrunkNumber(callerInfo.uri)) {
-            this.handleTrunkIncomingCall(callerInfo);
-        } else {
-            this.handleNormalIncomingCall(callerInfo);
+        // 检测是否为急呼
+        var isEmergency = false;
+        if (callerInfo && callerInfo.isEmergency) { isEmergency = true; }
+        else {
+            try {
+                var s = this.sipClient && this.sipClient.incomingSession;
+                if (s && s._callType === 'emergency') { isEmergency = true; }
+            } catch(e) {}
         }
         
+        if (isEmergency) {
+            try {
+                var sid = (callerInfo && callerInfo.sessionId) || (this.sipClient && this.sipClient.incomingSession && this.sipClient.incomingSession._customId) || ('ea_'+Date.now())
+                if (window.emergencyAudio) emergencyAudio.startAlert(sid, { uri: callerInfo && callerInfo.uri })
+                try{ if (window.DispatcherUtils && DispatcherUtils.ResourceManager && this.config && this.config.authUser){ DispatcherUtils.ResourceManager.setEmergencyOwner(sid, this.config.authUser) } }catch(e){}
+            } catch(e){}
+            if (this.autoAnswerEmergency) {
+                var self = this;
+                setTimeout(function() { self.sipClient.acceptIncomingCall({ audio: true, video: false }); }, 1000);
+            }
+        }
+        
+        // 检查是否是中继呼叫（根据号码前缀判断，可配置）
+        // 统一使用队列展示，不覆盖已有提示
+        this.queueIncomingCall(callerInfo);
         this.updateUI();
+        this.updateBusyQueueBanner(false);
     };
 
     DispatcherControl.prototype.onCallEstablished = function(data) {
         console.log('通话已建立:', data);
         this.updateUI();
+        this.updateBusyQueueBanner(false);
     };
 
     DispatcherControl.prototype.onCallEnded = function(data) {
@@ -432,6 +494,7 @@
         $('#dispatcher-trunk-count').text(this.trunkCalls.length);
         
         this.updateUI();
+        this.updateBusyQueueBanner(false);
     };
 
     DispatcherControl.prototype.onCallFailed = function(data) {
@@ -442,6 +505,191 @@
     DispatcherControl.prototype.onCallProgress = function(data) {
         console.log('通话进度:', data);
         // 可以根据需要处理通话进度事件
+    };
+
+    DispatcherControl.prototype.updateBusyQueueBanner = function(forceShow) {
+        try {
+            var sessions = this.sipClient.getActiveSessions();
+            var activeCount = sessions.length;
+            var incomingCount = sessions.filter(function(x){
+                var s = x.session; return s && s.direction==='incoming' && !(s.isEstablished && s.isEstablished());
+            }).length;
+            var busy = activeCount > 0;
+            var hasQueue = incomingCount >= 1 && activeCount >= 1;
+            var el = $('#dispatcher-busy-queue');
+            if (!el.length) return;
+            var shouldShow = forceShow || (busy && hasQueue);
+            if (shouldShow) { el.stop(true, true).fadeIn(300); }
+            else { el.stop(true, true).fadeOut(300); }
+        } catch(e) {}
+    };
+
+    DispatcherControl.prototype.renderLinesGrid = function() {
+        var sessions = this.sipClient.getActiveSessions();
+        var list = $('#dispatcher-lines-grid');
+        if (!list.length) return;
+        var items = sessions.slice(0, 6).map(function(x) {
+            var s = x.session;
+            var id = x.sessionId;
+            var dir = s && s.direction ? s.direction : '';
+            var type = s && s._callType ? s._callType : 'normal';
+            var remote = '';
+            try {
+                remote = (s.remote_identity && (s.remote_identity.display_name || (s.remote_identity.uri && s.remote_identity.uri.toString()))) || '';
+            } catch(e) {}
+            var connected = (s && s.isEstablished && s.isEstablished()) ? true : false;
+            var status = connected ? 'connected' : 'ringing';
+            var held = !!this.holdRemaining[id];
+            var holdText = held ? ('剩余 ' + this.holdRemaining[id] + 's') : '';
+            var cls = connected ? 'status-ok' : 'status-warn';
+            if (held) cls = 'status-held';
+            var icon = 'fa-phone';
+            var zh = '';
+            var en = '';
+            var code = '';
+            if (this.transferring && this.transferring[id]) {
+                zh = '转接中'; en = 'Transferring'; code = 'transferring'; icon = 'fa-exchange-alt';
+                cls = 'status-warn';
+            } else if (held) {
+                zh = '保持'; en = 'Held'; code = 'held'; icon = 'fa-pause';
+            } else if (status==='connected') {
+                zh = '已接通'; en = 'Connected'; code = 'connected'; icon = 'fa-phone';
+            } else {
+                zh = '响铃中'; en = 'Ringing'; code = 'ringing'; icon = 'fa-bell';
+            }
+            var title = zh + ' | ' + en + ' | code=' + code;
+            var html = ''+
+                '<div class="line-card '+cls+'" onclick="dispatcherControl.selectLine(\''+id+'\')">'+
+                '<div class="line-status"><i class="fas '+icon+'"></i><span title="'+title+'">'+(dir==='incoming'?'呼入':'呼出')+' • '+type+'</span></div>'+
+                '<div style="font-size:12px;margin-bottom:6px;">对端: '+(remote || '-')+'</div>'+
+                '<div style="font-size:12px;margin-bottom:6px;">状态: '+zh+(held?'':'')+' <span id="hold-remaining-'+id+'">'+holdText+'</span></div>'+
+                '<div style="display:flex;gap:6px;flex-wrap:wrap;">'+
+                (dir==='incoming' && !connected ? '<button class="btn btn-sm btn-success" onclick="dispatcherControl.acceptIncomingById(\''+id+'\')">接听</button>' : '')+
+                (!held ? '<button class="btn btn-sm btn-warning" onclick="dispatcherControl.holdLine(\''+id+'\')">保留</button>' : '<button class="btn btn-sm btn-primary" onclick="dispatcherControl.resumeHeldCall(\''+id+'\')">恢复</button>')+
+                '<button class="btn btn-sm btn-secondary" onclick="dispatcherControl.transferLine(\''+id+'\')">转接</button>'+
+                '<button class="btn btn-sm btn-danger" onclick="dispatcherControl.hangupLine(\''+id+'\')">挂断</button>'+
+                '</div>'+
+                '</div>';
+            return html;
+        }.bind(this));
+        list.html(items.join(''));
+        this.updateBusyQueueBanner(false);
+    };
+
+    DispatcherControl.prototype.selectLine = function(sessionId) {
+        try {
+            var s = this.sipClient.sessions[sessionId];
+            if (s) this.sipClient.currentSession = s;
+            this.updateBusyQueueBanner(false);
+        } catch(e) {}
+    };
+
+    DispatcherControl.prototype.holdLine = function(sessionId) {
+        var self = this;
+        this.sipClient.hold(sessionId).then(function(){
+            self.startHoldTimer(sessionId, 180);
+            if (self.renderLinesGrid) self.renderLinesGrid();
+        }).catch(function(err){ console.error(err); });
+    };
+
+    DispatcherControl.prototype.resumeHeldCall = function(sessionId) {
+        var self = this;
+        this.sipClient.unhold(sessionId).then(function(){
+            if (self.holdTimers[sessionId]) { clearInterval(self.holdTimers[sessionId]); delete self.holdTimers[sessionId]; }
+            delete self.holdRemaining[sessionId];
+            if (self.renderLinesGrid) self.renderLinesGrid();
+        }).catch(function(err){ console.error(err); });
+    };
+
+    DispatcherControl.prototype.startHoldTimer = function(sessionId, seconds) {
+        var self = this;
+        var secs = seconds || 180;
+        this.holdRemaining[sessionId] = secs;
+        if (this.holdTimers[sessionId]) clearInterval(this.holdTimers[sessionId]);
+        this.holdTimers[sessionId] = setInterval(function(){
+            if (!self.holdRemaining[sessionId]) { clearInterval(self.holdTimers[sessionId]); return; }
+            self.holdRemaining[sessionId] = Math.max(0, self.holdRemaining[sessionId]-1);
+            var el = document.getElementById('hold-remaining-'+sessionId);
+            if (el) el.textContent = '剩余 '+self.holdRemaining[sessionId]+'s';
+            if (self.holdRemaining[sessionId] === 0) {
+                clearInterval(self.holdTimers[sessionId]);
+                delete self.holdTimers[sessionId];
+                delete self.holdRemaining[sessionId];
+                self.sipClient.hangup(sessionId).then(function(){
+                    var toast = $('#dispatcher-lines-toast');
+                    if (toast.length) { toast.text('保持超时，已挂断').show(); setTimeout(function(){ toast.hide(); }, 2000); }
+                    if (self.renderLinesGrid) self.renderLinesGrid();
+                });
+            }
+        }, 1000);
+    };
+
+    DispatcherControl.prototype.transferLine = function(sessionId) {
+        var ext = prompt('输入目标分机');
+        if (!ext) return;
+        var target = 'sip:'+ext+'@'+this.getServerHost();
+        var self = this;
+        this.transferring[sessionId] = { startedAt: Date.now() };
+        if (this.renderLinesGrid) this.renderLinesGrid();
+        // 未确认提示与清理定时器
+        this.transferring[sessionId].warnTimer = setTimeout(function(){
+            if (self.transferring[sessionId]) {
+                self.showToast('已发送转接请求，等待确认 (Transfer requested)', 'warn');
+            }
+        }, 1000);
+        this.transferring[sessionId].cleanupTimer = setTimeout(function(){
+            if (self.transferring[sessionId]) {
+                self.showToast('转接状态未确认，请检查目标分机 (Unconfirmed)', 'warn');
+                delete self.transferring[sessionId];
+                if (self.renderLinesGrid) self.renderLinesGrid();
+            }
+        }, 30000);
+
+        this.sipClient.transfer(target, sessionId)
+            .then(function(){
+                try { self.showToast('已发送转接请求 (Transfer requested)', 'success'); } catch(e) {}
+            })
+            .catch(function(e){
+                try { self.showToast('转接失败 (Transfer failed): '+(e.message||e), 'error'); } catch(_) {}
+                if (self.transferring[sessionId]) {
+                    clearTimeout(self.transferring[sessionId].warnTimer);
+                    clearTimeout(self.transferring[sessionId].cleanupTimer);
+                    delete self.transferring[sessionId];
+                }
+                if (self.renderLinesGrid) self.renderLinesGrid();
+            });
+    };
+
+    DispatcherControl.prototype.hangupLine = function(sessionId) {
+        var self = this;
+        var s = this.sipClient.sessions[sessionId];
+        var remoteUri = '';
+        var dir = '';
+        try { remoteUri = (s && s.remote_identity && s.remote_identity.uri && s.remote_identity.uri.toString()) || ''; } catch(e) {}
+        try { dir = (s && s.direction) || ''; } catch(e) {}
+        this.sipClient.hangup(sessionId)
+            .then(function(){
+                // 后端强制挂断兜底（防止会话残留）
+                if (remoteUri) {
+                    $.ajax({ url: 'dispatcher_api.php', type: 'POST', dataType: 'json', data: { action: 'force_hangup', uri: remoteUri, direction: dir } });
+                }
+                if (self.renderLinesGrid) self.renderLinesGrid();
+            })
+            .catch(function(){
+                if (remoteUri) {
+                    $.ajax({ url: 'dispatcher_api.php', type: 'POST', dataType: 'json', data: { action: 'force_hangup', uri: remoteUri, direction: dir } })
+                        .always(function(){ if (self.renderLinesGrid) self.renderLinesGrid(); });
+                }
+            });
+    };
+
+    DispatcherControl.prototype.showToast = function(text, type) {
+        try { if (window.DispatcherUtils && DispatcherUtils.toast) { DispatcherUtils.toast(text, type) } } catch(e) {}
+    };
+
+    DispatcherControl.prototype.hangupAll = function() {
+        var self = this;
+        this.sipClient.hangupAll().then(function(){ self.updateUI(); if (self.renderLinesGrid) self.renderLinesGrid(); }).catch(function(){});
     };
 
     // ============ 中继汇接功能 ============
@@ -484,7 +732,8 @@
             '</div>' +
             '</div>';
 
-        $('#dispatcher-alerts').html(html).show();
+        var container = $('#dispatcher-alerts');
+        if (container.length) { container.append(html).show(); }
     };
 
     // 显示自动中继提示
@@ -502,7 +751,8 @@
             '</div>' +
             '</div>';
 
-        $('#dispatcher-alerts').html(html).show();
+        var container2 = $('#dispatcher-alerts');
+        if (container2.length) { container2.append(html).show(); }
     };
 
     // 接受中继呼叫（人工）
@@ -528,7 +778,7 @@
             })
             .catch(function(error) {
                 console.error('接听中继呼叫失败:', error);
-                alert('接听失败: ' + error.message);
+                DispatcherUtils.alert('接听失败: ' + error.message, 'error');
             });
     };
 
@@ -554,7 +804,7 @@
         var targetNumber = $('#trunk-bridge-target').val();
         
         if (!targetNumber) {
-            alert('请输入目标号码');
+            DispatcherUtils.alert('请输入目标号码', 'warn');
             return;
         }
 
@@ -568,7 +818,7 @@
                     self.sipClient.transfer('sip:' + targetNumber + '@' + self.getServerHost(), trunkSessionId)
                         .then(function() {
                             console.log('中继桥接成功');
-                            alert('桥接成功，调度员已退出');
+                            DispatcherUtils.alert('桥接成功，调度员已退出');
                             
                             // 更新中继状态
                             self.trunkCalls = self.trunkCalls.filter(function(call) {
@@ -579,13 +829,13 @@
                         })
                         .catch(function(error) {
                             console.error('桥接失败:', error);
-                            alert('桥接失败: ' + error.message);
+                            DispatcherUtils.alert('桥接失败: ' + error.message, 'error');
                         });
                 }, 3000); // 等待3秒确保目标接通
             })
             .catch(function(error) {
                 console.error('呼叫目标失败:', error);
-                alert('呼叫目标失败: ' + error.message);
+                DispatcherUtils.alert('呼叫目标失败: ' + error.message, 'error');
             });
     };
 
@@ -596,7 +846,7 @@
         this.sipClient.hold(sessionId)
             .then(function() {
                 console.log('中继呼叫已保留');
-                alert('呼叫已保留');
+                DispatcherUtils.alert('呼叫已保留');
                 
                 // 更新状态
                 self.trunkCalls.forEach(function(call) {
@@ -609,7 +859,7 @@
             })
             .catch(function(error) {
                 console.error('保留失败:', error);
-                alert('保留失败: ' + error.message);
+                DispatcherUtils.alert('保留失败: ' + error.message, 'error');
             });
     };
 
@@ -619,7 +869,7 @@
         var targetNumber = $('#auto-trunk-target').val();
         
         if (!targetNumber) {
-            alert('请输入目标号码');
+            DispatcherUtils.alert('请输入目标号码', 'warn');
             return;
         }
 
@@ -631,13 +881,13 @@
             })
             .then(function() {
                 console.log('自动中继转接成功');
-                alert('自动转接成功');
+                DispatcherUtils.alert('自动转接成功');
                 $('#dispatcher-alerts').hide();
                 self.updateUI();
             })
             .catch(function(error) {
                 console.error('自动中继失败:', error);
-                alert('自动中继失败: ' + error.message);
+                DispatcherUtils.alert('自动中继失败: ' + error.message, 'error');
             });
     };
 
@@ -675,18 +925,105 @@
     };
 
     // 处理普通来电
-    DispatcherControl.prototype.handleNormalIncomingCall = function(callerInfo) {
-        var html = '<div class="incoming-call">' +
-            '<h3>🔔 来电</h3>' +
-            '<p><strong>来电号码:</strong> ' + callerInfo.uri + '</p>' +
-            '<p><strong>来电者:</strong> ' + callerInfo.name + '</p>' +
-            '<div class="call-actions">' +
-            '<button onclick="dispatcherControl.acceptCall()" class="btn-accept">接听</button>' +
-            '<button onclick="dispatcherControl.rejectCall()" class="btn-reject">拒绝</button>' +
-            '</div>' +
-            '</div>';
+    DispatcherControl.prototype.handleNormalIncomingCall = function(callerInfo) { /* deprecated */ };
 
-        $('#dispatcher-alerts').html(html).show();
+    DispatcherControl.prototype.queueIncomingCall = function(callerInfo) {
+        var sid = callerInfo.sessionId || (this.sipClient && this.sipClient.incomingSession && this.sipClient.incomingSession._customId) || ('unknown');
+        var isEmergency = !!callerInfo.isEmergency;
+        if (isEmergency) { this.emergencyPending[sid] = true; }
+        var hasActive = (this.sipClient.getActiveSessions && this.sipClient.getActiveSessions().length) > 0;
+        var title = isEmergency ? '⚠️ 紧急呼叫' : '🔔 来电';
+        var cls = isEmergency ? 'incoming-call emergency' : 'incoming-call';
+        var actions = '';
+        actions += '<button onclick="dispatcherControl.acceptIncomingById(\''+sid+'\')" class="btn-accept">接听</button>';
+        if (isEmergency && hasActive) {
+            actions += '<button onclick="dispatcherControl.preemptAndAccept(\''+sid+'\')" class="btn-warning">中断并接听</button>';
+        }
+        actions += '<button onclick="dispatcherControl.rejectIncomingById(\''+sid+'\')" class="btn-reject">拒绝</button>';
+        var html = '<div class="'+cls+'" id="incoming-'+sid+'">' +
+            '<h3>'+title+'</h3>' +
+            '<p><strong>来电号码:</strong> ' + (callerInfo.uri || '') + '</p>' +
+            '<p><strong>来电者:</strong> ' + (callerInfo.name || '') + '</p>' +
+            '<div class="call-actions">' + actions + '</div>' +
+            '</div>';
+        var container = $('#dispatcher-alerts');
+        if (!container.length) return;
+        var existed = $('#incoming-'+sid);
+        if (existed.length) { existed.remove(); }
+        if (isEmergency) { container.prepend(html).show(); }
+        else { container.append(html).show(); }
+        try{
+            if(isEmergency){ if (this.sipClient && this.sipClient.unlockAudioPlayback){ this.sipClient.unlockAudioPlayback() } }
+        }catch(e){}
+    };
+
+    DispatcherControl.prototype.acceptIncomingById = function(sessionId) {
+        try {
+            var card = $('#incoming-'+sessionId);
+            var self = this;
+            this.sipClient.acceptById(sessionId, { audio: true, video: false })
+                .then(function(){
+                    if (card.length) card.remove();
+                    var container = $('#dispatcher-alerts');
+                    if (container.find('.incoming-call, .trunk-incoming-call').length === 0) { container.hide(); }
+                    if (self.emergencyPending[sessionId]) {
+                        try { if (window.emergencyAudio) emergencyAudio.stopAlert(sessionId) } catch(e) {}
+                        try { self.startEmergencyRecording(); } catch(e) {}
+                        delete self.emergencyPending[sessionId];
+                        self.emergencySessions[sessionId] = true;
+                    }
+                })
+                .catch(function(err){ DispatcherUtils.alert('接听失败: '+(err && err.message ? err.message : err), 'error'); });
+        } catch(e) { console.error(e); }
+    };
+
+    DispatcherControl.prototype.rejectIncomingById = function(sessionId) {
+        try {
+            var card = $('#incoming-'+sessionId);
+            this.sipClient.rejectById(sessionId)
+                .then(function(){
+                    if (card.length) card.remove();
+                    var container = $('#dispatcher-alerts');
+                    if (container.find('.incoming-call, .trunk-incoming-call').length === 0) { container.hide(); }
+                    try { if (window.emergencyAudio) emergencyAudio.stopAlert(sessionId) } catch(e) {}
+                })
+                .catch(function(err){ console.error(err); });
+        } catch(e) { console.error(e); }
+    };
+
+    DispatcherControl.prototype.preemptAndAccept = function(emergencySessionId) {
+        var sessions = this.sipClient.getActiveSessions ? this.sipClient.getActiveSessions() : [];
+        var victimId = null;
+        for (var i=0;i<sessions.length;i++) {
+            var s = sessions[i].session;
+            var id = sessions[i].sessionId;
+            if (s && s._callType !== 'emergency' && s.isEstablished && s.isEstablished()) { victimId = id; break; }
+        }
+        if (!victimId && sessions.length>0) { victimId = sessions[0].sessionId; }
+        var self = this;
+        var proceed = function(){ self.acceptIncomingById(emergencySessionId); };
+        if (victimId) {
+            this.sipClient.hangup(victimId).then(proceed).catch(proceed);
+        } else {
+            proceed();
+        }
+    };
+
+    DispatcherControl.prototype.startEmergencyRecording = function() {
+        try {
+            var user = (this.config && this.config.authUser) ? this.config.authUser : null;
+            if (!user) return;
+            $.ajax({
+                url: 'exec.php',
+                type: 'POST',
+                data: { cmd: 'get_channel_uuid', destination: user },
+                success: function(uuid){
+                    if (uuid && uuid !== 'false') {
+                        $.ajax({ url: 'exec.php', type: 'GET', data: { cmd: 'uuid_record', uuid: uuid } });
+                    }
+                }
+            });
+        } catch(e) {}
     };
 
     // 接听普通来电
@@ -695,11 +1032,12 @@
         
         this.sipClient.acceptIncomingCall({ audio: true, video: false })
             .then(function() {
-                $('#dispatcher-alerts').hide();
+                var container = $('#dispatcher-alerts');
+                if (container.find('.incoming-call, .trunk-incoming-call').length === 0) { container.hide(); }
                 self.updateUI();
             })
             .catch(function(error) {
-                alert('接听失败: ' + error.message);
+                DispatcherUtils.alert('接听失败: ' + error.message, 'error');
             });
     };
 
@@ -709,7 +1047,8 @@
         
         this.sipClient.rejectIncomingCall()
             .then(function() {
-                $('#dispatcher-alerts').hide();
+                var container = $('#dispatcher-alerts');
+                if (container.find('.incoming-call, .trunk-incoming-call').length === 0) { container.hide(); }
                 self.updateUI();
             })
             .catch(function(error) {
@@ -724,13 +1063,13 @@
         var self = this;
         
         if (!this.callGroups[groupId]) {
-            alert('组不存在');
+            DispatcherUtils.alert('组不存在', 'error');
             return;
         }
 
         var group = this.callGroups[groupId];
         if (!group.extensions || group.extensions.length === 0) {
-            alert('该组没有成员');
+            DispatcherUtils.alert('该组没有成员', 'warn');
             return;
         }
 
@@ -761,7 +1100,7 @@
             })
             .catch(function(error) {
                 console.error('组呼失败:', error);
-                alert('组呼失败: ' + error.message);
+                DispatcherUtils.alert('组呼失败: ' + error.message, 'error');
                 self.groupCallActive = false;
             });
     };
@@ -772,12 +1111,12 @@
         var self = this;
         
         if (!this.sipClient || !this.sipClient.isRegistered) {
-            alert('请先注册SIP');
+            DispatcherUtils.alert('请先注册SIP', 'warn');
             return;
         }
         
         if (extensions.length === 0) {
-            alert('请至少选择一个分机');
+            DispatcherUtils.alert('请至少选择一个分机', 'warn');
             return;
         }
         
@@ -829,7 +1168,7 @@
                     } else {
                         errorMsg += ': 未知错误';
                     }
-                    alert(errorMsg);
+                    DispatcherUtils.alert(errorMsg, 'error');
                 }
             },
             error: function(xhr, status, error) {
@@ -847,7 +1186,7 @@
                     errorMsg += '\n\n可能原因：\n- 权限不足\n- 会话已过期';
                 }
                 
-                alert(errorMsg);
+                DispatcherUtils.alert(errorMsg, 'error');
                 console.error('创建会议室失败:', error);
             }
         });
@@ -911,13 +1250,13 @@
                         resolve(response);
                     } else {
                         console.error('❌ 调度员加入会议失败:', response.error);
-                        alert('调度员加入会议失败: ' + (response.error || '未知错误'));
+                        DispatcherUtils.alert('调度员加入会议失败: ' + (response.error || '未知错误'), 'error');
                         reject(new Error(response.error || '加入会议失败'));
                     }
                 },
                 error: function(xhr, status, error) {
                     console.error('❌ 调度员加入会议请求失败:', error);
-                    alert('调度员加入会议请求失败: ' + error);
+                    DispatcherUtils.alert('调度员加入会议请求失败: ' + error, 'error');
                     reject(new Error('请求失败: ' + error));
                 }
             });
@@ -1085,9 +1424,9 @@
         var self = this;
         
         // 获取所有在线分机（异步）
-        this.getAllExtensions(function(extensions) {
+            this.getAllExtensions(function(extensions) {
             if (extensions.length === 0) {
-                alert('没有可用的分机');
+                DispatcherUtils.alert('没有可用的分机', 'warn');
                 return;
             }
             
@@ -1172,14 +1511,14 @@
     DispatcherControl.prototype.muteGroupMember = function(sessionId) {
         this.sipClient.muteSession(sessionId);
         console.log('成员已禁言:', sessionId);
-        alert('该成员已被禁言');
+        DispatcherUtils.alert('该成员已被禁言');
     };
 
     // 允许某成员发言
     DispatcherControl.prototype.unmuteGroupMember = function(sessionId) {
         this.sipClient.unmuteSession(sessionId);
         console.log('成员可以发言:', sessionId);
-        alert('该成员可以发言');
+        DispatcherUtils.alert('该成员可以发言');
     };
 
     // 结束组呼
@@ -1257,10 +1596,10 @@
 
     // 发起会议
 	DispatcherControl.prototype.startConference = function(participants) {
-		if (!participants || participants.length < 2) {
-			alert('至少需要2个参与者');
-			return;
-		}
+        if (!participants || participants.length < 2) {
+            DispatcherUtils.alert('至少需要2个参与者', 'warn');
+            return;
+        }
 		// 统一走会议桥流程，确保有 conference_room、member_id 等
 		this.startGroupCallWithExtensions(participants);
 	};
@@ -1414,7 +1753,7 @@
             })
             .catch(function(error) {
                 console.error('添加参与者失败:', error);
-                alert('添加失败: ' + error.message);
+                DispatcherUtils.alert('添加失败: ' + error.message, 'error');
             });
     };
 
@@ -1546,7 +1885,7 @@
     // 删除呼叫组
     DispatcherControl.prototype.deleteCallGroup = function(groupId) {
         if (groupId === 'default') {
-            alert('不能删除默认组');
+            DispatcherUtils.alert('不能删除默认组', 'error');
             return;
         }
         
@@ -1655,9 +1994,11 @@
             $('#dispatcher-unregister-btn').prop('disabled', true);
         }
 
-        // 更新通话状态
         var sessionCount = Object.keys(this.sipClient.sessions).length;
         $('#dispatcher-call-count').text(sessionCount);
+        if (typeof this.rehydrateAlertsFromSessions === 'function') {
+            this.rehydrateAlertsFromSessions();
+        }
 
         // 更新组呼状态
         if (this.groupCallActive) {
@@ -1673,6 +2014,46 @@
             $('#conference-indicator').hide();
         }
     };
+
+    DispatcherControl.prototype.rehydrateAlertsFromSessions = function() {
+        var container = $('#dispatcher-alerts');
+        if (!container.length) return;
+        var incomingIds = (this.sipClient.getIncomingSessions && this.sipClient.getIncomingSessions()) || [];
+        for (var i = 0; i < incomingIds.length; i++) {
+            var sid = incomingIds[i];
+            if ($('#incoming-'+sid).length === 0) {
+                var s = this.sipClient.sessions && this.sipClient.sessions[sid];
+                var display = '';
+                var uriText = '';
+                try {
+                    if (s && s.remote_identity) {
+                        display = s.remote_identity.display_name || '';
+                        uriText = (s.remote_identity.uri && s.remote_identity.uri.toString()) || '';
+                    }
+                } catch(e) {}
+                var html = '<div class="incoming-call" id="incoming-'+sid+'">'+
+                    '<h3>🔔 来电</h3>'+
+                    '<p><strong>来电号码:</strong> '+(uriText || '')+'</p>'+
+                    '<p><strong>来电者:</strong> '+(display || '')+'</p>'+
+                    '<div class="call-actions">'+
+                    '<button onclick="dispatcherControl.acceptIncomingById(\''+sid+'\')" class="btn-accept">接听</button>'+
+                    '<button onclick="dispatcherControl.rejectIncomingById(\''+sid+'\')" class="btn-reject">拒绝</button>'+
+                    '</div>'+
+                    '</div>';
+                container.append(html);
+            }
+        }
+        if (incomingIds.length > 0) container.show(); else container.hide();
+    }
+
+    DispatcherControl.prototype.cleanupIncomingUI = function(sessionId){
+        try{
+            var card = $('#incoming-'+sessionId);
+            if (card.length) { card.remove(); }
+            var container = $('#dispatcher-alerts');
+            if (container.length){ if (container.find('.incoming-call, .trunk-incoming-call').length === 0) { container.hide(); } }
+        }catch(e){}
+    }
 
     // 切换自动中继模式
     DispatcherControl.prototype.toggleAutoTrunkMode = function() {
@@ -1760,12 +2141,105 @@
         if (typeof toastr !== 'undefined') {
             toastr.error(message);
         } else {
-            alert(message);
+            if (window.DispatcherUtils && typeof DispatcherUtils.alert === 'function') { DispatcherUtils.alert(message, 'error') }
         }
+    };
+
+    
+
+    // 添加急呼状态监控
+    DispatcherControl.prototype.monitorEmergencyCall = function(session, emergencyUuid) {
+        var self = this;
+        
+        session.on('accepted', function(e) {
+            console.log('🚨 急呼已接听', e);
+            // 记录接听状态
+            $.post('dispatcher_api.php', {
+                action: 'log_emergency_call',
+                emergency_uuid: emergencyUuid,
+                call_uuid: session._customId,
+                status: 'answered'
+            });
+            
+            // 更新网页状态
+            self.updateCallStatus('connected', session._customId, '急呼已接听');
+        });
+        
+        session.on('confirmed', function(e) {
+            console.log('🚨 急呼已确认', e);
+            // 记录确认状态
+            $.post('dispatcher_api.php', {
+                action: 'log_emergency_call',
+                emergency_uuid: emergencyUuid,
+                call_uuid: session._customId,
+                status: 'confirmed'
+            });
+        });
+        
+        session.on('ended', function(e) {
+            console.log('🚨 急呼已结束', e);
+            // 记录结束状态
+            $.post('dispatcher_api.php', {
+                action: 'log_emergency_call',
+                emergency_uuid: emergencyUuid,
+                status: 'completed'
+            });
+            
+            // 更新网页状态
+            self.updateCallStatus('ended', session._customId, '急呼已结束');
+            
+            // 隐藏急呼状态栏
+            if (typeof window.hideEmergencyStatus === 'function') {
+                window.hideEmergencyStatus();
+            }
+        });
+        
+        session.on('failed', function(e) {
+            console.log('🚨 急呼失败', e);
+            // 记录失败状态
+            $.post('dispatcher_api.php', {
+                action: 'log_emergency_call',
+                emergency_uuid: emergencyUuid,
+                status: 'failed'
+            });
+            
+            // 更新网页状态
+            self.updateCallStatus('failed', session._customId, '急呼失败');
+            
+            // 隐藏急呼状态栏
+            if (typeof window.hideEmergencyStatus === 'function') {
+                window.hideEmergencyStatus();
+            }
+        });
     };
 
     // 导出到全局
     window.DispatcherControl = DispatcherControl;
 
 })(window, jQuery);
-
+    DispatcherControl.prototype.handleSipError = function(code, sessionId, context){
+        try{
+            var c = parseInt(code || 0, 10)
+            if (c === 480){
+                try{ if (window.DispatcherUtils && DispatcherUtils.ResourceManager) DispatcherUtils.ResourceManager.stopEmergencyTone(sessionId) }catch(e){}
+                try{ if (this.sipClient && this.sipClient.hangupById) this.sipClient.hangupById(sessionId).catch(function(){}) }catch(e){}
+                try{ if (window.DispatcherUtils) DispatcherUtils.toast('主叫挂断 (480)', 'warn') }catch(e){}
+            } else if (c === 503){
+                try{ if (window.DispatcherUtils && DispatcherUtils.ResourceManager) DispatcherUtils.ResourceManager.stopEmergencyToneAll() }catch(e){}
+                try{ if (window.DispatcherUtils && DispatcherUtils.ResourceManager) DispatcherUtils.ResourceManager.closeAllVoiceSessions() }catch(e){}
+                try{ this.onUnregistered() }catch(e){}
+                try{ if (window.DispatcherUtils) DispatcherUtils.alert('网络中断 (503)', 'error') }catch(e){}
+            } else if (c === 408){
+                try{ if (window.DispatcherUtils && DispatcherUtils.ResourceManager) DispatcherUtils.ResourceManager.stopEmergencyTone(sessionId) }catch(e){}
+                try{ if (window.DispatcherUtils) DispatcherUtils.toast('紧急呼叫超时 (408)', 'warn') }catch(e){}
+            } else if (c === 487){
+                try{ if (window.DispatcherUtils && DispatcherUtils.ResourceManager) DispatcherUtils.ResourceManager.stopEmergencyTone(sessionId) }catch(e){}
+                try{ this.cleanupIncomingUI(sessionId) }catch(e){}
+                try{ if (window.DispatcherUtils) DispatcherUtils.toast('请求终止 (487)', 'warn') }catch(e){}
+            } else if (c >= 400 && c < 600){
+                try{ if (window.DispatcherUtils && DispatcherUtils.ResourceManager) DispatcherUtils.ResourceManager.stopEmergencyTone(sessionId) }catch(e){}
+                try{ if (window.DispatcherUtils) DispatcherUtils.toast('SIP错误 '+c, 'error') }catch(e){}
+            }
+            try{ if (window.dispatcherLogger && typeof dispatcherLogger.logError === 'function'){ dispatcherLogger.logError('sip_error', { code:c||null, sessionId:sessionId||'', context:context||'' }) } }catch(e){}
+        }catch(e){}
+    }

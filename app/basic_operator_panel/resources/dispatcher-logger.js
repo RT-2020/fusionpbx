@@ -151,6 +151,30 @@
         return this.statistics;
     };
 
+    DispatcherLogger.prototype.logError = function(type, data){
+        try{
+            var saved = localStorage.getItem('dispatcher_error_logs')
+            var arr = []
+            if (saved){ try{ arr = JSON.parse(saved) || [] }catch(e){ arr = [] } }
+            var item = { id:'err_'+Date.now()+'_'+Math.random().toString(36).substr(2,9), type:type||'', ts:Date.now(), data:data||{} }
+            arr.push(item)
+            if (arr.length>500){ arr = arr.slice(-500) }
+            localStorage.setItem('dispatcher_error_logs', JSON.stringify(arr))
+        }catch(e){}
+    }
+
+    DispatcherLogger.prototype.logEvent = function(type, data){
+        try{
+            var saved = localStorage.getItem('dispatcher_event_logs')
+            var arr = []
+            if (saved){ try{ arr = JSON.parse(saved) || [] }catch(e){ arr = [] } }
+            var item = { id:'evt_'+Date.now()+'_'+Math.random().toString(36).substr(2,9), type:type||'', ts:Date.now(), data:data||{} }
+            arr.push(item)
+            if (arr.length>500){ arr = arr.slice(-500) }
+            localStorage.setItem('dispatcher_event_logs', JSON.stringify(arr))
+        }catch(e){}
+    }
+
     // 清空日志
     DispatcherLogger.prototype.clearLogs = function() {
         if (confirm('确定要清空所有日志吗？此操作不可恢复！')) {

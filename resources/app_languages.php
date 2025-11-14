@@ -1402,7 +1402,7 @@ $text['button-view']['ru-ru'] = "Посмотреть";
 $text['button-view']['sv-se'] = "Visa";
 $text['button-view']['uk-ua'] = "вид";
 $text['button-view']['tr-tr'] = "Görüntüle";
-$text['button-view']['zh-cn'] = "看法";
+$text['button-view']['zh-cn'] = "查看";
 $text['button-view']['ja-jp'] = "意見";
 $text['button-view']['ko-kr'] = "보다";
 

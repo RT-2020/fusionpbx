@@ -1941,7 +1941,7 @@ $text['label-followme']['ru-ru'] = "Следуй за мной";
 $text['label-followme']['sv-se'] = "Följ Mig";
 $text['label-followme']['tr-tr'] = "Beni takip et";
 $text['label-followme']['uk-ua'] = "Слідуй за мною";
-$text['label-followme']['zh-cn'] = "跟我来";
+$text['label-followme']['zh-cn'] = "跟随我";
 $text['label-followme']['ja-jp'] = "フォローしてください";
 $text['label-followme']['ko-kr'] = "날 따라 오세요";
 
