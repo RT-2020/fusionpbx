@@ -293,7 +293,7 @@ $text['label-running']['ru-ru'] = "Запущено";
 $text['label-running']['sv-se'] = "Löpning";
 $text['label-running']['uk-ua'] = "Запущено";
 $text['label-running']['tr-tr'] = "Koşma";
-$text['label-running']['zh-cn'] = "跑步";
+$text['label-running']['zh-cn'] = "运行中";
 $text['label-running']['ja-jp'] = "ランニング";
 $text['label-running']['ko-kr'] = "달리기";
 

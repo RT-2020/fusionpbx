@@ -1050,7 +1050,7 @@ $text['label-message_status']['ru-ru'] = "Статус";
 $text['label-message_status']['sv-se'] = "Status";
 $text['label-message_status']['uk-ua'] = "Статус";
 $text['label-message_status']['tr-tr'] = "Durum";
-$text['label-message_status']['zh-cn'] = "地位";
+$text['label-message_status']['zh-cn'] = "状态";
 $text['label-message_status']['ja-jp'] = "スターテス";
 $text['label-message_status']['ko-kr'] = "상태";
 
@@ -2049,7 +2049,7 @@ $text['description-message_status']['ru-ru'] = "Статус";
 $text['description-message_status']['sv-se'] = "Status";
 $text['description-message_status']['uk-ua'] = "Статус";
 $text['description-message_status']['tr-tr'] = "Durum";
-$text['description-message_status']['zh-cn'] = "地位";
+$text['description-message_status']['zh-cn'] = "状态";
 $text['description-message_status']['ja-jp'] = "スターテス";
 $text['description-message_status']['ko-kr'] = "상태";
 

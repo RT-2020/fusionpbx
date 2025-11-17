@@ -1158,7 +1158,7 @@ $text['label-status']['ru-ru'] = "Статус";
 $text['label-status']['sv-se'] = "Status";
 $text['label-status']['tr-tr'] = "Durum";
 $text['label-status']['uk-ua'] = "Статус";
-$text['label-status']['zh-cn'] = "地位";
+$text['label-status']['zh-cn'] = "状态";
 $text['label-status']['ja-jp'] = "スターテス";
 $text['label-status']['ko-kr'] = "상태";
 
@@ -2993,7 +2993,7 @@ $text['description-status']['ru-ru'] = "Выберите статус польз
 $text['description-status']['sv-se'] = "Välj en användarstatus.";
 $text['description-status']['tr-tr'] = "Bir kullanıcı durumu seçin.";
 $text['description-status']['uk-ua'] = "Виберіть статус користувача";
-$text['description-status']['zh-cn'] = "选择用户地位。";
+$text['description-status']['zh-cn'] = "选择用户状态。";
 $text['description-status']['ja-jp'] = "ユーザーのステータスを選択します。";
 $text['description-status']['ko-kr'] = "사용자 상태를 선택하십시오.";
 
@@ -3396,7 +3396,7 @@ $text['label-running']['ro-ro'] = "Alergare";
 $text['label-running']['ru-ru'] = "Бег";
 $text['label-running']['sv-se'] = "Löpning";
 $text['label-running']['uk-ua'] = "Біг";
-$text['label-running']['zh-cn'] = "跑步";
+$text['label-running']['zh-cn'] = "运行中";
 $text['label-running']['ja-jp'] = "ランニング";
 $text['label-running']['ko-kr'] = "달리기";
 

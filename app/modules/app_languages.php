@@ -212,7 +212,7 @@ $text['label-status']['ru-ru'] = "Статус";
 $text['label-status']['sv-se'] = "Status";
 $text['label-status']['uk-ua'] = "Стан";
 $text['label-status']['tr-tr'] = "Durum";
-$text['label-status']['zh-cn'] = "地位";
+$text['label-status']['zh-cn'] = "状态";
 $text['label-status']['ja-jp'] = "スターテス";
 $text['label-status']['ko-kr'] = "상태";
 
@@ -266,7 +266,7 @@ $text['label-running']['ru-ru'] = "Запущено";
 $text['label-running']['sv-se'] = "Löpning";
 $text['label-running']['uk-ua'] = "Запущено";
 $text['label-running']['tr-tr'] = "Koşma";
-$text['label-running']['zh-cn'] = "跑步";
+$text['label-running']['zh-cn'] = "运行中";
 $text['label-running']['ja-jp'] = "ランニング";
 $text['label-running']['ko-kr'] = "달리기";
 

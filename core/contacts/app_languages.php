@@ -2152,7 +2152,7 @@ $text['label-time_duration']['ro-ro'] = "Durată";
 $text['label-time_duration']['ru-ru'] = "Продолжительность";
 $text['label-time_duration']['sv-se'] = "Varaktighet";
 $text['label-time_duration']['uk-ua'] = "тривалість";
-$text['label-time_duration']['zh-cn'] = "期间";
+$text['label-time_duration']['zh-cn'] = "持续时间";
 $text['label-time_duration']['ja-jp'] = "間隔";
 $text['label-time_duration']['ko-kr'] = "지속";
 

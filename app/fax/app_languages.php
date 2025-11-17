@@ -5180,7 +5180,7 @@ $text['fax-active_title_status']['ru-ru'] = "Статус";
 $text['fax-active_title_status']['sv-se'] = "Status";
 $text['fax-active_title_status']['uk-ua'] = "Статус";
 $text['fax-active_title_status']['tr-tr'] = "Durum";
-$text['fax-active_title_status']['zh-cn'] = "地位";
+$text['fax-active_title_status']['zh-cn'] = "状态";
 $text['fax-active_title_status']['ja-jp'] = "スターテス";
 $text['fax-active_title_status']['ko-kr'] = "상태";
 

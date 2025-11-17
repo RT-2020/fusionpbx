@@ -1556,7 +1556,7 @@ $text['label-end']['ro-ro'] = "Sfârşit";
 $text['label-end']['ru-ru'] = "Конец";
 $text['label-end']['sv-se'] = "Slut";
 $text['label-end']['uk-ua'] = "Кінець";
-$text['label-end']['zh-cn'] = "结尾";
+$text['label-end']['zh-cn'] = "终止";
 $text['label-end']['ja-jp'] = "終わり";
 $text['label-end']['ko-kr'] = "끝";
 

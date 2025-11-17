@@ -590,7 +590,7 @@ $text['description-enabled']['ru-ru'] = "Установите статус фр�
 $text['description-enabled']['sv-se'] = "Välj status på frasen.";
 $text['description-enabled']['uk-ua'] = "Вкажіть статус для фрази";
 $text['description-enabled']['tr-tr'] = "İfadenin durumunu ayarlayın.";
-$text['description-enabled']['zh-cn'] = "2. 确定该短语的地位。";
+$text['description-enabled']['zh-cn'] = "设置该短语的状态。";
 $text['description-enabled']['ja-jp'] = "フレーズの状態を設定します。";
 $text['description-enabled']['ko-kr'] = "구문의 상태를 설정합니다.";
 

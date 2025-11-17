@@ -346,7 +346,7 @@ $text['label-end']['ru-ru'] = "Конец";
 $text['label-end']['sv-se'] = "Slut";
 $text['label-end']['uk-ua'] = "Кінець";
 $text['label-end']['tr-tr'] = "Son";
-$text['label-end']['zh-cn'] = "结尾";
+$text['label-end']['zh-cn'] = "终止";
 $text['label-end']['ja-jp'] = "終わり";
 $text['label-end']['ko-kr'] = "끝";
 
@@ -1102,7 +1102,7 @@ $text['label-status']['ru-ru'] = "Статус";
 $text['label-status']['sv-se'] = "Status";
 $text['label-status']['uk-ua'] = "Статус";
 $text['label-status']['tr-tr'] = "Durum";
-$text['label-status']['zh-cn'] = "地位";
+$text['label-status']['zh-cn'] = "状态";
 $text['label-status']['ja-jp'] = "スターテス";
 $text['label-status']['ko-kr'] = "상태";
 
@@ -2128,7 +2128,7 @@ $text['label-end_stamp']['ru-ru'] = "Конец";
 $text['label-end_stamp']['sv-se'] = "Slut";
 $text['label-end_stamp']['uk-ua'] = "Кінець";
 $text['label-end_stamp']['tr-tr'] = "Son";
-$text['label-end_stamp']['zh-cn'] = "结尾";
+$text['label-end_stamp']['zh-cn'] = "终止";
 $text['label-end_stamp']['ja-jp'] = "終わり";
 $text['label-end_stamp']['ko-kr'] = "끝";
 
@@ -2209,7 +2209,7 @@ $text['label-duration']['ru-ru'] = "Продолжительность";
 $text['label-duration']['sv-se'] = "Samtalstid";
 $text['label-duration']['uk-ua'] = "Тривалість";
 $text['label-duration']['tr-tr'] = "Süre";
-$text['label-duration']['zh-cn'] = "期间";
+$text['label-duration']['zh-cn'] = "持续时间";
 $text['label-duration']['ja-jp'] = "間隔";
 $text['label-duration']['ko-kr'] = "지속";
 

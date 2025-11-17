@@ -428,7 +428,7 @@ $text['label-log_status']['ru-ru'] = "Статус";
 $text['label-log_status']['sv-se'] = "status";
 $text['label-log_status']['uk-ua'] = "Статус на сервери";
 $text['label-log_status']['tr-tr'] = "Durum";
-$text['label-log_status']['zh-cn'] = "地位";
+$text['label-log_status']['zh-cn'] = "状态";
 $text['label-log_status']['ja-jp'] = "スターテス";
 $text['label-log_status']['ko-kr'] = "상태";
 

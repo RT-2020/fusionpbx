@@ -1645,7 +1645,7 @@ $text['button-status']['ru-ru'] = "Статус";
 $text['button-status']['sv-se'] = "Status";
 $text['button-status']['uk-ua'] = "Статус";
 $text['button-status']['tr-tr'] = "Durum";
-$text['button-status']['zh-cn'] = "地位";
+$text['button-status']['zh-cn'] = "状态";
 $text['button-status']['ja-jp'] = "スターテス";
 $text['button-status']['ko-kr'] = "상태";
 
@@ -3181,7 +3181,7 @@ $text['label-end_stamp']['ru-ru'] = "Конец";
 $text['label-end_stamp']['sv-se'] = "Slut";
 $text['label-end_stamp']['uk-ua'] = "Кінець";
 $text['label-end_stamp']['tr-tr'] = "Bitiş";
-$text['label-end_stamp']['zh-cn'] = "结尾";
+$text['label-end_stamp']['zh-cn'] = "终止";
 $text['label-end_stamp']['ja-jp'] = "終わり";
 $text['label-end_stamp']['ko-kr'] = "끝";
 

@@ -158,7 +158,7 @@ $text['label-call_flow_status']['ru-ru'] = "Статус";
 $text['label-call_flow_status']['sv-se'] = "Status";
 $text['label-call_flow_status']['uk-ua'] = "Статус";
 $text['label-call_flow_status']['tr-tr'] = "Durum";
-$text['label-call_flow_status']['zh-cn'] = "地位";
+$text['label-call_flow_status']['zh-cn'] = "状态";
 $text['label-call_flow_status']['ja-jp'] = "スターテス";
 $text['label-call_flow_status']['ko-kr'] = "상태";
 

@@ -972,7 +972,7 @@ $text['label-status']['ru-ru'] = "Статус";
 $text['label-status']['sv-se'] = "Status";
 $text['label-status']['uk-ua'] = "Статус";
 $text['label-status']['tr-tr'] = "Durum";
-$text['label-status']['zh-cn'] = "地位";
+$text['label-status']['zh-cn'] = "状态";
 $text['label-status']['ja-jp'] = "ステータス";
 $text['label-status']['ko-kr'] = "상태";
 
@@ -2457,7 +2457,7 @@ $text['description-enabled']['ru-ru'] = "Установить статус уч�
 $text['description-enabled']['sv-se'] = "Ange statusen på detta konto..";
 $text['description-enabled']['uk-ua'] = "Вкажіть стан цього облікового запису.";
 $text['description-enabled']['tr-tr'] = "Bu hesabın durumunu ayarlayın.";
-$text['description-enabled']['zh-cn'] = "确立该账户的地位。";
+$text['description-enabled']['zh-cn'] = "设置该账户的状态。";
 $text['description-enabled']['ja-jp'] = "このアカウントのステータスを設定します。";
 $text['description-enabled']['ko-kr'] = "이 계정의 상태를 설정합니다.";
 

@@ -320,7 +320,7 @@ $text['label-duration']['ru-ru'] = "Продолжительность";
 $text['label-duration']['sv-se'] = "Samtalstid";
 $text['label-duration']['uk-ua'] = "Тривалість";
 $text['label-duration']['tr-tr'] = "Süre";
-$text['label-duration']['zh-cn'] = "期间";
+$text['label-duration']['zh-cn'] = "持续时间";
 $text['label-duration']['ja-jp'] = "間隔";
 $text['label-duration']['ko-kr'] = "지속";
 
