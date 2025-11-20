@@ -438,17 +438,44 @@ switch ($action) {
 		]);
 		break;
 	
+	case 'get_conferences':
 	case 'get_emergency_conferences':
+		// 获取会议列表（支持按紧急状态和呼叫模式筛选）
+		$emergency_filter = $_GET['emergency_filter'] ?? 'all';  // 'true'/'false'/'all'
+		$call_mode_filter = $_GET['call_mode_filter'] ?? 'all';   // 'group_call'/'all_call'/'single_call'/'all'
+		
+		// 为了向后兼容，如果调用的是 get_emergency_conferences，默认筛选紧急会议
+		if ($action === 'get_emergency_conferences' && $emergency_filter === 'all') {
+			$emergency_filter = 'true';
+		}
+
 		// 获取紧急会议列表
 		$sql = "select conference_uuid, conference_extension, conference_name, call_mode, ";
 		$sql .= "call_mode_targets, conference_description ";
 		$sql .= "from v_conferences ";
 		$sql .= "where domain_uuid = :domain_uuid ";
 		$sql .= "and conference_enabled = 'true' ";
-		$sql .= "and emergency_enabled = 'true' ";
+		
+		// 按紧急状态筛选
+		if ($emergency_filter === 'true') {
+			$sql .= "and emergency_enabled = 'true' ";
+		} else if ($emergency_filter === 'false') {
+			$sql .= "and emergency_enabled = 'false' ";
+		}
+		// emergency_filter === 'all' 时不添加筛选条件
+		
+		// 按呼叫模式筛选
+		if ($call_mode_filter !== 'all') {
+			$sql .= "and call_mode = :call_mode ";
+		}
+		
 		$sql .= "order by conference_name asc ";
 		
 		$parameters['domain_uuid'] = $_SESSION['domain_uuid'];
+		if ($call_mode_filter !== 'all') {
+			$parameters['call_mode'] = $call_mode_filter;
+		}
+		
 		$database = new database;
 		$conferences = $database->select($sql, $parameters, 'all');
 		
@@ -494,7 +521,8 @@ switch ($action) {
 					'name' => $conf['conference_name'],
 					'call_mode' => $call_mode,
 					'participants' => $participants,
-					'description' => $conf['conference_description'] ?? ''
+					'description' => $conf['conference_description'] ?? '',
+					'emergency_enabled' => $conf['emergency_enabled'] ?? 'false'
 				];
 			}
 		}

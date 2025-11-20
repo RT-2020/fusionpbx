@@ -356,6 +356,31 @@
     DispatcherControl.prototype.onIncomingCall = function(callerInfo) {
         console.log('收到来电:', callerInfo);
         
+        // === 新增：检查是否是会议自动接听（优先级最高） ===
+        if (window.__autoAnswerBargeNext === true) {
+            console.log('🎯 检测到会议自动接听标志，立即接听');
+            window.__autoAnswerBargeNext = false;
+            
+            var self = this;
+            // 短延迟确保媒体流准备就绪
+            setTimeout(function() {
+                self.sipClient.acceptIncomingCall({ audio: true, video: false })
+                    .then(function() {
+                        console.log('✅ 会议来电已自动接听');
+                        self.updateUI();
+                        if (self.renderLinesGrid) self.renderLinesGrid();
+                    })
+                    .catch(function(error) {
+                        console.error('❌ 会议自动接听失败:', error);
+                        // 失败后按普通来电处理
+                        self.queueIncomingCall(callerInfo);
+                        self.updateUI();
+                        self.updateBusyQueueBanner(false);
+                    });
+            }, 300);
+            return; // 直接返回，不执行后续逻辑
+        }
+        
         // 检测是否为急呼
         var isEmergency = false;
         if (callerInfo && callerInfo.isEmergency) { isEmergency = true; }

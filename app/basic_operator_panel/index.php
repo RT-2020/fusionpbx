@@ -848,11 +848,8 @@ if (is_array($_SESSION['user']['extension'])) {
 			</td>
 			<td width="50%" align="right">
                 <div class="dispatcher-toolbar">
-					<button id="group-call-btn" class="dispatcher-tool-btn" title="组呼" disabled onclick="openGroupCallModal()">
+					<button id="batch-call-btn" class="dispatcher-tool-btn" title="批量呼叫" onclick="openBatchCallModal()">
 						<i class="fas fa-users"></i>
-					</button>
-					<button id="broadcast-btn" class="dispatcher-tool-btn" title="全呼" disabled onclick="startBroadcastCall()">
-						<i class="fas fa-bullhorn"></i>
 					</button>
 				<button id="conference-btn" class="dispatcher-tool-btn" title="多方会议" disabled onclick="openConferenceModal()">
 					<i class="fas fa-video"></i>
@@ -862,9 +859,6 @@ if (is_array($_SESSION['user']['extension'])) {
 				</button>
 				<button id="trunk-mode-btn" class="dispatcher-tool-btn" title="中继模式" onclick="toggleTrunkMode()">
 						<i class="fas fa-exchange-alt"></i>
-					</button>
-					<button id="manage-groups-btn" class="dispatcher-tool-btn" title="分组管理" onclick="openGroupsModal()">
-						<i class="fas fa-cog"></i>
 					</button>
                     <button id="check-mic-btn" class="dispatcher-tool-btn" title="检查麦克风权限" onclick="checkMicrophonePermission()">
                         <i class="fas fa-microphone"></i>
@@ -1026,22 +1020,35 @@ echo "<div id='cmd_response' style='display: none;'></div>\n";
 	</div>
 </div>
 
-<!-- 分组管理模态对话框 -->
-<div id="groups-modal" class="dispatcher-modal" style="display: none;">
-	<div class="modal-overlay" onclick="closeGroupsModal()"></div>
-	<div class="modal-content">
+<!-- 批量呼叫模态对话框 -->
+<div id="batch-call-modal" class="dispatcher-modal" style="display: none;">
+	<div class="modal-overlay" onclick="closeBatchCallModal()"></div>
+	<div class="modal-content" style="max-width: 600px;">
 		<div class="modal-header">
-			<h3>管理呼叫分组</h3>
-			<button class="modal-close-btn" onclick="closeGroupsModal()">×</button>
+			<h3><i class="fas fa-users"></i> 发起批量呼叫</h3>
+			<button class="modal-close-btn" onclick="closeBatchCallModal()">×</button>
 		</div>
 		<div class="modal-body">
-			<div id="groups-list">
-				<!-- 分组列表 -->
+			<div class="form-group">
+				<label>呼叫类型:</label>
+				<select id="batch-call-type" class="form-control" onchange="updateBatchCallTargets()">
+					<option value="group">组呼 (Group Call)</option>
+					<option value="broadcast">全呼 (Broadcast)</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label>选择会议:</label>
+				<select id="batch-call-target" class="form-control">
+					<option value="">加载中...</option>
+				</select>
+				<small style="color: #666;" id="batch-call-desc">选择一个会议以加载成员</small>
 			</div>
 		</div>
 		<div class="modal-footer">
-			<button class="btn btn-primary" onclick="addNewGroup()">新建分组</button>
-			<button class="btn btn-secondary" onclick="closeGroupsModal()">关闭</button>
+			<button class="btn btn-success" onclick="initiateBatchCall()">
+				<i class="fas fa-phone"></i> 发起呼叫
+			</button>
+			<button class="btn btn-secondary" onclick="closeBatchCallModal()">取消</button>
 		</div>
 	</div>
 </div>
@@ -1103,16 +1110,18 @@ echo "<div id='cmd_response' style='display: none;'></div>\n";
 				<input type="text" id="emergency-target-ext" class="form-control" placeholder="输入分机号">
 			</div>
 			<div class="form-group" id="emergency-group-target" style="display: none;">
-				<label>选择分组:</label>
+				<label>选择会议:</label>
 				<select id="emergency-group-select" class="form-control">
-					<!-- 动态加载分组 -->
+					<option value="">加载中...</option>
 				</select>
+				<small style="color: #666;">将呼叫会议中配置的所有成员</small>
 			</div>
 			<div class="form-group" id="emergency-broadcast-confirm" style="display: none;">
-				<div class="alert alert-danger" style="padding: 10px;">
-					<strong>⚠️ 全呼警告：</strong><br>
-					将对所有用户发起急呼，请谨慎操作！
-				</div>
+				<label>选择会议:</label>
+				<select id="emergency-broadcast-select" class="form-control">
+					<option value="">加载中...</option>
+				</select>
+				<small style="color: #666;">将呼叫会议中配置的所有成员</small>
 			</div>
 		</div>
 		<div class="modal-footer">
@@ -1251,8 +1260,8 @@ $(document).ready(function() {
 	// 从localStorage恢复SIP注册状态
 	restoreSipStatus();
 	
-	// 加载分组列表
-	updateGroupsList();
+	// 加载分组列表 (已移除手动分组，改为批量呼叫面板动态加载)
+	// updateGroupsList();
 	
 	// 监听SIP状态更新
 	dispatcherControl.on('registered', function() {
@@ -1864,16 +1873,7 @@ function endConference() {
 	$('#conference-status').hide();
 }
 
-// 打开分组管理模态对话框
-function openGroupsModal() {
-	updateGroupsList();
-	$('#groups-modal').show();
-}
-
-// 关闭分组管理模态对话框
-function closeGroupsModal() {
-	$('#groups-modal').hide();
-}
+// 旧的分组管理模态对话框函数已移除，使用 batch-call-modal 替代
 
 // 直接呼叫分机
 function callExtensionDirect(extension) {
@@ -1991,78 +1991,91 @@ function toggleEmergencyMute(){
     }catch(e){}
 }
 
-// 更新分组列表
-function updateGroupsList() {
-	var groups = dispatcherControl.callGroups;
-	var html = '';
-	
-	for (var groupId in groups) {
-		if (groups.hasOwnProperty(groupId)) {
-			var group = groups[groupId];
-			html += '<div class="group-item">' +
-				'<div class="group-item-header">' +
-				'<span class="group-item-name">' + group.name + ' (' + groupId + ')</span>' +
-				'<div class="group-item-actions">' +
-				'<button class="btn btn-sm btn-danger" onclick="deleteGroup(\'' + groupId + '\')">删除</button>' +
-				'</div>' +
-				'</div>' +
-				'<div class="group-extensions">成员: ' + (group.extensions.length > 0 ? group.extensions.join(', ') : '无') + '</div>' +
-				'<div style="margin-top: 8px;">' +
-				'<button class="btn btn-sm btn-primary" onclick="addExtensionToGroupDialog(\'' + groupId + '\')">添加成员</button> ' +
-				'<button class="btn btn-sm btn-success" onclick="startGroupCallById(\'' + groupId + '\')">发起组呼</button>' +
-				'</div>' +
-				'</div>';
-		}
-	}
-	
-	if (html === '') {
-		html = '<p style="text-align: center; color: #999; padding: 20px;">暂无分组，请点击下方按钮创建</p>';
-	}
-	
-	$('#groups-list').html(html);
+// ============ 批量呼叫相关函数 ============
+
+// 打开批量呼叫模态框
+function openBatchCallModal() {
+	$('#batch-call-modal').show();
+	// 默认加载组呼列表
+	$('#batch-call-type').val('group');
+	updateBatchCallTargets();
 }
 
-// 添加新分组
-function addNewGroup() {
-	var groupId = prompt('请输入组ID（英文字母、数字）:');
-	if (!groupId) return;
+// 关闭批量呼叫模态框
+function closeBatchCallModal() {
+	$('#batch-call-modal').hide();
+}
+
+// 更新批量呼叫目标列表
+function updateBatchCallTargets() {
+	var type = $('#batch-call-type').val();
+	var callMode = (type === 'broadcast') ? 'all_call' : 'group_call';
+	var select = $('#batch-call-target');
+	var desc = $('#batch-call-desc');
 	
-	if (dispatcherControl.callGroups[groupId]) {
-		alert('该组已存在');
+	select.html('<option value="">加载中...</option>');
+	desc.text('正在加载会议列表...');
+	
+	$.ajax({
+		url: 'dispatcher_api.php?action=get_conferences&call_mode_filter=' + callMode,
+		type: 'GET',
+		dataType: 'json',
+		success: function(response) {
+			select.empty();
+			if (response.success && response.items && response.items.length > 0) {
+				response.items.forEach(function(conf) {
+					var label = conf.name + ' (' + conf.extension + ')';
+					if (conf.participants && conf.participants.length > 0) {
+						label += ' - ' + conf.participants.length + '人';
+					}
+					select.append(
+						'<option value="' + conf.conference_uuid + '" ' +
+						'data-participants="' + JSON.stringify(conf.participants).replace(/"/g, '&quot;') + '">' +
+						label + '</option>'
+					);
+				});
+				desc.text('请选择一个会议以发起呼叫');
+			} else {
+				select.append('<option value="">暂无会议</option>');
+				desc.text('未找到该类型的会议配置');
+			}
+		},
+		error: function() {
+			select.html('<option value="">加载失败</option>');
+			desc.text('加载会议列表失败');
+		}
+	});
+}
+
+// 发起批量呼叫
+function initiateBatchCall() {
+	var selectedOption = $('#batch-call-target option:selected');
+	if (!selectedOption.val()) {
+		DispatcherUtils.alert('请选择一个会议', 'warn');
 		return;
 	}
 	
-	var groupName = prompt('请输入组名称:');
-	if (!groupName) return;
-	
-	dispatcherControl.addCallGroup(groupId, groupName);
-	updateGroupsList();
-}
-
-// 添加成员到组
-function addExtensionToGroupDialog(groupId) {
-	var extension = prompt('请输入要添加的分机号:');
-	if (extension) {
-        dispatcherControl.addExtensionToGroup(groupId, extension.trim());
-        updateGroupsList();
-        DispatcherUtils.alert('成员已添加');
+	try {
+		var participantsJson = selectedOption.attr('data-participants');
+		var targets = JSON.parse(participantsJson);
+		
+		if (!targets || targets.length === 0) {
+			DispatcherUtils.alert('该会议没有配置参与分机', 'warn');
+			return;
+		}
+		
+		// 使用 dispatcherControl 发起呼叫
+		dispatcherControl.startGroupCallWithExtensions(targets);
+		
+		closeBatchCallModal();
+		$('#group-call-status').show();
+		var typeText = ($('#batch-call-type').val() === 'broadcast') ? '全呼' : '组呼';
+		$('#group-call-status-text').text(typeText + '进行中...');
+		
+	} catch (e) {
+		console.error('解析会议参与者失败:', e);
+		DispatcherUtils.alert('发起呼叫失败', 'error');
 	}
-}
-
-// 删除分组
-function deleteGroup(groupId) {
-	if (confirm('确认删除该分组？')) {
-		dispatcherControl.deleteCallGroup(groupId);
-		updateGroupsList();
-	}
-}
-
-// 按组ID发起组呼
-function startGroupCallById(groupId) {
-	dispatcherControl.startGroupCall(groupId);
-	closeGroupsModal();
-	$('#group-call-status').show();
-	$('#group-call-status-text').text('组呼进行中...');
 }
 
 // 已移除旧拖拽逻辑，减少全局事件监听与重排
@@ -2105,63 +2118,11 @@ function closeLogsPanel() {
 // ============ 急呼相关函数 ============
 
 // 打开急呼模态对话框
+// 打开急呼模态对话框
 function openEmergencyModal() {
-	// 加载分组列表
-	var groups = dispatcherControl.callGroups;
-	var groupSelect = $('#emergency-group-select');
-	groupSelect.empty();
-	for (var groupId in groups) {
-		if (groups.hasOwnProperty(groupId)) {
-			groupSelect.append('<option value="' + groupId + '">' + groups[groupId].name + '</option>');
-		}
-	}
-	
-	// 加载紧急会议列表
-	$.ajax({
-		url: 'dispatcher_api.php?action=get_emergency_conferences',
-		type: 'GET',
-		dataType: 'json',
-		success: function(response) {
-			if (response.success && response.items && response.items.length > 0) {
-				// 在急呼类型选项中添加"紧急会议"选项
-				var emergencyTypeSelect = $('#emergency-type');
-				// 检查是否已存在conference选项，避免重复添加
-				if (emergencyTypeSelect.find('option[value="conference"]').length === 0) {
-					emergencyTypeSelect.append('<option value="conference">紧急会议</option>');
-				}
-				
-				// 创建会议选择容器（如果不存在）
-				if ($('#emergency-conference-target').length === 0) {
-					var conferenceHtml = '<div id="emergency-conference-target" style="display:none;">' +
-						'<label>选择会议:</label>' +
-						'<select id="emergency-conference-select" class="formfld"></select>' +
-						'</div>';
-					$('#emergency-broadcast-confirm').after(conferenceHtml);
-				}
-				
-				// 填充会议选项
-				var conferenceSelect = $('#emergency-conference-select');
-				conferenceSelect.empty();
-				response.items.forEach(function(conf) {
-					var label = conf.name + ' (' + conf.extension + ')';
-					if (conf.participants && conf.participants.length > 0) {
-						label += ' - ' + conf.participants.length + '人';
-					}
-					conferenceSelect.append(
-						'<option value="' + conf.conference_uuid + '" ' +
-						'data-participants="' + JSON.stringify(conf.participants).replace(/"/g, '&quot;') + '" ' +
-						'data-mode="' + conf.call_mode + '">' +
-						label + '</option>'
-					);
-				});
-			}
-		},
-		error: function() {
-			console.warn('加载紧急会议列表失败');
-		}
-	});
-	
 	$('#emergency-modal').show();
+	// 触发一次类型更新，加载对应的会议列表
+	updateEmergencyTargets();
 }
 
 // 关闭急呼模态对话框
@@ -2175,17 +2136,52 @@ function updateEmergencyTargets() {
 	$('#emergency-single-target').hide();
 	$('#emergency-group-target').hide();
 	$('#emergency-broadcast-confirm').hide();
-	$('#emergency-conference-target').hide();
 	
 	if (type === 'single') {
 		$('#emergency-single-target').show();
 	} else if (type === 'group') {
 		$('#emergency-group-target').show();
+		// 加载组呼类型的紧急会议 (call_mode = group_call)
+		loadEmergencyConferences('group_call', '#emergency-group-select');
 	} else if (type === 'broadcast') {
 		$('#emergency-broadcast-confirm').show();
-	} else if (type === 'conference') {
-		$('#emergency-conference-target').show();
+		// 加载全呼类型的紧急会议 (call_mode = all_call)
+		loadEmergencyConferences('all_call', '#emergency-broadcast-select');
 	}
+}
+
+// 辅助函数：加载紧急会议列表
+function loadEmergencyConferences(callMode, selectId) {
+	var select = $(selectId);
+	select.html('<option value="">加载中...</option>');
+	
+	$.ajax({
+		url: 'dispatcher_api.php?action=get_conferences&emergency_filter=true&call_mode_filter=' + callMode,
+		type: 'GET',
+		dataType: 'json',
+		success: function(response) {
+			select.empty();
+			if (response.success && response.items && response.items.length > 0) {
+				response.items.forEach(function(conf) {
+					var label = conf.name + ' (' + conf.extension + ')';
+					if (conf.participants && conf.participants.length > 0) {
+						label += ' - ' + conf.participants.length + '人';
+					}
+					select.append(
+						'<option value="' + conf.conference_uuid + '" ' +
+						'data-participants="' + JSON.stringify(conf.participants).replace(/"/g, '&quot;') + '">' +
+						label + '</option>'
+					);
+				});
+			} else {
+				select.append('<option value="">暂无会议</option>');
+			}
+		},
+		error: function() {
+			select.html('<option value="">加载失败</option>');
+			console.error('加载紧急会议失败');
+		}
+	});
 }
 
 // 发起急呼
@@ -2202,21 +2198,27 @@ function initiateEmergencyCall() {
         }
 		targets = [targetExt];
 	} else if (type === 'group') {
-		var groupId = $('#emergency-group-select').val();
-        if (!groupId || !dispatcherControl.callGroups[groupId]) {
-            DispatcherUtils.alert('请选择有效的分组', 'warn');
-            return;
-        }
-		targets = dispatcherControl.callGroups[groupId].extensions;
-	} else if (type === 'broadcast') {
-		if (!confirm('确认对所有用户发起急呼？此操作将呼叫所有分机！')) {
+		// 从会议选项中获取参与者列表
+		var selectedOption = $('#emergency-group-select option:selected');
+		if (!selectedOption.val()) {
+			DispatcherUtils.alert('请选择一个会议', 'warn');
 			return;
 		}
-		targets = dispatcherControl.getAllExtensions();
-	} else if (type === 'conference') {
-		// 从选中的会议中获取参与者列表
-		var selectedOption = $('#emergency-conference-select option:selected');
-		if (!selectedOption.length) {
+		try {
+			var participantsJson = selectedOption.attr('data-participants');
+			targets = JSON.parse(participantsJson);
+			if (!targets || targets.length === 0) {
+				DispatcherUtils.alert('该会议没有配置参与分机', 'warn');
+				return;
+			}
+		} catch (e) {
+			DispatcherUtils.alert('解析会议参与者失败', 'error');
+			return;
+		}
+	} else if (type === 'broadcast') {
+		// 从会议选项中获取参与者列表
+		var selectedOption = $('#emergency-broadcast-select option:selected');
+		if (!selectedOption.val()) {
 			DispatcherUtils.alert('请选择一个会议', 'warn');
 			return;
 		}

@@ -919,7 +919,7 @@
             offerToReceiveVideo: false,
           },
           pcConfig: self._getPcConfig(),
-          mediaStream: stream,
+          mediaStream: stream.clone(),  // ✅ 使用克隆而不是原始流
         }
 
         // 添加急呼特殊处理
@@ -1138,7 +1138,7 @@
       .then(function (stream) {
         if (stream) {
           try {
-            callOptions.mediaStream = stream
+            callOptions.mediaStream = stream.clone()  // ✅ 使用克隆而不是原始流
           } catch (e) {}
         }
         return new Promise(function (resolve, reject) {
@@ -1221,7 +1221,7 @@
     return self.getOrCreateMicStream().then(function (stream) {
       if (stream) {
         try {
-          callOptions.mediaStream = stream
+          callOptions.mediaStream = stream.clone()  // ✅ 使用克隆而不是原始流
         } catch (e) {}
       }
       return new Promise(function (resolve, reject) {
