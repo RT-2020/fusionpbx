@@ -231,9 +231,21 @@
 						--confirm = "group_confirm_file=custom/press_1_to_accept_this_call.wav,group_confirm_key=1";
 						--if you change this variable also change app/call_center/call_center_agent_edit.php
 						confirm = ""..sound_prefix..",group_confirm_file=ivr/ivr-accept_reject_voicemail.wav,group_confirm_key=1,group_confirm_read_timeout=2000,leg_timeout="..agent_call_timeout;
+						-- check the linked extension user_record value
+						local ext_user_record = nil;
+						if (extension_uuid ~= nil and tostring(extension_uuid) ~= "") then
+							local sql2 = "select user_record from v_extensions where extension_uuid = :extension_uuid limit 1";
+							local params2 = {extension_uuid = extension_uuid};
+							if (debug["sql"]) then
+								freeswitch.consoleLog("notice", "[xml_handler] SQL: " .. sql2 .. "; params:{extension_uuid=" .. tostring(extension_uuid) .. "}\n");
+							end
+							dbh:query(sql2, params2, function(r)
+								ext_user_record = r["user_record"];
+							end);
+						end
 						local record = "";
-						if (agent_record == "true") then
-							record = string.format(",execute_on_pre_bridge='record_session %s/%s/archive/${strftime(%%Y)}/${strftime(%%b)}/${strftime(%%d)}/${uuid}.${record_ext}'", recordings_dir, domain_name)
+						if (agent_record == "true" or ext_user_record == "all") then
+							record = string.format(",recording_follow_transfer=true,record_append=true,record_in_progress=true,record_answer_req=true,execute_on_pre_bridge='record_session %s/%s/archive/${strftime(%%Y)}/${strftime(%%b)}/${strftime(%%d)}/${uuid}.${record_ext}'", recordings_dir, domain_name)
 						end
 						if (string.find(agent_contact, '}') == nil) then
 							--not found

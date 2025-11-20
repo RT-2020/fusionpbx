@@ -53,6 +53,7 @@
     $call_mode_group_uuid = null;
     $call_mode_targets = '';
     $call_mode_exclude_caller = 'true';
+    $emergency_enabled = 'false';
 
 //action add or update
 	if (!empty($_REQUEST["id"]) && is_uuid($_REQUEST["id"])) {
@@ -86,6 +87,7 @@
         $exclude_caller = $_POST["exclude_caller"] ?? 'true';
         $authorized_extensions_select = $_POST["authorized_extensions_select"] ?? [];
         $authorized_extensions_input = $_POST["authorized_extensions_input"] ?? '';
+        $emergency_enabled = $_POST["emergency_enabled"] ?? 'false';
 
 		//set the context for users that do not have the permission
 		if (permission_exists('conference_context')) {
@@ -207,10 +209,10 @@
                 if (!is_array($call_mode_targets_select)) { $call_mode_targets_select = []; }
                 $targets_list = array_values(array_unique(array_merge($call_mode_targets_select, $typed_list)));
         if ($call_mode === 'group_call') {
-                    if (empty($targets_list) && empty($call_mode_group_uuid)) {
-                        $msg .= "".$text['message-targets-empty']."<br>\n";
-                    } else {
-                        $sql = "select extension from v_extensions where domain_uuid = :domain_uuid and enabled = 'true'";
+            if (empty($targets_list) && empty($call_mode_group_uuid)) {
+                $msg .= "".$text['message-targets-empty']."<br>\n";
+            } else {
+                $sql = "select extension from v_extensions where domain_uuid = :domain_uuid and enabled = 'true'";
                         $parameters = [];
                         $parameters['domain_uuid'] = $_SESSION['domain_uuid'];
                         $database = new database;
@@ -222,6 +224,13 @@
                         foreach ($targets_list as $t) { if (!in_array($t, $valid_exts, true)) { $invalids[] = $t; } }
                         if (!empty($invalids)) {
                             $msg .= sprintf($text['message-targets-invalid'], escape(implode(',', $invalids)))."<br>\n";
+                }
+            }
+        }
+        if ($emergency_enabled === 'true') {
+            if ($call_mode === 'group_call' || $call_mode === 'single_call') {
+                if (empty($targets_list)) {
+                    $msg .= "请选择至少一个目标分机<br>\n";
                 }
             }
         }
@@ -313,6 +322,7 @@
                     $call_mode_exclude_caller = ($exclude_caller === 'true') ? 'true' : 'false';
                     $array['conferences'][0]['call_mode_targets'] = $call_mode_targets;
                     $array['conferences'][0]['call_mode_exclude_caller'] = $call_mode_exclude_caller;
+                    $array['conferences'][0]['emergency_enabled'] = ($emergency_enabled === 'true') ? 'true' : 'false';
 
                 //conference pin number
                     $pin_number = (!empty($conference_pin_number)) ? '+'.$conference_pin_number : '';
@@ -474,6 +484,7 @@
             $call_mode_group_uuid = $row["call_mode_group_uuid"] ?? null;
             $call_mode_targets = $row["call_mode_targets"] ?? $call_mode_targets;
             $call_mode_exclude_caller = $row["call_mode_exclude_caller"] ?? $call_mode_exclude_caller;
+            $emergency_enabled = $row["emergency_enabled"] ?? $emergency_enabled;
             $conference_name = str_replace("-", " ", $conference_name);
 		}
 		unset($sql, $parameters, $row);
@@ -837,10 +848,31 @@
 		echo "		<option value='false' ".($conference_enabled == 'false' ? "selected='selected'" : null).">".$text['option-false']."</option>\n";
 		echo "	</select>\n";
 	}
-	echo "<br />\n";
-	echo "".$text['description-conference-enable']."\n";
-	echo "</td>\n";
-	echo "</tr>\n";
+echo "<br />\n";
+echo "".$text['description-conference-enable']."\n";
+echo "</td>\n";
+echo "</tr>\n";
+echo "<tr>\n";
+echo "<td class='vncell' valign='top' align='left' nowrap='nowrap'>\n";
+echo "\t启用紧急会议\n";
+echo "</td>\n";
+echo "<td class='vtable' align='left'>\n";
+if (substr($_SESSION['theme']['input_toggle_style']['text'], 0, 6) == 'switch') {
+    echo "\t<label class='switch'>\n";
+    echo "\t\t<input type='checkbox' id='emergency_enabled' name='emergency_enabled' value='true' ".($emergency_enabled == 'true' ? "checked='checked'" : null).">\n";
+    echo "\t\t<span class='slider'></span>\n";
+    echo "\t</label>\n";
+}
+else {
+    echo "\t<select class='formfld' id='emergency_enabled' name='emergency_enabled'>\n";
+    echo "\t\t<option value='true' ".($emergency_enabled == 'true' ? "selected='selected'" : null).">是</option>\n";
+    echo "\t\t<option value='false' ".($emergency_enabled == 'false' ? "selected='selected'" : null).">否</option>\n";
+    echo "\t</select>\n";
+}
+echo "<br />\n";
+echo "启用后，该会议将显示在调度急呼面板的紧急项中，并使用勾选的目标分机进行呼叫\n";
+echo "</td>\n";
+echo "</tr>\n";
 
 	echo "<tr>\n";
 	echo "<td class='vncell' valign='top' align='left' nowrap='nowrap'>\n";

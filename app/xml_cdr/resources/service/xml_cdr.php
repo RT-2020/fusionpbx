@@ -110,8 +110,16 @@
 		file_put_contents($pid_file, getmypid());
 	}
 
-//get the xml_cdr directory
-	$xml_cdr_dir = $settings->get('switch', 'log').'/xml_cdr';
+//ensure database is connected before loading settings and path
+	while (!$database->is_connected()) {
+		$database->connect();
+		sleep(3);
+	}
+	//reload settings after database is connected
+	$settings = new settings(['database' => $database]);
+
+	//get the xml_cdr directory (with fallback)
+	$xml_cdr_dir = $settings->get('switch', 'log', '/var/log/freeswitch').'/xml_cdr';
 
 //rename the directory
 	if (file_exists($xml_cdr_dir.'/failed/invalid_xml')) {
@@ -154,7 +162,9 @@
 		}
 
 		//get the list of call detail records, and limit the number of records
-		$xml_cdr_array = array_slice(glob($xml_cdr_dir . '/*.cdr.xml'), 0, 100);
+		$files = glob($xml_cdr_dir . '/*.cdr.xml');
+		if ($files === false) { $files = []; }
+		$xml_cdr_array = array_slice($files, 0, 100);
 
 		//process the call detail records
 		if (!empty($xml_cdr_array)) {

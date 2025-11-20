@@ -880,7 +880,7 @@ $text['description-flags']['ro-ro'] = "Steaguri opționale de conferință. exem
 $text['description-flags']['ru-ru'] = "Дополнительные флаги конференции. Примеры: откл. Микрофон | откл. Динамик | Временное отсутствие | Модератор";
 $text['description-flags']['sv-se'] = "Valfria konferensflaggor. Exempel: mute|deaf|waste|moderator";
 $text['description-flags']['uk-ua'] = "Додаткові прапори конференції. приклади: німий|глухий|марний|модератор";
-$text['description-flags']['zh-cn'] = "可选的会议标志。 示例：静音|聋|浪费|主持人。";
+$text['description-flags']['zh-cn'] = "可选的会议标志。 示例：mute|deaf|waste|moderator。";
 $text['description-flags']['ja-jp'] = "オプションの会議フラグ。 例: ミュート|聴覚障害者|廃棄物|司会者の意見。";
 $text['description-flags']['ko-kr'] = "선택적 컨퍼런스 플래그. 예: 음소거|귀머거리|폐기물|조정자.";
 

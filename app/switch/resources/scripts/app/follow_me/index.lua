@@ -417,15 +417,46 @@
 				extension_uuid = trim(api:executeString(cmd));
 
 				local record_session = "";
-				--if session is already recording then skip
-				if (session:getVariable("record_session") ~= "true") then
+				-- if session is already recording then skip. Prefer record_in_progress flag.
+				if (session:getVariable("record_in_progress") ~= "true" and session:getVariable("record_session") ~= "true") then
 					local cmd = "user_data "..destination_number.."@"..domain_name.." var user_record";
-					local user_record = api:executeString(cmd);
-					if (user_record == "all" or user_record == call_direction) then 
+					local user_record = trim(api:executeString(cmd));
+					local want_record = false;
+					if (user_record == "all") then
+						want_record = true;
+					elseif (user_record == call_direction) then
+						want_record = true;
+					end
+					-- also check calling party user_record when not yet decided
+					if (not want_record) then
+						local sip_from_user = session:getVariable("sip_from_user");
+						local sip_from_host = session:getVariable("sip_from_host");
+						if (sip_from_user ~= nil and sip_from_host ~= nil) then
+							local cmd_exists = "user_exists id ".. sip_from_user .." ".. sip_from_host;
+							if (trim(api:executeString(cmd_exists)) == "true") then
+								local cmd_from = "user_data ".. sip_from_user .."@".. sip_from_host .." var user_record";
+								local from_user_record = trim(api:executeString(cmd_from));
+								if (from_user_record == "all") then
+									want_record = true;
+								end
+							end
+						end
+					end
+					if want_record then
 						local recordings_dir = session:getVariable("recordings_dir");
 						local record_ext = session:getVariable("record_ext") or "wav";
 						local record_name = uuid.."."..record_ext;
-						local record_path = recordings_dir .. "/" .. domain_name .. "/archive/" .. os.date("%Y/%b/%d");
+						local record_path
+						if (session:getVariable("emergency_enabled") == "true") then
+							record_path = recordings_dir .. "/" .. domain_name .. "/emergency/" .. os.date("%Y/%m/%d");
+						else
+							record_path = recordings_dir .. "/" .. domain_name .. "/archive/" .. os.date("%Y/%b/%d");
+						end
+						record_path = record_path:gsub("\\", "/");
+						session:setVariable("recording_follow_transfer", "true");
+						session:setVariable("record_append", "true");
+						session:setVariable("record_in_progress", "true");
+						session:setVariable("record_answer_req", "true");
 						record_session = ",api_on_answer='uuid_record "..uuid.." start ".. record_path .. "/" .. record_name .. "',record_path='".. record_path .."',record_name="..record_name;
 					end
 				end

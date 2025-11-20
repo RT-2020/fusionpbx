@@ -203,10 +203,14 @@
 		$apps[$x]['db'][$y]['fields'][$z]['type'] = "text";
 		$apps[$x]['db'][$y]['fields'][$z]['description']['en-us'] = "Select whether to enable or disable the conference.";
 		$z++;
-        $apps[$x]['db'][$y]['fields'][$z]['name'] = "enforce_authorized_callers";
-        $apps[$x]['db'][$y]['fields'][$z]['type'] = "text";
-        $apps[$x]['db'][$y]['fields'][$z]['description']['en-us'] = "Enable to restrict dialing to authorized users only.";
-        $z++;
+		$apps[$x]['db'][$y]['fields'][$z]['name'] = "emergency_enabled";
+		$apps[$x]['db'][$y]['fields'][$z]['type'] = "text";
+		$apps[$x]['db'][$y]['fields'][$z]['description']['en-us'] = "Enable emergency flag for conference.";
+		$z++;
+		$apps[$x]['db'][$y]['fields'][$z]['name'] = "enforce_authorized_callers";
+		$apps[$x]['db'][$y]['fields'][$z]['type'] = "text";
+		$apps[$x]['db'][$y]['fields'][$z]['description']['en-us'] = "Enable to restrict dialing to authorized users only.";
+		$z++;
         // call mode for single/group/all call behavior
         $apps[$x]['db'][$y]['fields'][$z]['name'] = "call_mode";
         $apps[$x]['db'][$y]['fields'][$z]['type'] = "text";

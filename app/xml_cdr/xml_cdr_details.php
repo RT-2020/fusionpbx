@@ -473,6 +473,12 @@
 			echo 	$caller_id_name.' ';
 			echo "	  </a>";
 		}
+		else if (!empty($record_path) && !empty($record_name) && file_exists($record_path.'/'.$record_name)) {
+			$relative_path = ltrim(str_replace($_SESSION['switch']['recordings']['dir'].'/'.$_SESSION['domain_name'].'/', '', $record_path.'/'.$record_name), '/');
+			echo "	  <a href=\"javascript:void(0);\" onclick=\"window.open('../recordings/recording_play.php?a=download&type=moh&filename=".urlencode($relative_path)."', 'play',' width=420,height=40,menubar=no,status=no,toolbar=no')\">\n";
+			echo 	$caller_id_name.' ';
+			echo "	  </a>";
+		}
 		else {
 			echo 	$caller_id_name.' ';
 		}
@@ -480,6 +486,12 @@
 		echo "	<td valign='top' class='".$row_style[$c]."'>";
 		if (file_exists($_SESSION['switch']['recordings']['dir'].'/'.$_SESSION['domain_name'].'/archive/'.$tmp_year.'/'.$tmp_month.'/'.$tmp_day.'/'.$uuid.'.wav')) {
 			echo "		<a href=\"../recordings/recordings.php?a=download&type=rec&t=bin&filename=".urlencode('archive/'.$tmp_year.'/'.$tmp_month.'/'.$tmp_day.'/'.$uuid.'.wav')."\">\n";
+			echo 	escape($caller_id_number).' ';
+			echo "	  </a>";
+		}
+		else if (!empty($record_path) && !empty($record_name) && file_exists($record_path.'/'.$record_name)) {
+			$relative_path = ltrim(str_replace($_SESSION['switch']['recordings']['dir'].'/'.$_SESSION['domain_name'].'/', '', $record_path.'/'.$record_name), '/');
+			echo "		<a href=\"../recordings/recordings.php?a=download&type=rec&t=bin&filename=".urlencode($relative_path)."\">\n";
 			echo 	escape($caller_id_number).' ';
 			echo "	  </a>";
 		}

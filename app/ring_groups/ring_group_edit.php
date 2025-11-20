@@ -34,7 +34,7 @@
 	if (permission_exists('ring_group_add') || permission_exists('ring_group_edit')) {
 		//access granted
 	}
-	else {
+	else {  
 		echo "access denied";
 		exit;
 	}

@@ -2077,7 +2077,7 @@ $text['button-play']['sv-se'] = "Spela Upp";
 $text['button-play']['uk-ua'] = "Відтворити";
 $text['button-play']['el-gr'] = "Παίξτε Play Play";
 $text['button-play']['tr-tr'] = "Play Play Play Play";
-$text['button-play']['zh-cn'] = "玩";
+$text['button-play']['zh-cn'] = "播放";
 $text['button-play']['ja-jp'] = "遊ぶ";
 $text['button-play']['ko-kr'] = "놀다";
 

@@ -2116,6 +2116,51 @@ function openEmergencyModal() {
 		}
 	}
 	
+	// 加载紧急会议列表
+	$.ajax({
+		url: 'dispatcher_api.php?action=get_emergency_conferences',
+		type: 'GET',
+		dataType: 'json',
+		success: function(response) {
+			if (response.success && response.items && response.items.length > 0) {
+				// 在急呼类型选项中添加"紧急会议"选项
+				var emergencyTypeSelect = $('#emergency-type');
+				// 检查是否已存在conference选项，避免重复添加
+				if (emergencyTypeSelect.find('option[value="conference"]').length === 0) {
+					emergencyTypeSelect.append('<option value="conference">紧急会议</option>');
+				}
+				
+				// 创建会议选择容器（如果不存在）
+				if ($('#emergency-conference-target').length === 0) {
+					var conferenceHtml = '<div id="emergency-conference-target" style="display:none;">' +
+						'<label>选择会议:</label>' +
+						'<select id="emergency-conference-select" class="formfld"></select>' +
+						'</div>';
+					$('#emergency-broadcast-confirm').after(conferenceHtml);
+				}
+				
+				// 填充会议选项
+				var conferenceSelect = $('#emergency-conference-select');
+				conferenceSelect.empty();
+				response.items.forEach(function(conf) {
+					var label = conf.name + ' (' + conf.extension + ')';
+					if (conf.participants && conf.participants.length > 0) {
+						label += ' - ' + conf.participants.length + '人';
+					}
+					conferenceSelect.append(
+						'<option value="' + conf.conference_uuid + '" ' +
+						'data-participants="' + JSON.stringify(conf.participants).replace(/"/g, '&quot;') + '" ' +
+						'data-mode="' + conf.call_mode + '">' +
+						label + '</option>'
+					);
+				});
+			}
+		},
+		error: function() {
+			console.warn('加载紧急会议列表失败');
+		}
+	});
+	
 	$('#emergency-modal').show();
 }
 
@@ -2130,6 +2175,7 @@ function updateEmergencyTargets() {
 	$('#emergency-single-target').hide();
 	$('#emergency-group-target').hide();
 	$('#emergency-broadcast-confirm').hide();
+	$('#emergency-conference-target').hide();
 	
 	if (type === 'single') {
 		$('#emergency-single-target').show();
@@ -2137,6 +2183,8 @@ function updateEmergencyTargets() {
 		$('#emergency-group-target').show();
 	} else if (type === 'broadcast') {
 		$('#emergency-broadcast-confirm').show();
+	} else if (type === 'conference') {
+		$('#emergency-conference-target').show();
 	}
 }
 
@@ -2165,6 +2213,24 @@ function initiateEmergencyCall() {
 			return;
 		}
 		targets = dispatcherControl.getAllExtensions();
+	} else if (type === 'conference') {
+		// 从选中的会议中获取参与者列表
+		var selectedOption = $('#emergency-conference-select option:selected');
+		if (!selectedOption.length) {
+			DispatcherUtils.alert('请选择一个会议', 'warn');
+			return;
+		}
+		try {
+			var participantsJson = selectedOption.attr('data-participants');
+			targets = JSON.parse(participantsJson);
+			if (!targets || targets.length === 0) {
+				DispatcherUtils.alert('该会议没有配置参与分机', 'warn');
+				return;
+			}
+		} catch (e) {
+			DispatcherUtils.alert('解析会议参与者失败', 'error');
+			return;
+		}
 	}
 	
     if (targets.length === 0) {

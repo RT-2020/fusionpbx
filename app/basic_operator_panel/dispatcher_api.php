@@ -438,6 +438,73 @@ switch ($action) {
 		]);
 		break;
 	
+	case 'get_emergency_conferences':
+		// 获取紧急会议列表
+		$sql = "select conference_uuid, conference_extension, conference_name, call_mode, ";
+		$sql .= "call_mode_targets, conference_description ";
+		$sql .= "from v_conferences ";
+		$sql .= "where domain_uuid = :domain_uuid ";
+		$sql .= "and conference_enabled = 'true' ";
+		$sql .= "and emergency_enabled = 'true' ";
+		$sql .= "order by conference_name asc ";
+		
+		$parameters['domain_uuid'] = $_SESSION['domain_uuid'];
+		$database = new database;
+		$conferences = $database->select($sql, $parameters, 'all');
+		
+		$result = [];
+		if (!empty($conferences)) {
+			// 获取所有启用的分机（用于 all_call 和验证）
+			$sql_ext = "select extension from v_extensions ";
+			$sql_ext .= "where domain_uuid = :domain_uuid and enabled = 'true' ";
+			$sql_ext .= "order by extension asc ";
+			$parameters_ext = ['domain_uuid' => $_SESSION['domain_uuid']];
+			$all_extensions_rows = $database->select($sql_ext, $parameters_ext, 'all');
+			$all_extensions = [];
+			if (!empty($all_extensions_rows)) {
+				foreach ($all_extensions_rows as $e) {
+					$all_extensions[] = $e['extension'];
+				}
+			}
+			
+			foreach ($conferences as $conf) {
+				$call_mode = $conf['call_mode'] ?? 'single_call';
+				$participants = [];
+				
+				if ($call_mode === 'all_call') {
+					// 全呼：返回所有启用分机
+					$participants = $all_extensions;
+				} else if ($call_mode === 'group_call' || $call_mode === 'single_call') {
+					// 群呼/单呼：解析 call_mode_targets
+					$targets_raw = $conf['call_mode_targets'] ?? '';
+					if (!empty($targets_raw)) {
+						$targets = array_filter(array_map('trim', explode(',', $targets_raw)));
+						// 过滤出在启用分机列表中的目标
+						foreach ($targets as $t) {
+							if (in_array($t, $all_extensions, true)) {
+								$participants[] = $t;
+							}
+						}
+					}
+				}
+				
+				$result[] = [
+					'conference_uuid' => $conf['conference_uuid'],
+					'extension' => $conf['conference_extension'],
+					'name' => $conf['conference_name'],
+					'call_mode' => $call_mode,
+					'participants' => $participants,
+					'description' => $conf['conference_description'] ?? ''
+				];
+			}
+		}
+		
+		echo json_encode([
+			'success' => true,
+			'items' => $result
+		]);
+		break;
+	
 	default:
 		echo json_encode([
 			'error' => 'Invalid action'

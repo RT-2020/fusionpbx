@@ -917,27 +917,43 @@ log = require "resources.functions.log".ring_group
 					--get user_record value and determine whether to record the session
 						cmd = "user_data ".. destination_number .."@"..domain_name.." var user_record";
 						user_record = trim(api:executeString(cmd));
-						--set the record_session variable
-						record_session = false;
+						-- decide by destination user first
+						local want_record = false;
 						if (user_record == "all") then
-							record_session = true;
+							want_record = true;
+						elseif (user_record == "inbound" and call_direction == "inbound") then
+							want_record = true;
+						elseif (user_record == "outbound" and call_direction == "outbound") then
+							want_record = true;
+						elseif (user_record == "local" and call_direction == "local") then
+							want_record = true;
 						end
-						if (user_record == "inbound" and call_direction == "inbound") then
-							record_session = true;
-						end
-						if (user_record == "outbound" and call_direction == "outbound") then
-							record_session = true;
-						end
-						if (user_record == "local" and call_direction == "local") then
-							record_session = true;
+						-- also check the calling user when not yet decided
+						if (not want_record) then
+							local sip_from_user = session:getVariable("sip_from_user");
+							local sip_from_host = session:getVariable("sip_from_host");
+							if (sip_from_user ~= nil and sip_from_host ~= nil) then
+								local cmd_exists = "user_exists id ".. sip_from_user .." ".. sip_from_host;
+								if (trim(api:executeString(cmd_exists)) == "true") then
+									local cmd_from = "user_data ".. sip_from_user .."@".. sip_from_host .." var user_record";
+									local from_user_record = trim(api:executeString(cmd_from));
+									if (from_user_record == "all") then
+										want_record = true;
+									end
+								end
+							end
 						end
 
 					--record the session
-					if (record_session) then
+					if (want_record and session:getVariable("record_in_progress") ~= "true") then
+						session:setVariable("recording_follow_transfer", "true");
+						session:setVariable("record_append", "true");
+						session:setVariable("record_in_progress", "true");
+						session:setVariable("record_answer_req", "true");
 						record_session = ",api_on_answer='uuid_record "..uuid.." start ".. record_path .. "/" .. record_name .. "',record_path='".. record_path .."',record_name="..record_name;
 						session:setVariable("record_path", record_path);
 					else
-						record_session = '';
+						record_session = record_session or '';
 					end
 
 					if emergency_enabled then
@@ -948,6 +964,12 @@ log = require "resources.functions.log".ring_group
 						end
 						local e_file = "emergency_"..os.time().."_"..destination_number..".wav"
 						local e_full = e_dir .. "/" .. e_file
+						session:setVariable("recording_follow_transfer", "true");
+						session:setVariable("record_append", "true");
+						session:setVariable("record_in_progress", "true");
+						session:setVariable("record_answer_req", "true");
+						session:setVariable("record_path", e_dir);
+						session:setVariable("record_name", e_file);
 						record_session = ",api_on_answer='uuid_record "..uuid.." start ".. e_full .. "',record_path='".. e_dir .."',record_name=".. e_file
 					end
 
