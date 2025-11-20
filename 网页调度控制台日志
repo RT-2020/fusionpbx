@@ -1,59 +1,21 @@
-dispatcher-control.js:1976 从页面获取到分机: (11) ['1413', '5001', '1000', '1005', '1006', '1009', '1011', '1012', '1013', '1014', '5005']
-dispatcher-control.js:1143 [Time 0] 开始发起组呼（会议桥模式）: 2025-11-20T01:31:10.492Z (2) ['1413', '1006']
-dispatcher-control.js:1152 [创建会议室响应] > {success: true, conference_room: 'group-1763602270-bb9140', context: 'default'}
-dispatcher-control.js:1155 [Time 1] 会议室已创建 (inline mode): group-1763602270-bb9140 context: default 2025-11-20T01:31:10.620Z
-dispatcher-control.js:1158 [Time 2] 立即加入会议（无需等待）: 2025-11-20T01:31:10.620Z
-dispatcher-control.js:1226 调度员准备加入会议 (inline mode): group-1763602270-bb9140 context: default
-dispatcher-control.js:1230 使用 FreeSWITCH originate 呼叫调度员加入会议...
-dispatcher-control.js:1171 [Time 4] 开始邀请分机: 2025-11-20T01:31:10.621Z
-dispatcher-control.js:1326 📞 开始邀请 2 个分机/号码加入会议 group-1763602270-bb9140
-jssip-client.js:195 📞 收到 RTC 会话 {originator: 'remote', session: t, request: t}originator: "remote"request: t {data: 'INVITE sip:uqaiqsug@c4efdk4hqnj1.invalid;transport…-semantic: WMS QY8KBsTMhBBcrt9P0xrkdmBfMpXpCEH5\r\n', headers: {…}, method: 'INVITE', via: {…}, via_branch: 'z9hG4bKUDUaBcp4Ucm9j', …}session: t {_events: {…}, _eventsCount: 10, _maxListeners: undefined, _id: '6f9a7e36-4053-123f-e18b-68eda48d3f2eK0eSmXHQ7tvQQ', _ua: t, …}[[Prototype]]: Object
-jssip-client.js:242 🏷️ 通话类型: conference 来电显示: 组呼会议
-jssip-client.js:246 📞 来电
-jssip-client.js:275 来电者: 组呼会议 sip:group-call@192.168.2.200
-dispatcher-control.js:140 检测到自动接听标记，准备自动接听插入支路
-dispatcher-control.js:141 当前 incomingSession: t {_events: {…}, _eventsCount: 0, _maxListeners: undefined, _id: '6f9a7e36-4053-123f-e18b-68eda48d3f2eK0eSmXHQ7tvQQ', _ua: t, …}
-jssip-client.js:1120 接听来电 {audio: true, video: false}
-jssip-client.js:461 📞 通话进展 {originator: 'local', response: null}
-dispatcher-control.js:506 通话进度: {originator: 'local', response: null}
-jssip-client.js:310 🔗 PeerConnection 已创建
-dispatcher-control.js:148 自动接听插入支路成功
-jssip-client.js:360 Signaling 状态: have-remote-offer
-jssip-client.js:360 Signaling 状态: stable
-jssip-client.js:999 挂断电话 session_1763602270766_7pruol5zg
-dispatcher-control.js:2115 ❌ 通话失败: 通话失败
-DispatcherControl.updateCallStatus @ dispatcher-control.js:2115
-（匿名） @ dispatcher-control.js:118
-JsSipClient.trigger @ jssip-client.js:92
-（匿名） @ jssip-client.js:662
-（匿名） @ jssip.min.js:9
-s.emit @ jssip.min.js:9
-value @ jssip.min.js:9
-value @ jssip.min.js:9
-（匿名） @ jssip-client.js:1004
-JsSipClient.hangup @ jssip-client.js:1001
-JsSipClient.hangupAll @ jssip-client.js:1045
-DispatcherControl.endConference @ dispatcher-control.js:1818
-endConference @ index.php:2831
-onclick @ index.php:2105
-dispatcher-control.js:501 通话失败: {session: t, error: {…}}
-DispatcherControl.onCallFailed @ dispatcher-control.js:501
-（匿名） @ dispatcher-control.js:127
-JsSipClient.trigger @ jssip-client.js:92
-（匿名） @ jssip-client.js:662
-（匿名） @ jssip.min.js:9
-s.emit @ jssip.min.js:9
-value @ jssip.min.js:9
-value @ jssip.min.js:9
-（匿名） @ jssip-client.js:1004
-JsSipClient.hangup @ jssip-client.js:1001
-JsSipClient.hangupAll @ jssip-client.js:1045
-DispatcherControl.endConference @ dispatcher-control.js:1818
-endConference @ index.php:2831
-onclick @ index.php:2105
-dispatcher-control.js:1254 调度员加入会议响应: {success: false, extension: '5001'}
-dispatcher-control.js:1272 ❌ 调度员加入会议失败: undefined
-success @ dispatcher-control.js:1272
+
+dispatcher-control.js:340 调度员已注册
+index.php:3252 Initiating emergency call: {target: '1006', operator: '1413', uuid: 'ab099006-ad2a-4f3f-9f25-d0b5ba50d85a', url: 'exec.php?cmd=originate&source=1413&destination=1006&emergency=true'}
+index.php:3260 Emergency call to 1006: +OK Job-UUID: b28b5c0a-6d58-4272-ad72-de307a5b1a6e
+
+index.php:3261 Response status: 200
+index.php:3269 Parsed Job-UUID: b28b5c0a-6d58-4272-ad72-de307a5b1a6e
+index.php:3289 Log initiated response: {success: true}
+index.php:3308 Log ringing response: {success: true}
+index.php:3252 Initiating emergency call: {target: '1413', operator: '1413', uuid: 'ab099006-ad2a-4f3f-9f25-d0b5ba50d85a', url: 'exec.php?cmd=originate&source=1413&destination=1413&emergency=true'}
+index.php:3323 Checking call status, attempt: 1 delay: 500ms
+index.php:3260 Emergency call to 1413: +OK Job-UUID: 33a03a9f-b3f7-4cfe-87f9-44bbf5064ba1
+
+index.php:3261 Response status: 200
+index.php:3269 Parsed Job-UUID: 33a03a9f-b3f7-4cfe-87f9-44bbf5064ba1
+index.php:3334 Channel UUID response: false
+index.php:3338 Channel UUID not found for: 1006 attempt: 1
+success @ index.php:3338
 c @ jquery.min.js.php:2
 fireWith @ jquery.min.js.php:2
 l @ jquery.min.js.php:2
@@ -61,9 +23,18 @@ l @ jquery.min.js.php:2
 XMLHttpRequest.send
 send @ jquery.min.js.php:2
 ajax @ jquery.min.js.php:2
-（匿名） @ dispatcher-control.js:1244
-DispatcherControl.joinConference @ dispatcher-control.js:1225
-success @ dispatcher-control.js:1161
+（匿名） @ index.php:3326
+setInterval
+（匿名） @ index.php:3321
+xmlhttp.onreadystatechange @ dispatcher-utils.js:43
+XMLHttpRequest.send
+DispatcherUtils.sendCmd @ dispatcher-utils.js:47
+send_cmd @ index.php:1408
+initiateEmergencyToExtension @ index.php:3259
+（匿名） @ index.php:3212
+setTimeout
+（匿名） @ index.php:3207
+（匿名） @ index.php:3206
 c @ jquery.min.js.php:2
 fireWith @ jquery.min.js.php:2
 l @ jquery.min.js.php:2
@@ -71,19 +42,17 @@ l @ jquery.min.js.php:2
 XMLHttpRequest.send
 send @ jquery.min.js.php:2
 ajax @ jquery.min.js.php:2
-DispatcherControl.startGroupCallWithExtensions @ dispatcher-control.js:1146
-DispatcherControl.startConference @ dispatcher-control.js:1628
-startConference @ index.php:2565
-onclick @ index.php:1991
-dispatcher-control.js:1166 调度员加入会议失败: Error: 加入会议失败
-    at Object.success (dispatcher-control.js:1274:32)
-    at c (jquery.min.js.php:2:28327)
-    at Object.fireWith [as resolveWith] (jquery.min.js.php:2:29072)
-    at l (jquery.min.js.php:2:80045)
-    at XMLHttpRequest.<anonymous> (jquery.min.js.php:2:82499)
-（匿名） @ dispatcher-control.js:1166
-Promise.catch
-success @ dispatcher-control.js:1165
+S.<computed> @ jquery.min.js.php:2
+initiateEmergencyCall @ index.php:3194
+onclick @ index.php:2066了解此警告
+index.php:3289 Log initiated response: {success: true}
+index.php:3308 Log ringing response: {success: true}
+index.php:3323 Checking call status, attempt: 1 delay: 500ms
+index.php:3334 Channel UUID response: undefined
+index.php:3338 Channel UUID not found for: 1006 attempt: 1
+success @ index.php:3338
+setInterval
+success @ index.php:3483
 c @ jquery.min.js.php:2
 fireWith @ jquery.min.js.php:2
 l @ jquery.min.js.php:2
@@ -91,16 +60,493 @@ l @ jquery.min.js.php:2
 XMLHttpRequest.send
 send @ jquery.min.js.php:2
 ajax @ jquery.min.js.php:2
-DispatcherControl.startGroupCallWithExtensions @ dispatcher-control.js:1146
-DispatcherControl.startConference @ dispatcher-control.js:1628
-startConference @ index.php:2565
-onclick @ index.php:1991
-dispatcher-control.js:1343 [Time 5] ✓ 成功邀请: 1413 2025-11-20T01:31:19.352Z
-dispatcher-control.js:1343 [Time 5] ✓ 成功邀请: 1006 2025-11-20T01:31:19.460Z
-dispatcher-control.js:1357 📋 所有邀请完成 - 成功: 2 失败: 0
-index.php:2661 会议管理面板 - authUser: 5001 参与者数量: 0
-index.php:2661 会议管理面板 - authUser: 5001 参与者数量: 0
-index.php:2661 会议管理面板 - authUser: 5001 参与者数量: 0
-index.php:2661 会议管理面板 - authUser: 5001 参与者数量: 0
-dispatcher-logger.js:121 日志已保存到服务器
-index.php:2661 会议管理面板 - authUser: 5001 参与者数量: 0
+（匿名） @ index.php:3326
+setInterval
+（匿名） @ index.php:3321
+xmlhttp.onreadystatechange @ dispatcher-utils.js:43
+XMLHttpRequest.send
+DispatcherUtils.sendCmd @ dispatcher-utils.js:47
+send_cmd @ index.php:1408
+initiateEmergencyToExtension @ index.php:3259
+（匿名） @ index.php:3212
+setTimeout
+（匿名） @ index.php:3207
+（匿名） @ index.php:3206
+c @ jquery.min.js.php:2
+fireWith @ jquery.min.js.php:2
+l @ jquery.min.js.php:2
+（匿名） @ jquery.min.js.php:2
+XMLHttpRequest.send
+send @ jquery.min.js.php:2
+ajax @ jquery.min.js.php:2
+S.<computed> @ jquery.min.js.php:2
+initiateEmergencyCall @ index.php:3194
+onclick @ index.php:2066了解此警告
+index.php:3334 Channel UUID response: false
+index.php:3338 Channel UUID not found for: 1413 attempt: 1
+success @ index.php:3338
+c @ jquery.min.js.php:2
+fireWith @ jquery.min.js.php:2
+l @ jquery.min.js.php:2
+（匿名） @ jquery.min.js.php:2
+XMLHttpRequest.send
+send @ jquery.min.js.php:2
+ajax @ jquery.min.js.php:2
+（匿名） @ index.php:3326
+setInterval
+（匿名） @ index.php:3321
+xmlhttp.onreadystatechange @ dispatcher-utils.js:43
+XMLHttpRequest.send
+DispatcherUtils.sendCmd @ dispatcher-utils.js:47
+send_cmd @ index.php:1408
+initiateEmergencyToExtension @ index.php:3259
+（匿名） @ index.php:3212
+setTimeout
+（匿名） @ index.php:3207
+（匿名） @ index.php:3206
+c @ jquery.min.js.php:2
+fireWith @ jquery.min.js.php:2
+l @ jquery.min.js.php:2
+（匿名） @ jquery.min.js.php:2
+XMLHttpRequest.send
+send @ jquery.min.js.php:2
+ajax @ jquery.min.js.php:2
+S.<computed> @ jquery.min.js.php:2
+initiateEmergencyCall @ index.php:3194
+onclick @ index.php:2066了解此警告
+index.php:3334 Channel UUID response: undefined
+index.php:3338 Channel UUID not found for: 1006 attempt: 1
+success @ index.php:3338
+setInterval
+success @ index.php:3483
+setInterval
+success @ index.php:3483
+c @ jquery.min.js.php:2
+fireWith @ jquery.min.js.php:2
+l @ jquery.min.js.php:2
+（匿名） @ jquery.min.js.php:2
+XMLHttpRequest.send
+send @ jquery.min.js.php:2
+ajax @ jquery.min.js.php:2
+（匿名） @ index.php:3326
+setInterval
+（匿名） @ index.php:3321
+xmlhttp.onreadystatechange @ dispatcher-utils.js:43
+XMLHttpRequest.send
+DispatcherUtils.sendCmd @ dispatcher-utils.js:47
+send_cmd @ index.php:1408
+initiateEmergencyToExtension @ index.php:3259
+（匿名） @ index.php:3212
+setTimeout
+（匿名） @ index.php:3207
+（匿名） @ index.php:3206
+c @ jquery.min.js.php:2
+fireWith @ jquery.min.js.php:2
+l @ jquery.min.js.php:2
+（匿名） @ jquery.min.js.php:2
+XMLHttpRequest.send
+send @ jquery.min.js.php:2
+ajax @ jquery.min.js.php:2
+S.<computed> @ jquery.min.js.php:2
+initiateEmergencyCall @ index.php:3194
+onclick @ index.php:2066了解此警告
+index.php:3334 Channel UUID response: undefined
+index.php:3338 Channel UUID not found for: 1413 attempt: 1
+success @ index.php:3338
+setInterval
+success @ index.php:3483
+c @ jquery.min.js.php:2
+fireWith @ jquery.min.js.php:2
+l @ jquery.min.js.php:2
+（匿名） @ jquery.min.js.php:2
+XMLHttpRequest.send
+send @ jquery.min.js.php:2
+ajax @ jquery.min.js.php:2
+（匿名） @ index.php:3326
+setInterval
+（匿名） @ index.php:3321
+xmlhttp.onreadystatechange @ dispatcher-utils.js:43
+XMLHttpRequest.send
+DispatcherUtils.sendCmd @ dispatcher-utils.js:47
+send_cmd @ index.php:1408
+initiateEmergencyToExtension @ index.php:3259
+（匿名） @ index.php:3212
+setTimeout
+（匿名） @ index.php:3207
+（匿名） @ index.php:3206
+c @ jquery.min.js.php:2
+fireWith @ jquery.min.js.php:2
+l @ jquery.min.js.php:2
+（匿名） @ jquery.min.js.php:2
+XMLHttpRequest.send
+send @ jquery.min.js.php:2
+ajax @ jquery.min.js.php:2
+S.<computed> @ jquery.min.js.php:2
+initiateEmergencyCall @ index.php:3194
+onclick @ index.php:2066了解此警告
+index.php:3334 Channel UUID response: undefined
+index.php:3338 Channel UUID not found for: 1006 attempt: 1
+success @ index.php:3338
+setInterval
+success @ index.php:3483
+setInterval
+success @ index.php:3483
+setInterval
+success @ index.php:3483
+c @ jquery.min.js.php:2
+fireWith @ jquery.min.js.php:2
+l @ jquery.min.js.php:2
+（匿名） @ jquery.min.js.php:2
+XMLHttpRequest.send
+send @ jquery.min.js.php:2
+ajax @ jquery.min.js.php:2
+（匿名） @ index.php:3326
+setInterval
+（匿名） @ index.php:3321
+xmlhttp.onreadystatechange @ dispatcher-utils.js:43
+XMLHttpRequest.send
+DispatcherUtils.sendCmd @ dispatcher-utils.js:47
+send_cmd @ index.php:1408
+initiateEmergencyToExtension @ index.php:3259
+（匿名） @ index.php:3212
+setTimeout
+（匿名） @ index.php:3207
+（匿名） @ index.php:3206
+c @ jquery.min.js.php:2
+fireWith @ jquery.min.js.php:2
+l @ jquery.min.js.php:2
+（匿名） @ jquery.min.js.php:2
+XMLHttpRequest.send
+send @ jquery.min.js.php:2
+ajax @ jquery.min.js.php:2
+S.<computed> @ jquery.min.js.php:2
+initiateEmergencyCall @ index.php:3194
+onclick @ index.php:2066了解此警告
+index.php:3334 Channel UUID response: undefined
+index.php:3338 Channel UUID not found for: 1413 attempt: 1
+success @ index.php:3338
+setInterval
+success @ index.php:3483
+setInterval
+success @ index.php:3483
+c @ jquery.min.js.php:2
+fireWith @ jquery.min.js.php:2
+l @ jquery.min.js.php:2
+（匿名） @ jquery.min.js.php:2
+XMLHttpRequest.send
+send @ jquery.min.js.php:2
+ajax @ jquery.min.js.php:2
+（匿名） @ index.php:3326
+setInterval
+（匿名） @ index.php:3321
+xmlhttp.onreadystatechange @ dispatcher-utils.js:43
+XMLHttpRequest.send
+DispatcherUtils.sendCmd @ dispatcher-utils.js:47
+send_cmd @ index.php:1408
+initiateEmergencyToExtension @ index.php:3259
+（匿名） @ index.php:3212
+setTimeout
+（匿名） @ index.php:3207
+（匿名） @ index.php:3206
+c @ jquery.min.js.php:2
+fireWith @ jquery.min.js.php:2
+l @ jquery.min.js.php:2
+（匿名） @ jquery.min.js.php:2
+XMLHttpRequest.send
+send @ jquery.min.js.php:2
+ajax @ jquery.min.js.php:2
+S.<computed> @ jquery.min.js.php:2
+initiateEmergencyCall @ index.php:3194
+onclick @ index.php:2066了解此警告
+index.php:3334 Channel UUID response: undefined
+index.php:3338 Channel UUID not found for: 1413 attempt: 1
+success @ index.php:3338
+setInterval
+success @ index.php:3483
+setInterval
+success @ index.php:3483
+setInterval
+success @ index.php:3483
+c @ jquery.min.js.php:2
+fireWith @ jquery.min.js.php:2
+l @ jquery.min.js.php:2
+（匿名） @ jquery.min.js.php:2
+XMLHttpRequest.send
+send @ jquery.min.js.php:2
+ajax @ jquery.min.js.php:2
+（匿名） @ index.php:3326
+setInterval
+（匿名） @ index.php:3321
+xmlhttp.onreadystatechange @ dispatcher-utils.js:43
+XMLHttpRequest.send
+DispatcherUtils.sendCmd @ dispatcher-utils.js:47
+send_cmd @ index.php:1408
+initiateEmergencyToExtension @ index.php:3259
+（匿名） @ index.php:3212
+setTimeout
+（匿名） @ index.php:3207
+（匿名） @ index.php:3206
+c @ jquery.min.js.php:2
+fireWith @ jquery.min.js.php:2
+l @ jquery.min.js.php:2
+（匿名） @ jquery.min.js.php:2
+XMLHttpRequest.send
+send @ jquery.min.js.php:2
+ajax @ jquery.min.js.php:2
+S.<computed> @ jquery.min.js.php:2
+initiateEmergencyCall @ index.php:3194
+onclick @ index.php:2066了解此警告
+index.php:3334 Channel UUID response: undefined
+index.php:3338 Channel UUID not found for: 1006 attempt: 1
+success @ index.php:3338
+setInterval
+success @ index.php:3483
+setInterval
+success @ index.php:3483
+setInterval
+success @ index.php:3483
+setInterval
+success @ index.php:3483
+c @ jquery.min.js.php:2
+fireWith @ jquery.min.js.php:2
+l @ jquery.min.js.php:2
+（匿名） @ jquery.min.js.php:2
+XMLHttpRequest.send
+send @ jquery.min.js.php:2
+ajax @ jquery.min.js.php:2
+（匿名） @ index.php:3326
+setInterval
+（匿名） @ index.php:3321
+xmlhttp.onreadystatechange @ dispatcher-utils.js:43
+XMLHttpRequest.send
+DispatcherUtils.sendCmd @ dispatcher-utils.js:47
+send_cmd @ index.php:1408
+initiateEmergencyToExtension @ index.php:3259
+（匿名） @ index.php:3212
+setTimeout
+（匿名） @ index.php:3207
+（匿名） @ index.php:3206
+c @ jquery.min.js.php:2
+fireWith @ jquery.min.js.php:2
+l @ jquery.min.js.php:2
+（匿名） @ jquery.min.js.php:2
+XMLHttpRequest.send
+send @ jquery.min.js.php:2
+ajax @ jquery.min.js.php:2
+S.<computed> @ jquery.min.js.php:2
+initiateEmergencyCall @ index.php:3194
+onclick @ index.php:2066了解此警告
+index.php:3334 Channel UUID response: undefined
+index.php:3338 Channel UUID not found for: 1413 attempt: 1
+success @ index.php:3338
+setInterval
+success @ index.php:3483
+setInterval
+success @ index.php:3483
+setInterval
+success @ index.php:3483
+setInterval
+success @ index.php:3483
+c @ jquery.min.js.php:2
+fireWith @ jquery.min.js.php:2
+l @ jquery.min.js.php:2
+（匿名） @ jquery.min.js.php:2
+XMLHttpRequest.send
+send @ jquery.min.js.php:2
+ajax @ jquery.min.js.php:2
+（匿名） @ index.php:3326
+setInterval
+（匿名） @ index.php:3321
+xmlhttp.onreadystatechange @ dispatcher-utils.js:43
+XMLHttpRequest.send
+DispatcherUtils.sendCmd @ dispatcher-utils.js:47
+send_cmd @ index.php:1408
+initiateEmergencyToExtension @ index.php:3259
+（匿名） @ index.php:3212
+setTimeout
+（匿名） @ index.php:3207
+（匿名） @ index.php:3206
+c @ jquery.min.js.php:2
+fireWith @ jquery.min.js.php:2
+l @ jquery.min.js.php:2
+（匿名） @ jquery.min.js.php:2
+XMLHttpRequest.send
+send @ jquery.min.js.php:2
+ajax @ jquery.min.js.php:2
+S.<computed> @ jquery.min.js.php:2
+initiateEmergencyCall @ index.php:3194
+onclick @ index.php:2066了解此警告
+index.php:3334 Channel UUID response: undefined
+index.php:3338 Channel UUID not found for: 1006 attempt: 1
+success @ index.php:3338
+setInterval
+success @ index.php:3483
+setInterval
+success @ index.php:3483
+setInterval
+success @ index.php:3483
+setInterval
+success @ index.php:3483
+setInterval
+success @ index.php:3483
+c @ jquery.min.js.php:2
+fireWith @ jquery.min.js.php:2
+l @ jquery.min.js.php:2
+（匿名） @ jquery.min.js.php:2
+XMLHttpRequest.send
+send @ jquery.min.js.php:2
+ajax @ jquery.min.js.php:2
+（匿名） @ index.php:3326
+setInterval
+（匿名） @ index.php:3321
+xmlhttp.onreadystatechange @ dispatcher-utils.js:43
+XMLHttpRequest.send
+DispatcherUtils.sendCmd @ dispatcher-utils.js:47
+send_cmd @ index.php:1408
+initiateEmergencyToExtension @ index.php:3259
+（匿名） @ index.php:3212
+setTimeout
+（匿名） @ index.php:3207
+（匿名） @ index.php:3206
+c @ jquery.min.js.php:2
+fireWith @ jquery.min.js.php:2
+l @ jquery.min.js.php:2
+（匿名） @ jquery.min.js.php:2
+XMLHttpRequest.send
+send @ jquery.min.js.php:2
+ajax @ jquery.min.js.php:2
+S.<computed> @ jquery.min.js.php:2
+initiateEmergencyCall @ index.php:3194
+onclick @ index.php:2066了解此警告
+index.php:3334 Channel UUID response: undefined
+index.php:3338 Channel UUID not found for: 1413 attempt: 1
+success @ index.php:3338
+setInterval
+success @ index.php:3483
+setInterval
+success @ index.php:3483
+setInterval
+success @ index.php:3483
+setInterval
+success @ index.php:3483
+setInterval
+success @ index.php:3483
+c @ jquery.min.js.php:2
+fireWith @ jquery.min.js.php:2
+l @ jquery.min.js.php:2
+（匿名） @ jquery.min.js.php:2
+XMLHttpRequest.send
+send @ jquery.min.js.php:2
+ajax @ jquery.min.js.php:2
+（匿名） @ index.php:3326
+setInterval
+（匿名） @ index.php:3321
+xmlhttp.onreadystatechange @ dispatcher-utils.js:43
+XMLHttpRequest.send
+DispatcherUtils.sendCmd @ dispatcher-utils.js:47
+send_cmd @ index.php:1408
+initiateEmergencyToExtension @ index.php:3259
+（匿名） @ index.php:3212
+setTimeout
+（匿名） @ index.php:3207
+（匿名） @ index.php:3206
+c @ jquery.min.js.php:2
+fireWith @ jquery.min.js.php:2
+l @ jquery.min.js.php:2
+（匿名） @ jquery.min.js.php:2
+XMLHttpRequest.send
+send @ jquery.min.js.php:2
+ajax @ jquery.min.js.php:2
+S.<computed> @ jquery.min.js.php:2
+initiateEmergencyCall @ index.php:3194
+onclick @ index.php:2066了解此警告
+index.php:3334 Channel UUID response: undefined
+index.php:3338 Channel UUID not found for: 1006 attempt: 1
+success @ index.php:3338
+setInterval
+success @ index.php:3483
+setInterval
+success @ index.php:3483
+setInterval
+success @ index.php:3483
+setInterval
+success @ index.php:3483
+setInterval
+success @ index.php:3483
+setInterval
+success @ index.php:3483
+c @ jquery.min.js.php:2
+fireWith @ jquery.min.js.php:2
+l @ jquery.min.js.php:2
+（匿名） @ jquery.min.js.php:2
+XMLHttpRequest.send
+send @ jquery.min.js.php:2
+ajax @ jquery.min.js.php:2
+（匿名） @ index.php:3326
+setInterval
+（匿名） @ index.php:3321
+xmlhttp.onreadystatechange @ dispatcher-utils.js:43
+XMLHttpRequest.send
+DispatcherUtils.sendCmd @ dispatcher-utils.js:47
+send_cmd @ index.php:1408
+initiateEmergencyToExtension @ index.php:3259
+（匿名） @ index.php:3212
+setTimeout
+（匿名） @ index.php:3207
+（匿名） @ index.php:3206
+c @ jquery.min.js.php:2
+fireWith @ jquery.min.js.php:2
+l @ jquery.min.js.php:2
+（匿名） @ jquery.min.js.php:2
+XMLHttpRequest.send
+send @ jquery.min.js.php:2
+ajax @ jquery.min.js.php:2
+S.<computed> @ jquery.min.js.php:2
+initiateEmergencyCall @ index.php:3194
+onclick @ index.php:2066了解此警告
+index.php:3334 Channel UUID response: undefined
+index.php:3338 Channel UUID not found for: 1413 attempt: 1
+success @ index.php:3338
+setInterval
+success @ index.php:3483
+setInterval
+success @ index.php:3483
+setInterval
+success @ index.php:3483
+setInterval
+success @ index.php:3483
+setInterval
+success @ index.php:3483
+setInterval
+success @ index.php:3483
+c @ jquery.min.js.php:2
+fireWith @ jquery.min.js.php:2
+l @ jquery.min.js.php:2
+（匿名） @ jquery.min.js.php:2
+XMLHttpRequest.send
+send @ jquery.min.js.php:2
+ajax @ jquery.min.js.php:2
+（匿名） @ index.php:3326
+setInterval
+（匿名） @ index.php:3321
+xmlhttp.onreadystatechange @ dispatcher-utils.js:43
+XMLHttpRequest.send
+DispatcherUtils.sendCmd @ dispatcher-utils.js:47
+send_cmd @ index.php:1408
+initiateEmergencyToExtension @ index.php:3259
+（匿名） @ index.php:3212
+setTimeout
+（匿名） @ index.php:3207
+（匿名） @ index.php:3206
+c @ jquery.min.js.php:2
+fireWith @ jquery.min.js.php:2
+l @ jquery.min.js.php:2
+（匿名） @ jquery.min.js.php:2
+XMLHttpRequest.send
+send @ jquery.min.js.php:2
+ajax @ jquery.min.js.php:2
+S.<computed> @ jquery.min.js.php:2
+initiateEmergencyCall @ index.php:3194
+onclick @ index.php:2066了解此警告
+index.php:3334 Channel UUID response: undefined
+index.php:3338 Channel UUID not found for: 1006 attempt: 1

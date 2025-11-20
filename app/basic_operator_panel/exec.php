@@ -70,40 +70,9 @@ if (count($_REQUEST) > 0) {
 			$destination = preg_replace($num_pattern,'',$_REQUEST['destination']);
 			$emergency = $_REQUEST['emergency'] ?? 'false'; // 急呼标识
 			
-			// 构建 originate 参数
-			$originate_params = [];
-			$originate_params[] = 'sip_auto_answer=true';
-			$originate_params[] = 'origination_caller_id_number=' . $source;
-			$originate_params[] = 'sip_h_Call-Info=_undef_';
-			
-			if ($emergency === 'true') {
-				// 急呼模式：添加特殊参数
-				$originate_params[] = 'emergency_call=true';
-				$originate_params[] = 'origination_caller_id_name=急呼';
-				
-				// 多品牌设备兼容的自动应答配置
-				// 使用更通用的SIP头
-				$originate_params[] = 'sip_h_Call-Info=answer-after=0';
-				$originate_params[] = 'sip_h_Alert-Info=info=emergency';
-				
-				// P-Auto-Answer: 通用自动应答头
-				$originate_params[] = 'sip_h_P-Auto-Answer=normal'; // 或 'speaker' 优先扬声器
-				
-				// 自动录音
-				$recording_dir = $_SESSION['switch']['recordings']['dir'] . '/' . $_SESSION['domain_name'] . '/emergency/' . date('Y/m/d');
-				if (!is_dir($recording_dir)) {
-					@mkdir($recording_dir, 0755, true);
-				}
-				$recording_file = $recording_dir . '/emergency_' . time() . '_' . $destination . '.wav';
-				$originate_params[] = 'execute_on_answer=uuid_record ${uuid} start ' . $recording_file;
-			}
-			
-			$params_string = '{' . implode(',', $originate_params) . '}';
-			// 对于急呼，使用特殊的命令格式
-			if ($emergency === 'true') {
 				// 急呼模式：先呼叫目标分机（被叫），然后自动接听并连接到调度员（主叫）
 				// 使用特殊的拨号计划，确保急呼的特殊行为
-				$api_cmd = 'bgapi originate ' . $params_string . 'user/' . $destination . '@' . $_SESSION['domain_name'] . ' &park()';
+				$api_cmd = 'bgapi originate ' . $params_string . ' user/' . $destination . '@' . $_SESSION['domain_name'] . ' &park()';
 				
 				// 记录原始命令，用于后续桥接
 				$_SESSION['emergency_bridge'][$destination] = [
@@ -114,7 +83,7 @@ if (count($_REQUEST) > 0) {
 				];
 			} else {
 				// 普通模式：直接呼叫
-				$api_cmd = 'bgapi originate ' . $params_string . 'user/' . $source . '@' . $_SESSION['domain_name'] . ' ' . $destination . ' XML ' . trim($_SESSION['user_context']);
+				$api_cmd = 'bgapi originate ' . $params_string . ' user/' . $source . '@' . $_SESSION['domain_name'] . ' ' . $destination . ' XML ' . trim($_SESSION['user_context']);
 			}
 		}
 			else if ($switch_cmd == 'uuid_record') {
@@ -348,6 +317,5 @@ if (count($_REQUEST) > 0) {
 			}
 			*/
 		}
-}
 
 ?>
