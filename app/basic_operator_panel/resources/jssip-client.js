@@ -389,6 +389,7 @@
             var audio = document.createElement('audio')
             audio.autoplay = true
             audio.id = 'remote-audio-' + sessionId
+            audio.setAttribute('data-role', 'call-audio')
             // 确保音频元素有正确的属性
             audio.controls = false
             audio.muted = false // 确保不是静音状态
@@ -558,6 +559,7 @@
               var audio = document.createElement('audio')
               audio.autoplay = true
               audio.id = 'remote-audio-' + sessionId
+              audio.setAttribute('data-role', 'call-audio')
               audio.controls = false
               audio.muted = false
               audio.volume = 1.0
@@ -712,6 +714,7 @@
           var audio = document.createElement('audio')
           audio.autoplay = true
           audio.id = 'remote-audio-' + sessionId
+          audio.setAttribute('data-role', 'call-audio')
           // 确保音频元素有正确的属性
           audio.controls = false
           audio.muted = false // 确保不是静音状态
@@ -925,12 +928,16 @@
         // 添加急呼特殊处理
         if (options.emergency) {
           // 添加急呼相关的SIP头
-          callOptions.extraHeaders = [
+          var emergencyHeaders = [
             'X-Emergency-Call: true',
             'Alert-Info: <http://fusionpbx.com>;info=emergency;answer-after=15',
           ]
+          if (options.emergencyUuid) {
+            emergencyHeaders.push('X-Emergency-Uuid: ' + options.emergencyUuid)
+          }
+          callOptions.extraHeaders = emergencyHeaders
 
-          console.log('🚨 发起急呼到:', target)
+          console.log('🚨 发起急呼到:', target, 'UUID:', options.emergencyUuid)
         }
 
         return new Promise(function (resolve, reject) {
@@ -944,6 +951,14 @@
 
             self.sessions[sessionId] = session
             session._customId = sessionId
+
+            // 呼出方向的急呼标记
+            if (options.emergency) {
+              session._callType = 'emergency'
+              if (options.emergencyUuid) {
+                session._emergencyUuid = options.emergencyUuid
+              }
+            }
 
             if (!self.currentSession) {
               self.currentSession = session

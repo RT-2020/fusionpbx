@@ -2170,10 +2170,53 @@
         }
     };
 
-    
+    DispatcherControl.prototype.startEmergencyCall = function(type, targets, emergencyUuid) {
+        var self = this;
+        if (!this.sipClient || !this.sipClient.isRegistered) {
+            if (window.DispatcherUtils && typeof DispatcherUtils.alert === 'function') { DispatcherUtils.alert('请先注册SIP', 'warn'); }
+            return;
+        }
+        if (!targets || !targets.length) {
+            return;
+        }
+        var serverHost = this.getServerHost();
+        targets.forEach(function(ext) {
+            var target = 'sip:' + ext + '@' + serverHost;
+            self.sipClient.makeCall(target, { audio: true, video: false, emergency: true, emergencyUuid: emergencyUuid })
+                .then(function(result) {
+                    var session = result && result.session;
+                    var sessionId = result && result.sessionId;
+                    if (session && sessionId) {
+                        self.emergencySessions[sessionId] = true;
+                        if (typeof self.monitorEmergencyCall === 'function') {
+                            // 将目标分机号一并传入，便于在事件回调中更新急呼面板状态
+                            self.monitorEmergencyCall(session, emergencyUuid, ext);
+                        }
+                        // 网页调度端作为主叫发起急呼时，不在本端播放蜂鸣报警，仅记录占用关系
+                        try {
+                            if (window.DispatcherUtils && DispatcherUtils.ResourceManager && self.config && self.config.authUser) {
+                                DispatcherUtils.ResourceManager.setEmergencyOwner(sessionId, self.config.authUser);
+                            }
+                        } catch (e) {}
+                    }
+                })
+                .catch(function(error) {
+                    console.error('发起急呼失败:', error);
+                    if (typeof window.updateEmergencyCallStatus === 'function') {
+                        window.updateEmergencyCallStatus(ext, 'failed');
+                    }
+                    $.post('dispatcher_api.php', {
+                        action: 'log_emergency_call',
+                        emergency_uuid: emergencyUuid,
+                        status: 'failed'
+                    });
+                });
+        });
+    };
+
 
     // 添加急呼状态监控
-    DispatcherControl.prototype.monitorEmergencyCall = function(session, emergencyUuid) {
+    DispatcherControl.prototype.monitorEmergencyCall = function(session, emergencyUuid, targetExt) {
         var self = this;
         
         session.on('accepted', function(e) {
@@ -2188,6 +2231,19 @@
             
             // 更新网页状态
             self.updateCallStatus('connected', session._customId, '急呼已接听');
+            // 急呼一旦被接听，立即停止本地蜂鸣/语音提示
+            try {
+                if (window.DispatcherUtils && DispatcherUtils.ResourceManager) {
+                    DispatcherUtils.ResourceManager.stopEmergencyTone(session._customId);
+                }
+            } catch (e) {}
+
+            // 同步更新急呼面板中对应分机的状态
+            try {
+                if (targetExt && typeof window.updateEmergencyCallStatus === 'function') {
+                    window.updateEmergencyCallStatus(targetExt, 'answered');
+                }
+            } catch (e) {}
         });
         
         session.on('confirmed', function(e) {
@@ -2199,6 +2255,12 @@
                 call_uuid: session._customId,
                 status: 'confirmed'
             });
+            // 双保险：在 confirmed 阶段再次尝试停止蜂鸣器
+            try {
+                if (window.DispatcherUtils && DispatcherUtils.ResourceManager) {
+                    DispatcherUtils.ResourceManager.stopEmergencyTone(session._customId);
+                }
+            } catch (e) {}
         });
         
         session.on('ended', function(e) {
@@ -2217,6 +2279,14 @@
             if (typeof window.hideEmergencyStatus === 'function') {
                 window.hideEmergencyStatus();
             }
+
+            // 会话结束后，确保停止蜂鸣并释放占用标记
+            try {
+                if (window.DispatcherUtils && DispatcherUtils.ResourceManager) {
+                    DispatcherUtils.ResourceManager.stopEmergencyTone(session._customId);
+                    DispatcherUtils.ResourceManager.releaseEmergencyOwner(session._customId);
+                }
+            } catch (e) {}
         });
         
         session.on('failed', function(e) {
@@ -2235,6 +2305,21 @@
             if (typeof window.hideEmergencyStatus === 'function') {
                 window.hideEmergencyStatus();
             }
+
+            // 失败场景同样需要停止蜂鸣并释放占用
+            try {
+                if (window.DispatcherUtils && DispatcherUtils.ResourceManager) {
+                    DispatcherUtils.ResourceManager.stopEmergencyTone(session._customId);
+                    DispatcherUtils.ResourceManager.releaseEmergencyOwner(session._customId);
+                }
+            } catch (e) {}
+
+            // 失败时也同步更新急呼面板状态
+            try {
+                if (targetExt && typeof window.updateEmergencyCallStatus === 'function') {
+                    window.updateEmergencyCallStatus(targetExt, 'failed');
+                }
+            } catch (e) {}
         });
     };
 

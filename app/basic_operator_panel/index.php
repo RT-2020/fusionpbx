@@ -2242,8 +2242,9 @@ function initiateEmergencyCall() {
 	
 	// 获取调度员分机
 	var operatorExt = $('#eavesdrop_dest').val();
-    if (!operatorExt) {
-        DispatcherUtils.alert('未检测到调度员分机', 'warn');
+	var dispatcherExt = (window.dispatcherControl && dispatcherControl.config && dispatcherControl.config.authUser) ? dispatcherControl.config.authUser : operatorExt;
+    if (!dispatcherExt) {
+        DispatcherUtils.alert('未检测到调度终端分机', 'warn');
         return;
     }
 	
@@ -2252,7 +2253,6 @@ function initiateEmergencyCall() {
 	// 显示急呼状态栏
 	showEmergencyStatus(type, targets);
 	
-	// 创建急呼记录
 	$.post('dispatcher_api.php', {
 		action: 'initiate_emergency_call',
 		emergency_type: type,
@@ -2264,44 +2264,63 @@ function initiateEmergencyCall() {
 			// 更新进度
 			updateEmergencyProgress(10, '正在发起急呼...');
 			
-			// 逐个发起急呼
-			targets.forEach(function(ext, index) {
-				setTimeout(function() {
-					// 更新目标状态为响铃中
-					updateTargetStatus(ext, 'ringing');
-					
-					// 发起急呼
-					initiateEmergencyToExtension(ext, operatorExt, emergencyUuid, function(success) {
-						if (success) {
-							updateTargetStatus(ext, 'answered');
-						} else {
-							updateTargetStatus(ext, 'failed');
-						}
-						
-						// 更新总体进度
-						var progress = calculateEmergencyProgress();
-						var completed = Object.keys(window.emergencyTargets).filter(function(e) {
-							return window.emergencyTargets[e] === 'answered' || window.emergencyTargets[e] === 'failed';
-						}).length;
-						
-						updateEmergencyProgress(
-							10 + (progress * 0.9), 
-							`已完成 ${completed}/${targets.length} 个急呼`
-						);
-						
-						// 如果所有急呼都完成，3秒后隐藏状态栏
-						if (progress === 100) {
-							setTimeout(function() {
-								hideEmergencyStatus();
-							}, 3000);
-						}
-					});
-				}, index * 500); // 每个呼叫间隔500ms
+			// 逐个发起急呼：优先尝试前端 JsSIP originate，失败则回退到原有 originate 流程
+			var useFrontendOriginate = (window.dispatcherControl && typeof window.dispatcherControl.startEmergencyCall === 'function');
+			
+			// 先将所有目标标记为响铃中
+			targets.forEach(function(ext) {
+				updateTargetStatus(ext, 'ringing');
 			});
-        } else {
-            DispatcherUtils.alert('发起急呼失败: ' + (response.error || '未知错误'), 'error');
-            hideEmergencyStatus();
-        }
+			
+			if (useFrontendOriginate) {
+				try {
+					window.dispatcherControl.startEmergencyCall(type, targets, emergencyUuid);
+				} catch (e) {
+					console.error('startEmergencyCall 调用失败，将回退到原有 originate 流程:', e);
+					useFrontendOriginate = false;
+				}
+			}
+			
+			if (!useFrontendOriginate) {
+				// 回退：逐个通过 exec.php originate + bridge 方式发起
+				targets.forEach(function(ext, index) {
+					setTimeout(function() {
+						// 更新目标状态为响铃中
+						updateTargetStatus(ext, 'ringing');
+						
+						// 发起急呼
+						initiateEmergencyToExtension(ext, dispatcherExt, emergencyUuid, function(success) {
+							if (success) {
+								updateTargetStatus(ext, 'answered');
+							} else {
+								updateTargetStatus(ext, 'failed');
+							}
+							
+							// 更新总体进度
+							var progress = calculateEmergencyProgress();
+							var completed = Object.keys(window.emergencyTargets).filter(function(e) {
+								return window.emergencyTargets[e] === 'answered' || window.emergencyTargets[e] === 'failed';
+							}).length;
+							
+							updateEmergencyProgress(
+								10 + (progress * 0.9), 
+								`已完成 ${completed}/${targets.length} 个急呼`
+							);
+							
+							// 如果所有急呼都完成，3秒后隐藏状态栏
+							if (progress === 100) {
+								setTimeout(function() {
+									hideEmergencyStatus();
+								}, 3000);
+							}
+						});
+					}, index * 500); // 每个呼叫间隔500ms
+				});
+			}
+	    } else {
+	    	DispatcherUtils.alert('发起急呼失败: ' + (response.error || '未知错误'), 'error');
+	    	hideEmergencyStatus();
+	    }
 	}, 'json');
 }
 
@@ -2412,7 +2431,8 @@ function initiateEmergencyToExtension(targetExt, operatorExt, emergencyUuid, cal
 								type: 'POST',
 								data: {
 									action: 'bridge_emergency_call',
-									destination: targetExt
+									destination: targetExt,
+									target_channel_uuid: response
 								},
 								success: function(bridgeResponse) {
 									console.log('Bridge response:', bridgeResponse);
@@ -2781,7 +2801,7 @@ echo "<br><br>\n";
             if (!window.DispatcherUtils || !DispatcherUtils.ResourceManager) { return; }
             var snap = DispatcherUtils.ResourceManager.verifyReleased()
             if (snap.modals > 0 || snap.overlays > 0) { DispatcherUtils.ResourceManager.destroyUiPopups() }
-            if (snap.audioNodes > 0 && snap.emergencyAlerts === 0) { DispatcherUtils.ResourceManager.destroyUiPopups() }
+            if (snap.audioNodes > 0 && snap.emergencyAlerts === 0 && snap.activeSessions === 0) { DispatcherUtils.ResourceManager.destroyUiPopups() }
             try{ if (window.$ && $.get) { $.get('dispatcher_api.php', { action:'heartbeat', active:snap.activeSessions, alerts:snap.emergencyAlerts }) } }catch(e){}
         }catch(e){}
     }

@@ -354,6 +354,7 @@ switch ($action) {
 	case 'bridge_emergency_call':
 		// 桥接急呼：将已park的通道桥接到调度员
 		$destination = $_POST['destination'] ?? '';
+		$target_channel_uuid = $_POST['target_channel_uuid'] ?? '';
 		
 		if (empty($destination)) {
 			echo json_encode(['success' => false, 'error' => 'Destination is required']);
@@ -377,20 +378,21 @@ switch ($action) {
 			break;
 		}
 		
-		// 获取目标分机的通道UUID
-		$channels_cmd = 'show channels as json';
-		$channels_result = event_socket::api($channels_cmd);
-		$channels = json_decode($channels_result, true);
-		
-		$target_channel_uuid = null;
-		if (is_array($channels) && isset($channels['rows'])) {
-			foreach ($channels['rows'] as $channel) {
-				// 查找park的通道（destination_number为目标分机）
-				if (isset($channel['destination_number']) && 
-					$channel['destination_number'] == $destination &&
-					strpos($channel['application'], 'park') !== false) {
-					$target_channel_uuid = $channel['uuid'];
-					break;
+		// 获取目标分机的通道UUID（优先使用前端提供的 UUID）
+		if (empty($target_channel_uuid)) {
+			$channels_cmd = 'show channels as json';
+			$channels_result = event_socket::api($channels_cmd);
+			$channels = json_decode($channels_result, true);
+			
+			if (is_array($channels) && isset($channels['rows'])) {
+				foreach ($channels['rows'] as $channel) {
+					// 查找park的通道（destination_number为目标分机）
+					if (isset($channel['destination_number']) && 
+						$channel['destination_number'] == $destination &&
+						isset($channel['application']) && strpos($channel['application'], 'park') !== false) {
+						$target_channel_uuid = $channel['uuid'];
+						break;
+					}
 				}
 			}
 		}
@@ -400,14 +402,58 @@ switch ($action) {
 			break;
 		}
 		
-		// 桥接通道：将park的通道桥接到调度员
-		$bridge_cmd = 'uuid_bridge ' . $target_channel_uuid . ' user/' . $source . '@' . $_SESSION['domain_name'];
+		// 为调度员通道生成UUID，便于后续跟踪
+		$dispatcher_uuid = uuid();
+		$domain_name = $_SESSION['domain_name'];
+		
+		// 构造调度员 leg 的急呼参数（与 exec.php 中保持一致）
+		$params = [];
+		$params[] = 'origination_uuid=' . $dispatcher_uuid;
+		$params[] = 'origination_caller_id_name=' . $destination;
+		$params[] = 'origination_caller_id_number=' . $destination;
+		$params[] = 'sip_h_X-Emergency-Call=true';
+		$params[] = 'sip_h_Alert-Info=<http://fusionpbx.com>;info=emergency;answer-after=15';
+		$params_string = '{' . implode(',', $params) . '}';
+		
+		// 调度员 leg：呼叫调度分机到 park，随后通过 uuid_bridge 桥接到已park的目标通道
+		$originate_cmd = 'bgapi originate ' . $params_string . 'user/' . $source . '@' . $domain_name . ' &park()';
+		$originate_result = event_socket::api($originate_cmd);
+		
+		error_log("Emergency Bridge Debug - Originate Command: " . $originate_cmd);
+		error_log("Emergency Bridge Debug - Originate Result: " . $originate_result);
+		
+		if ($originate_result === false || stripos($originate_result, '-ERR') !== false) {
+			echo json_encode(['success' => false, 'error' => 'Dispatcher originate failed: ' . $originate_result]);
+			break;
+		}
+		
+		// 等待调度员通道创建完成
+		$max_attempts = 10; // 最多等待约2秒
+		$attempt = 0;
+		$dispatcher_ready = false;
+		while ($attempt < $max_attempts) {
+			$attempt++;
+			$exists = trim(event_socket::api('uuid_exists ' . $dispatcher_uuid));
+			if ($exists === 'true') {
+				$dispatcher_ready = true;
+				break;
+			}
+			usleep(200000); // 200ms
+		}
+		
+		if (!$dispatcher_ready) {
+			echo json_encode(['success' => false, 'error' => 'Dispatcher channel not found']);
+			break;
+		}
+		
+		// 使用 uuid_bridge 将调度员通道与目标通道桥接
+		$bridge_cmd = 'uuid_bridge ' . $dispatcher_uuid . ' ' . $target_channel_uuid;
 		$bridge_result = event_socket::api($bridge_cmd);
 		
-		error_log("Emergency Bridge Debug - Command: " . $bridge_cmd);
-		error_log("Emergency Bridge Debug - Result: " . $bridge_result);
+		error_log("Emergency Bridge Debug - Bridge Command: " . $bridge_cmd);
+		error_log("Emergency Bridge Debug - Bridge Result: " . $bridge_result);
 		
-		if (stripos($bridge_result, '-ERR') !== false) {
+		if ($bridge_result === false || stripos($bridge_result, '-ERR') !== false) {
 			echo json_encode(['success' => false, 'error' => 'Bridge failed: ' . $bridge_result]);
 			break;
 		}
@@ -418,6 +464,7 @@ switch ($action) {
 		echo json_encode([
 			'success' => true,
 			'channel_uuid' => $target_channel_uuid,
+			'dispatcher_uuid' => $dispatcher_uuid,
 			'bridge_result' => $bridge_result
 		]);
 		break;

@@ -1,3 +1,683 @@
-2025-11-20 15:55:21.916675 96.70% [DEBUG] switch_ivr_originate.c:2301 Parsing global variables
-2025-11-20 15:55:21.916675 96.70% [ERR] switch_ivr_originate.c:2306 Parse Error!
-2025-11-20 15:55:21.916675 96.70% [DEBUG] switch_ivr_originate.c:4056 Originate Resulted in Error Cause: 27 [DESTINATION_OUT_OF_ORDER]
+2025-11-21 14:12:32.217559 96.23% [NOTICE] switch_channel.c:1142 New Channel sofia/internal/5001@192.168.2.200 [ce0ccca9-93d8-4891-bf75-42e9175f3f03]
+2025-11-21 14:12:32.217559 96.23% [DEBUG] switch_core_state_machine.c:581 (sofia/internal/5001@192.168.2.200) Running State Change CS_NEW (Cur 1 Tot 51)
+2025-11-21 14:12:32.217559 96.23% [INFO] sofia.c:10460 sofia/internal/5001@192.168.2.200 receiving invite from 192.168.2.182:2730 version: 1.10.12-release git d8481a9 2025-01-13 17:41:43Z 64bit call-id: 94sebg5pbitbjduglauc
+2025-11-21 14:12:32.217559 96.23% [DEBUG] sofia.c:10554 verifying acl "providers" for ip/port 192.168.2.182:0.
+2025-11-21 14:12:32.217559 96.23% [DEBUG] switch_core_state_machine.c:600 (sofia/internal/5001@192.168.2.200) State NEW
+2025-11-21 14:12:32.217559 96.23% [DEBUG] sofia.c:2419 detaching session ce0ccca9-93d8-4891-bf75-42e9175f3f03
+2025-11-21 14:12:32.217559 96.23% [DEBUG] sofia.c:2532 Re-attaching to session ce0ccca9-93d8-4891-bf75-42e9175f3f03
+2025-11-21 14:12:32.237565 96.23% [INFO] sofia.c:10460 sofia/internal/5001@192.168.2.200 receiving invite from 192.168.2.182:2730 version: 1.10.12-release git d8481a9 2025-01-13 17:41:43Z 64bit call-id: 94sebg5pbitbjduglauc
+2025-11-21 14:12:32.237565 96.23% [DEBUG] sofia.c:10554 verifying acl "providers" for ip/port 192.168.2.182:0.
+2025-11-21 14:12:32.237565 96.23% [DEBUG] sofia.c:11675 Setting NAT mode based on websockets
+2025-11-21 14:12:32.237565 96.23% [DEBUG] sofia.c:7493 Channel sofia/internal/5001@192.168.2.200 entering state [received][100]
+2025-11-21 14:12:32.237565 96.23% [DEBUG] sofia.c:7503 Remote SDP:
+v=0
+o=- 368000890763803292 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDLE 0
+a=extmap-allow-mixed
+a=msid-semantic: WMS b7798fb2-d41d-4d1e-8a01-bfd9f38c8572
+m=audio 59611 UDP/TLS/RTP/SAVPF 111 63 9 0 8 13 110 126
+c=IN IP4 198.18.0.1
+a=rtpmap:111 opus/48000/2
+a=fmtp:111 minptime=10;useinbandfec=1
+a=rtpmap:63 red/48000/2
+a=fmtp:63 111/111
+a=rtpmap:9 G722/8000
+a=rtpmap:0 PCMU/8000
+a=rtpmap:8 PCMA/8000
+a=rtpmap:13 CN/8000
+a=rtpmap:110 telephone-event/48000
+a=rtpmap:126 telephone-event/8000
+a=rtcp:9 IN IP4 0.0.0.0
+a=candidate:3491970713 1 udp 2122260223 198.18.0.1 59611 typ host generation 0 network-id 1 network-cost 50
+a=candidate:4211974903 1 udp 2122194687 192.168.2.182 59612 typ host generation 0 network-id 2
+a=candidate:1377906304 1 udp 2122129151 172.28.176.1 59613 typ host generation 0 network-id 3
+a=candidate:780790285 1 tcp 1518280447 198.18.0.1 9 typ host tcptype active generation 0 network-id 1 network-cost 50
+a=candidate:94860899 1 tcp 1518214911 192.168.2.182 9 typ host tcptype active generation 0 network-id 2
+a=candidate:2894854676 1 tcp 1518149375 172.28.176.1 9 typ host tcptype active generation 0 network-id 3
+a=ice-ufrag:BKqR
+a=ice-pwd:Wf4v+rzf/1GWSHuDPI4IHuUw
+a=ice-options:trickle
+a=fingerprint:sha-256 68:94:33:74:AB:BC:AE:CF:F0:9E:CB:62:15:46:F8:29:0B:8B:2A:69:37:20:51:D2:64:11:21:74:11:47:CE:0C
+a=setup:actpass
+a=mid:0
+a=extmap:1 urn:ietf:params:rtp-hdrext:ssrc-audio-level
+a=extmap:2 http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time
+a=extmap:3 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01
+a=extmap:4 urn:ietf:params:rtp-hdrext:sdes:mid
+a=msid:b7798fb2-d41d-4d1e-8a01-bfd9f38c8572 4f04fa17-c0e9-4147-bc79-91234b87d62c
+a=rtcp-mux
+a=rtcp-rsize
+a=rtcp-fb:111 transport-cc
+a=ssrc:1907137975 cname:48fiWVMRa7iaIe6g
+a=ssrc:1907137975 msid:b7798fb2-d41d-4d1e-8a01-bfd9f38c8572 4f04fa17-c0e9-4147-bc79-91234b87d62c
+
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_media.c:5524 Audio Codec Compare [opus:111:48000:20:0:2]/[G722:9:8000:20:64000:1]
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_media.c:5524 Audio Codec Compare [opus:111:48000:20:0:2]/[PCMU:0:8000:20:64000:1]
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_media.c:5524 Audio Codec Compare [opus:111:48000:20:0:2]/[PCMA:8:8000:20:64000:1]
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_media.c:5524 Audio Codec Compare [red:63:48000:20:0:2]/[G722:9:8000:20:64000:1]
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_media.c:5524 Audio Codec Compare [red:63:48000:20:0:2]/[PCMU:0:8000:20:64000:1]
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_media.c:5524 Audio Codec Compare [red:63:48000:20:0:2]/[PCMA:8:8000:20:64000:1]
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_media.c:5524 Audio Codec Compare [G722:9:8000:20:64000:1]/[G722:9:8000:20:64000:1]
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_media.c:5586 Audio Codec Compare [G722:9:8000:20:64000:1] ++++ is saved as a match
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_media.c:5524 Audio Codec Compare [G722:9:8000:20:64000:1]/[PCMU:0:8000:20:64000:1]
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_media.c:5524 Audio Codec Compare [G722:9:8000:20:64000:1]/[PCMA:8:8000:20:64000:1]
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_media.c:5524 Audio Codec Compare [PCMU:0:8000:20:64000:1]/[G722:9:8000:20:64000:1]
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_media.c:5524 Audio Codec Compare [PCMU:0:8000:20:64000:1]/[PCMU:0:8000:20:64000:1]
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_media.c:5586 Audio Codec Compare [PCMU:0:8000:20:64000:1] ++++ is saved as a match
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_media.c:5524 Audio Codec Compare [PCMU:0:8000:20:64000:1]/[PCMA:8:8000:20:64000:1]
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_media.c:5524 Audio Codec Compare [PCMA:8:8000:20:64000:1]/[G722:9:8000:20:64000:1]
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_media.c:5524 Audio Codec Compare [PCMA:8:8000:20:64000:1]/[PCMU:0:8000:20:64000:1]
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_media.c:5524 Audio Codec Compare [PCMA:8:8000:20:64000:1]/[PCMA:8:8000:20:64000:1]
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_media.c:5586 Audio Codec Compare [PCMA:8:8000:20:64000:1] ++++ is saved as a match
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_media.c:5436 Set telephone-event payload to 110@48000
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_media.c:3730 Set Codec sofia/internal/5001@192.168.2.200 G722/8000 20 ms 160 samples 64000 bits 1 channels
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_codec.c:132 sofia/internal/5001@192.168.2.200 Original read codec set to G722:9
+2025-11-21 14:12:32.237565 96.23% [WARNING] switch_core_media.c:4153 NO candidate ACL defined, Defaulting to wan.auto
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_media.c:4209 Save audio Candidate cid: 1 proto: udp type: host addr: 198.18.0.1:59611
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_media.c:4209 Save audio Candidate cid: 1 proto: udp type: host addr: 192.168.2.182:59612
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_media.c:4209 Save audio Candidate cid: 1 proto: udp type: host addr: 172.28.176.1:59613
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_media.c:4254 Searching for rtp candidate.
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_media.c:4263 Choose rtp candidate, index 0, 198.18.0.1:59611
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_media.c:3998 sofia/internal/5001@192.168.2.200 choosing family v4
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_media.c:4274 Choose same candidate, index 0, for rtcp based on rtcp-mux attribute 198.18.0.1:59611
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_media.c:4326 setting remote audio ice addr to index 0 198.18.0.1:59611 based on candidate
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_media.c:4361 Setting remote rtcp audio addr to 198.18.0.1:59611 based on candidate
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_media.c:5796 Set telephone-event payload to 126@8000
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_media.c:5854 sofia/internal/5001@192.168.2.200 Set 2833 dtmf send payload to 126 recv payload to 126
+2025-11-21 14:12:32.237565 96.23% [DEBUG] sofia.c:7927 (sofia/internal/5001@192.168.2.200) State Change CS_NEW -> CS_INIT
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_state_machine.c:581 (sofia/internal/5001@192.168.2.200) Running State Change CS_INIT (Cur 1 Tot 51)
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_state_machine.c:624 (sofia/internal/5001@192.168.2.200) State INIT
+2025-11-21 14:12:32.237565 96.23% [DEBUG] mod_sofia.c:97 sofia/internal/5001@192.168.2.200 SOFIA INIT
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_state_machine.c:40 sofia/internal/5001@192.168.2.200 Standard INIT
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_state_machine.c:48 (sofia/internal/5001@192.168.2.200) State Change CS_INIT -> CS_ROUTING
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_state_machine.c:624 (sofia/internal/5001@192.168.2.200) State INIT going to sleep
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_state_machine.c:581 (sofia/internal/5001@192.168.2.200) Running State Change CS_ROUTING (Cur 1 Tot 51)
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_channel.c:2399 (sofia/internal/5001@192.168.2.200) Callstate Change DOWN -> RINGING
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_state_machine.c:640 (sofia/internal/5001@192.168.2.200) State ROUTING
+2025-11-21 14:12:32.237565 96.23% [DEBUG] mod_sofia.c:158 sofia/internal/5001@192.168.2.200 SOFIA ROUTING
+2025-11-21 14:12:32.237565 96.23% [DEBUG] switch_core_state_machine.c:230 sofia/internal/5001@192.168.2.200 Standard ROUTING
+2025-11-21 14:12:32.237565 96.23% [INFO] mod_dialplan_xml.c:639 Processing 调度员1 <5001>->1006 in context 192.168.2.200
+2025-11-21 14:12:32.277529 96.23% [NOTICE] switch_cpp.cpp:1466 [xml_handler] single key:dialplan:192.168.2.200
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->user_exists] continue=true
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [user_exists] ${loopback_leg}() =~ /^B$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [user_exists] () =~ // break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(user_exists=${user_exists id ${destination_number} ${domain_name}}) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(user_exists=true)
+2025-11-21 14:12:32.277529 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [user_exists]=[true]
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(from_user_exists=${user_exists id ${sip_from_user} ${sip_from_host}}) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(from_user_exists=true)
+2025-11-21 14:12:32.277529 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [from_user_exists]=[true]
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [user_exists] ${user_exists}(true) =~ /^true$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(extension_uuid=${user_data ${destination_number}@${domain_name} var extension_uuid}) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(extension_uuid=ee9c4525-25d2-4929-8be6-5d574499f7a1)
+2025-11-21 14:12:32.277529 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [extension_uuid]=[ee9c4525-25d2-4929-8be6-5d574499f7a1]
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(extension_caller_id_name=${user_data ${destination_number}@${domain_name} var effective_caller_id_name}) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(extension_caller_id_name=)
+2025-11-21 14:12:32.277529 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [extension_caller_id_name]=[UNDEF]
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(extension_caller_id_number=${user_data ${destination_number}@${domain_name} var effective_caller_id_number}) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(extension_caller_id_number=)
+2025-11-21 14:12:32.277529 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [extension_caller_id_number]=[UNDEF]
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(forward_all_enabled=${user_data ${destination_number}@${domain_name} var forward_all_enabled}) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(forward_all_enabled=false)
+2025-11-21 14:12:32.277529 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [forward_all_enabled]=[false]
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(forward_all_destination=${user_data ${destination_number}@${domain_name} var forward_all_destination}) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(forward_all_destination=)
+2025-11-21 14:12:32.277529 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [forward_all_destination]=[UNDEF]
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(forward_busy_enabled=${user_data ${destination_number}@${domain_name} var forward_busy_enabled}) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(forward_busy_enabled=true)
+2025-11-21 14:12:32.277529 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [forward_busy_enabled]=[true]
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(forward_busy_destination=${user_data ${destination_number}@${domain_name} var forward_busy_destination}) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(forward_busy_destination=1011)
+2025-11-21 14:12:32.277529 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [forward_busy_destination]=[1011]
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(forward_no_answer_enabled=${user_data ${destination_number}@${domain_name} var forward_no_answer_enabled}) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(forward_no_answer_enabled=false)
+2025-11-21 14:12:32.297509 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [forward_no_answer_enabled]=[false]
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(forward_no_answer_destination=${user_data ${destination_number}@${domain_name} var forward_no_answer_destination}) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(forward_no_answer_destination=)
+2025-11-21 14:12:32.297509 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [forward_no_answer_destination]=[UNDEF]
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(forward_user_not_registered_enabled=${user_data ${destination_number}@${domain_name} var forward_user_not_registered_enabled}) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(forward_user_not_registered_enabled=false)
+2025-11-21 14:12:32.297509 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [forward_user_not_registered_enabled]=[false]
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(forward_user_not_registered_destination=${user_data ${destination_number}@${domain_name} var forward_user_not_registered_destination}) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(forward_user_not_registered_destination=)
+2025-11-21 14:12:32.297509 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [forward_user_not_registered_destination]=[UNDEF]
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(forward_all_enabled=${user_data ${destination_number}@${domain_name} var forward_all_enabled}) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(forward_all_enabled=false)
+2025-11-21 14:12:32.297509 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [forward_all_enabled]=[false]
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(follow_me_enabled=${user_data ${destination_number}@${domain_name} var follow_me_enabled}) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(follow_me_enabled=false)
+2025-11-21 14:12:32.297509 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [follow_me_enabled]=[false]
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(do_not_disturb=${user_data ${destination_number}@${domain_name} var do_not_disturb}) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(do_not_disturb=false)
+2025-11-21 14:12:32.297509 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [do_not_disturb]=[false]
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(call_timeout=${user_data ${destination_number}@${domain_name} var call_timeout}) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(call_timeout=30)
+2025-11-21 14:12:32.297509 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [call_timeout]=[30]
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(missed_call_app=${user_data ${destination_number}@${domain_name} var missed_call_app}) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(missed_call_app=)
+2025-11-21 14:12:32.297509 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [missed_call_app]=[UNDEF]
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(missed_call_data=${user_data ${destination_number}@${domain_name} var missed_call_data}) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(missed_call_data=)
+2025-11-21 14:12:32.297509 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [missed_call_data]=[UNDEF]
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(toll_allow=${user_data ${destination_number}@${domain_name} var toll_allow}) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(toll_allow=)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [toll_allow]=[UNDEF]
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(call_screen_enabled=${user_data ${destination_number}@${domain_name} var call_screen_enabled}) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(call_screen_enabled=)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [call_screen_enabled]=[UNDEF]
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(user_record=${user_data ${destination_number}@${domain_name} var user_record}) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(user_record=all)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [user_record]=[all]
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(limit_max=${user_data ${destination_number}@${domain_name} var limit_max}) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(limit_max=1)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [limit_max]=[1]
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->caller-details] continue=true
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [caller-details] ${caller_destination}() =~ /^$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(caller_destination=${destination_number}) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(caller_destination=1006)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [caller_destination]=[1006]
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(caller_id_name=${caller_id_name}) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(caller_id_name=5001)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [caller_id_name]=[5001]
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(caller_id_number=${caller_id_number}) 
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->global-variables] continue=true
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [global-variables] () =~ // break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(RFC2822_DATE=${strftime(%a, %d %b %Y %T %z)}) 
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(timezone=Asia/Shanghai) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(timezone=Asia/Shanghai)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [timezone]=[Asia/Shanghai]
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(record_ext=wav) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(record_ext=wav)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [record_ext]=[wav]
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->domain-variables] continue=true
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [domain-variables] () =~ // break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 Action export(origination_callee_id_name=${caller_destination}) 
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(operator=1000) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(operator=1000)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [operator]=[1000]
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(timezone=Asia/Shanghai) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(timezone=Asia/Shanghai)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [timezone]=[Asia/Shanghai]
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->call_direction-outbound] continue=true
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [call_direction-outbound] ${user_exists}(true) =~ /false/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->clear_sip_auto_answer] continue=true
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [clear_sip_auto_answer] ${click_to_call}() =~ /true/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->call-direction] continue=true
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [call-direction] ${call_direction}() =~ /^$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Action export(call_direction=local) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 export(call_direction=local)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] switch_channel.c:1334 EXPORT (export_vars) [call_direction]=[local]
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->user_record] continue=true
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [user_record] ${user_exists}(true) =~ /^true$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [user_record] ${user_record}(all) =~ /^all$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(record_session=true) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(record_session=true)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [record_session]=[true]
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [user_record] ${user_exists}(true) =~ /^true$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [user_record] ${call_direction}(local) =~ /^inbound$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [user_record] ${user_record}(all) =~ /^inbound$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [user_record] ${user_exists}(true) =~ /^true$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [user_record] ${call_direction}(local) =~ /^outbound$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [user_record] ${user_record}(all) =~ /^outbound$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [user_record] ${user_exists}(true) =~ /^true$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [user_record] ${call_direction}(local) =~ /^local$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [user_record] ${user_record}(all) =~ /^local$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [user_record] ${from_user_exists}(true) =~ /^true$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(from_user_record=${user_data ${sip_from_user}@${sip_from_host} var user_record}) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(from_user_record=all)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [from_user_record]=[all]
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [user_record] ${from_user_exists}(true) =~ /^true$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [user_record] ${from_user_record}(all) =~ /^all$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(record_session=true) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(record_session=true)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [record_session]=[true]
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [user_record] ${from_user_exists}(true) =~ /^true$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [user_record] ${call_direction}(local) =~ /^inbound$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [user_record] ${from_user_record}(all) =~ /^inbound$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [user_record] ${from_user_exists}(true) =~ /^true$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [user_record] ${call_direction}(local) =~ /^outbound$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [user_record] ${from_user_record}(all) =~ /^outbound$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [user_record] ${from_user_exists}(true) =~ /^true$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [user_record] ${call_direction}(local) =~ /^local$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [user_record] ${from_user_record}(all) =~ /^local$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [user_record] ${record_session}(true) =~ /^true$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [user_record] ${call_direction}(local) =~ /^inbound/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [user_record] ${record_session}(true) =~ /^true$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [user_record] ${call_direction}(local) =~ /^outbound$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [user_record] ${record_session}(true) =~ /^true$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [user_record] ${call_direction}(local) =~ /^local$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(record_stereo=true) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(record_stereo=true)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [record_stereo]=[true]
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [user_record] ${record_path}() =~ /^$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [user_record] ${record_session}(true) =~ /^true$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(record_path=${recordings_dir}/${domain_name}/archive/${strftime(%Y)}/${strftime(%b)}/${strftime(%d)}) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(record_path=/var/lib/freeswitch/recordings/192.168.2.200/archive/2025/Nov/21)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [record_path]=[/var/lib/freeswitch/recordings/192.168.2.200/archive/2025/Nov/21]
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(record_name=${uuid}.${record_ext}) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(record_name=ce0ccca9-93d8-4891-bf75-42e9175f3f03.wav)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [record_name]=[ce0ccca9-93d8-4891-bf75-42e9175f3f03.wav]
+Dialplan: sofia/internal/5001@192.168.2.200 Action mkdir(${record_path}) 
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(recording_follow_transfer=true) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(recording_follow_transfer=true)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [recording_follow_transfer]=[true]
+Dialplan: sofia/internal/5001@192.168.2.200 Action bind_digit_action(local,*5,api:uuid_record,${uuid} mask ${recordings_dir}/${domain_name}/archive/${strftime(%Y)}/${strftime(%b)}/${strftime(%d)}/${uuid}.${record_ext},both,self) 
+Dialplan: sofia/internal/5001@192.168.2.200 Action bind_digit_action(local,*6,api:uuid_record,${uuid} unmask ${recordings_dir}/${domain_name}/archive/${strftime(%Y)}/${strftime(%b)}/${strftime(%d)}/${uuid}.${record_ext},both,self) 
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(record_append=true) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(record_append=true)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [record_append]=[true]
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(record_in_progress=true) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(record_in_progress=true)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [record_in_progress]=[true]
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(api_on_answer=uuid_record ${uuid} start ${record_path}/${record_name}) 
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(record_answer_req=true) 
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->rtp_has_crypto] continue=true
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [rtp_has_crypto] ${rtp_has_crypto}() =~ /^(AEAD_AES_256_GCM_8|AEAD_AES_128_GCM_8|AES_CM_256_HMAC_SHA1_80|AES_CM_192_HMAC_SHA1_80|AES_CM_128_HMAC_SHA1_80|AES_CM_256_HMAC_SHA1_32|AES_CM_192_HMAC_SHA1_32|AES_CM_128_HMAC_SHA1_32|AES_CM_128_NULL_AUTH)$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->redial] continue=true
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [redial] destination_number(1006) =~ /^(redial|\*870)$/ break=on-true
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [redial] () =~ // break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Action hash(insert/${domain_name}-last_dial/${caller_id_number}/${destination_number}) 
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->speed_dial] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [speed_dial] destination_number(1006) =~ /^\*0(.*)$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->user_hold_music] continue=true
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [user_hold_music] ${user_exists}(true) =~ /true/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [user_hold_music] ${hold_music}(local_stream://default) =~ /^$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->default_caller_id] continue=true
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [default_caller_id] ${call_direction}(local) =~ /outbound/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->default_hold_music] continue=true
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [default_hold_music] ${hold_music}(local_stream://default) =~ /^$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->transfer.911] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [transfer.911] ${user_exists}(true) =~ /false/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->紧急呼叫组] continue=
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [紧急呼叫组] destination_number(1006) =~ /^110$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->group-page] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [group-page] destination_number(1006) =~ /^9998$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->all-page] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [all-page] destination_number(1006) =~ /^9999$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->agent_status] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [agent_status] destination_number(1006) =~ /^\*22$/ break=on-true
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [agent_status] destination_number(1006) =~ /^(?:agent\+|\*22)(.+)$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->agent_status_id] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [agent_status_id] destination_number(1006) =~ /^\*23$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->agent-status-break] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [agent-status-break] destination_number(1006) =~ /^\*24$/ break=on-true
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [agent-status-break] destination_number(1006) =~ /^(?:agent\+|\*24)(.+)$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->group-intercept] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [group-intercept] destination_number(1006) =~ /^\*8$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->group-page] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [group-page] destination_number(1006) =~ /^9998$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->group-conference-invite] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [group-conference-invite] destination_number(1006) =~ /^\*36(\d{2,7})$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->all-conference-invite] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [all-conference-invite] destination_number(1006) =~ /^\*37(\d{2,7})$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->all-page] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [all-page] destination_number(1006) =~ /^9999$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->page-extension] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [page-extension] destination_number(1006) =~ /^\*8(\d{2,7})$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->eavesdrop] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [eavesdrop] destination_number(1006) =~ /^\*33(\d{2,7})$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->call_privacy] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [call_privacy] destination_number(1006) =~ /^\*67(\d+)$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->call_return] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [call_return] destination_number(1006) =~ /^\*69$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->number_queue] continue=
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [number_queue] destination_number(1006) =~ /^\*800(.*)$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->intercept-ext-polycom] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [intercept-ext-polycom] destination_number(1006) =~ /^\*97(\d+)$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->intercept-ext] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [intercept-ext] destination_number(1006) =~ /^\*\*(\d+)$/ break=on-true
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [intercept-ext] destination_number(1006) =~ /^\*\*$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->dx] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [dx] destination_number(1006) =~ /^dx$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->extension-to-voicemail] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [extension-to-voicemail] ${user_exists}(true) =~ /^true$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [extension-to-voicemail] username(5001) =~ /^\Q5001\E$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [extension-to-voicemail] destination_number(1006) =~ /^\Q5001\E$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->att_xfer] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [att_xfer] destination_number(1006) =~ /^att_xfer$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->send_to_voicemail] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [send_to_voicemail] destination_number(1006) =~ /^\*99(\d{2,10})$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->vmain] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [vmain] destination_number(1006) =~ /^vmain$|^\*4000$|^\*98$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [vmain] destination_number(1006) =~ /^(vmain$|^\*4000$|^\*98|voicemail\+)(\d{2,12})$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->xfer_vm] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [xfer_vm] destination_number(1006) =~ /^xfer_vm$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->is_transfer] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [is_transfer] destination_number(1006) =~ /^is_transfer$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->vmain_user] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [vmain_user] destination_number(1006) =~ /^\*97$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->789789] continue=
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [789789] destination_number(1006) =~ /^789789$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->99999] continue=
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [99999] destination_number(1006) =~ /^99999$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->delay_echo] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [delay_echo] destination_number(1006) =~ /^\*9195$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->cf] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [cf] destination_number(1006) =~ /^cf$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->echo] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [echo] destination_number(1006) =~ /^\*9196$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->is_zrtp_secure] continue=true
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [is_zrtp_secure] ${zrtp_secure_media_confirmed}() =~ /^true$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 ANTI-Action eval(not_secure) 
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->milliwatt] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [milliwatt] destination_number(1006) =~ /^\*9197$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->is_secure] continue=true
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [is_secure] ${sip_via_protocol}(wss) =~ /tls/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->tone_stream] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [tone_stream] destination_number(1006) =~ /^\*9198$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->hold_music] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [hold_music] destination_number(1006) =~ /^\*9664$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->recordings] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [recordings] destination_number(1006) =~ /^\*(732)$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->directory] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [directory] destination_number(1006) =~ /^\*411$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->wake-up] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [wake-up] destination_number(1006) =~ /^\*(925)$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->valet_park_auto] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [valet_park_auto] destination_number(1006) =~ /^(park\+)?\*(5900)$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->valet_park] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [valet_park] destination_number(1006) =~ /^(park)?\+?\*(59(0[1-9]|[1-9][0-9]))$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [valet_park] ${sip_refer_to}() =~ /^.+$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [valet_park] ${sip_refer_to}() =~ /sip:(.*)@(.*?)(?::\d+)?\>/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [valet_park] ${sip_h_Referred-By}() =~ /sip:(.*)@(.*?)(?::\d+)?\>/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [valet_park] destination_number(1006) =~ /^(park)?\+?\*(59(0[1-9]|[1-9][0-9]))$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [valet_park] ${referred_by_user}() =~ /^.+$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 ANTI-Action set(valet_context=${domain_name}) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(valet_context=192.168.2.200)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [valet_context]=[192.168.2.200]
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [valet_park] destination_number(1006) =~ /^(park)?\+?\*(59(0[1-9]|[1-9][0-9]))$/ break=never
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [valet_park] destination_number(1006) =~ /^(park)?\+?\*(59(0[1-9]|[1-9][0-9]))$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->operator-forward] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [operator-forward] destination_number(1006) =~ /^\*000$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->do-not-disturb] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [do-not-disturb] destination_number(1006) =~ /^\*77$/ break=on-true
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [do-not-disturb] destination_number(1006) =~ /^\*78$|\*363$/ break=on-true
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [do-not-disturb] destination_number(1006) =~ /^\*79$/ break=on-true
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [do-not-disturb] destination_number(1006) =~ /^dnd\+5001$/ break=on-true
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->call_screen] continue=true
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [call_screen] ${call_screen_enabled}() =~ /^true$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->ring-group-forward] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [ring-group-forward] destination_number(1006) =~ /^\*75$/ break=on-true
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->call-forward] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [call-forward] destination_number(1006) =~ /^\*72(\d{2,20})$/ break=on-true
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [call-forward] destination_number(1006) =~ /^\*72$/ break=on-true
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [call-forward] destination_number(1006) =~ /^\*73$/ break=on-true
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [call-forward] destination_number(1006) =~ /^\*74$/ break=on-true
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [call-forward] destination_number(1006) =~ /^forward\+(\Q5001\E)(?:\/(\d+))?$/ break=on-true
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->call-forward-not-registered] continue=
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [call-forward-not-registered] ${user_exists}(true) =~ /true/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [call-forward-not-registered] ${forward_user_not_registered_enabled}(false) =~ /true/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->follow-me] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [follow-me] destination_number(1006) =~ /^\*21$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->call-forward-all] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [call-forward-all] ${forward_all_enabled}(false) =~ /true/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->follow-me-destinations] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [follow-me-destinations] ${user_exists}(true) =~ /^true$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [follow-me-destinations] ${follow_me_enabled}(false) =~ /^true$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->talking clock date and time] continue=
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [talking clock date and time] destination_number(1006) =~ /^\*9172$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->talking clock time] continue=
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [talking clock time] destination_number(1006) =~ /^\*9170$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->talking clock date] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [talking clock date] destination_number(1006) =~ /^\*9171$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->local_extension] continue=true
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [local_extension] ${user_exists}(true) =~ /true/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 Action export(dialed_extension=${destination_number}) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 export(dialed_extension=1006)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] switch_channel.c:1334 EXPORT (export_vars) [dialed_extension]=[1006]
+Dialplan: sofia/internal/5001@192.168.2.200 Action limit(hash ${domain_name} ${destination_number} ${limit_max} ${limit_destination}) 
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [local_extension] () =~ // break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(hangup_after_bridge=true) 
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(continue_on_fail=true) 
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(initial_callee_id_name=${user_data(${dialed_extension}@${domain_name} var effective_caller_id_name)}) 
+Dialplan: sofia/internal/5001@192.168.2.200 Action hash(insert/${domain_name}-call_return/${dialed_extension}/${caller_id_number}) 
+Dialplan: sofia/internal/5001@192.168.2.200 Action hash(insert/${domain_name}-last_dial_ext/${dialed_extension}/${uuid}) 
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(called_party_call_group=${user_data(${dialed_extension}@${domain_name} var call_group)}) 
+Dialplan: sofia/internal/5001@192.168.2.200 Action hash(insert/${domain_name}-last_dial/${called_party_call_group}/${uuid}) 
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(api_hangup_hook=lua app.lua hangup) 
+Dialplan: sofia/internal/5001@192.168.2.200 Action export(domain_name=${domain_name}) 
+Dialplan: sofia/internal/5001@192.168.2.200 Action bridge(user/${destination_number}@${domain_name}) 
+Dialplan: sofia/internal/5001@192.168.2.200 Action lua(app.lua failure_handler) 
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->call-forward-no-answer] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (FAIL) [call-forward-no-answer] ${forward_no_answer_enabled}(false) =~ /^true$/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 parsing [192.168.2.200->voicemail] continue=false
+Dialplan: sofia/internal/5001@192.168.2.200 Regex (PASS) [voicemail] ${user_exists}(true) =~ /true/ break=on-false
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(record_append=false) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(record_append=false)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [record_append]=[false]
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(voicemail_action=save) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(voicemail_action=save)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [voicemail_action]=[save]
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(voicemail_id=${destination_number}) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(voicemail_id=1006)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [voicemail_id]=[1006]
+Dialplan: sofia/internal/5001@192.168.2.200 Action set(voicemail_profile=default) INLINE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(voicemail_profile=default)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [voicemail_profile]=[default]
+Dialplan: sofia/internal/5001@192.168.2.200 Action lua(app.lua voicemail) 
+2025-11-21 14:12:32.317537 96.23% [DEBUG] switch_core_state_machine.c:281 (sofia/internal/5001@192.168.2.200) State Change CS_ROUTING -> CS_EXECUTE
+2025-11-21 14:12:32.317537 96.23% [DEBUG] switch_core_state_machine.c:640 (sofia/internal/5001@192.168.2.200) State ROUTING going to sleep
+2025-11-21 14:12:32.317537 96.23% [DEBUG] switch_core_state_machine.c:581 (sofia/internal/5001@192.168.2.200) Running State Change CS_EXECUTE (Cur 1 Tot 51)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] switch_core_state_machine.c:647 (sofia/internal/5001@192.168.2.200) State EXECUTE
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_sofia.c:213 sofia/internal/5001@192.168.2.200 SOFIA EXECUTE
+2025-11-21 14:12:32.317537 96.23% [DEBUG] switch_core_state_machine.c:323 sofia/internal/5001@192.168.2.200 Standard EXECUTE
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(caller_id_number=5001)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [caller_id_number]=[5001]
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(RFC2822_DATE=Fri, 21 Nov 2025 14:12:32 +0800)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [RFC2822_DATE]=[Fri, 21 Nov 2025 14:12:32 +0800]
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 export(origination_callee_id_name=1006)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] switch_channel.c:1334 EXPORT (export_vars) [origination_callee_id_name]=[1006]
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 mkdir(/var/lib/freeswitch/recordings/192.168.2.200/archive/2025/Nov/21)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:664 sofia/internal/5001@192.168.2.200 MKDIR: /var/lib/freeswitch/recordings/192.168.2.200/archive/2025/Nov/21
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 bind_digit_action(local,*5,api:uuid_record,ce0ccca9-93d8-4891-bf75-42e9175f3f03 mask /var/lib/freeswitch/recordings/192.168.2.200/archive/2025/Nov/21/ce0ccca9-93d8-4891-bf75-42e9175f3f03.wav,both,self)
+2025-11-21 14:12:32.317537 96.23% [INFO] switch_ivr_async.c:221 Digit parser DPTOOLS: Setting realm to 'local'
+2025-11-21 14:12:32.317537 96.23% [DEBUG] switch_ivr_async.c:346 Digit parser DPTOOLS: binding *5/local/0 callback: 0x7ff29e314830 data: 0x7ff238241128
+2025-11-21 14:12:32.317537 96.23% [INFO] switch_ivr_async.c:221 Digit parser DPTOOLS: Setting realm to 'local'
+2025-11-21 14:12:32.317537 96.23% [DEBUG] switch_ivr_async.c:346 Digit parser DPTOOLS: binding *5/local/0 callback: 0x7ff29e314830 data: 0x7ff238241220
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 bind_digit_action(local,*6,api:uuid_record,ce0ccca9-93d8-4891-bf75-42e9175f3f03 unmask /var/lib/freeswitch/recordings/192.168.2.200/archive/2025/Nov/21/ce0ccca9-93d8-4891-bf75-42e9175f3f03.wav,both,self)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] switch_ivr_async.c:346 Digit parser DPTOOLS: binding *6/local/0 callback: 0x7ff29e314830 data: 0x7ff238241558
+2025-11-21 14:12:32.317537 96.23% [DEBUG] switch_ivr_async.c:346 Digit parser DPTOOLS: binding *6/local/0 callback: 0x7ff29e314830 data: 0x7ff238241650
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(api_on_answer=uuid_record ce0ccca9-93d8-4891-bf75-42e9175f3f03 start /var/lib/freeswitch/recordings/192.168.2.200/archive/2025/Nov/21/ce0ccca9-93d8-4891-bf75-42e9175f3f03.wav)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [api_on_answer]=[uuid_record ce0ccca9-93d8-4891-bf75-42e9175f3f03 start /var/lib/freeswitch/recordings/192.168.2.200/archive/2025/Nov/21/ce0ccca9-93d8-4891-bf75-42e9175f3f03.wav]
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(record_answer_req=true)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [record_answer_req]=[true]
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 hash(insert/192.168.2.200-last_dial/5001/1006)
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 eval(not_secure)
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 limit(hash 192.168.2.200 1006 1 !USER_BUSY)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] switch_limit.c:124 incr called: 192.168.2.200_1006 max:1, interval:0
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_hash.c:193 Usage for 192.168.2.200_1006 is now 1/1
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(hangup_after_bridge=true)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [hangup_after_bridge]=[true]
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(continue_on_fail=true)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [continue_on_fail]=[true]
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(initial_callee_id_name=)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [initial_callee_id_name]=[UNDEF]
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 hash(insert/192.168.2.200-call_return/1006/5001)
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 hash(insert/192.168.2.200-last_dial_ext/1006/ce0ccca9-93d8-4891-bf75-42e9175f3f03)
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(called_party_call_group=)
+2025-11-21 14:12:32.317537 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [called_party_call_group]=[UNDEF]
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 hash(insert/192.168.2.200-last_dial//ce0ccca9-93d8-4891-bf75-42e9175f3f03)
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 set(api_hangup_hook=lua app.lua hangup)
+2025-11-21 14:12:32.337506 96.23% [DEBUG] mod_dptools.c:1671 SET sofia/internal/5001@192.168.2.200 [api_hangup_hook]=[lua app.lua hangup]
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 export(domain_name=192.168.2.200)
+2025-11-21 14:12:32.337506 96.23% [DEBUG] switch_channel.c:1334 EXPORT (export_vars) [domain_name]=[192.168.2.200]
+EXECUTE [depth=0] sofia/internal/5001@192.168.2.200 bridge(user/1006@192.168.2.200)
+2025-11-21 14:12:32.337506 96.23% [DEBUG] switch_channel.c:1288 sofia/internal/5001@192.168.2.200 EXPORTING[export_vars] [domain_name]=[192.168.2.200] to event
+2025-11-21 14:12:32.337506 96.23% [DEBUG] switch_channel.c:1288 sofia/internal/5001@192.168.2.200 EXPORTING[export_vars] [domain_uuid]=[95d33d99-223f-474e-9ea5-fcba260abfd0] to event
+2025-11-21 14:12:32.337506 96.23% [DEBUG] switch_channel.c:1288 sofia/internal/5001@192.168.2.200 EXPORTING[export_vars] [call_direction]=[local] to event
+2025-11-21 14:12:32.337506 96.23% [DEBUG] switch_channel.c:1288 sofia/internal/5001@192.168.2.200 EXPORTING[export_vars] [dialed_extension]=[1006] to event
+2025-11-21 14:12:32.337506 96.23% [DEBUG] switch_channel.c:1288 sofia/internal/5001@192.168.2.200 EXPORTING[export_vars] [origination_callee_id_name]=[1006] to event
+2025-11-21 14:12:32.337506 96.23% [DEBUG] switch_channel.c:1288 sofia/internal/5001@192.168.2.200 EXPORTING[export_vars] [domain_name]=[192.168.2.200] to event
+2025-11-21 14:12:32.337506 96.23% [DEBUG] switch_ivr_originate.c:2301 Parsing global variables
+2025-11-21 14:12:32.337506 96.23% [DEBUG] switch_channel.c:1288 sofia/internal/5001@192.168.2.200 EXPORTING[export_vars] [domain_name]=[192.168.2.200] to event
+2025-11-21 14:12:32.337506 96.23% [DEBUG] switch_channel.c:1288 sofia/internal/5001@192.168.2.200 EXPORTING[export_vars] [domain_uuid]=[95d33d99-223f-474e-9ea5-fcba260abfd0] to event
+2025-11-21 14:12:32.337506 96.23% [DEBUG] switch_channel.c:1288 sofia/internal/5001@192.168.2.200 EXPORTING[export_vars] [call_direction]=[local] to event
+2025-11-21 14:12:32.337506 96.23% [DEBUG] switch_channel.c:1288 sofia/internal/5001@192.168.2.200 EXPORTING[export_vars] [dialed_extension]=[1006] to event
+2025-11-21 14:12:32.337506 96.23% [DEBUG] switch_channel.c:1288 sofia/internal/5001@192.168.2.200 EXPORTING[export_vars] [origination_callee_id_name]=[1006] to event
+2025-11-21 14:12:32.337506 96.23% [DEBUG] switch_channel.c:1288 sofia/internal/5001@192.168.2.200 EXPORTING[export_vars] [domain_name]=[192.168.2.200] to event
+2025-11-21 14:12:32.337506 96.23% [DEBUG] switch_ivr_originate.c:2301 Parsing global variables
+2025-11-21 14:12:32.337506 96.23% [NOTICE] switch_channel.c:1142 New Channel sofia/internal/1006@192.168.2.206:5060 [92486b4c-b5d0-472d-8a63-2306182166ff]
+2025-11-21 14:12:32.337506 96.23% [DEBUG] mod_sofia.c:5121 (sofia/internal/1006@192.168.2.206:5060) State Change CS_NEW -> CS_INIT
+2025-11-21 14:12:32.337506 96.23% [DEBUG] switch_ivr_originate.c:3171 sofia/internal/1006@192.168.2.206:5060 Setting leg timeout to 30
+2025-11-21 14:12:32.337506 96.23% [DEBUG] switch_core_state_machine.c:581 (sofia/internal/1006@192.168.2.206:5060) Running State Change CS_INIT (Cur 2 Tot 52)
+2025-11-21 14:12:32.337506 96.23% [DEBUG] switch_core_state_machine.c:624 (sofia/internal/1006@192.168.2.206:5060) State INIT
+2025-11-21 14:12:32.337506 96.23% [DEBUG] mod_sofia.c:97 sofia/internal/1006@192.168.2.206:5060 SOFIA INIT
+2025-11-21 14:12:32.337506 96.23% [INFO] sofia_glue.c:1659 sofia/internal/1006@192.168.2.206:5060 sending invite call-id: (null)
+2025-11-21 14:12:32.337506 96.23% [DEBUG] sofia_glue.c:1662 sofia/internal/1006@192.168.2.206:5060 sending invite version: 1.10.12-release git d8481a9 2025-01-13 17:41:43Z 64bit
+Local SDP:
+v=0
+o=FreeSWITCH 1763687844 1763687845 IN IP4 192.168.2.200
+s=FreeSWITCH
+c=IN IP4 192.168.2.200
+t=0 0
+m=audio 17708 RTP/AVP 9 0 8 101 13
+a=rtpmap:9 G722/8000
+a=rtpmap:0 PCMU/8000
+a=rtpmap:8 PCMA/8000
+a=rtpmap:101 telephone-event/8000
+a=fmtp:101 0-15
+a=rtpmap:13 CN/8000
+a=ptime:20
+a=sendrecv
+m=video 27532 RTP/AVP 102 103
+b=AS:1024
+a=rtpmap:102 VP8/90000
+a=rtpmap:103 H264/90000
+a=inactive
+a=rtcp-fb:102 ccm fir
+a=rtcp-fb:102 ccm tmmbr
+a=rtcp-fb:102 nack
+a=rtcp-fb:102 nack pli
+a=rtcp-fb:103 ccm fir
+a=rtcp-fb:103 ccm tmmbr
+a=rtcp-fb:103 nack
+a=rtcp-fb:103 nack pli
+
+2025-11-21 14:12:32.337506 96.23% [DEBUG] switch_core_state_machine.c:40 sofia/internal/1006@192.168.2.206:5060 Standard INIT
+2025-11-21 14:12:32.337506 96.23% [DEBUG] switch_core_state_machine.c:48 (sofia/internal/1006@192.168.2.206:5060) State Change CS_INIT -> CS_ROUTING
+2025-11-21 14:12:32.337506 96.23% [DEBUG] switch_core_state_machine.c:624 (sofia/internal/1006@192.168.2.206:5060) State INIT going to sleep
+2025-11-21 14:12:32.337506 96.23% [DEBUG] switch_core_state_machine.c:581 (sofia/internal/1006@192.168.2.206:5060) Running State Change CS_ROUTING (Cur 2 Tot 52)
+2025-11-21 14:12:32.337506 96.23% [DEBUG] switch_core_state_machine.c:640 (sofia/internal/1006@192.168.2.206:5060) State ROUTING
+2025-11-21 14:12:32.337506 96.23% [DEBUG] mod_sofia.c:158 sofia/internal/1006@192.168.2.206:5060 SOFIA ROUTING
+2025-11-21 14:12:32.337506 96.23% [DEBUG] switch_ivr_originate.c:67 (sofia/internal/1006@192.168.2.206:5060) State Change CS_ROUTING -> CS_CONSUME_MEDIA
+2025-11-21 14:12:32.337506 96.23% [DEBUG] switch_core_state_machine.c:640 (sofia/internal/1006@192.168.2.206:5060) State ROUTING going to sleep
+2025-11-21 14:12:32.337506 96.23% [DEBUG] switch_core_state_machine.c:581 (sofia/internal/1006@192.168.2.206:5060) Running State Change CS_CONSUME_MEDIA (Cur 2 Tot 52)
+2025-11-21 14:12:32.337506 96.23% [DEBUG] switch_core_state_machine.c:659 (sofia/internal/1006@192.168.2.206:5060) State CONSUME_MEDIA
+2025-11-21 14:12:32.337506 96.23% [DEBUG] switch_core_state_machine.c:659 (sofia/internal/1006@192.168.2.206:5060) State CONSUME_MEDIA going to sleep
+2025-11-21 14:12:32.337506 96.23% [DEBUG] sofia.c:7493 Channel sofia/internal/1006@192.168.2.206:5060 entering state [calling][0]
+2025-11-21 14:12:32.357538 96.23% [DEBUG] sofia.c:7493 Channel sofia/internal/1006@192.168.2.206:5060 entering state [proceeding][180]
+2025-11-21 14:12:32.357538 96.23% [NOTICE] sofia.c:7604 Ring-Ready sofia/internal/1006@192.168.2.206:5060!
+2025-11-21 14:12:32.357538 96.23% [DEBUG] switch_channel.c:3513 (sofia/internal/1006@192.168.2.206:5060) Callstate Change DOWN -> RINGING
+2025-11-21 14:12:32.377625 96.23% [NOTICE] mod_sofia.c:2524 Ring-Ready sofia/internal/5001@192.168.2.200!
+2025-11-21 14:12:32.377625 96.23% [DEBUG] sofia.c:7493 Channel sofia/internal/5001@192.168.2.200 entering state [early][180]
+2025-11-21 14:12:32.377625 96.23% [NOTICE] switch_ivr_originate.c:572 Ring Ready sofia/internal/5001@192.168.2.200!
+2025-11-21 14:12:35.517611 96.23% [DEBUG] sofia.c:7493 Channel sofia/internal/1006@192.168.2.206:5060 entering state [completing][200]
+2025-11-21 14:12:35.517611 96.23% [DEBUG] sofia.c:7503 Remote SDP:
+v=0
+o=1006 383924343 6082215325 IN IP4 192.168.2.206
+s=A conversation
+c=IN IP4 192.168.2.206
+t=0 0
+m=audio 10276 RTP/AVP 9 0 8 101
+a=rtpmap:9 G722/8000
+a=rtpmap:0 PCMU/8000
+a=rtpmap:8 PCMA/8000
+a=rtpmap:101 telephone-event/8000
+a=fmtp:101 0-15
+a=ptime:20
+m=video 0 RTP/AVP 102
+
+2025-11-21 14:12:35.517611 96.23% [DEBUG] sofia.c:7493 Channel sofia/internal/1006@192.168.2.206:5060 entering state [ready][200]
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_core_media.c:5524 Audio Codec Compare [G722:9:8000:20:64000:1]/[G722:9:8000:20:64000:1]
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_core_media.c:5586 Audio Codec Compare [G722:9:8000:20:64000:1] ++++ is saved as a match
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_core_media.c:5524 Audio Codec Compare [G722:9:8000:20:64000:1]/[PCMU:0:8000:20:64000:1]
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_core_media.c:5524 Audio Codec Compare [G722:9:8000:20:64000:1]/[PCMA:8:8000:20:64000:1]
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_core_media.c:5524 Audio Codec Compare [PCMU:0:8000:20:64000:1]/[G722:9:8000:20:64000:1]
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_core_media.c:5524 Audio Codec Compare [PCMU:0:8000:20:64000:1]/[PCMU:0:8000:20:64000:1]
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_core_media.c:5586 Audio Codec Compare [PCMU:0:8000:20:64000:1] ++++ is saved as a match
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_core_media.c:5524 Audio Codec Compare [PCMU:0:8000:20:64000:1]/[PCMA:8:8000:20:64000:1]
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_core_media.c:5524 Audio Codec Compare [PCMA:8:8000:20:64000:1]/[G722:9:8000:20:64000:1]
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_core_media.c:5524 Audio Codec Compare [PCMA:8:8000:20:64000:1]/[PCMU:0:8000:20:64000:1]
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_core_media.c:5524 Audio Codec Compare [PCMA:8:8000:20:64000:1]/[PCMA:8:8000:20:64000:1]
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_core_media.c:5586 Audio Codec Compare [PCMA:8:8000:20:64000:1] ++++ is saved as a match
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_core_media.c:5436 Set telephone-event payload to 101@8000
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_core_media.c:3730 Set Codec sofia/internal/1006@192.168.2.206:5060 G722/8000 20 ms 160 samples 64000 bits 1 channels
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_core_codec.c:132 sofia/internal/1006@192.168.2.206:5060 Original read codec set to G722:9
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_core_media.c:5796 Set telephone-event payload to 101@8000
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_core_media.c:5854 sofia/internal/1006@192.168.2.206:5060 Set 2833 dtmf send payload to 101 recv payload to 101
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_core_media.c:8658 AUDIO RTP [sofia/internal/1006@192.168.2.206:5060] 192.168.2.200 port 17708 -> 192.168.2.206 port 10276 codec: 9 ms: 20
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_rtp.c:4566 Starting timer [soft] 160 bytes per 20ms
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_core_media.c:8971 sofia/internal/1006@192.168.2.206:5060 Set 2833 dtmf send payload to 101
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_core_media.c:8978 sofia/internal/1006@192.168.2.206:5060 Set 2833 dtmf receive payload to 101
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_core_media.c:9001 sofia/internal/1006@192.168.2.206:5060 Set rtp dtmf delay to 40
+2025-11-21 14:12:35.517611 96.23% [NOTICE] sofia.c:8681 Channel [sofia/internal/1006@192.168.2.206:5060] has been answered
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_channel.c:3912 (sofia/internal/1006@192.168.2.206:5060) Callstate Change RINGING -> ACTIVE
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_core_media.c:8658 AUDIO RTP [sofia/internal/5001@192.168.2.200] 192.168.2.200 port 25184 -> 198.18.0.1 port 59611 codec: 9 ms: 20
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_rtp.c:4566 Starting timer [soft] 160 bytes per 20ms
+2025-11-21 14:12:35.517611 96.23% [INFO] switch_core_media.c:8839 Activating Audio ICE
+2025-11-21 14:12:35.517611 96.23% [NOTICE] switch_rtp.c:5006 Activating RTP audio ICE: BKqR:3ALpnaCgBG1EdwZv 198.18.0.1:59611
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_core_media.c:8879 Activating RTCP PORT 59611
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_rtp.c:4898 RTCP send rate is: 1000 and packet rate is: 20000 Remote Port: 59611
+2025-11-21 14:12:35.517611 96.23% [INFO] switch_core_media.c:8890 Skipping RTCP ICE (Same as RTP)
+2025-11-21 14:12:35.517611 96.23% [INFO] switch_rtp.c:3857 Activate RTP/RTCP audio DTLS client
+2025-11-21 14:12:35.517611 96.23% [INFO] switch_rtp.c:4045 Changing audio DTLS state from OFF to HANDSHAKE
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_core_media.c:8971 sofia/internal/5001@192.168.2.200 Set 2833 dtmf send payload to 126
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_core_media.c:8978 sofia/internal/5001@192.168.2.200 Set 2833 dtmf receive payload to 126
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_core_media.c:9001 sofia/internal/5001@192.168.2.200 Set rtp dtmf delay to 40
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_core_media.c:9007 Set comfort noise payload to 13
+2025-11-21 14:12:35.517611 96.23% [DEBUG] mod_sofia.c:914 Local SDP sofia/internal/5001@192.168.2.200:
+v=0
+o=FreeSWITCH 1763680371 1763680372 IN IP4 192.168.2.200
+s=FreeSWITCH
+c=IN IP4 192.168.2.200
+t=0 0
+a=msid-semantic: WMS X8OUXrJXNYBW8erEZNjKWvTb18MWv0r9
+m=audio 25184 UDP/TLS/RTP/SAVPF 9 126 13
+a=rtpmap:9 G722/8000
+a=rtpmap:126 telephone-event/8000
+a=rtpmap:13 CN/8000
+a=ptime:20
+a=sendrecv
+a=fingerprint:sha-256 16:2D:C8:B0:42:6D:9F:63:6B:CE:68:BE:96:C9:8E:98:78:B7:33:02:F8:35:69:BB:AA:32:84:4A:43:66:0A:31
+a=setup:active
+a=rtcp-mux
+a=rtcp:25184 IN IP4 192.168.2.200
+a=ice-ufrag:3ALpnaCgBG1EdwZv
+a=ice-pwd:idJmn8rrWigl69WRESBWHnve
+a=candidate:9071691190 1 udp 2130706431 192.168.2.200 25184 typ host generation 0
+a=end-of-candidates
+a=ssrc:623631880 cname:LRJkXgpN7YbTz3fu
+a=ssrc:623631880 msid:X8OUXrJXNYBW8erEZNjKWvTb18MWv0r9 a0
+a=ssrc:623631880 mslabel:X8OUXrJXNYBW8erEZNjKWvTb18MWv0r9
+a=ssrc:623631880 label:X8OUXrJXNYBW8erEZNjKWvTb18MWv0r9a0
+
+2025-11-21 14:12:35.517611 96.23% [NOTICE] switch_ivr_originate.c:3855 Channel [sofia/internal/5001@192.168.2.200] has been answered
+2025-11-21 14:12:35.517611 96.23% [DEBUG] sofia.c:7493 Channel sofia/internal/5001@192.168.2.200 entering state [completed][200]
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_ivr_async.c:1504 Record session sample rate: 16000 -> 16000
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_core_media_bug.c:976 Attaching BUG to sofia/internal/5001@192.168.2.200
+2025-11-21 14:12:35.517611 96.23% [DEBUG] sofia.c:7493 Channel sofia/internal/5001@192.168.2.200 entering state [ready][200]
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_channel.c:3690 sofia/internal/5001@192.168.2.200 process uuid_record ce0ccca9-93d8-4891-bf75-42e9175f3f03 start /var/lib/freeswitch/recordings/192.168.2.200/archive/2025/Nov/21/ce0ccca9-93d8-4891-bf75-42e9175f3f03.wav: uuid_record(ce0ccca9-93d8-4891-bf75-42e9175f3f03 start /var/lib/freeswitch/recordings/192.168.2.200/archive/2025/Nov/21/ce0ccca9-93d8-4891-bf75-42e9175f3f03.wav)
++OK Success
+
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_channel.c:3912 (sofia/internal/5001@192.168.2.200) Callstate Change RINGING -> ACTIVE
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_ivr_originate.c:3913 Originate Resulted in Success: [sofia/internal/1006@192.168.2.206:5060] Peer UUID: 92486b4c-b5d0-472d-8a63-2306182166ff
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_ivr_originate.c:3171 sofia/internal/1006@192.168.2.206:5060 Setting leg timeout to 30
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_ivr_originate.c:3913 Originate Resulted in Success: [sofia/internal/1006@192.168.2.206:5060] Peer UUID: 92486b4c-b5d0-472d-8a63-2306182166ff
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_ivr_bridge.c:1791 (sofia/internal/1006@192.168.2.206:5060) State Change CS_CONSUME_MEDIA -> CS_EXCHANGE_MEDIA
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_core_state_machine.c:581 (sofia/internal/1006@192.168.2.206:5060) Running State Change CS_EXCHANGE_MEDIA (Cur 2 Tot 52)
+2025-11-21 14:12:35.517611 96.23% [DEBUG] switch_core_state_machine.c:650 (sofia/internal/1006@192.168.2.206:5060) State EXCHANGE_MEDIA
+2025-11-21 14:12:35.517611 96.23% [DEBUG] mod_sofia.c:672 SOFIA EXCHANGE_MEDIA
+2025-11-21 14:12:35.517611 96.23% [NOTICE] switch_rtp.c:1440 Auto Changing audio stun/rtp/dtls port from 198.18.0.1:59611 to 192.168.2.182:59612 idx:-1
+2025-11-21 14:12:35.557507 96.23% [INFO] switch_rtp.c:3341 Changing audio DTLS state from HANDSHAKE to SETUP
+2025-11-21 14:12:35.557507 96.23% [DEBUG] switch_rtp.c:7698 Correct audio ip/port confirmed.
+2025-11-21 14:12:35.577540 96.23% [INFO] switch_rtp.c:3248 audio Fingerprint Verified.
+2025-11-21 14:12:35.577540 96.23% [INFO] switch_rtp.c:4369 Activating audio Secure RTP SEND
+2025-11-21 14:12:35.577540 96.23% [INFO] switch_rtp.c:4347 Activating audio Secure RTP RECV
+2025-11-21 14:12:35.577540 96.23% [INFO] switch_rtp.c:3290 Changing audio DTLS state from SETUP to READY
+2025-11-21 14:12:35.577540 96.23% [DEBUG] switch_core_sqldb.c:2778 Secure Type: srtp:dtls:AES_CM_128_HMAC_SHA1_80
+2025-11-21 14:12:35.577540 96.23% [DEBUG] switch_core_sqldb.c:2778 Secure Type: srtp:dtls:AES_CM_128_HMAC_SHA1_80
+2025-11-21 14:12:35.577540 96.23% [DEBUG] switch_ivr_async.c:1778 No silence detection configured; assuming start of speech
+2025-11-21 14:12:35.577540 96.23% [DEBUG] switch_rtp.c:1934 rtcp_stats_init: audio ssrc[1907137975] base_seq[13824]
+2025-11-21 14:12:35.597614 96.23% [DEBUG] switch_core_io.c:448 Setting BUG Codec G722:9

@@ -69,12 +69,16 @@ if (count($_REQUEST) > 0) {
 			$source = preg_replace($num_pattern,'',$_REQUEST['source']);
 			$destination = preg_replace($num_pattern,'',$_REQUEST['destination']);
 			$emergency = $_REQUEST['emergency'] ?? 'false'; // 急呼标识
-			
-				// 急呼模式：先呼叫目标分机（被叫），然后自动接听并连接到调度员（主叫）
-				// 使用特殊的拨号计划，确保急呼的特殊行为
-				$api_cmd = 'bgapi originate ' . $params_string . ' user/' . $destination . '@' . $_SESSION['domain_name'] . ' &park()';
-				
-				// 记录原始命令，用于后续桥接
+			$domain_name = $_SESSION['domain_name'];
+			$params_array = [];
+			$params_string = '';
+			if ($emergency === 'true') {
+				$params_array[] = 'origination_caller_id_name=' . $source;
+				$params_array[] = 'origination_caller_id_number=' . $source;
+				$params_array[] = 'sip_h_X-Emergency-Call=true';
+				$params_array[] = 'sip_h_Alert-Info=<http://fusionpbx.com>;info=emergency;answer-after=15';
+				$params_string = '{' . implode(',', $params_array) . '}';
+				$api_cmd = 'bgapi originate ' . $params_string.'user/'.$destination.'@'.$domain_name.' &park()';
 				$_SESSION['emergency_bridge'][$destination] = [
 					'source' => $source,
 					'destination' => $destination,
@@ -82,8 +86,10 @@ if (count($_REQUEST) > 0) {
 					'timestamp' => time()
 				];
 			} else {
-				// 普通模式：直接呼叫
-				$api_cmd = 'bgapi originate ' . $params_string . ' user/' . $source . '@' . $_SESSION['domain_name'] . ' ' . $destination . ' XML ' . trim($_SESSION['user_context']);
+				$params_array[] = 'origination_caller_id_name=' . $source;
+				$params_array[] = 'origination_caller_id_number=' . $source;
+				$params_string = '{' . implode(',', $params_array) . '}';
+				$api_cmd = 'bgapi originate ' . $params_string.'user/'.$source.'@'.$domain_name.' '.$destination.' XML '.trim($_SESSION['user_context']);
 			}
 		}
 			else if ($switch_cmd == 'uuid_record') {
@@ -295,27 +301,7 @@ if (count($_REQUEST) > 0) {
 			error_log("Emergency Call Failed - Status: " . trim((string)$user_status));
 		}
 
-		/*
-			//record stop
-			if ($action == "record") {
-				if (trim($_GET["action2"]) == "stop") {
-					$x=0;
-					while (true) {
-						if ($x > 0) {
-							$dest_file = $_SESSION['switch']['recordings']['dir']."/archive/".date("Y")."/".date("M")."/".date("d")."/".$_GET["uuid"]."_".$x.".wav";
-						}
-						else {
-							$dest_file = $_SESSION['switch']['recordings']['dir']."/archive/".date("Y")."/".date("M")."/".date("d")."/".$_GET["uuid"].".wav";
-						}
-						if (!file_exists($dest_file)) {
-							rename($_SESSION['switch']['recordings']['dir']."/archive/".date("Y")."/".date("M")."/".date("d")."/".$_GET["uuid"].".wav", $dest_file);
-							break;
-						}
-						$x++;
-					}
-				}
-			}
-			*/
 		}
 
+	}
 ?>

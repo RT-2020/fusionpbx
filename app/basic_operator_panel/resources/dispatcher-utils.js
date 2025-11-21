@@ -254,7 +254,25 @@
       }catch(e){}
       try{
         var audios = document.querySelectorAll('audio')
-        audios.forEach(function(a){ try{ a.pause(); a.src=''; if (a.parentNode) a.parentNode.removeChild(a) }catch(e){} })
+        var active = 0
+        try{
+          var sc = window.dispatcherControl && window.dispatcherControl.sipClient
+          if (sc && typeof sc.getActiveSessions === 'function') {
+            active = (sc.getActiveSessions() || []).length
+          }
+        }catch(e){}
+        var keepCallAudio = active > 0
+        audios.forEach(function(a){
+          try{
+            var id = a && a.id ? a.id : ''
+            var role = (a && a.getAttribute) ? a.getAttribute('data-role') : ''
+            var isCallAudio = (id && id.indexOf('remote-audio-') === 0) || role === 'call-audio'
+            if (isCallAudio && keepCallAudio) { return }
+            a.pause();
+            a.src='';
+            if (a.parentNode) a.parentNode.removeChild(a)
+          }catch(e){}
+        })
       }catch(e){}
     },
     verifyReleased: function(){
