@@ -2064,13 +2064,63 @@ function initiateBatchCall() {
 			return;
 		}
 		
+		// 获取调度员分机号
+		var operatorExt = $('#eavesdrop_dest').val();
+		if (!operatorExt && dispatcherControl && dispatcherControl.config) {
+			operatorExt = dispatcherControl.config.authUser;
+		}
+		
+		// 记录原始数量
+		var originalCount = targets.length;
+
+		// [新增] 基于DOM的在线分机过滤
+		// 获取页面上所有在线分机 (class="op_ext" 且没有 "ur_ext")
+		var onlineExtensions = [];
+		$('.op_ext').each(function() {
+			// 排除未注册的分机 (如果有 ur_ext 类)
+			if (!$(this).hasClass('ur_ext')) {
+				var ext = $(this).attr('id');
+				if (ext) onlineExtensions.push(String(ext));
+			}
+		});
+		
+		// 只保留在线的分机
+		if (onlineExtensions.length > 0) {
+			targets = targets.filter(function(ext) {
+				return onlineExtensions.indexOf(String(ext)) !== -1;
+			});
+		} else {
+			console.warn('[批量呼叫] ⚠️ 前端未检测到任何在线分机，跳过在线过滤(可能导致呼叫离线分机)');
+		}
+		
+		// 过滤掉调度员自己的分机
+		if (operatorExt) {
+			// 统一转换为字符串进行比较
+			var operatorExtStr = String(operatorExt);
+			var countBeforeExclude = targets.length;
+			
+			targets = targets.filter(function(ext) {
+				return String(ext) !== operatorExtStr;
+			});
+			
+			if (targets.length < countBeforeExclude) {
+				console.log('批量呼叫: 已排除调度员自身分机 ' + operatorExt);
+			}
+		}
+		
+		// 验证过滤后是否还有目标
+		if (targets.length === 0) {
+			DispatcherUtils.alert('过滤后没有可呼叫的分机', 'warn');
+			return;
+		}
+		
 		// 使用 dispatcherControl 发起呼叫
 		dispatcherControl.startGroupCallWithExtensions(targets);
 		
 		closeBatchCallModal();
 		$('#group-call-status').show();
 		var typeText = ($('#batch-call-type').val() === 'broadcast') ? '全呼' : '组呼';
-		$('#group-call-status-text').text(typeText + '进行中...');
+		$('#group-call-status-text').text(typeText + '进行中 (呼叫 ' + targets.length + ' 个分机)...');
 		
 	} catch (e) {
 		console.error('解析会议参与者失败:', e);
@@ -2196,6 +2246,12 @@ function initiateEmergencyCall() {
             DispatcherUtils.alert('请输入目标分机号', 'warn');
             return;
         }
+		// 检查是否对自己发起急呼
+		var operatorExt = $('#eavesdrop_dest').val() || (window.dispatcherControl && dispatcherControl.config && dispatcherControl.config.authUser);
+		if (operatorExt && targetExt === operatorExt) {
+			DispatcherUtils.alert('不能对自己发起急呼', 'warn');
+			return;
+		}
 		targets = [targetExt];
 	} else if (type === 'group') {
 		// 从会议选项中获取参与者列表
@@ -2247,6 +2303,46 @@ function initiateEmergencyCall() {
         DispatcherUtils.alert('未检测到调度终端分机', 'warn');
         return;
     }
+	
+	// 对于组呼/全呼，过滤掉调度员自己的分机
+	if (type !== 'single' && dispatcherExt) {
+		var originalCount = targets.length;
+
+		// [新增] 基于DOM的在线分机过滤
+		var onlineExtensions = [];
+		$('.op_ext').each(function() {
+			if (!$(this).hasClass('ur_ext')) {
+				var ext = $(this).attr('id');
+				if (ext) onlineExtensions.push(String(ext));
+			}
+		});
+		
+		// 只保留在线的分机
+		if (onlineExtensions.length > 0) {
+			targets = targets.filter(function(ext) {
+				return onlineExtensions.indexOf(String(ext)) !== -1;
+			});
+		} else {
+			console.warn('[急呼] ⚠️ 前端未检测到任何在线分机，跳过在线过滤');
+		}
+		
+		// 过滤调度员自己
+		var dispatcherExtStr = String(dispatcherExt);
+		var countBeforeExclude = targets.length;
+		
+		targets = targets.filter(function(ext) {
+			return String(ext) !== dispatcherExtStr;
+		});
+		
+		if (targets.length < countBeforeExclude) {
+			console.log('急呼: 已排除调度员自身分机 ' + dispatcherExt);
+		}
+		
+		if (targets.length === 0) {
+			DispatcherUtils.alert('过滤后没有可呼叫的分机', 'warn');
+			return;
+		}
+	}
 	
 	closeEmergencyModal();
 	
