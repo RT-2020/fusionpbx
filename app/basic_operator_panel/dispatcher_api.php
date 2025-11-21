@@ -514,53 +514,73 @@ switch ($action) {
 		// 按呼叫模式筛选
 		if ($call_mode_filter !== 'all') {
 			$sql .= "and call_mode = :call_mode ";
+			$parameters['call_mode'] = $call_mode_filter;
 		}
 		
 		$sql .= "order by conference_name asc ";
 		
 		$parameters['domain_uuid'] = $_SESSION['domain_uuid'];
-		if ($call_mode_filter !== 'all') {
-			$parameters['call_mode'] = $call_mode_filter;
-		}
-		
 		$database = new database;
 		$conferences = $database->select($sql, $parameters, 'all');
 		
-		$result = [];
-		if (!empty($conferences)) {
-			// 获取所有启用的分机（用于 all_call 和验证）
-			$sql_ext = "select extension from v_extensions ";
-			$sql_ext .= "where domain_uuid = :domain_uuid and enabled = 'true' ";
-			$sql_ext .= "order by extension asc ";
-			$parameters_ext = ['domain_uuid' => $_SESSION['domain_uuid']];
-			$all_extensions_rows = $database->select($sql_ext, $parameters_ext, 'all');
-			$all_extensions = [];
-			if (!empty($all_extensions_rows)) {
-				foreach ($all_extensions_rows as $e) {
-					$all_extensions[] = $e['extension'];
-				}
-			}
+		        $result = [];
+        if (!empty($conferences)) {
+            // 获取所有启用的分机（用于 all_call 和验证）
+            $sql_ext = "select extension from v_extensions ";
+            $sql_ext .= "where domain_uuid = :domain_uuid and enabled = 'true' ";
+            $sql_ext .= "order by extension asc ";
+            $parameters_ext = ['domain_uuid' => $_SESSION['domain_uuid']];
+            $all_extensions_rows = $database->select($sql_ext, $parameters_ext, 'all');
+            $all_extensions = [];
+            if (!empty($all_extensions_rows)) {
+                foreach ($all_extensions_rows as $e) {
+                    $all_extensions[] = $e['extension'];
+                }
+            }
+
+            // 计算在线分机列表（当前域名下的注册用户），默认启用 online_only 逻辑
+            $online_only = !isset($_GET['online_only']) || $_GET['online_only'] !== 'false';
+            $online_extensions = [];
+            try {
+                $registrations_json = event_socket::api('show registrations as json');
+                $registrations = json_decode($registrations_json, true);
+                if (is_array($registrations) && isset($registrations['rows']) && is_array($registrations['rows'])) {
+                    $domain_name = $_SESSION['domain_name'];
+                    $online_map = [];
+                    foreach ($registrations['rows'] as $row) {
+                        $realm = $row['realm'] ?? ($row['to-host'] ?? '');
+                        $user  = $row['user'] ?? '';
+                        if ($user === '') { continue; }
+                        if ($realm !== '' && strcasecmp($realm, $domain_name) !== 0) { continue; }
+                        $online_map[$user] = true;
+                    }
+                    if (!empty($online_map)) { $online_extensions = array_keys($online_map); }
+                }
+            } catch (Exception $e) { /* 忽略ESL异常，按非在线过滤失败处理 */ }
 			
 			foreach ($conferences as $conf) {
 				$call_mode = $conf['call_mode'] ?? 'single_call';
 				$participants = [];
-				
-				if ($call_mode === 'all_call') {
-					// 全呼：返回所有启用分机
-					$participants = $all_extensions;
-				} else if ($call_mode === 'group_call' || $call_mode === 'single_call') {
-					// 群呼/单呼：解析 call_mode_targets
-					$targets_raw = $conf['call_mode_targets'] ?? '';
-					if (!empty($targets_raw)) {
-						$targets = array_filter(array_map('trim', explode(',', $targets_raw)));
-						// 过滤出在启用分机列表中的目标
-						foreach ($targets as $t) {
-							if (in_array($t, $all_extensions, true)) {
-								$participants[] = $t;
-							}
-						}
-					}
-				}
+                if ($call_mode === 'all_call') {
+                    // 全呼：默认仅返回当前在线分机；如 online_only=false 则返回所有启用分机
+                    if ($online_only && !empty($online_extensions)) {
+                        $participants = array_values(array_intersect($all_extensions, $online_extensions));
+                    } else {
+                        $participants = $all_extensions;
+                    }
+                } else if ($call_mode === 'group_call' || $call_mode === 'single_call') {
+                	// 群呼/单呼：解析 call_mode_targets
+                	$targets_raw = $conf['call_mode_targets'] ?? '';
+                	if (!empty($targets_raw)) {
+                		$targets = array_filter(array_map('trim', explode(',', $targets_raw)));
+                		// 过滤出在启用分机列表中的目标
+                		foreach ($targets as $t) {
+                			if (in_array($t, $all_extensions, true)) {
+                				$participants[] = $t;
+                			}
+                		}
+                	}
+                }
 				
 				$result[] = [
 					'conference_uuid' => $conf['conference_uuid'],

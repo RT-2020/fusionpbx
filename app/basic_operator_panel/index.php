@@ -2017,7 +2017,7 @@ function updateBatchCallTargets() {
 	desc.text('正在加载会议列表...');
 	
 	$.ajax({
-		url: 'dispatcher_api.php?action=get_conferences&call_mode_filter=' + callMode,
+		url: 'dispatcher_api.php?action=get_conferences&emergency_filter=false&call_mode_filter=' + callMode,
 		type: 'GET',
 		dataType: 'json',
 		success: function(response) {
