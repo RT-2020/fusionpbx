@@ -2065,9 +2065,10 @@ function initiateBatchCall() {
 		}
 		
 		// 获取调度员分机号
-		var operatorExt = $('#eavesdrop_dest').val();
-		if (!operatorExt && dispatcherControl && dispatcherControl.config) {
-			operatorExt = dispatcherControl.config.authUser;
+		var operatorExt = (dispatcherControl && dispatcherControl.config && dispatcherControl.config.authUser) ? dispatcherControl.config.authUser : '';
+		if (!operatorExt) {
+			DispatcherUtils.alert('请先注册SIP', 'warn');
+			return;
 		}
 		
 		// 记录原始数量
@@ -2247,7 +2248,11 @@ function initiateEmergencyCall() {
             return;
         }
 		// 检查是否对自己发起急呼
-		var operatorExt = $('#eavesdrop_dest').val() || (window.dispatcherControl && dispatcherControl.config && dispatcherControl.config.authUser);
+		var operatorExt = (window.dispatcherControl && dispatcherControl.config && dispatcherControl.config.authUser) ? dispatcherControl.config.authUser : '';
+		if (!operatorExt) {
+			DispatcherUtils.alert('请先注册SIP', 'warn');
+			return;
+		}
 		if (operatorExt && targetExt === operatorExt) {
 			DispatcherUtils.alert('不能对自己发起急呼', 'warn');
 			return;
@@ -2297,12 +2302,11 @@ function initiateEmergencyCall() {
     }
 	
 	// 获取调度员分机
-	var operatorExt = $('#eavesdrop_dest').val();
-	var dispatcherExt = (window.dispatcherControl && dispatcherControl.config && dispatcherControl.config.authUser) ? dispatcherControl.config.authUser : operatorExt;
-    if (!dispatcherExt) {
-        DispatcherUtils.alert('未检测到调度终端分机', 'warn');
-        return;
-    }
+	var dispatcherExt = (window.dispatcherControl && dispatcherControl.config && dispatcherControl.config.authUser) ? dispatcherControl.config.authUser : '';
+	if (!dispatcherExt) {
+		DispatcherUtils.alert('未检测到调度终端分机', 'warn');
+		return;
+	}
 	
 	// 对于组呼/全呼，过滤掉调度员自己的分机
 	if (type !== 'single' && dispatcherExt) {

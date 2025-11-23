@@ -1144,6 +1144,14 @@
             DispatcherUtils.alert('请至少选择一个分机', 'warn');
             return;
         }
+        if (this.config && this.config.authUser) {
+            var beforeCount = extensions.length;
+            var authUserStr = String(this.config.authUser);
+            extensions = extensions.filter(function(e){ return String(e) !== authUserStr; });
+            if (extensions.length < beforeCount) {
+                console.log('批量呼叫: 已排除调度员自身分机 ' + authUserStr);
+            }
+        }
         
         console.log('[Time 0] 开始发起组呼（会议桥模式）:', new Date().toISOString(), extensions);
         
