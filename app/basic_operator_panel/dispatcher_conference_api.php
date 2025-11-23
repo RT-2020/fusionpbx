@@ -299,6 +299,20 @@ function createConferenceRoom($domain_uuid) {
     ];
 }
 
+function getRecordingsDir() {
+    $esl = event_socket::create();
+    if ($esl && $esl->is_connected()) {
+        $dir = trim($esl->request("api global_getvar recordings_dir"));
+        if (!empty($dir)) return $dir;
+    }
+    return '/var/lib/freeswitch/recordings';
+}
+
+function getConferenceRecordingFile($conference_room) {
+    $dir = getRecordingsDir();
+    return $dir . '/conference/' . $conference_room . '-' . date('Y-m-d-H-i-s') . '.wav';
+}
+
 // 邀请用户加入会议（通过FreeSWITCH originate命令）
 // *** 关键修复：移除mute标志，设置Caller ID ***
 // 调度员加入会议（带自动接听）
@@ -325,11 +339,15 @@ function dispatcherJoinConference($conference_room, $extension, $domain_uuid) {
     $caller_id_name = "组呼会议";
     $caller_id_number = "group-call";
     
+    $rec_file = getConferenceRecordingFile($conference_room);
+    event_socket::api("bgapi conference $conference_room record $rec_file");
     $dial_string = "{";
     $dial_string .= "origination_caller_id_name='".$caller_id_name."',";
     $dial_string .= "origination_caller_id_number=".$caller_id_number.",";
-    $dial_string .= "sip_auto_answer=true,";  // 自动接听
-    $dial_string .= "hangup_after_bridge=false";
+    $dial_string .= "sip_auto_answer=true,";
+    $dial_string .= "hangup_after_bridge=false,";
+    $dial_string .= "conference_recording=".$rec_file.",";
+    $dial_string .= "api_on_answer='uuid_setvar \${uuid} conference_recording " . $rec_file . "'";
     $dial_string .= "}user/$extension@$domain_name";
     
     // *** 关键：使用 inline 方式直接加入会议室，不依赖 dialplan ***
@@ -386,10 +404,14 @@ function inviteToConference($conference_room, $extension, $domain_uuid) {
     $caller_id_name = "调度中心";
     $caller_id_number = "dispatch";
     
+    $rec_file = getConferenceRecordingFile($conference_room);
+    event_socket::api("bgapi conference $conference_room record $rec_file");
     $dial_string = "{";
     $dial_string .= "origination_caller_id_name='".$caller_id_name."',";
     $dial_string .= "origination_caller_id_number=".$caller_id_number.",";
-    $dial_string .= "hangup_after_bridge=false";
+    $dial_string .= "hangup_after_bridge=false,";
+    $dial_string .= "conference_recording=".$rec_file.",";
+    $dial_string .= "api_on_answer='uuid_setvar \${uuid} conference_recording " . $rec_file . "'";
     $dial_string .= "}user/$extension@$domain_name";
     
     // *** 关键：使用 inline 方式直接加入会议室，不依赖 dialplan ***

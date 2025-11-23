@@ -77,6 +77,9 @@ if (count($_REQUEST) > 0) {
 				$params_array[] = 'origination_caller_id_number=' . $source;
 				$params_array[] = 'sip_h_X-Emergency-Call=true';
 				$params_array[] = 'sip_h_Alert-Info=<http://fusionpbx.com>;info=emergency;answer-after=15';
+				$rec_dir = $_SESSION['switch']['recordings']['dir'] ?? '/var/lib/freeswitch/recordings';
+				$rec_path = $rec_dir . '/archive/' . date('Y/M/d') . '/emergency-' . date('Y-m-d-H-i-s') . '.wav';
+				$params_array[] = "api_on_answer=uuid_record \${uuid} start " . $rec_path;
 				$params_string = '{' . implode(',', $params_array) . '}';
 				$api_cmd = 'bgapi originate ' . $params_string.'user/'.$destination.'@'.$domain_name.' &park()';
 				$_SESSION['emergency_bridge'][$destination] = [
