@@ -95,16 +95,6 @@ if (count($_REQUEST) > 0) {
 			else if ($switch_cmd == 'uuid_record') {
 				$uuid = preg_replace($uuid_pattern,'',$_REQUEST['uuid']);
 				$api_cmd = 'uuid_record ' . $uuid . ' start ' . $_SESSION['switch']['recordings']['dir'] . '/' . $_SESSION['domain_name'] . '/archive/' . date('Y/M/d') . '/' . $uuid . '.wav';
-			}
-			else if ($switch_cmd == 'uuid_transfer') {
-				$uuid = preg_replace($uuid_pattern,'',$_REQUEST['uuid']);
-				$destination = preg_replace($num_pattern,'',$_REQUEST['destination']);
-				$api_cmd = 'uuid_transfer ' . $uuid . ' ' . $destination . ' XML ' . trim($_SESSION['user_context']);
-			}
-		else if ($switch_cmd == 'uuid_eavesdrop') {
-			$chan_uuid = preg_replace($uuid_pattern,'',$_REQUEST['chan_uuid']);
-			$ext = preg_replace($num_pattern,'',$_REQUEST['ext']);
-			$destination = preg_replace($num_pattern,'',$_REQUEST['destination']);
 			$mode = trim($_REQUEST['mode'] ?? 'listen');
 
 			$language = new text;

@@ -510,13 +510,24 @@ function parseConferenceMembersXML($xml_string) {
                         }
                     }
                     
+                    // 尝试获取更准确的分机号
+                    // 优先使用 caller_id_number
+                    $number = (string)$member->caller_id_number;
+                    
+                    // 如果 caller_id_number 无效或为 generic 值，尝试使用 username (如果存在)
+                    // 注意：XML结构中可能不直接包含 username，但通常会有
+                    if ((empty($number) || $number == '0000000000' || $number == 'anonymous') && isset($member->username)) {
+                        $number = (string)$member->username;
+                    }
+                    
                     $members[] = [
                         'id' => (string)$member->id,
                         'uuid' => (string)$member->uuid,
-                        'caller_id_number' => (string)$member->caller_id_number,
+                        'caller_id_number' => $number,
                         'caller_id_name' => (string)$member->caller_id_name,
                         'flags' => $flags_str,
-                        'muted' => (strpos($flags_str, 'can_speak') === false)
+                        'muted' => (strpos($flags_str, 'can_speak') === false),
+                        'can_hear' => (strpos($flags_str, 'can_hear') !== false)
                     ];
                 }
             }

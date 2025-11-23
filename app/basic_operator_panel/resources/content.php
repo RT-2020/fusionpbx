@@ -520,6 +520,11 @@ if (is_array($activity)) {
 	if (permission_exists('operator_panel_eavesdrop') && $ext_state == 'active' && sizeof($_SESSION['user']['extensions']) > 0 && !in_array($extension, $_SESSION['user']['extensions'])) {
 		$block .= 			"<img src='resources/images/eavesdrop.png' style='width: 12px; height: 12px; border: none; margin: 4px 0px 0px 5px; cursor: pointer;' title='".$text['label-three_way']."' aria-label='".$text['label-three_way']."' onclick=\"three_way_call('".escape($ext['destination'])."','".escape($call_identifier)."');\" ".$onhover_pause_refresh.">\n";
 	}
+			//mute/unmute
+			if (permission_exists('operator_panel_manage') && $ext_state == 'active') {
+				$block .= 			"<i class='fas fa-microphone-slash' style='font-size: 12px; margin: 4px 0px 0px 5px; cursor: pointer; color: #666;' title='静音' onclick=\"mute_call('".escape($call_identifier)."', 'mute');\" ".$onhover_pause_refresh."></i>\n";
+				$block .= 			"<i class='fas fa-microphone' style='font-size: 12px; margin: 4px 0px 0px 5px; cursor: pointer; color: #666;' title='取消静音' onclick=\"mute_call('".escape($call_identifier)."', 'unmute');\" ".$onhover_pause_refresh."></i>\n";
+			}
 			//hangup
 			if (permission_exists('operator_panel_hangup') || in_array($extension, $_SESSION['user']['extensions'])) {
 				if (empty($ext['variable_bridge_uuid']) && $ext_state == 'ringing') {

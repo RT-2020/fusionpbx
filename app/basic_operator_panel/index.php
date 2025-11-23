@@ -2903,4 +2903,18 @@ echo "<br><br>\n";
     }
     function resourceHeartbeat_start(){ try{ clearInterval(heartbeat_timer_id) }catch(e){}; heartbeat_timer_id = setInterval(resourceHeartbeat, 30000) }
     function resourceHeartbeat_stop(){ try{ clearInterval(heartbeat_timer_id) }catch(e){} }
+
+    // Mute/Unmute active call line
+    function mute_call(uuid, action) {
+        // action: 'mute' or 'unmute'
+        // direction: 'read' (mute the mic)
+        var url = 'exec.php?cmd=uuid_audio&uuid=' + uuid + '&action=' + action + '&direction=read';
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function(response) {
+                console.log('Mute/Unmute response:', response);
+            }
+        });
+    }
 </script>
