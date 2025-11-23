@@ -313,6 +313,24 @@ function getConferenceRecordingFile($conference_room) {
     return $dir . '/conference/' . $conference_room . '-' . date('Y-m-d-H-i-s') . '.wav';
 }
 
+function setRecordingVarForMembers($conference_room, $rec_file) {
+    $esl = event_socket::create();
+    if (!$esl || !$esl->is_connected()) {
+        return false;
+    }
+    $xml = $esl->request("api conference $conference_room xml_list");
+    $members = parseConferenceMembersXML($xml);
+    if (is_array($members)) {
+        foreach ($members as $m) {
+            $uuid = $m['uuid'] ?? null;
+            if (!empty($uuid)) {
+                event_socket::api("uuid_setvar $uuid conference_recording $rec_file");
+            }
+        }
+    }
+    return true;
+}
+
 // 邀请用户加入会议（通过FreeSWITCH originate命令）
 // *** 关键修复：移除mute标志，设置Caller ID ***
 // 调度员加入会议（带自动接听）
@@ -341,6 +359,7 @@ function dispatcherJoinConference($conference_room, $extension, $domain_uuid) {
     
     $rec_file = getConferenceRecordingFile($conference_room);
     event_socket::api("bgapi conference $conference_room record $rec_file");
+    setRecordingVarForMembers($conference_room, $rec_file);
     $dial_string = "{";
     $dial_string .= "origination_caller_id_name='".$caller_id_name."',";
     $dial_string .= "origination_caller_id_number=".$caller_id_number.",";
@@ -406,6 +425,7 @@ function inviteToConference($conference_room, $extension, $domain_uuid) {
     
     $rec_file = getConferenceRecordingFile($conference_room);
     event_socket::api("bgapi conference $conference_room record $rec_file");
+    setRecordingVarForMembers($conference_room, $rec_file);
     $dial_string = "{";
     $dial_string .= "origination_caller_id_name='".$caller_id_name."',";
     $dial_string .= "origination_caller_id_number=".$caller_id_number.",";
