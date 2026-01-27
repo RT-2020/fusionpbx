@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(dir /B .traedocuments*.md)",
+      "Bash(findstr:*)",
+      "Bash(more:*)",
+      "Bash(git rm:*)",
+      "Bash(git branch:*)",
+      "Bash(git worktree:*)"
+    ]
+  }
+}
