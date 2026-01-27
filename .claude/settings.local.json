@@ -7,7 +7,9 @@
       "Bash(more:*)",
       "Bash(git rm:*)",
       "Bash(git branch:*)",
-      "Bash(git worktree:*)"
+      "Bash(git worktree:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nrefactor\\(config\\): 整合并精简项目规则体系\n\n- 删除 8 个旧的重复规则文件（.cursor/rules/*.mdc）\n- 创建 7 个按优先级编号的新规则文件\n- 新增调度控制面板开发规则\n- 新增 WebSocket 心跳和资源释放强制规则\n- 新增 VoIP 事件规范\n- 更新 .claude/README.md 和 settings.json\n\n规则层级：\n- 🔴 高优先级：安全、PHP、JavaScript\n- 🟡 中优先级：Lua、VoIP、调度面板\n- 🟢 低优先级：Git 提交\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n\\)\")"
     ]
   }
 }

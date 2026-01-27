@@ -1,0 +1,12 @@
+{
+  "description": "FusionPBX 项目配置 - 团队共享",
+  "rulesPriority": [
+    "01-security.md",
+    "02-php-coding.md",
+    "03-javascript-coding.md",
+    "04-lua-coding.md",
+    "05-voip-rules.md",
+    "06-operator-panel.md",
+    "07-git-commit.md"
+  ]
+}
