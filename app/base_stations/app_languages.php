@@ -31,6 +31,7 @@
 	$text['label-online']['en-us'] = "Online";
 	$text['label-offline']['en-us'] = "Offline";
 	$text['label-unknown']['en-us'] = "Unknown";
+	$text['label-checking']['en-us'] = "Checking...";
 	$text['label-search']['en-us'] = "Search";
 	$text['label-true']['en-us'] = "True";
 	$text['label-false']['en-us'] = "False";
@@ -90,6 +91,7 @@
 	$text['label-online']['zh-cn'] = "在线";
 	$text['label-offline']['zh-cn'] = "离线";
 	$text['label-unknown']['zh-cn'] = "未知";
+	$text['label-checking']['zh-cn'] = "检测中...";
 	$text['label-search']['zh-cn'] = "搜索";
 	$text['label-true']['zh-cn'] = "是";
 	$text['label-false']['zh-cn'] = "否";

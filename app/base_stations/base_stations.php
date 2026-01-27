@@ -179,16 +179,7 @@
 	$base_stations = $database->select($sql, $parameters ?? null, 'all');
 	unset($sql, $parameters);
 
-//probe connectivity status
-	function probe_connectivity($ip, $port, $timeout) {
-		$timeout_sec = $timeout / 1000;
-		$connection = @fsockopen($ip, $port, $errno, $errstr, $timeout_sec);
-		$is_reachable = $connection !== false;
-		if ($connection) fclose($connection);
-		return $is_reachable;
-	}
-
-//get probe settings
+//get probe settings (for AJAX)
 	$probe_port = intval($settings->get('base_station', 'probe_port', 22));
 	$probe_timeout = intval($settings->get('base_station', 'probe_timeout', 800));
 
@@ -265,11 +256,6 @@
 				$list_row_url = "base_station_edit.php?id=".urlencode($row['base_station_uuid']).(is_numeric($page) ? '&page='.urlencode($page) : null);
 			}
 			
-			// Probe connectivity
-			$is_online = probe_connectivity($row['ip_address'], $probe_port, $probe_timeout);
-			$status_color = $is_online ? '#12d600' : '#e21b1b';
-			$status_text = $is_online ? $text['label-online'] : $text['label-offline'];
-			
 			echo "<tr class='list-row' href='".$list_row_url."'>\n";
 			if (permission_exists('base_station_edit') || permission_exists('base_station_delete')) {
 				echo "	<td class='checkbox'>\n";
@@ -289,11 +275,11 @@
 			echo "	<td class='hide-xs no-wrap'>".escape($row['mac_address'])."&nbsp;</td>\n";
 			echo "	<td class='hide-sm-dn'>".escape($row['deploy_location'])."&nbsp;</td>\n";
 			echo "	<td class='hide-md-dn'>".escape($row['username'])."&nbsp;</td>\n";
-			echo "	<td class='middle button center' style='text-align: center;'>";
-			echo "		<span style='display: inline-block; vertical-align: middle;'>";
-			echo "			<div style='display: inline-block; width: 8px; height: 8px; border-radius: 50%; background-color: ".$status_color."; border: 1px solid ".color_adjust($status_color, -0.15)."; vertical-align: middle;'></div>";
-			echo "			<span style='margin-left: 6px; vertical-align: middle;'>".$status_text."</span>";
-			echo "		</span>";
+			echo "	<td class='middle button center' style='text-align: center;'>\n";
+			echo "		<span id='status_".$row['base_station_uuid']."' data-ip='".escape($row['ip_address'])."' style='display: inline-block; vertical-align: middle;'>\n";
+			echo "			<div class='status-dot' style='display: inline-block; width: 8px; height: 8px; border-radius: 50%; background-color: #999; border: 1px solid #777; vertical-align: middle;'></div>\n";
+			echo "			<span class='status-text' style='margin-left: 6px; vertical-align: middle;'>".$text['label-checking']."</span>\n";
+			echo "		</span>\n";
 			echo "	</td>\n";
 			if (permission_exists('base_station_edit')) {
 				echo "	<td class='no-link center'>";
@@ -335,6 +321,87 @@
 	echo "</form>\n";
 
 	unset($base_stations);
+
+//AJAX status check JavaScript
+	echo "<script>\n";
+	echo "var probePort = ".intval($settings->get('base_station', 'probe_port', 22)).";\n";
+	echo "var probeTimeout = ".intval($settings->get('base_station', 'probe_timeout', 800)).";\n";
+	echo "var cacheTTL = 60;\n\n";
+
+	echo "function checkBaseStationStatus() {\n";
+	echo "	var statusElements = document.querySelectorAll('[id^=\"status_\"]');\n";
+	echo "	if (statusElements.length === 0) return;\n\n";
+
+	echo "	var ipAddresses = [];\n";
+	echo "	var uuidMap = {};\n\n";
+
+	echo "	statusElements.forEach(function(el) {\n";
+	echo "		var ip = el.getAttribute('data-ip');\n";
+	echo "		var uuid = el.id.replace('status_', '');\n\n";
+
+	echo "		//check localStorage cache\n";
+	echo "		var cacheKey = 'base_station_status_' + ip;\n";
+	echo "		var cached = localStorage.getItem(cacheKey);\n";
+	echo "		if (cached) {\n";
+	echo "			var data = JSON.parse(cached);\n";
+	echo "			if (Date.now() - data.timestamp < cacheTTL * 1000) {\n";
+	echo "				updateStatusUI(el, data.status);\n";
+	echo "				return;\n";
+	echo "			}\n";
+	echo "		}\n\n";
+
+	echo "		ipAddresses.push(ip);\n";
+	echo "		uuidMap[ip] = uuid;\n";
+	echo "	});\n\n";
+
+	echo "	if (ipAddresses.length === 0) return;\n\n";
+
+	echo "	//AJAX request to check status\n";
+	echo "	var formData = new FormData();\n";
+	echo "	formData.append('port', probePort);\n";
+	echo "	formData.append('timeout', probeTimeout);\n";
+	echo "	ipAddresses.forEach(function(ip) {\n";
+	echo "		formData.append('ip_addresses[]', ip);\n";
+	echo "	});\n\n";
+
+	echo "	fetch('resources/check_status.php', {\n";
+	echo "		method: 'POST',\n";
+	echo "		body: formData\n";
+	echo "	})\n";
+	echo "	.then(response => response.json())\n";
+	echo "	.then(data => {\n";
+	echo "		for (var ip in data) {\n";
+	echo "			var uuid = uuidMap[ip];\n";
+	echo "			var el = document.getElementById('status_' + uuid);\n";
+	echo "			if (el) {\n";
+	echo "				updateStatusUI(el, data[ip]);\n";
+	echo "				//save to cache\n";
+	echo "				localStorage.setItem('base_station_status_' + ip, JSON.stringify({\n";
+	echo "					timestamp: Date.now(),\n";
+	echo "					status: data[ip]\n";
+	echo "				}));\n";
+	echo "			}\n";
+	echo "		}\n";
+	echo "	})\n";
+	echo "	.catch(error => console.error('Status check error:', error));\n";
+	echo "}\n\n";
+
+	echo "function updateStatusUI(el, isOnline) {\n";
+	echo "	var dot = el.querySelector('.status-dot');\n";
+	echo "	var text = el.querySelector('.status-text');\n";
+	echo "	var statusColor = isOnline ? '#12d600' : '#e21b1b';\n";
+	echo "	var statusText = isOnline ? '".addslashes($text['label-online'])."' : '".addslashes($text['label-offline'])."';\n\n";
+
+	echo "	dot.style.backgroundColor = statusColor;\n";
+	echo "	dot.style.borderColor = isOnline ? '#0f9e00' : '#b01616';\n";
+	echo "	text.textContent = statusText;\n";
+	echo "}\n\n";
+
+	echo "//check status when page loads\n";
+	echo "document.addEventListener('DOMContentLoaded', function() {\n";
+	echo "	setTimeout(checkBaseStationStatus, 100);\n";
+	echo "});\n";
+	echo "</script>\n";
 
 //show the footer
 	require_once "resources/footer.php";
