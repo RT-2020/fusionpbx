@@ -146,8 +146,7 @@
 
 		if ($action == "update") {
 			$array['base_stations'][$x]['base_station_uuid'] = $base_station_uuid;
-			$array['base_stations'][$x]['update_date'] = 'now()';
-			$array['base_stations'][$x]['update_user'] = $_SESSION['user_uuid'];
+			// update_date 和 update_user 由 database->save() 自动添加
 			$message = $text['message-update'];
 		}
 
