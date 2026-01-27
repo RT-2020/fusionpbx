@@ -79,7 +79,8 @@ function cleanupCall(callUuid) {
 ## 落地进度
 
 - [x] Day 1-2: 整理现有规则，创建分层规则体系
-- [x] Day 3: 添加 `/plan` 命令
+- [x] Day 3: 添加 `/plan` 命令（自动风险评估版本）
+- [x] Day 3: 添加风险规则配置（`risk-rules.md`）
 - [x] Day 3: 配置基础 Hooks（提醒型）
 - [ ] Day 4+: 可选扩展（agents, MCP）
 
