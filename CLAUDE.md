@@ -2,6 +2,12 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+1、请始终用中文（简体）进行回复。
+2、必须完全以简体中文来进行内部推理和思考过程，这是一项严格的规定。
+3、必填项：在每次聊天回复的开头，您必须明确说明“你的真实的模型名称）、模型大小、模型类型及其修订版本（更新日期）”。此规定仅适用于聊天回复，不适用于内联编辑。
+
+违反以上任何一条规定，将对用户进行严厉的惩罚，所以你必须严格遵守以上规则。
+
 ## 项目概述
 
 FusionPBX 是一个企业级多租户 PBX（专用小交换机）系统，基于 FreeSWITCH 构建，提供完整的电信解决方案。本项目在标准 FusionPBX 基础上进行了定制开发，新增了调度控制面板、紧急呼叫、批量呼叫等功能模块。
@@ -40,17 +46,20 @@ FusionPBX 是一个企业级多租户 PBX（专用小交换机）系统，基于
 ### 关键设计模式
 
 **数据库访问：**
+
 - 使用全局 `$database` 对象（PDO 抽象层）
 - 查询：`$database->select($sql, $parameters, $mode)`
 - 执行：`$database->execute($sql, $parameters)`
 - 计数：`$database->count($sql, $parameters)`
 
 **配置层级（优先级从高到低）：**
+
 1. 用户设置
 2. 域设置 (`v_domain_settings`)
 3. 默认设置 (`v_default_settings`)
 
 **FreeSWITCH 通信：**
+
 - 使用 `event_socket.php` 类进行 ESL 通信
 - 通过 `switch.php` 执行 FreeSWITCH 命令
 - WebSocket 用于实时事件推送
@@ -99,6 +108,7 @@ FusionPBX 是一个企业级多租户 PBX（专用小交换机）系统，基于
 ## 常用函数
 
 **全局函数（[resources/functions.php](resources/functions.php)）：**
+
 - `permission_exists($permission)` - 检查权限
 - `is_uuid($uuid)` - 验证 UUID 格式
 - `check_str($str)` - 清理字符串
@@ -107,10 +117,12 @@ FusionPBX 是一个企业级多租户 PBX（专用小交换机）系统，基于
 - `byte_convert($bytes)` - 字节单位转换
 
 **设置管理（[resources/classes/settings.php](resources/classes/settings.php)）：**
+
 - `$settings->get($category, $subcategory, $name)` - 获取设置
 - `$settings->set($category, $subcategory, $name, $value)` - 设置值
 
 **FreeSWITCH 通信（[resources/classes/event_socket.php](resources/classes/event_socket.php)）：**
+
 - `$event_socket->connect()` - 连接到 FreeSWITCH
 - `$event_socket->command($cmd)` - 执行命令
 - `$event_socket->disconnect()` - 断开连接
@@ -118,12 +130,14 @@ FusionPBX 是一个企业级多租户 PBX（专用小交换机）系统，基于
 ## 核心模块
 
 **基础功能：**
+
 - [extensions/](app/extensions/) - 分机管理
 - [domains/](app/domains/) - 域管理（多租户）
 - [users/](app/users/) - 用户管理
 - [permissions/](app/permissions/) - 权限管理
 
 **通话功能：**
+
 - [dialplans/](app/dialplans/) - 拨号计划
 - [call_centers/](app/call_centers/) - 呼叫中心
 - [conferences/](app/conferences/) - 会议系统
@@ -131,11 +145,13 @@ FusionPBX 是一个企业级多租户 PBX（专用小交换机）系统，基于
 - [call_recordings/](app/call_recordings/) - 呼叫录制
 
 **自定义模块：**
+
 - [basic_operator_panel/](app/basic_operator_panel/) - 调度控制面板（实时通话管理、急呼、组呼/全呼）
 - [emergency/](app/emergency/) - 紧急呼叫处理
 - [base_stations/](app/base_stations/) - 基站管理
 
 **高级功能：**
+
 - [voicemails/](app/voicemails/) - 语音邮件
 - [ivr_menus/](app/ivr_menus/) - IVR 菜单
 - [devices/](app/devices/) - 设备配置
@@ -143,6 +159,7 @@ FusionPBX 是一个企业级多租户 PBX（专用小交换机）系统，基于
 - [sip_profiles/](app/sip_profiles/) - SIP 配置
 
 **系统管理：**
+
 - [switch/](app/switch/) - 系统状态监控
 - [active_calls/](app/active_calls/) - 活动通话监控
 - [registrations/](app/registrations/) - 注册状态
@@ -150,6 +167,7 @@ FusionPBX 是一个企业级多租户 PBX（专用小交换机）系统，基于
 ## 初始化
 
 所有页面必须包含：
+
 ```php
 require_once "resources/require.php";
 ```
@@ -159,6 +177,7 @@ require_once "resources/require.php";
 ## 消息显示
 
 使用 `message::add()` 显示用户消息：
+
 - 错误消息：`message::add($text['error-message'], 'negative');`
 - 警告消息：`message::add($text['warning-message'], 'alert');`
 - 成功消息：`message::add($text['success-message'], 'positive');`
@@ -172,11 +191,13 @@ require_once "resources/require.php";
 ## 调试
 
 **PHP：**
+
 - 使用 `echo` 或 `print_r()`（开发环境）
 - 检查 `/var/log/freeswitch/` 下的日志
 - 使用浏览器开发者工具检查 AJAX 请求
 
 **FreeSWITCH：**
+
 - 使用 `fs_cli` 命令行工具
 - 查看 `freeswitch.log` 日志
 - 使用 `sofia status` 检查 SIP 状态
@@ -187,6 +208,7 @@ require_once "resources/require.php";
 ### 调度控制面板 (basic_operator_panel)
 
 调度控制面板是本项目的核心自定义功能，实现了：
+
 - 实时通话监控和控制
 - 急呼功能（紧急呼叫）
 - 组呼/全呼（批量呼叫）
@@ -194,10 +216,12 @@ require_once "resources/require.php";
 - 通话转接、保持、挂断等操作
 
 **关键文件：**
+
 - `app/basic_operator_panel/basic_operator_panel_index.php` - 主界面
 - `app/basic_operator_panel/resources/dashboard/socket_server.php` - WebSocket 服务器
 
 **WebSocket 事件类型：**
+
 - `call_event` - 通话事件（CHANNEL_CREATE、CHANNEL_DESTROY、CHANNEL_ANSWER）
 - `registration_event` - 注册事件
 - `heartbeat` - 心跳检测
@@ -205,6 +229,7 @@ require_once "resources/require.php";
 ### 紧急呼叫系统
 
 紧急呼叫系统涉及多个模块的联动：
+
 - 振铃组 (`ring_groups`) 添加"启用紧急呼叫"选项
 - 会议 (`conferences`) 添加"紧急会议"选项
 - 调度面板 (`basic_operator_panel`) 显示紧急呼叫报警
@@ -213,6 +238,7 @@ require_once "resources/require.php";
 ### 数据库表设计规范
 
 创建新表时必须包含：
+
 ```sql
 CREATE TABLE v_table_name (
     table_name_uuid VARCHAR(36) PRIMARY KEY,
@@ -231,6 +257,7 @@ CREATE TABLE v_table_name (
 ### SIP 拨号计划
 
 XML 拨号计划位于 `/app/dialplans/`，使用条件判断和正则表达式匹配：
+
 ```xml
 <extension name="example">
     <condition field="destination_number" expression="^(\d{4})$">
@@ -262,6 +289,7 @@ if ($response !== "+OK") {
 ## 开发规范参考
 
 项目包含详细的开发规范，位于 [`.cursor/rules/`](.cursor/rules/) 目录：
+
 - `fusionpbx.mdc` - 项目总体规则和开发规范
 - `php-development.mdc` - PHP 开发具体规则
 - `voip-specific.mdc` - VoIP 和通信系统特定规则
@@ -274,6 +302,7 @@ if ($response !== "+OK") {
 ## 项目自定义文档
 
 自定义功能开发文档位于 [`.trae/documents/`](.trae/documents/) 目录，包含：
+
 - 调度控制面板实现文档
 - 紧急呼叫实施方案
 - 批量呼叫功能文档
