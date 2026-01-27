@@ -79,9 +79,9 @@ function cleanupCall(callUuid) {
 ## 落地进度
 
 - [x] Day 1-2: 整理现有规则，创建分层规则体系
-- [ ] Day 3-4: 添加核心命令 (`/plan`, `/commit`, `/review`)
-- [ ] Day 5-6: 配置基础 Hooks
-- [ ] Day 7+: 可选扩展（agents, MCP）
+- [x] Day 3: 添加 `/plan` 命令
+- [x] Day 3: 配置基础 Hooks（提醒型）
+- [ ] Day 4+: 可选扩展（agents, MCP）
 
 ## 个人配置
 

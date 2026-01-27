@@ -9,7 +9,8 @@
       "Bash(git branch:*)",
       "Bash(git worktree:*)",
       "Bash(git add:*)",
-      "Bash(git commit -m \"$\\(cat <<''EOF''\nrefactor\\(config\\): 整合并精简项目规则体系\n\n- 删除 8 个旧的重复规则文件（.cursor/rules/*.mdc）\n- 创建 7 个按优先级编号的新规则文件\n- 新增调度控制面板开发规则\n- 新增 WebSocket 心跳和资源释放强制规则\n- 新增 VoIP 事件规范\n- 更新 .claude/README.md 和 settings.json\n\n规则层级：\n- 🔴 高优先级：安全、PHP、JavaScript\n- 🟡 中优先级：Lua、VoIP、调度面板\n- 🟢 低优先级：Git 提交\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n\\)\")"
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nrefactor\\(config\\): 整合并精简项目规则体系\n\n- 删除 8 个旧的重复规则文件（.cursor/rules/*.mdc）\n- 创建 7 个按优先级编号的新规则文件\n- 新增调度控制面板开发规则\n- 新增 WebSocket 心跳和资源释放强制规则\n- 新增 VoIP 事件规范\n- 更新 .claude/README.md 和 settings.json\n\n规则层级：\n- 🔴 高优先级：安全、PHP、JavaScript\n- 🟡 中优先级：Lua、VoIP、调度面板\n- 🟢 低优先级：Git 提交\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nfeat\\(config\\): 添加 /plan 命令和基础 Hooks\n\n- 添加 /plan 命令用于复杂改动前的规划\n- 添加提醒型 Hooks（编辑前检查、提交前检查）\n- 更新 README 落地进度\n\n/plan 适用场景：\n- 调度面板、紧急呼叫、WebSocket 相关改动\n- 多文件改动、代码重构\n- 需求不明确时\n\nHooks 类型：\n- PreToolUse: 编辑前安全检查提醒\n- PostToolUse: Git 提交前检查清单\n- Stop: 会话结束提醒\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n\\)\")"
     ]
   }
 }

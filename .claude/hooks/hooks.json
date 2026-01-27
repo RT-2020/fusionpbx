@@ -1,0 +1,25 @@
+{
+  "description": "FusionPBX 项目 Hooks 配置",
+  "hooks": {
+    "PreToolUse": {
+      "编辑文件前检查": {
+        "pattern": "Edit|Write",
+        "action": "reminder",
+        "message": "⚠️ 编辑前确认：\n1. 是否遵循了安全规则（check_str、escape、domain_uuid 过滤）？\n2. WebSocket 代码是否包含心跳检测？\n3. 通话操作是否正确处理资源释放？"
+      }
+    },
+    "PostToolUse": {
+      "Git提交前检查": {
+        "pattern": "Bash.*git commit",
+        "action": "reminder",
+        "message": "✅ 提交前检查清单：\n- [ ] 是否包含敏感信息（密码、密钥）？\n- [ ] 提交信息是否符合 Conventional Commits 格式？\n- [ ] 是否删除了调试日志？"
+      }
+    },
+    "Stop": {
+      "会话结束提醒": {
+        "action": "reminder",
+        "message": "📝 会话即将结束，建议：\n1. 提交当前更改\n2. 记录未完成的工作\n3. 清理临时文件"
+      }
+    }
+  }
+}
