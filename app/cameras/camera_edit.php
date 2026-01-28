@@ -135,23 +135,6 @@
 			unset($sql, $parameters, $num_rows);
 		}
 
-		//encrypt password if provided
-		$password_encrypted = null;
-		if (!empty($password)) {
-			$secret_key = $settings->get('camera', 'secret_key', '');
-			if (!empty($secret_key)) {
-				$password_encrypted = encrypt($secret_key, $password);
-			}
-		}
-		elseif ($action == 'update') {
-			// Keep existing password if not changed
-			$sql = "select password_encrypted from v_cameras ";
-			$sql .= "where camera_uuid = :camera_uuid ";
-			$parameters['camera_uuid'] = $camera_uuid;
-			$password_encrypted = $database->select($sql, $parameters, 'column');
-			unset($sql, $parameters);
-		}
-
 		//build the array
 		$x = 0;
 		$array['cameras'][$x]['domain_uuid'] = $_SESSION['domain_uuid'];
@@ -161,7 +144,7 @@
 		$array['cameras'][$x]['mac_address'] = !empty($mac_address) ? $mac_address : null;
 		$array['cameras'][$x]['location'] = $location;
 		$array['cameras'][$x]['username'] = $username;
-		$array['cameras'][$x]['password_encrypted'] = $password_encrypted;
+		$array['cameras'][$x]['password'] = $password;  // 存储明文密码
 		$array['cameras'][$x]['rtsp_url'] = $rtsp_url;
 		$array['cameras'][$x]['enabled'] = $enabled;
 		$array['cameras'][$x]['description'] = $description;
@@ -176,8 +159,7 @@
 
 		if ($action == "update") {
 			$array['cameras'][$x]['camera_uuid'] = $camera_uuid;
-			$array['cameras'][$x]['update_date'] = 'now()';
-			$array['cameras'][$x]['update_user'] = $_SESSION['user_uuid'];
+			// update_date 和 update_user 由 database->save() 自动添加
 			$message = $text['message-update'];
 		}
 
@@ -221,7 +203,7 @@
 			$mac_address = $row['mac_address'];
 			$location = $row['location'];
 			$username = $row['username'];
-			$password_encrypted = $row['password_encrypted'];
+			$password = $row['password'] ?? '';
 			$rtsp_url = $row['rtsp_url'];
 			$enabled = $row['enabled'];
 			$description = $row['description'];
@@ -326,11 +308,29 @@
 	echo "	".$text['label-password']."\n";
 	echo "</td>\n";
 	echo "<td class='vtable' align='left'>\n";
-	echo "	<input class='formfld' type='password' name='password' maxlength='255' value='' autocomplete='new-password'>\n";
-	echo "<br />\n";
-	if ($action == 'update' && !empty($password_encrypted)) {
-		echo "<span style='color: #666;'>".$text['label-password_set']."</span><br />\n";
-	}
+	echo "	<div style='display: flex; align-items: center; gap: 5px;'>\n";
+	echo "		<input class='formfld' type='password' name='password' id='password_input' maxlength='255' value=\"".escape($password ?? '')."\" autocomplete='new-password' style='flex: 1;'>\n";
+	echo "		<button type='button' class='btn btn-default' onclick='togglePasswordVisibility()' id='toggle_password_btn' title='".$text['label-show_password']."'>\n";
+	echo "			<i class='fa fa-eye' id='toggle_password_icon'></i>\n";
+	echo "		</button>\n";
+	echo "	</div>\n";
+	echo "	<script>\n";
+	echo "	function togglePasswordVisibility() {\n";
+	echo "		var input = document.getElementById('password_input');\n";
+	echo "		var icon = document.getElementById('toggle_password_icon');\n";
+	echo "		var btn = document.getElementById('toggle_password_btn');\n";
+	echo "		if (input.type === 'password') {\n";
+	echo "			input.type = 'text';\n";
+	echo "			icon.className = 'fa fa-eye-slash';\n";
+	echo "			btn.title = '".addslashes($text['label-hide_password'])."';\n";
+	echo "		} else {\n";
+	echo "			input.type = 'password';\n";
+	echo "			icon.className = 'fa fa-eye';\n";
+	echo "			btn.title = '".addslashes($text['label-show_password'])."';\n";
+	echo "		}\n";
+	echo "	}\n";
+	echo "	</script>\n";
+	echo "	<br />\n";
 	echo $text['description-password']."\n";
 	echo "</td>\n";
 	echo "</tr>\n";

@@ -21,13 +21,14 @@
 		$apps[$x]['default_settings'][$y]['default_setting_enabled'] = "true";
 		$apps[$x]['default_settings'][$y]['default_setting_description'] = "Default HTTP port for camera access.";
 		$y++;
-		$apps[$x]['default_settings'][$y]['default_setting_uuid'] = "b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e";
+		$apps[$x]['default_settings'][$y]['default_setting_uuid'] = "c2d3e4f5-a6b7-4b8c-9d0e-1f2a3b4c5d6e";
 		$apps[$x]['default_settings'][$y]['default_setting_category'] = "camera";
-		$apps[$x]['default_settings'][$y]['default_setting_subcategory'] = "secret_key";
+		$apps[$x]['default_settings'][$y]['default_setting_subcategory'] = "player_url";
 		$apps[$x]['default_settings'][$y]['default_setting_name'] = "text";
-		$apps[$x]['default_settings'][$y]['default_setting_value'] = base64_encode(random_bytes(32));
+		$apps[$x]['default_settings'][$y]['default_setting_value'] = "http://192.168.2.225:9003/player";
 		$apps[$x]['default_settings'][$y]['default_setting_enabled'] = "true";
-		$apps[$x]['default_settings'][$y]['default_setting_description'] = "Secret key for encrypting camera passwords (auto-generated).";
+		$apps[$x]['default_settings'][$y]['default_setting_description'] = "Video player URL for RTSP streams (e.g., http://192.168.2.225:9003/player). The RTSP URL will be appended as ?url=<encoded_rtsp_url>.";
+		$y++;
 
 	//permission details
 		$y=0;
@@ -105,9 +106,9 @@
 		$apps[$x]['db'][$y]['fields'][$z]['search'] = 'true';
 		$apps[$x]['db'][$y]['fields'][$z]['description']['en-us'] = "Login username for camera access.";
 		$z++;
-		$apps[$x]['db'][$y]['fields'][$z]['name'] = "password_encrypted";
+		$apps[$x]['db'][$y]['fields'][$z]['name'] = "password";
 		$apps[$x]['db'][$y]['fields'][$z]['type'] = "text";
-		$apps[$x]['db'][$y]['fields'][$z]['description']['en-us'] = "Encrypted password for camera access.";
+		$apps[$x]['db'][$y]['fields'][$z]['description']['en-us'] = "Password for camera access (stored in plain text).";
 		$z++;
 		$apps[$x]['db'][$y]['fields'][$z]['name'] = "location";
 		$apps[$x]['db'][$y]['fields'][$z]['type'] = "text";

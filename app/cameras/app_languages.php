@@ -15,6 +15,10 @@
 	$text['button-back']['en-us'] = "Back";
 	$text['button-continue']['en-us'] = "Continue";
 	$text['button-access']['en-us'] = "Access";
+	$text['button-play']['en-us'] = "Play";
+	$text['button-fullscreen']['en-us'] = "Fullscreen";
+	$text['button-exit-fullscreen']['en-us'] = "Exit Fullscreen";
+	$text['button-close']['en-us'] = "Close";
 
 	$text['label-camera_name']['en-us'] = "Camera Name";
 	$text['label-actions']['en-us'] = "Actions";
@@ -23,6 +27,11 @@
 	$text['label-mac_address']['en-us'] = "MAC Address";
 	$text['label-username']['en-us'] = "Username";
 	$text['label-password']['en-us'] = "Password";
+	$text['label-password']['zh-cn'] = "密码";
+	$text['label-show_password']['en-us'] = "Show Password";
+	$text['label-show_password']['zh-cn'] = "显示密码";
+	$text['label-hide_password']['en-us'] = "Hide Password";
+	$text['label-hide_password']['zh-cn'] = "隐藏密码";
 	$text['label-location']['en-us'] = "Location";
 	$text['label-rtsp_url']['en-us'] = "RTSP URL";
 	$text['label-enabled']['en-us'] = "Enabled";
@@ -73,7 +82,15 @@
 	$text['button-back']['zh-cn'] = "返回";
 	$text['button-continue']['zh-cn'] = "继续";
 	$text['button-access']['zh-cn'] = "访问";
+	$text['button-play']['zh-cn'] = "播放";
+	$text['button-fullscreen']['zh-cn'] = "全屏";
+	$text['button-exit-fullscreen']['zh-cn'] = "退出全屏";
+	$text['button-close']['zh-cn'] = "关闭";
 
+	$text['label-player_url']['en-us'] = "Player URL";
+	$text['label-player_url']['zh-cn'] = "播放器地址";
+	$text['description-player_url']['en-us'] = "Video player URL for RTSP streams (e.g., http://192.168.2.225:9003/player)";
+	$text['description-player_url']['zh-cn'] = "RTSP视频流播放器地址（例如：http://192.168.2.225:9003/player）";
 	$text['label-camera_name']['zh-cn'] = "摄像头名称";
 	$text['label-actions']['zh-cn'] = "操作";
 	$text['label-ip_address']['zh-cn'] = "IP地址";
