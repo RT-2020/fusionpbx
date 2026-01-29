@@ -180,7 +180,6 @@
 	unset($sql, $parameters);
 
 //get probe settings (for AJAX)
-	$probe_port = intval($settings->get('base_station', 'probe_port', 22));
 	$probe_timeout = intval($settings->get('base_station', 'probe_timeout', 800));
 
 //create token
@@ -323,10 +322,11 @@
 	unset($base_stations);
 
 //AJAX status check JavaScript
+	$refresh_interval = intval($settings->get('base_station', 'refresh_interval', 5)); // seconds
 	echo "<script>\n";
-	echo "var probePort = ".intval($settings->get('base_station', 'probe_port', 22)).";\n";
 	echo "var probeTimeout = ".intval($settings->get('base_station', 'probe_timeout', 800)).";\n";
-	echo "var cacheTTL = 60;\n\n";
+	echo "var refreshInterval = ".$refresh_interval." * 1000; // convert to ms\n";
+	echo "var statusCheckTimer = null;\n\n";
 
 	echo "function checkBaseStationStatus() {\n";
 	echo "	var statusElements = document.querySelectorAll('[id^=\"status_\"]');\n";
@@ -337,28 +337,21 @@
 
 	echo "	statusElements.forEach(function(el) {\n";
 	echo "		var ip = el.getAttribute('data-ip');\n";
-	echo "		var uuid = el.id.replace('status_', '');\n\n";
-
-	echo "		//check localStorage cache\n";
-	echo "		var cacheKey = 'base_station_status_' + ip;\n";
-	echo "		var cached = localStorage.getItem(cacheKey);\n";
-	echo "		if (cached) {\n";
-	echo "			var data = JSON.parse(cached);\n";
-	echo "			if (Date.now() - data.timestamp < cacheTTL * 1000) {\n";
-	echo "				updateStatusUI(el, data.status);\n";
-	echo "				return;\n";
-	echo "			}\n";
-	echo "		}\n\n";
-
+	echo "		var uuid = el.id.replace('status_', '');\n";
 	echo "		ipAddresses.push(ip);\n";
 	echo "		uuidMap[ip] = uuid;\n";
 	echo "	});\n\n";
 
 	echo "	if (ipAddresses.length === 0) return;\n\n";
 
+	echo "	//Show checking status\n";
+	echo "	statusElements.forEach(function(el) {\n";
+	echo "		var text = el.querySelector('.status-text');\n";
+	echo "		if (text) text.textContent = '".addslashes($text['label-checking'])."';\n";
+	echo "	});\n\n";
+
 	echo "	//AJAX request to check status\n";
 	echo "	var formData = new FormData();\n";
-	echo "	formData.append('port', probePort);\n";
 	echo "	formData.append('timeout', probeTimeout);\n";
 	echo "	ipAddresses.forEach(function(ip) {\n";
 	echo "		formData.append('ip_addresses[]', ip);\n";
@@ -375,15 +368,17 @@
 	echo "			var el = document.getElementById('status_' + uuid);\n";
 	echo "			if (el) {\n";
 	echo "				updateStatusUI(el, data[ip]);\n";
-	echo "				//save to cache\n";
-	echo "				localStorage.setItem('base_station_status_' + ip, JSON.stringify({\n";
-	echo "					timestamp: Date.now(),\n";
-	echo "					status: data[ip]\n";
-	echo "				}));\n";
 	echo "			}\n";
 	echo "		}\n";
 	echo "	})\n";
-	echo "	.catch(error => console.error('Status check error:', error));\n";
+	echo "	.catch(error => {\n";
+	echo "		console.error('Status check error:', error);\n";
+	echo "		//Show error status\n";
+	echo "		statusElements.forEach(function(el) {\n";
+	echo "			var text = el.querySelector('.status-text');\n";
+	echo "			if (text) text.textContent = '检测失败';\n";
+	echo "		});\n";
+	echo "	});\n";
 	echo "}\n\n";
 
 	echo "function updateStatusUI(el, isOnline) {\n";
@@ -397,9 +392,21 @@
 	echo "	text.textContent = statusText;\n";
 	echo "}\n\n";
 
-	echo "//check status when page loads\n";
+	echo "//Auto-refresh status\n";
+	echo "function startAutoRefresh() {\n";
+	echo "	//Clear existing timer\n";
+	echo "	if (statusCheckTimer) {\n";
+	echo "		clearInterval(statusCheckTimer);\n";
+	echo "	}\n";
+	echo "	//Check status immediately\n";
+	echo "	checkBaseStationStatus();\n";
+	echo "	//Set up periodic refresh\n";
+	echo "	statusCheckTimer = setInterval(checkBaseStationStatus, refreshInterval);\n";
+	echo "}\n\n";
+
+	echo "//Start auto-refresh when page loads\n";
 	echo "document.addEventListener('DOMContentLoaded', function() {\n";
-	echo "	setTimeout(checkBaseStationStatus, 100);\n";
+	echo "	startAutoRefresh();\n";
 	echo "});\n";
 	echo "</script>\n";
 

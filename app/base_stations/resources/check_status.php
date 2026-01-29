@@ -4,6 +4,7 @@
  *
  * Base Station Status Check API
  * Returns JSON response with connectivity status
+ * No caching - real-time ping detection for production deployment
  */
 
 //includes
@@ -21,11 +22,9 @@
 
 //get posted data
 	$ip_addresses = $_POST['ip_addresses'] ?? [];
-	$port = intval($_POST['port'] ?? 22);
 	$timeout = intval($_POST['timeout'] ?? 800);
 
-//check cache first
-	$cache_ttl = 60; // seconds
+//initialize results
 	$results = [];
 
 	foreach ($ip_addresses as $ip) {
@@ -35,31 +34,39 @@
 			continue;
 		}
 
-		$cache_key = 'base_station_status_' . str_replace(['.', ':'], '_', $ip);
-		$cache_file = sys_get_temp_dir() . '/' . $cache_key . '.json';
-
-		//check cache
-		if (file_exists($cache_file)) {
-			$cache_data = json_decode(file_get_contents($cache_file), true);
-			if ($cache_data && (time() - $cache_data['timestamp']) < $cache_ttl) {
-				$results[$ip] = $cache_data['status'];
-				continue;
-			}
+		//probe connectivity using ICMP ping (no cache, real-time)
+		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+			// Windows: ping -n 1 -w <timeout_ms> <ip>
+			$cmd = 'ping -n 1 -w ' . intval($timeout) . ' "' . $ip . '"';
+		} else {
+			// Linux/Unix: ping -c 1 -W <timeout_sec> <ip>
+			$timeout_sec = max(1, ceil($timeout / 1000));
+			$cmd = 'ping -c 1 -W ' . intval($timeout_sec) . ' ' . escapeshellarg($ip) . ' 2>/dev/null';
 		}
 
-		//probe connectivity
-		$timeout_sec = $timeout / 1000;
-		$connection = @fsockopen($ip, $port, $errno, $errstr, $timeout_sec);
-		$is_online = $connection !== false;
-		if ($connection) fclose($connection);
+		$output = [];
+		$return_var = 0;
+		@exec($cmd, $output, $return_var);
 
-		//save to cache
-		$cache_data = [
-			'timestamp' => time(),
-			'status' => $is_online
-		];
-		file_put_contents($cache_file, json_encode($cache_data));
+		// Determine status: parse output for success indicators
+		$output_str = implode(' ', $output);
+		$is_online = false;
 
+		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+			// Windows: check for TTL=, bytes=, "来自", "Reply from"
+			$is_online = ($return_var === 0) ||
+			              (stripos($output_str, 'TTL=') !== false) ||
+			              (stripos($output_str, 'bytes=') !== false) ||
+			              (stripos($output_str, '来自') !== false) ||
+			              (stripos($output_str, 'Reply from') !== false);
+		} else {
+			// Linux: check for "1 received", "packets received"
+			$is_online = ($return_var === 0) ||
+			              (stripos($output_str, '1 received') !== false) ||
+			              (stripos($output_str, 'packets received') !== false);
+		}
+
+		unset($output);
 		$results[$ip] = $is_online;
 	}
 
