@@ -42,6 +42,37 @@
 	$language = new text;
 	$text = $language->get();
 
+//获取当前用户的分机信息（用于自动SIP注册）
+	$user_extension = '';
+	$extension_password = '';
+	$user_extensions_list = []; // 用户所有分机列表
+	if (isset($_SESSION['user']['extension']) && is_array($_SESSION['user']['extension'])) {
+		// 获取用户的所有分机
+		foreach ($_SESSION['user']['extension'] as $ext) {
+			$ext_number = $ext['user'] ?? $ext['extension'] ?? $ext['destination'] ?? '';
+			if (!empty($ext_number)) {
+				$user_extensions_list[] = $ext_number;
+			}
+		}
+		// 使用第一个分机作为默认
+		$first_extension = $_SESSION['user']['extension'][0] ?? null;
+		if ($first_extension) {
+			$user_extension = $first_extension['user'] ?? $first_extension['extension'] ?? $first_extension['destination'] ?? '';
+			// 从数据库获取分机密码
+			if (!empty($user_extension)) {
+				$sql = "SELECT password FROM v_extensions WHERE extension = :extension AND domain_uuid = :domain_uuid";
+				$parameters['extension'] = $user_extension;
+				$parameters['domain_uuid'] = $_SESSION['domain_uuid'];
+				$database = new database;
+				$extension_password = $database->select($sql, $parameters, 'column');
+				unset($sql, $parameters);
+			}
+		}
+	}
+	$server_host = $_SERVER['HTTP_HOST'] ?? '192.168.2.227';
+	$server_ip = explode(':', $server_host)[0];
+	$domain_name = $_SESSION['domain_name'] ?? $server_ip;
+
 //set user status
 	if (isset($_REQUEST['status']) && $_REQUEST['status'] != '') {
 
@@ -1189,33 +1220,51 @@ var dispatcherControl;
 var dispatcherLogger;
 var emergencyAudio;
 
-// 默认SIP配置 - 提供多个备用账号
+// 调试信息（可在控制台查看）
+console.log('用户分机配置调试:', {
+	user_extension: '<?php echo $user_extension; ?>',
+	has_password: <?php echo !empty($extension_password) ? 'true' : 'false'; ?>,
+	domain_name: '<?php echo $domain_name; ?>',
+	server_ip: '<?php echo $server_ip; ?>',
+	session_extensions: <?php echo json_encode($user_extensions_list); ?>
+});
+
+// 当前用户SIP配置（从PHP动态获取）
+var CURRENT_USER_SIP_CONFIG = {
+	ws: 'wss://<?php echo $server_ip; ?>:7443',
+	uri: 'sip:<?php echo $user_extension; ?>@<?php echo $domain_name; ?>',
+	user: '<?php echo $user_extension; ?>',
+	password: '<?php echo $extension_password; ?>',
+	displayName: '<?php echo $user_extension; ?>'
+};
+
+// 默认SIP配置 - 提供多个备用账号（保留用于手动选择）
 var DEFAULT_SIP_ACCOUNTS = [
 	{
-		ws: 'wss://192.168.2.200:7443',
-		uri: 'sip:5001@192.168.2.200',
+		ws: 'wss://<?php echo $server_ip; ?>:7443',
+		uri: 'sip:5001@<?php echo $server_ip; ?>',
 		user: '5001',
 		password: '1234',
 		displayName: '调度员1'
 	},
 	{
-		ws: 'wss://192.168.2.200:7443',
-		uri: 'sip:5002@192.168.2.200',
+		ws: 'wss://<?php echo $server_ip; ?>:7443',
+		uri: 'sip:5002@<?php echo $server_ip; ?>',
 		user: '5002',
 		password: '1234',
 		displayName: '调度员2'
 	},
 	{
-		ws: 'wss://192.168.2.200:7443',
-		uri: 'sip:5003@192.168.2.200',
+		ws: 'wss://<?php echo $server_ip; ?>:7443',
+		uri: 'sip:5003@<?php echo $server_ip; ?>',
 		user: '5003',
 		password: '1234',
 		displayName: '调度员3'
 	}
 ];
 
-// 默认使用第一个账号
-var DEFAULT_SIP_CONFIG = DEFAULT_SIP_ACCOUNTS[0];
+// 默认使用当前用户配置，如无则使用第一个备用账号
+var DEFAULT_SIP_CONFIG = CURRENT_USER_SIP_CONFIG.user ? CURRENT_USER_SIP_CONFIG : DEFAULT_SIP_ACCOUNTS[0];
 
 // 初始化SIP注册表单默认值
 function initSipRegisterForm() {
@@ -1259,32 +1308,42 @@ $(document).ready(function() {
 	
 	// 从localStorage恢复SIP注册状态
 	restoreSipStatus();
-	
+
 	// 加载分组列表 (已移除手动分组，改为批量呼叫面板动态加载)
 	// updateGroupsList();
-	
+
 	// 监听SIP状态更新
 	dispatcherControl.on('registered', function() {
-		updateSipStatus('online', '已注册');
+		var extDisplay = CURRENT_USER_SIP_CONFIG.user || DEFAULT_SIP_CONFIG.user;
+		updateSipStatus('online', extDisplay + ' 已注册');
 		enableDispatcherFunctions();
-		saveSipStatus('online', '已注册'); // 保存状态
+		saveSipStatus('online', extDisplay + ' 已注册'); // 保存状态
 		if (dispatcherControl.renderLinesGrid) { dispatcherControl.renderLinesGrid(); }
 	});
-	
+
 	dispatcherControl.on('unregistered', function() {
 		updateSipStatus('offline', '未注册');
 		disableDispatcherFunctions();
 		saveSipStatus('offline', '未注册'); // 保存状态
 	});
-	
+
 	dispatcherControl.on('registrationFailed', function() {
 		updateSipStatus('offline', '注册失败');
 		saveSipStatus('offline', '注册失败'); // 保存状态
 	});
-	
+
 	dispatcherControl.on('connecting', function() {
 		updateSipStatus('connecting', '连接中...');
 	});
+
+	// 自动注册SIP（如果当前用户有分机配置）
+	if (CURRENT_USER_SIP_CONFIG.user && CURRENT_USER_SIP_CONFIG.password) {
+		setTimeout(function() {
+			autoRegisterSip();
+		}, 1000);
+	} else {
+		updateSipStatus('offline', '未配置分机');
+	}
 });
 
 // 保存SIP状态到localStorage
@@ -1393,6 +1452,34 @@ function doSipUnregister() {
 		.then(function() {
 			updateSipStatus('offline', '已注销');
 			disableDispatcherFunctions();
+		});
+}
+
+// 自动注册SIP（使用当前用户分机）
+function autoRegisterSip() {
+	if (!CURRENT_USER_SIP_CONFIG.user || !CURRENT_USER_SIP_CONFIG.password) {
+		console.log('未配置用户分机，跳过自动注册');
+		return;
+	}
+
+	console.log('开始自动注册SIP:', CURRENT_USER_SIP_CONFIG.user);
+	updateSipStatus('connecting', '自动连接中...');
+
+	var config = {
+		uri: CURRENT_USER_SIP_CONFIG.uri,
+		wsServers: CURRENT_USER_SIP_CONFIG.ws,
+		authUser: CURRENT_USER_SIP_CONFIG.user,
+		password: CURRENT_USER_SIP_CONFIG.password,
+		displayName: CURRENT_USER_SIP_CONFIG.displayName
+	};
+
+	dispatcherControl.register(config)
+		.then(function() {
+			console.log('自动注册成功:', CURRENT_USER_SIP_CONFIG.user);
+		})
+		.catch(function(error) {
+			console.error('自动注册失败:', error.message);
+			updateSipStatus('offline', '自动注册失败');
 		});
 }
 
