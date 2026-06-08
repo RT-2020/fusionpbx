@@ -23,7 +23,7 @@ $text['title-users']['ru-ru'] = "Пользователи";
 $text['title-users']['sv-se'] = "Användare";
 $text['title-users']['uk-ua'] = "Користувачі";
 $text['title-users']['tr-tr'] = "Kullanıcılar";
-$text['title-users']['zh-cn'] = "用户";
+$text['title-users']['zh-cn'] = "用户管理";
 $text['title-users']['ja-jp'] = "ユーザー";
 $text['title-users']['ko-kr'] = "사용자";
 
@@ -159,7 +159,7 @@ $text['title-user_manager']['ru-ru'] = "Управление пользоват�
 $text['title-user_manager']['sv-se'] = "Användare";
 $text['title-user_manager']['uk-ua'] = "Користувачі";
 $text['title-user_manager']['tr-tr'] = "Kullanıcı yönetici";
-$text['title-user_manager']['zh-cn'] = "用户管理人";
+$text['title-user_manager']['zh-cn'] = "用户管理";
 $text['title-user_manager']['ja-jp'] = "ユーザーマネージャー";
 $text['title-user_manager']['ko-kr'] = "사용자 관리자";
 
@@ -213,7 +213,7 @@ $text['option-true']['ru-ru'] = "Да";
 $text['option-true']['sv-se'] = "Ja";
 $text['option-true']['uk-ua'] = "Так";
 $text['option-true']['tr-tr'] = "Doğru";
-$text['option-true']['zh-cn'] = "真";
+$text['option-true']['zh-cn'] = "启用";
 $text['option-true']['ja-jp'] = "真実";
 $text['option-true']['ko-kr'] = "진실";
 
@@ -321,7 +321,7 @@ $text['option-false']['ru-ru'] = "ЛОЖЬ";
 $text['option-false']['sv-se'] = "Nej";
 $text['option-false']['uk-ua'] = "помилковий";
 $text['option-false']['tr-tr'] = "YANLIŞ";
-$text['option-false']['zh-cn'] = "错误的";
+$text['option-false']['zh-cn'] = "关闭";
 $text['option-false']['ja-jp'] = "間違い";
 $text['option-false']['ko-kr'] = "거짓";
 
@@ -999,7 +999,7 @@ $text['label-status']['ru-ru'] = "Статус";
 $text['label-status']['sv-se'] = "Status";
 $text['label-status']['uk-ua'] = "Статус";
 $text['label-status']['tr-tr'] = "Durum";
-$text['label-status']['zh-cn'] = "地位";
+$text['label-status']['zh-cn'] = "状态";
 $text['label-status']['ja-jp'] = "ステータス";
 $text['label-status']['ko-kr'] = "상태";
 
@@ -1431,7 +1431,7 @@ $text['label-groups']['ru-ru'] = "Группы";
 $text['label-groups']['sv-se'] = "Grupper";
 $text['label-groups']['uk-ua'] = "Групи";
 $text['label-groups']['tr-tr'] = "Gruplar";
-$text['label-groups']['zh-cn'] = "团体";
+$text['label-groups']['zh-cn'] = "组";
 $text['label-groups']['ja-jp'] = "グループ";
 $text['label-groups']['ko-kr'] = "여러 떼";
 
@@ -1620,7 +1620,7 @@ $text['label-domain']['ru-ru'] = "Домен";
 $text['label-domain']['sv-se'] = "Domän";
 $text['label-domain']['uk-ua'] = "Домен";
 $text['label-domain']['tr-tr'] = "İhtisas";
-$text['label-domain']['zh-cn'] = "领域";
+$text['label-domain']['zh-cn'] = "域";
 $text['label-domain']['ja-jp'] = "ドメイン";
 $text['label-domain']['ko-kr'] = "도메인";
 
@@ -2484,7 +2484,7 @@ $text['description-enabled']['ru-ru'] = "Установить статус уч�
 $text['description-enabled']['sv-se'] = "Ange statusen på detta konto..";
 $text['description-enabled']['uk-ua'] = "Вкажіть стан цього облікового запису.";
 $text['description-enabled']['tr-tr'] = "Bu hesabın durumunu ayarlayın.";
-$text['description-enabled']['zh-cn'] = "确立该账户的地位。";
+$text['description-enabled']['zh-cn'] = "设置该账户的状态。";
 $text['description-enabled']['ja-jp'] = "このアカウントのステータスを設定します。";
 $text['description-enabled']['ko-kr'] = "이 계정의 상태를 설정합니다.";
 

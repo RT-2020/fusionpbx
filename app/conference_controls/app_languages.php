@@ -100,7 +100,7 @@ $text['label-control_name']['ro-ro'] = "Nume";
 $text['label-control_name']['ru-ru'] = "Имя";
 $text['label-control_name']['sv-se'] = "Namn";
 $text['label-control_name']['uk-ua'] = "Ім'я";
-$text['label-control_name']['zh-cn'] = "姓名";
+$text['label-control_name']['zh-cn'] = "名称";
 $text['label-control_name']['ja-jp'] = "名前";
 $text['label-control_name']['ko-kr'] = "이름";
 

@@ -23,7 +23,7 @@ $text['title-call_block']['ru-ru'] = "Черный список";
 $text['title-call_block']['sv-se'] = "Blockera samtal";
 $text['title-call_block']['uk-ua'] = "Блокування дзвінків";
 $text['title-call_block']['tr-tr'] = "Çağrı Engelleme";
-$text['title-call_block']['zh-cn'] = "呼叫块";
+$text['title-call_block']['zh-cn'] = "呼叫拦截";
 $text['title-call_block']['ja-jp'] = "コールブロック";
 $text['title-call_block']['ko-kr'] = "통화 차단";
 
@@ -77,7 +77,7 @@ $text['heading-block_recent_calls']['ru-ru'] = "Блокировать неда�
 $text['heading-block_recent_calls']['sv-se'] = "Blockera Senaste Samtal";
 $text['heading-block_recent_calls']['uk-ua'] = "Блокувати недавній дзвінок";
 $text['heading-block_recent_calls']['tr-tr'] = "Son Aramaları Engelle";
-$text['heading-block_recent_calls']['zh-cn'] = "阻止最近通话";
+$text['heading-block_recent_calls']['zh-cn'] = "拦截最近通话";
 $text['heading-block_recent_calls']['ja-jp'] = "最近の通話をブロックする";
 $text['heading-block_recent_calls']['ko-kr'] = "최근 통화 차단";
 
@@ -185,7 +185,7 @@ $text['label-provide-name']['ru-ru'] = "Пожалуйста, введите: И
 $text['label-provide-name']['sv-se'] = "Ange: Namn";
 $text['label-provide-name']['uk-ua'] = "Введіть назву";
 $text['label-provide-name']['tr-tr'] = "Lütfen belirtin: Ad";
-$text['label-provide-name']['zh-cn'] = "请提供：姓名";
+$text['label-provide-name']['zh-cn'] = "请提供：名称";
 $text['label-provide-name']['ja-jp'] = "入力してください: 名前";
 $text['label-provide-name']['ko-kr'] = "제공하십시오: 이름";
 
@@ -423,7 +423,7 @@ $text['label-local']['ru-ru'] = "Локальный";
 $text['label-local']['sv-se'] = "Lokal";
 $text['label-local']['uk-ua'] = "Місцевий";
 $text['label-local']['tr-tr'] = "Yerel";
-$text['label-local']['zh-cn'] = "当地的";
+$text['label-local']['zh-cn'] = "本地";
 $text['label-local']['ja-jp'] = "地元";
 $text['label-local']['ko-kr'] = "-현지의";
 
@@ -450,7 +450,7 @@ $text['label-inbound']['ru-ru'] = "Входящий";
 $text['label-inbound']['sv-se'] = "Inkommande";
 $text['label-inbound']['uk-ua'] = "Вихідний";
 $text['label-inbound']['tr-tr'] = "Gelen";
-$text['label-inbound']['zh-cn'] = "入境";
+$text['label-inbound']['zh-cn'] = "入站";
 $text['label-inbound']['ja-jp'] = "インバウンド";
 $text['label-inbound']['ko-kr'] = "인바운드";
 
@@ -610,7 +610,7 @@ $text['label-duration']['ru-ru'] = "Длительность";
 $text['label-duration']['sv-se'] = "Samtalstid";
 $text['label-duration']['uk-ua'] = "Тривалість";
 $text['label-duration']['tr-tr'] = "Süre";
-$text['label-duration']['zh-cn'] = "期间";
+$text['label-duration']['zh-cn'] = "持续时间";
 $text['label-duration']['ja-jp'] = "間隔";
 $text['label-duration']['ko-kr'] = "지속";
 
@@ -852,7 +852,7 @@ $text['label-add-note']['ru-ru'] = "Блокировка вызовов от н�
 $text['label-add-note']['sv-se'] = "Blockera samtal från ett nummer. Välj antingen ett nummer från listan ovan eller fyll i nummer, namn och aktivera nedan.";
 $text['label-add-note']['uk-ua'] = "Блокувати дзвінки з номера. Або вибрати номер зі списку вище або введіть номер, ім'я і включити нижче.";
 $text['label-add-note']['tr-tr'] = "Bir numaradan gelen aramaları engelleyin. Yukarıdaki listeden bir numara seçin veya numarayı, adı girin ve aşağıya etkinleştirin.";
-$text['label-add-note']['zh-cn'] = "阻止来自某个号码的呼叫。 从上面的列表中选择一个号码，或者在下面输入号码、姓名并启用。";
+$text['label-add-note']['zh-cn'] = "阻止来自某个号码的呼叫。 从上面的列表中选择一个号码，或者在下面输入号码、名称并启用。";
 $text['label-add-note']['ja-jp'] = "番号からの通話をブロックします。 上のリストから番号を選択するか、番号、名前、有効化を下に入力します。";
 $text['label-add-note']['ko-kr'] = "번호에서 오는 전화를 차단합니다. 위 목록에서 번호를 선택하거나 번호, 이름을 입력하고 아래에 활성화하십시오.";
 

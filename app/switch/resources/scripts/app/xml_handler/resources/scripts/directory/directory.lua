@@ -201,7 +201,8 @@
 								--get the domain_uuid
 									if (domain_name ~= nil) then
 										local sql = "SELECT domain_uuid FROM v_domains "
-											.. "WHERE domain_name = :domain_name ";
+											.. "WHERE domain_name = :domain_name "
+											.. "AND domain_enabled = 'true' ";
 										local params = {domain_name = domain_name};
 										if (debug["sql"]) then
 											freeswitch.consoleLog("notice", "[xml_handler] SQL: " .. sql .. "; params:" .. json.encode(params) .. "\n");
@@ -350,7 +351,7 @@
 						sql = sql .. "AND d.domain_uuid = :domain_uuid "
 						sql = sql .. "AND d.domain_enabled = true "
 						sql = sql .. "AND (e.extension = :user or e.number_alias = :user) "
-						sql = sql .. "AND e.enabled = true ";
+						sql = sql .. "AND e.enabled = 'true' ";
 						local params = {domain_uuid=domain_uuid, user=user};
 						if (debug["sql"]) then
 							freeswitch.consoleLog("notice", "[xml_handler] SQL: " .. sql .. "; params:" .. json.encode(params) .. "\n");

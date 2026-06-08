@@ -50,7 +50,7 @@ $text['title-upgrade_schema']['ru-ru'] = "Схема обновления";
 $text['title-upgrade_schema']['sv-se'] = "Uppgraderingsschema";
 $text['title-upgrade_schema']['uk-ua'] = "Схема оновлення";
 $text['title-upgrade_schema']['tr-tr'] = "Yükseltme Şeması";
-$text['title-upgrade_schema']['zh-cn'] = "升级架构";
+$text['title-upgrade_schema']['zh-cn'] = "升级数据库架构";
 $text['title-upgrade_schema']['ja-jp'] = "アップグレードスキーマ";
 $text['title-upgrade_schema']['ko-kr'] = "업그레이드 스키마";
 
@@ -77,7 +77,7 @@ $text['title-cli_upgrade']['ru-ru'] = "МЕНЮ ОБНОВЛЕНИЯ";
 $text['title-cli_upgrade']['sv-se'] = "UPPGRADERINGSMENY";
 $text['title-cli_upgrade']['uk-ua'] = "МЕНЮ ОНОВЛЕННЯ";
 $text['title-cli_upgrade']['tr-tr'] = "YÜKSELTME MENÜSÜ";
-$text['title-cli_upgrade']['zh-cn'] = "升级菜单";
+$text['title-cli_upgrade']['zh-cn'] = "命令行升级";
 $text['title-cli_upgrade']['ja-jp'] = "アップグレードメニュー";
 $text['title-cli_upgrade']['ko-kr'] = "업그레이드 메뉴";
 
@@ -104,7 +104,7 @@ $text['option-true']['ru-ru'] = "Истинный";
 $text['option-true']['sv-se'] = "Ja";
 $text['option-true']['uk-ua'] = "правда";
 $text['option-true']['tr-tr'] = "Doğru";
-$text['option-true']['zh-cn'] = "真的";
+$text['option-true']['zh-cn'] = "启用";
 $text['option-true']['ja-jp'] = "真実";
 $text['option-true']['ko-kr'] = "진실";
 
@@ -131,7 +131,7 @@ $text['option-false']['ru-ru'] = "ЛОЖЬ";
 $text['option-false']['sv-se'] = "Nej";
 $text['option-false']['uk-ua'] = "помилковий";
 $text['option-false']['tr-tr'] = "YANLIŞ";
-$text['option-false']['zh-cn'] = "错误的";
+$text['option-false']['zh-cn'] = "关闭";
 $text['option-false']['ja-jp'] = "間違い";
 $text['option-false']['ko-kr'] = "거짓";
 
@@ -590,7 +590,7 @@ $text['label-upgrade_schema']['ru-ru'] = "Схема базы данных";
 $text['label-upgrade_schema']['sv-se'] = "Databasschema";
 $text['label-upgrade_schema']['uk-ua'] = "Схема бази даних";
 $text['label-upgrade_schema']['tr-tr'] = "Veritabanı şeması";
-$text['label-upgrade_schema']['zh-cn'] = "数据库架构";
+$text['label-upgrade_schema']['zh-cn'] = "架构";
 $text['label-upgrade_schema']['ja-jp'] = "データベーススキーマ";
 $text['label-upgrade_schema']['ko-kr'] = "데이터베이스 스키마";
 
@@ -968,7 +968,7 @@ $text['label-name']['ru-ru'] = "Имя";
 $text['label-name']['sv-se'] = "Namn";
 $text['label-name']['uk-ua'] = "Назва";
 $text['label-name']['tr-tr'] = "İsim";
-$text['label-name']['zh-cn'] = "姓名";
+$text['label-name']['zh-cn'] = "名称";
 $text['label-name']['ja-jp'] = "名前";
 $text['label-name']['ko-kr'] = "이름";
 
@@ -1292,7 +1292,7 @@ $text['description-upgrade_schema']['ru-ru'] = "Обновите таблицы,
 $text['description-upgrade_schema']['sv-se'] = "Uppdatera tabellerna, kolumnerna och datatyperna.";
 $text['description-upgrade_schema']['uk-ua'] = "Оновіть таблиці, стовпці та типи даних.";
 $text['description-upgrade_schema']['tr-tr'] = "Tabloları, sütunları ve veri türlerini güncelleyin.";
-$text['description-upgrade_schema']['zh-cn'] = "更新表、列和数据类型。";
+$text['description-upgrade_schema']['zh-cn'] = "检查表和字段结构。";
 $text['description-upgrade_schema']['ja-jp'] = "テーブル、カラム、およびデータ型を更新してください。";
 $text['description-upgrade_schema']['ko-kr'] = "테이블, 열 및 데이터 유형을 업데이트하세요.";
 

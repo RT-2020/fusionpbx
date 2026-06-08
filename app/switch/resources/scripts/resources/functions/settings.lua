@@ -14,7 +14,8 @@
 	if (domain_uuid == nil) then
 		if (domain_name ~= nil) then
 			local sql = "SELECT domain_uuid FROM v_domains ";
-			sql = sql .. "WHERE domain_name = :domain_name";
+			sql = sql .. "WHERE domain_name = :domain_name ";
+			sql = sql .. "AND domain_enabled = 'true' ";
 			local params = {domain_name = domain_name};
 			if (debug["sql"]) then
 				freeswitch.consoleLog("notice", "[settings] SQL: " .. sql .. "; params: " .. json.encode(params) .. "\n");

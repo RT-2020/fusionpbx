@@ -35,4 +35,16 @@
 	$apps[$x]['menu'][$y]['groups'][] = "admin";
 	$y++;
 
+	$apps[$x]['menu'][$y]['title']['en-us'] = "Emergency Alarm Test";
+	$apps[$x]['menu'][$y]['title']['zh-cn'] = "声光报警测试";
+	$apps[$x]['menu'][$y]['uuid'] = "2f9048e0-5a1a-4ef6-9c5e-28cf383e1280";
+	$apps[$x]['menu'][$y]['parent_uuid'] = "fd29e39c-c936-f5fc-8e2b-611681b266b5";
+	$apps[$x]['menu'][$y]['category'] = "internal";
+	$apps[$x]['menu'][$y]['icon'] = "";
+	$apps[$x]['menu'][$y]['path'] = "/app/basic_operator_panel/emergency_alarm_test.php";
+	$apps[$x]['menu'][$y]['order'] = "";
+	$apps[$x]['menu'][$y]['groups'][] = "superadmin";
+	$apps[$x]['menu'][$y]['groups'][] = "admin";
+	$y++;
+
 ?>

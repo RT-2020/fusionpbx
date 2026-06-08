@@ -30,10 +30,16 @@
 	require_once "resources/paging.php";
 
 //check permissions
-	if (!permission_exists('extension_export')) {
+	if (permission_exists('extension_export')) {
+		//access granted
+	}
+	else {
 		echo "access denied";
 		exit;
 	}
+
+//initialize the database object
+	$database = new database;
 
 //add multi-lingual support
 	$language = new text;
@@ -47,6 +53,7 @@
 	$available_columns[] = 'password';
 	$available_columns[] = 'accountcode';
 	$available_columns[] = 'effective_caller_id_name';
+	$available_columns[] = 'extension_owner';
 	$available_columns[] = 'effective_caller_id_number';
 	$available_columns[] = 'outbound_caller_id_name';
 	$available_columns[] = 'outbound_caller_id_number';
@@ -93,13 +100,6 @@
 	$available_columns[] = 'forward_user_not_registered_enabled';
 
 //define the functions
-	/**
-	 * Converts a multi-dimensional array into a CSV string.
-	 *
-	 * @param array &$array The input array to be converted. It is expected that all rows of the array have the same number of columns.
-	 *
-	 * @return string|null The CSV string representation of the input array, or null if the input array is empty.
-	 */
 	function array2csv(array &$array) {
 		if (count($array) == 0) {
 			return null;
@@ -114,11 +114,6 @@
 		return ob_get_clean();
 	}
 
-	/**
-	 * Sets the headers for a file download.
-	 *
-	 * @param string $filename The name of the file to be downloaded.
-	 */
 	function download_send_headers($filename) {
 		// disable caching
 		$now = gmdate("D, d M Y H:i:s");

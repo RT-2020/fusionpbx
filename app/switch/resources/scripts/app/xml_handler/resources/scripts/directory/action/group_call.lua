@@ -53,6 +53,7 @@
 					if (domain_name ~= nil) then
 						local sql = "SELECT domain_uuid FROM v_domains ";
 						sql = sql .. "WHERE domain_name = :domain_name ";
+						sql = sql .. "AND domain_enabled = 'true' ";
 						local params = {domain_name = domain_name};
 						if (debug["sql"]) then
 							freeswitch.consoleLog("notice", "[xml_handler] SQL: " .. sql .. "; params: " .. json.encode(params) .. "\n");
@@ -72,7 +73,7 @@
 			local sql = [[
 			select * from v_extensions
 			where domain_uuid = :domain_uuid
-			enabled = true
+			enabled = 'true'
 			order by call_group asc
 			]];
 			local params = {domain_uuid = domain_uuid};

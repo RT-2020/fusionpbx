@@ -48,7 +48,7 @@ $text['title-call_center_tier_edit']['ro-ro'] = "Nivelul Call Center";
 $text['title-call_center_tier_edit']['ru-ru'] = "Компетенция Колл-центра";
 $text['title-call_center_tier_edit']['sv-se'] = "Callcenter Nivå";
 $text['title-call_center_tier_edit']['uk-ua'] = "Рівень кол-центра";
-$text['title-call_center_tier_edit']['zh-cn'] = "呼叫中心层";
+$text['title-call_center_tier_edit']['zh-cn'] = "呼叫中心层级";
 $text['title-call_center_tier_edit']['ja-jp'] = "コールセンター層";
 $text['title-call_center_tier_edit']['ko-kr'] = "콜 센터 계층";
 
@@ -74,7 +74,7 @@ $text['title-call_center_queues_edit']['ro-ro'] = "Editați coada centrului de a
 $text['title-call_center_queues_edit']['ru-ru'] = "Редактировать очередь Колл-центра";
 $text['title-call_center_queues_edit']['sv-se'] = "Ändra callcenter Kö";
 $text['title-call_center_queues_edit']['uk-ua'] = "Редагувати чергу кол-центру";
-$text['title-call_center_queues_edit']['zh-cn'] = "编辑呼叫中心队列";
+$text['title-call_center_queues_edit']['zh-cn'] = "呼叫中心队列";
 $text['title-call_center_queues_edit']['ja-jp'] = "コール センター キューの編集";
 $text['title-call_center_queues_edit']['ko-kr'] = "콜 센터 대기열 편집";
 
@@ -386,7 +386,7 @@ $text['option-true']['ro-ro'] = "Adevărat";
 $text['option-true']['ru-ru'] = "Да";
 $text['option-true']['sv-se'] = "Ja";
 $text['option-true']['uk-ua'] = "Так";
-$text['option-true']['zh-cn'] = "真的";
+$text['option-true']['zh-cn'] = "启用";
 $text['option-true']['ja-jp'] = "真実";
 $text['option-true']['ko-kr'] = "진실";
 
@@ -854,7 +854,7 @@ $text['option-false']['ro-ro'] = "Fals";
 $text['option-false']['ru-ru'] = "Нет";
 $text['option-false']['sv-se'] = "Nej";
 $text['option-false']['uk-ua'] = "Ні";
-$text['option-false']['zh-cn'] = "错误的";
+$text['option-false']['zh-cn'] = "关闭";
 $text['option-false']['ja-jp'] = "間違い";
 $text['option-false']['ko-kr'] = "거짓";
 
@@ -1426,7 +1426,7 @@ $text['label-status']['ro-ro'] = "stare";
 $text['label-status']['ru-ru'] = "Статус";
 $text['label-status']['sv-se'] = "Status";
 $text['label-status']['uk-ua'] = "Статус";
-$text['label-status']['zh-cn'] = "地位";
+$text['label-status']['zh-cn'] = "状态";
 $text['label-status']['ja-jp'] = "スターテス";
 $text['label-status']['ko-kr'] = "상태";
 
@@ -1790,7 +1790,7 @@ $text['label-extension']['ro-ro'] = "Extensie";
 $text['label-extension']['ru-ru'] = "Внутренний номер";
 $text['label-extension']['sv-se'] = "Anknytning";
 $text['label-extension']['uk-ua'] = "Розширення (Extention)";
-$text['label-extension']['zh-cn'] = "扩大";
+$text['label-extension']['zh-cn'] = "分机号";
 $text['label-extension']['ja-jp'] = "拡大";
 $text['label-extension']['ko-kr'] = "확대";
 

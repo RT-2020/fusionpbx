@@ -152,7 +152,7 @@ $text['table-name']['ro-ro'] = "Nume";
 $text['table-name']['ru-ru'] = "Имя";
 $text['table-name']['sv-se'] = "Namn";
 $text['table-name']['uk-ua'] = "Ім'я";
-$text['table-name']['zh-cn'] = "姓名";
+$text['table-name']['zh-cn'] = "名称";
 $text['table-name']['ja-jp'] = "名前";
 $text['table-name']['ko-kr'] = "이름";
 
@@ -178,7 +178,7 @@ $text['table-extension']['ro-ro'] = "Extensie";
 $text['table-extension']['ru-ru'] = "Внутренний Номер";
 $text['table-extension']['sv-se'] = "Anknytning";
 $text['table-extension']['uk-ua'] = "Розширення";
-$text['table-extension']['zh-cn'] = "扩大";
+$text['table-extension']['zh-cn'] = "分机号";
 $text['table-extension']['ja-jp'] = "拡大";
 $text['table-extension']['ko-kr'] = "확대";
 
@@ -204,7 +204,7 @@ $text['table-profile']['ro-ro'] = "Profil";
 $text['table-profile']['ru-ru'] = "Профиль";
 $text['table-profile']['sv-se'] = "Profil";
 $text['table-profile']['uk-ua'] = "Профіль";
-$text['table-profile']['zh-cn'] = "轮廓";
+$text['table-profile']['zh-cn'] = "配置文件";
 $text['table-profile']['ja-jp'] = "プロフィール";
 $text['table-profile']['ko-kr'] = "프로필";
 
@@ -230,7 +230,7 @@ $text['table-order']['ro-ro'] = "Ordin";
 $text['table-order']['ru-ru'] = "Приоритет";
 $text['table-order']['sv-se'] = "Ordning";
 $text['table-order']['uk-ua'] = "порядок";
-$text['table-order']['zh-cn'] = "命令";
+$text['table-order']['zh-cn'] = "权重";
 $text['table-order']['ja-jp'] = "注文";
 $text['table-order']['ko-kr'] = "주문하다";
 
@@ -516,7 +516,7 @@ $text['label-extension']['ro-ro'] = "Extensie";
 $text['label-extension']['ru-ru'] = "Внутренний Номер";
 $text['label-extension']['sv-se'] = "Anknytning";
 $text['label-extension']['uk-ua'] = "Extension";
-$text['label-extension']['zh-cn'] = "扩大";
+$text['label-extension']['zh-cn'] = "分机号";
 $text['label-extension']['ja-jp'] = "拡大";
 $text['label-extension']['ko-kr'] = "확대";
 
@@ -880,7 +880,7 @@ $text['description-flags']['ro-ro'] = "Steaguri opționale de conferință. exem
 $text['description-flags']['ru-ru'] = "Дополнительные флаги конференции. Примеры: откл. Микрофон | откл. Динамик | Временное отсутствие | Модератор";
 $text['description-flags']['sv-se'] = "Valfria konferensflaggor. Exempel: mute|deaf|waste|moderator";
 $text['description-flags']['uk-ua'] = "Додаткові прапори конференції. приклади: німий|глухий|марний|модератор";
-$text['description-flags']['zh-cn'] = "可选的会议标志。 示例：静音|聋|浪费|主持人。";
+$text['description-flags']['zh-cn'] = "可选的会议标志。 示例：mute|deaf|waste|moderator。";
 $text['description-flags']['ja-jp'] = "オプションの会議フラグ。 例: ミュート|聴覚障害者|廃棄物|司会者の意見。";
 $text['description-flags']['ko-kr'] = "선택적 컨퍼런스 플래그. 예: 음소거|귀머거리|폐기물|조정자.";
 
@@ -958,7 +958,7 @@ $text['label-flags']['ro-ro'] = "Steaguri";
 $text['label-flags']['ru-ru'] = "Флаги";
 $text['label-flags']['sv-se'] = "Flaggor";
 $text['label-flags']['uk-ua'] = "Прапори";
-$text['label-flags']['zh-cn'] = "旗帜";
+$text['label-flags']['zh-cn'] = "标志";
 $text['label-flags']['ja-jp'] = "フラグ";
 $text['label-flags']['ko-kr'] = "플래그";
 
@@ -1010,7 +1010,7 @@ $text['label-view']['ro-ro'] = "Vedere";
 $text['label-view']['ru-ru'] = "Просмотр";
 $text['label-view']['sv-se'] = "Visa";
 $text['label-view']['uk-ua'] = "Перегляд";
-$text['label-view']['zh-cn'] = "看法";
+$text['label-view']['zh-cn'] = "查看";
 $text['label-view']['ja-jp'] = "意見";
 $text['label-view']['ko-kr'] = "보다";
 

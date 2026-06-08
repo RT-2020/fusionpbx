@@ -104,7 +104,7 @@ $text['title-domain-edit']['ru-ru'] = "Домен";
 $text['title-domain-edit']['sv-se'] = "Domän";
 $text['title-domain-edit']['uk-ua'] = "Домен";
 $text['title-domain-edit']['tr-tr'] = "İhtisas";
-$text['title-domain-edit']['zh-cn'] = "领域";
+$text['title-domain-edit']['zh-cn'] = "域";
 $text['title-domain-edit']['ja-jp'] = "ドメイン";
 $text['title-domain-edit']['ko-kr'] = "도메인";
 
@@ -159,7 +159,7 @@ $text['label-domain_name']['ru-ru'] = "Имя";
 $text['label-domain_name']['sv-se'] = "Namn";
 $text['label-domain_name']['uk-ua'] = "Назва";
 $text['label-domain_name']['tr-tr'] = "İsim";
-$text['label-domain_name']['zh-cn'] = "姓名";
+$text['label-domain_name']['zh-cn'] = "名称";
 $text['label-domain_name']['ja-jp'] = "名前";
 $text['label-domain_name']['ko-kr'] = "이름";
 
@@ -889,7 +889,7 @@ $text['label-domain']['ru-ru'] = "Домен";
 $text['label-domain']['sv-se'] = "Domän";
 $text['label-domain']['uk-ua'] = "Домен";
 $text['label-domain']['tr-tr'] = "İhtisas";
-$text['label-domain']['zh-cn'] = "领域";
+$text['label-domain']['zh-cn'] = "域";
 $text['label-domain']['ja-jp'] = "ドメイン";
 $text['label-domain']['ko-kr'] = "도메인";
 
@@ -1186,7 +1186,7 @@ $text['header-domain']['ru-ru'] = "Домен";
 $text['header-domain']['sv-se'] = "Domän";
 $text['header-domain']['uk-ua'] = "Домен";
 $text['header-domain']['tr-tr'] = "İhtisas";
-$text['header-domain']['zh-cn'] = "领域";
+$text['header-domain']['zh-cn'] = "域";
 $text['header-domain']['ja-jp'] = "ドメイン";
 $text['header-domain']['ko-kr'] = "도메인";
 

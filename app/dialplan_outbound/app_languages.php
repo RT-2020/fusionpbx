@@ -158,7 +158,7 @@ $text['label-toll_allow']['ru-ru'] = "Разрешить ВСЕ";
 $text['label-toll_allow']['sv-se'] = "Tillåta fjärrsamtal";
 $text['label-toll_allow']['uk-ua'] = "TOLL дозволено";
 $text['label-toll_allow']['tr-tr'] = "Geçiş ücretine izin ver";
-$text['label-toll_allow']['zh-cn'] = "通行费允许";
+$text['label-toll_allow']['zh-cn'] = "允许长途";
 $text['label-toll_allow']['ja-jp'] = "有料通行許可";
 $text['label-toll_allow']['ko-kr'] = "통행료 허용";
 
@@ -266,7 +266,7 @@ $text['label-prefix']['ru-ru'] = "Префикс";
 $text['label-prefix']['sv-se'] = "Prefix";
 $text['label-prefix']['uk-ua'] = "Префікс";
 $text['label-prefix']['tr-tr'] = "Önek";
-$text['label-prefix']['zh-cn'] = "字首";
+$text['label-prefix']['zh-cn'] = "前缀";
 $text['label-prefix']['ja-jp'] = "プレフィックス";
 $text['label-prefix']['ko-kr'] = "접두사";
 
@@ -293,7 +293,7 @@ $text['label-outbound-routes']['ru-ru'] = "Исходящие маршруты";
 $text['label-outbound-routes']['sv-se'] = "Utgående rutt";
 $text['label-outbound-routes']['uk-ua'] = "Вихідні маршрути";
 $text['label-outbound-routes']['tr-tr'] = "Giden Rotalar";
-$text['label-outbound-routes']['zh-cn'] = "出境航线";
+$text['label-outbound-routes']['zh-cn'] = "出站路由";
 $text['label-outbound-routes']['ja-jp'] = "往路";
 $text['label-outbound-routes']['ko-kr'] = "아웃바운드 경로";
 

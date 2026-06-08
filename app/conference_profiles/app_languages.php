@@ -100,7 +100,7 @@ $text['label-profile_name']['ro-ro'] = "Nume";
 $text['label-profile_name']['ru-ru'] = "Имя";
 $text['label-profile_name']['sv-se'] = "Namn";
 $text['label-profile_name']['uk-ua'] = "Ім'я";
-$text['label-profile_name']['zh-cn'] = "姓名";
+$text['label-profile_name']['zh-cn'] = "名称";
 $text['label-profile_name']['ja-jp'] = "名前";
 $text['label-profile_name']['ko-kr'] = "이름";
 
@@ -334,7 +334,7 @@ $text['label-profile_param_name']['ro-ro'] = "Nume";
 $text['label-profile_param_name']['ru-ru'] = "Имя";
 $text['label-profile_param_name']['sv-se'] = "Namn";
 $text['label-profile_param_name']['uk-ua'] = "Nume";
-$text['label-profile_param_name']['zh-cn'] = "姓名";
+$text['label-profile_param_name']['zh-cn'] = "名称";
 $text['label-profile_param_name']['ja-jp'] = "名前";
 $text['label-profile_param_name']['ko-kr'] = "이름";
 
@@ -386,7 +386,7 @@ $text['label-profile_param_value']['ro-ro'] = "Valoare";
 $text['label-profile_param_value']['ru-ru'] = "Значение";
 $text['label-profile_param_value']['sv-se'] = "Värde";
 $text['label-profile_param_value']['uk-ua'] = "Значення";
-$text['label-profile_param_value']['zh-cn'] = "价值";
+$text['label-profile_param_value']['zh-cn'] = "值";
 $text['label-profile_param_value']['ja-jp'] = "価値";
 $text['label-profile_param_value']['ko-kr'] = "값";
 

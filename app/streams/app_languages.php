@@ -23,7 +23,7 @@ $text['title-streams']['ru-ru'] = "Потоки";
 $text['title-streams']['sv-se'] = "Strömmar";
 $text['title-streams']['uk-ua'] = "Потоки";
 $text['title-streams']['tr-tr'] = "Canlı Yayınlar";
-$text['title-streams']['zh-cn'] = "溪流";
+$text['title-streams']['zh-cn'] = "流";
 $text['title-streams']['ja-jp'] = "ストリーム";
 $text['title-streams']['ko-kr'] = "스트림";
 
@@ -50,7 +50,7 @@ $text['title-stream']['ru-ru'] = "Транслировать";
 $text['title-stream']['sv-se'] = "Ström";
 $text['title-stream']['uk-ua'] = "Потік";
 $text['title-stream']['tr-tr'] = "Aktarım";
-$text['title-stream']['zh-cn'] = "溪流";
+$text['title-stream']['zh-cn'] = "流";
 $text['title-stream']['ja-jp'] = "ストリーム";
 $text['title-stream']['ko-kr'] = "스트림";
 
@@ -77,7 +77,7 @@ $text['title_description-stream']['ru-ru'] = "Определите детали 
 $text['title_description-stream']['sv-se'] = "Definiera detaljer för strömmande ljud.";
 $text['title_description-stream']['uk-ua'] = "Визначте деталі потокового аудіо.";
 $text['title_description-stream']['tr-tr'] = "Ses akışına ilişkin ayrıntıları tanımlayın.";
-$text['title_description-stream']['zh-cn'] = "界定播音的详细内容。";
+$text['title_description-stream']['zh-cn'] = "定义音频流的详细内容。";
 $text['title_description-stream']['ja-jp'] = "ストリーミングオーディオの詳細を定義します。";
 $text['title_description-stream']['ko-kr'] = "스트리밍 오디오에 대한 세부 사항 정의.";
 
@@ -104,7 +104,7 @@ $text['label-stream_name']['ru-ru'] = "Имя";
 $text['label-stream_name']['sv-se'] = "namn";
 $text['label-stream_name']['uk-ua'] = "Ім'я";
 $text['label-stream_name']['tr-tr'] = "İsim";
-$text['label-stream_name']['zh-cn'] = "姓名";
+$text['label-stream_name']['zh-cn'] = "流名称";
 $text['label-stream_name']['ja-jp'] = "お名前";
 $text['label-stream_name']['ko-kr'] = "이름";
 
@@ -131,7 +131,7 @@ $text['description-stream_name']['ru-ru'] = "Введите имя.";
 $text['description-stream_name']['sv-se'] = "Ange namnet.";
 $text['description-stream_name']['uk-ua'] = "Введіть назву.";
 $text['description-stream_name']['tr-tr'] = "Adı girin.";
-$text['description-stream_name']['zh-cn'] = "填写姓名。";
+$text['description-stream_name']['zh-cn'] = "填写流名称。";
 $text['description-stream_name']['ja-jp'] = "お名前を入力してください。";
 $text['description-stream_name']['ko-kr'] = "이름 입력";
 
@@ -158,7 +158,7 @@ $text['label-stream_location']['ru-ru'] = "Расположение";
 $text['label-stream_location']['sv-se'] = "Plats";
 $text['label-stream_location']['uk-ua'] = "Місцезнаходження";
 $text['label-stream_location']['tr-tr'] = "Konum";
-$text['label-stream_location']['zh-cn'] = "地点";
+$text['label-stream_location']['zh-cn'] = "流位置";
 $text['label-stream_location']['ja-jp'] = "位置";
 $text['label-stream_location']['ko-kr'] = "위치";
 
@@ -185,7 +185,7 @@ $text['description-stream_location']['ru-ru'] = "Введите местопол
 $text['description-stream_location']['sv-se'] = "Ange platsen.";
 $text['description-stream_location']['uk-ua'] = "Введіть місце розташування.";
 $text['description-stream_location']['tr-tr'] = "Konumu girin.";
-$text['description-stream_location']['zh-cn'] = "进入地点。";
+$text['description-stream_location']['zh-cn'] = "输入流位置。";
 $text['description-stream_location']['ja-jp'] = "所在地を入力してください。";
 $text['description-stream_location']['ko-kr'] = "위치를 입력합니다.";
 

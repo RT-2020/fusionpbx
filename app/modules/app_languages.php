@@ -212,7 +212,7 @@ $text['label-status']['ru-ru'] = "Статус";
 $text['label-status']['sv-se'] = "Status";
 $text['label-status']['uk-ua'] = "Стан";
 $text['label-status']['tr-tr'] = "Durum";
-$text['label-status']['zh-cn'] = "地位";
+$text['label-status']['zh-cn'] = "状态";
 $text['label-status']['ja-jp'] = "スターテス";
 $text['label-status']['ko-kr'] = "상태";
 
@@ -266,7 +266,7 @@ $text['label-running']['ru-ru'] = "Запущено";
 $text['label-running']['sv-se'] = "Löpning";
 $text['label-running']['uk-ua'] = "Запущено";
 $text['label-running']['tr-tr'] = "Koşma";
-$text['label-running']['zh-cn'] = "跑步";
+$text['label-running']['zh-cn'] = "运行中";
 $text['label-running']['ja-jp'] = "ランニング";
 $text['label-running']['ko-kr'] = "달리기";
 
@@ -563,7 +563,7 @@ $text['description-modules']['ru-ru'] = "Модули расширяют воз�
 $text['description-modules']['sv-se'] = "Moduler utökar funktionerna i systemet. Använd den här sidan för att aktivera eller inaktivera moduler.";
 $text['description-modules']['uk-ua'] = "Модулі розширюють можливості системи. Використовуйте цю сторінку, щоб включити або відключити модулі.";
 $text['description-modules']['tr-tr'] = "Modules extend the features of the system. Use this page to enable or disable modules.";
-$text['description-modules']['zh-cn'] = "模块扩展了系统的功能。 使用此页面启用或禁用模块。";
+$text['description-modules']['zh-cn'] = "模块扩展了系统的功能。使用此页面启用或禁用模块。";
 $text['description-modules']['ja-jp'] = "モジュールはシステムの機能を拡張します。 このページを使用してモジュールを有効または無効にします。";
 $text['description-modules']['ko-kr'] = "모듈은 시스템의 기능을 확장합니다. 이 페이지를 사용하여 모듈을 활성화하거나 비활성화합니다.";
 

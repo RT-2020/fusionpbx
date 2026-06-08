@@ -50,7 +50,7 @@ $text['label-status']['ru-ru'] = "Статус";
 $text['label-status']['sv-se'] = "Status";
 $text['label-status']['uk-ua'] = "Статус";
 $text['label-status']['tr-tr'] = "Durum";
-$text['label-status']['zh-cn'] = "地位";
+$text['label-status']['zh-cn'] = "状态";
 $text['label-status']['ja-jp'] = "スターテス";
 $text['label-status']['ko-kr'] = "상태";
 
@@ -374,7 +374,7 @@ $text['label-domain']['ru-ru'] = "Домен";
 $text['label-domain']['sv-se'] = "Domän";
 $text['label-domain']['uk-ua'] = "Домен";
 $text['label-domain']['tr-tr'] = "İhtisas";
-$text['label-domain']['zh-cn'] = "领域";
+$text['label-domain']['zh-cn'] = "域";
 $text['label-domain']['ja-jp'] = "ドメイン";
 $text['label-domain']['ko-kr'] = "도메인";
 
@@ -455,7 +455,7 @@ $text['label-sip_profile_name']['ru-ru'] = "Профили";
 $text['label-sip_profile_name']['sv-se'] = "Profiler";
 $text['label-sip_profile_name']['uk-ua'] = "профілі";
 $text['label-sip_profile_name']['tr-tr'] = "Profil";
-$text['label-sip_profile_name']['zh-cn'] = "轮廓";
+$text['label-sip_profile_name']['zh-cn'] = "配置文件";
 $text['label-sip_profile_name']['ja-jp'] = "プロフィール";
 $text['label-sip_profile_name']['ko-kr'] = "프로필";
 
@@ -482,7 +482,7 @@ $text['header-registrations']['ru-ru'] = "Регистрация";
 $text['header-registrations']['sv-se'] = "Registreringar";
 $text['header-registrations']['uk-ua'] = "Реєстрації";
 $text['header-registrations']['tr-tr'] = "Kayıtlar";
-$text['header-registrations']['zh-cn'] = "登记";
+$text['header-registrations']['zh-cn'] = "注册";
 $text['header-registrations']['ja-jp'] = "登録";
 $text['header-registrations']['ko-kr'] = "등록";
 

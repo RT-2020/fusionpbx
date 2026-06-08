@@ -320,7 +320,7 @@ $text['label-extension']['ru-ru'] = "Расширение";
 $text['label-extension']['sv-se'] = "Förlängning";
 $text['label-extension']['uk-ua'] = "Продовжити";
 $text['label-extension']['tr-tr'] = "Eklenti";
-$text['label-extension']['zh-cn'] = "扩大";
+$text['label-extension']['zh-cn'] = "分机号";
 $text['label-extension']['ja-jp'] = "拡大";
 $text['label-extension']['ko-kr'] = "확대";
 
@@ -347,7 +347,7 @@ $text['description-extension']['ru-ru'] = "Введите расширение."
 $text['description-extension']['sv-se'] = "Ange förlängningen.";
 $text['description-extension']['uk-ua'] = "Введіть розширення.";
 $text['description-extension']['tr-tr'] = "Uzantıyı girin.";
-$text['description-extension']['zh-cn'] = "输入扩展名。";
+$text['description-extension']['zh-cn'] = "输入分机号。";
 $text['description-extension']['ja-jp'] = "拡張子を入力します。";
 $text['description-extension']['ko-kr'] = "확장자를 입력합니다.";
 
@@ -428,7 +428,7 @@ $text['label-log_status']['ru-ru'] = "Статус";
 $text['label-log_status']['sv-se'] = "status";
 $text['label-log_status']['uk-ua'] = "Статус на сервери";
 $text['label-log_status']['tr-tr'] = "Durum";
-$text['label-log_status']['zh-cn'] = "地位";
+$text['label-log_status']['zh-cn'] = "状态";
 $text['label-log_status']['ja-jp'] = "スターテス";
 $text['label-log_status']['ko-kr'] = "상태";
 

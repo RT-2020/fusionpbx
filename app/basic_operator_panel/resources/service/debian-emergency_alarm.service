@@ -1,0 +1,16 @@
+[Unit]
+Description=FusionPBX Emergency Alarm Service
+After=network-online.target freeswitch.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/fusionpbx
+ExecStart=/usr/bin/php /var/www/fusionpbx/app/basic_operator_panel/resources/service/emergency_alarm.php --debug
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

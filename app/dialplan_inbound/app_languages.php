@@ -158,7 +158,7 @@ $text['option-public']['ru-ru'] = "Публичный";
 $text['option-public']['sv-se'] = "Publik";
 $text['option-public']['uk-ua'] = "Публічний";
 $text['option-public']['tr-tr'] = "Halk";
-$text['option-public']['zh-cn'] = "民众";
+$text['option-public']['zh-cn'] = "公共";
 $text['option-public']['ja-jp'] = "公共";
 $text['option-public']['ko-kr'] = "공공의";
 
@@ -239,7 +239,7 @@ $text['option-context']['ru-ru'] = "Контекст";
 $text['option-context']['sv-se'] = "Sammanhang";
 $text['option-context']['uk-ua'] = "Контекст";
 $text['option-context']['tr-tr'] = "Bağlam";
-$text['option-context']['zh-cn'] = "语境";
+$text['option-context']['zh-cn'] = "上下文";
 $text['option-context']['ja-jp'] = "コンテクスト";
 $text['option-context']['ko-kr'] = "문맥";
 
@@ -887,7 +887,7 @@ $text['description-name']['ru-ru'] = "Введите название входя
 $text['description-name']['sv-se'] = "Var god ange ett namn för inkommande route.";
 $text['description-name']['uk-ua'] = "Введіть назву вхідного маршруту.";
 $text['description-name']['tr-tr'] = "Lütfen gelen rota adını girin.";
-$text['description-name']['zh-cn'] = "请输入入境路线名称。";
+$text['description-name']['zh-cn'] = "请输入入站路由名称。";
 $text['description-name']['ja-jp'] = "上り路線名を入力してください。";
 $text['description-name']['ko-kr'] = "인바운드 경로 이름을 입력하십시오.";
 

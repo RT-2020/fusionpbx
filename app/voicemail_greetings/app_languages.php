@@ -104,7 +104,7 @@ $text['label-name']['ru-ru'] = "Имя";
 $text['label-name']['sv-se'] = "Namn";
 $text['label-name']['uk-ua'] = "Назва";
 $text['label-name']['tr-tr'] = "İsim";
-$text['label-name']['zh-cn'] = "姓名";
+$text['label-name']['zh-cn'] = "名称";
 $text['label-name']['ja-jp'] = "名前";
 $text['label-name']['ko-kr'] = "이름";
 
@@ -320,7 +320,7 @@ $text['label-play']['ru-ru'] = "Играть";
 $text['label-play']['sv-se'] = "Spela Upp";
 $text['label-play']['uk-ua'] = "Відтворити";
 $text['label-play']['tr-tr'] = "Oynamak";
-$text['label-play']['zh-cn'] = "玩";
+$text['label-play']['zh-cn'] = "播放";
 $text['label-play']['ja-jp'] = "遊ぶ";
 $text['label-play']['ko-kr'] = "놀다";
 
@@ -644,7 +644,7 @@ $text['confirm-name']['ru-ru'] = "Пожалуйста, укажите: Имя �
 $text['confirm-name']['sv-se'] = "Var god ange: Hälsningsnamn";
 $text['confirm-name']['uk-ua'] = "Введіть назву привітання";
 $text['confirm-name']['tr-tr'] = "Lütfen belirtin: Selamlama Adı";
-$text['confirm-name']['zh-cn'] = "请提供：问候姓名";
+$text['confirm-name']['zh-cn'] = "请提供：问候名称";
 $text['confirm-name']['ja-jp'] = "入力してください: 挨拶の名前";
 $text['confirm-name']['ko-kr'] = "제공하십시오: 인사말 이름";
 

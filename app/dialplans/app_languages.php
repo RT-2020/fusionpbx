@@ -212,7 +212,7 @@ $text['title-outbound_routes']['ru-ru'] = "Исходящие маршруты";
 $text['title-outbound_routes']['sv-se'] = "Utgående rutter";
 $text['title-outbound_routes']['uk-ua'] = "Маршрути вихідних дзвінків";
 $text['title-outbound_routes']['tr-tr'] = "Giden Rotalar";
-$text['title-outbound_routes']['zh-cn'] = "出境航线";
+$text['title-outbound_routes']['zh-cn'] = "出站路由";
 $text['title-outbound_routes']['ja-jp'] = "往路";
 $text['title-outbound_routes']['ko-kr'] = "아웃바운드 경로";
 
@@ -239,7 +239,7 @@ $text['title-inbound_routes']['ru-ru'] = "Входящие маршруты";
 $text['title-inbound_routes']['sv-se'] = "Inkommande rutter";
 $text['title-inbound_routes']['uk-ua'] = "Маршрути вхідних дзвінків";
 $text['title-inbound_routes']['tr-tr'] = "Gelen Rotalar";
-$text['title-inbound_routes']['zh-cn'] = "入境航线";
+$text['title-inbound_routes']['zh-cn'] = "入站路由";
 $text['title-inbound_routes']['ja-jp'] = "復路";
 $text['title-inbound_routes']['ko-kr'] = "인바운드 경로";
 
@@ -266,7 +266,7 @@ $text['title-queues']['ru-ru'] = "Очереди";
 $text['title-queues']['sv-se'] = "Köer";
 $text['title-queues']['uk-ua'] = "Черги";
 $text['title-queues']['tr-tr'] = "Kuyruklar";
-$text['title-queues']['zh-cn'] = "尾巴";
+$text['title-queues']['zh-cn'] = "队列";
 $text['title-queues']['ja-jp'] = "テイルス";
 $text['title-queues']['ko-kr'] = "꼬리";
 
@@ -428,7 +428,7 @@ $text['select-global']['ru-ru'] = "Глобальный";
 $text['select-global']['sv-se'] = "Global";
 $text['select-global']['uk-ua'] = "Глобальний";
 $text['select-global']['tr-tr'] = "Küresel";
-$text['select-global']['zh-cn'] = "全球的";
+$text['select-global']['zh-cn'] = "全局";
 $text['select-global']['ja-jp'] = "グローバル";
 $text['select-global']['ko-kr'] = "글로벌";
 
@@ -590,7 +590,7 @@ $text['option-true']['ru-ru'] = "Да";
 $text['option-true']['sv-se'] = "Ja";
 $text['option-true']['uk-ua'] = "Так";
 $text['option-true']['tr-tr'] = "Doğru";
-$text['option-true']['zh-cn'] = "真的";
+$text['option-true']['zh-cn'] = "启用";
 $text['option-true']['ja-jp'] = "真実";
 $text['option-true']['ko-kr'] = "진실";
 
@@ -725,7 +725,7 @@ $text['option-on_true']['ru-ru'] = "Если Да";
 $text['option-on_true']['sv-se'] = "Om Sann";
 $text['option-on_true']['uk-ua'] = "Якщо так";
 $text['option-on_true']['tr-tr'] = "Gerçekte";
-$text['option-on_true']['zh-cn'] = "真实的";
+$text['option-on_true']['zh-cn'] = "为真时";
 $text['option-on_true']['ja-jp'] = "オン・トゥルー";
 $text['option-on_true']['ko-kr'] = "참에";
 
@@ -752,7 +752,7 @@ $text['option-on_false']['ru-ru'] = "Если Нет";
 $text['option-on_false']['sv-se'] = "Om Falsk";
 $text['option-on_false']['uk-ua'] = "Якщо ні";
 $text['option-on_false']['tr-tr'] = "Yanlış Üzerine";
-$text['option-on_false']['zh-cn'] = "错误";
+$text['option-on_false']['zh-cn'] = "为假时";
 $text['option-on_false']['ja-jp'] = "偽の場合";
 $text['option-on_false']['ko-kr'] = "거짓";
 
@@ -941,7 +941,7 @@ $text['option-false']['ru-ru'] = "Нет";
 $text['option-false']['sv-se'] = "Nej";
 $text['option-false']['uk-ua'] = "Неправда";
 $text['option-false']['tr-tr'] = "YANLIŞ";
-$text['option-false']['zh-cn'] = "错误的";
+$text['option-false']['zh-cn'] = "关闭";
 $text['option-false']['ja-jp'] = "間違い";
 $text['option-false']['ko-kr'] = "거짓";
 
@@ -1103,7 +1103,7 @@ $text['option-context']['ru-ru'] = "Контекст";
 $text['option-context']['sv-se'] = "Sammanhang";
 $text['option-context']['uk-ua'] = "Контекст";
 $text['option-context']['tr-tr'] = "Bağlam";
-$text['option-context']['zh-cn'] = "语境";
+$text['option-context']['zh-cn'] = "拨号上下文";
 $text['option-context']['ja-jp'] = "コンテクスト";
 $text['option-context']['ko-kr'] = "문맥";
 
@@ -1616,7 +1616,7 @@ $text['label-domain']['ru-ru'] = "Домен";
 $text['label-domain']['sv-se'] = "Domän";
 $text['label-domain']['uk-ua'] = "Домен";
 $text['label-domain']['tr-tr'] = "İhtisas";
-$text['label-domain']['zh-cn'] = "领域";
+$text['label-domain']['zh-cn'] = "域";
 $text['label-domain']['ja-jp'] = "ドメイン";
 $text['label-domain']['ko-kr'] = "도메인";
 
@@ -1751,7 +1751,7 @@ $text['label-context']['ru-ru'] = "Контекст";
 $text['label-context']['sv-se'] = "Sammanhang";
 $text['label-context']['uk-ua'] = "Контекст";
 $text['label-context']['tr-tr'] = "Bağlam";
-$text['label-context']['zh-cn'] = "语境";
+$text['label-context']['zh-cn'] = "拨号上下文";
 $text['label-context']['ja-jp'] = "コンテクスト";
 $text['label-context']['ko-kr'] = "문맥";
 
@@ -1967,7 +1967,7 @@ $text['header-outbound_routes']['ru-ru'] = "Исходящий Маршрут";
 $text['header-outbound_routes']['sv-se'] = "Utgående rutter";
 $text['header-outbound_routes']['uk-ua'] = "Вихідні маршрути";
 $text['header-outbound_routes']['tr-tr'] = "Giden Rotalar";
-$text['header-outbound_routes']['zh-cn'] = "出境航线";
+$text['header-outbound_routes']['zh-cn'] = "出站路由";
 $text['header-outbound_routes']['ja-jp'] = "往路";
 $text['header-outbound_routes']['ko-kr'] = "아웃바운드 경로";
 
@@ -1994,7 +1994,7 @@ $text['header-inbound_routes']['ru-ru'] = "Входящий Маршрут";
 $text['header-inbound_routes']['sv-se'] = "Inkommande rutter";
 $text['header-inbound_routes']['uk-ua'] = "Маршрути вхідних дзвінків";
 $text['header-inbound_routes']['tr-tr'] = "Gelen Rotalar";
-$text['header-inbound_routes']['zh-cn'] = "入境航线";
+$text['header-inbound_routes']['zh-cn'] = "入站路由";
 $text['header-inbound_routes']['ja-jp'] = "復路";
 $text['header-inbound_routes']['ko-kr'] = "인바운드 경로";
 

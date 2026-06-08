@@ -131,7 +131,7 @@ $text['label-emergency_extension']['ru-ru'] = "Расширение";
 $text['label-emergency_extension']['sv-se'] = "Förlängning";
 $text['label-emergency_extension']['uk-ua'] = "Розширення";
 $text['label-emergency_extension']['tr-tr'] = "Eklenti";
-$text['label-emergency_extension']['zh-cn'] = "扩大";
+$text['label-emergency_extension']['zh-cn'] = "分机";
 $text['label-emergency_extension']['ja-jp'] = "拡大";
 $text['label-emergency_extension']['ko-kr'] = "확대";
 

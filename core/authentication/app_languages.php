@@ -50,7 +50,7 @@ $text['label-verify']['ru-ru'] = "Проверять";
 $text['label-verify']['sv-se'] = "Verifiera";
 $text['label-verify']['uk-ua'] = "Підтвердити";
 $text['label-verify']['tr-tr'] = "Doğrulamak";
-$text['label-verify']['zh-cn'] = "核实";
+$text['label-verify']['zh-cn'] = "验证";
 $text['label-verify']['ja-jp'] = "確認";
 $text['label-verify']['ko-kr'] = "확인하다";
 
@@ -77,7 +77,7 @@ $text['label-email_description']['ru-ru'] = "Проверьте свою эле�
 $text['label-email_description']['sv-se'] = "Kontrollera din e-post för verifieringskoden.";
 $text['label-email_description']['uk-ua'] = "Перевірте свою електронну пошту на наявність коду підтвердження.";
 $text['label-email_description']['tr-tr'] = "Doğrulama kodu için e-postanızı kontrol edin.";
-$text['label-email_description']['zh-cn'] = "检查您的电子邮件以获取验证码。";
+$text['label-email_description']['zh-cn'] = "请检查您的电子邮件以获取验证码。";
 $text['label-email_description']['ja-jp'] = "メールで確認コードを確認してください。";
 $text['label-email_description']['ko-kr'] = "이메일에서 확인 코드를 확인하세요.";
 
@@ -104,7 +104,7 @@ $text['label-totp_description']['ru-ru'] = "Введите Ваш верифик
 $text['label-totp_description']['sv-se'] = "Skriv In Din Verifikationskod.";
 $text['label-totp_description']['uk-ua'] = "Введіть код підтвердження.";
 $text['label-totp_description']['tr-tr'] = "Doğrulama kodunuzu girin.";
-$text['label-totp_description']['zh-cn'] = "輸入您的驗證碼。";
+$text['label-totp_description']['zh-cn'] = "请输入您的验证码。";
 $text['label-totp_description']['ja-jp'] = "確認コードを入力してください。";
 $text['label-totp_description']['ko-kr'] = "인증 코드를 입력하세요.";
 

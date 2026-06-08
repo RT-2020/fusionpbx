@@ -104,7 +104,7 @@ $text['label-view']['ru-ru'] = "Просмотр";
 $text['label-view']['sv-se'] = "Visa";
 $text['label-view']['uk-ua'] = "Перегляд";
 $text['label-view']['tr-tr'] = "Görüş";
-$text['label-view']['zh-cn'] = "看法";
+$text['label-view']['zh-cn'] = "查看";
 $text['label-view']['ja-jp'] = "意見";
 $text['label-view']['ko-kr'] = "보다";
 
@@ -158,7 +158,7 @@ $text['label-status']['ru-ru'] = "Статус";
 $text['label-status']['sv-se'] = "Status";
 $text['label-status']['uk-ua'] = "Стан";
 $text['label-status']['tr-tr'] = "Durum";
-$text['label-status']['zh-cn'] = "地位";
+$text['label-status']['zh-cn'] = "状态";
 $text['label-status']['ja-jp'] = "スターテス";
 $text['label-status']['ko-kr'] = "상태";
 
@@ -185,7 +185,7 @@ $text['label-priority']['ru-ru'] = "Приоритет";
 $text['label-priority']['sv-se'] = "Prioritet";
 $text['label-priority']['uk-ua'] = "Пріоритет";
 $text['label-priority']['tr-tr'] = "Öncelik";
-$text['label-priority']['zh-cn'] = "优先事项";
+$text['label-priority']['zh-cn'] = "优先级";
 $text['label-priority']['ja-jp'] = "優先順位";
 $text['label-priority']['ko-kr'] = "우선 사항";
 
@@ -239,7 +239,7 @@ $text['label-name']['ru-ru'] = "Имя";
 $text['label-name']['sv-se'] = "Namn";
 $text['label-name']['uk-ua'] = "Назва";
 $text['label-name']['tr-tr'] = "İsim";
-$text['label-name']['zh-cn'] = "姓名";
+$text['label-name']['zh-cn'] = "名称";
 $text['label-name']['ja-jp'] = "名前";
 $text['label-name']['ko-kr'] = "이름";
 
@@ -320,7 +320,7 @@ $text['label-duration']['ru-ru'] = "Продолжительность";
 $text['label-duration']['sv-se'] = "Samtalstid";
 $text['label-duration']['uk-ua'] = "Тривалість";
 $text['label-duration']['tr-tr'] = "Süre";
-$text['label-duration']['zh-cn'] = "期间";
+$text['label-duration']['zh-cn'] = "持续时间";
 $text['label-duration']['ja-jp'] = "間隔";
 $text['label-duration']['ko-kr'] = "지속";
 

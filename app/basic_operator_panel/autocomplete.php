@@ -29,12 +29,15 @@
 	require_once "resources/check_auth.php";
 
 //check permissions
-	if (!permission_exists('contact_view')) {
+	if (permission_exists('contact_view')) {
+		//access granted
+	}
+	else {
 		exit;
 	}
 
 //search term
-	$term = $_GET['term'] ?? '';
+	$term = check_str($_GET['term']);
 	if (isset($_GET['debug'])) {
 		echo "Search Term: ".escape($term)."<br><br>";
 	}
@@ -57,6 +60,9 @@
 	}
 	//add user's uuid to group uuid list to include private (non-shared) contacts
 	$user_group_uuids[] = $_SESSION["user_uuid"];
+
+//create the database object
+	$database = new database;
 
 //get extensions list
 	$sql = "select \n";
@@ -87,6 +93,7 @@
 	if (isset($_GET['debug'])) { echo $sql."<br><br>"; }
 	$parameters['term'] = '%'.$term.'%';
 	$parameters['domain_uuid'] = $_SESSION['domain_uuid'];
+	$database = new database;
 	$result = $database->select($sql, $parameters, 'all');
 	unset ($parameters, $sql);
 
@@ -152,6 +159,7 @@
 	if (isset($_GET['debug'])) { echo $sql."<br><br>"; }
 	$parameters['term'] = '%'.$term.'%';
 	$parameters['domain_uuid'] = $_SESSION['domain_uuid'];
+	$database = new database;
 	$result = $database->select($sql, $parameters, 'all');
 	unset ($parameters, $sql);
 

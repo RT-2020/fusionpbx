@@ -104,7 +104,7 @@ $text['label-menu_name']['ru-ru'] = "Название";
 $text['label-menu_name']['sv-se'] = "Namn";
 $text['label-menu_name']['uk-ua'] = "Назва";
 $text['label-menu_name']['tr-tr'] = "İsim";
-$text['label-menu_name']['zh-cn'] = "姓名";
+$text['label-menu_name']['zh-cn'] = "菜单名称";
 $text['label-menu_name']['ja-jp'] = "名前";
 $text['label-menu_name']['ko-kr'] = "이름";
 
@@ -428,7 +428,7 @@ $text['label-name']['ru-ru'] = "Название";
 $text['label-name']['sv-se'] = "Namn";
 $text['label-name']['uk-ua'] = "Назва";
 $text['label-name']['tr-tr'] = "İsim";
-$text['label-name']['zh-cn'] = "姓名";
+$text['label-name']['zh-cn'] = "名称";
 $text['label-name']['ja-jp'] = "名前";
 $text['label-name']['ko-kr'] = "이름";
 
@@ -455,7 +455,7 @@ $text['label-menu_order']['ru-ru'] = "Заказ";
 $text['label-menu_order']['sv-se'] = "Ordning";
 $text['label-menu_order']['uk-ua'] = "порядок";
 $text['label-menu_order']['tr-tr'] = "Emir";
-$text['label-menu_order']['zh-cn'] = "命令";
+$text['label-menu_order']['zh-cn'] = "权重";
 $text['label-menu_order']['ja-jp'] = "オーダー";
 $text['label-menu_order']['ko-kr'] = "注文";
 
@@ -482,7 +482,7 @@ $text['label-link']['ru-ru'] = "Ссылка";
 $text['label-link']['sv-se'] = "Länk";
 $text['label-link']['uk-ua'] = "Посилання";
 $text['label-link']['tr-tr'] = "Bağlantı";
-$text['label-link']['zh-cn'] = "链接";
+$text['label-link']['zh-cn'] = "文件路径";
 $text['label-link']['ja-jp'] = "リンク";
 $text['label-link']['ko-kr'] = "링크";
 
@@ -590,7 +590,7 @@ $text['label-groups']['ru-ru'] = "Группы";
 $text['label-groups']['sv-se'] = "Grupper";
 $text['label-groups']['uk-ua'] = "Групи";
 $text['label-groups']['tr-tr'] = "Gruplar";
-$text['label-groups']['zh-cn'] = "团体";
+$text['label-groups']['zh-cn'] = "权限组";
 $text['label-groups']['ja-jp'] = "グループ";
 $text['label-groups']['ko-kr'] = "그룹";
 

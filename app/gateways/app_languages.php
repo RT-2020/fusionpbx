@@ -23,7 +23,7 @@ $text['title-gateways']['ru-ru'] = "Шлюзы";
 $text['title-gateways']['sv-se'] = "Inkörsport";
 $text['title-gateways']['uk-ua'] = "Шлюзи";
 $text['title-gateways']['tr-tr'] = "Ağ geçitleri";
-$text['title-gateways']['zh-cn'] = "网关";
+$text['title-gateways']['zh-cn'] = "网关管理";
 $text['title-gateways']['ja-jp'] = "ゲートウェイ";
 $text['title-gateways']['ko-kr'] = "게이트웨이";
 
@@ -50,7 +50,7 @@ $text['title-gateway']['ru-ru'] = "Шлюз";
 $text['title-gateway']['sv-se'] = "Inkörsport";
 $text['title-gateway']['uk-ua'] = "Шлюз";
 $text['title-gateway']['tr-tr'] = "Geçit";
-$text['title-gateway']['zh-cn'] = "网关";
+$text['title-gateway']['zh-cn'] = "网关管理";
 $text['title-gateway']['ja-jp'] = "ゲートウェイ";
 $text['title-gateway']['ko-kr'] = "게이트웨이";
 
@@ -77,7 +77,7 @@ $text['select-global']['ru-ru'] = "Глобальный";
 $text['select-global']['sv-se'] = "Global";
 $text['select-global']['uk-ua'] = "Глобальний";
 $text['select-global']['tr-tr'] = "Küresel";
-$text['select-global']['zh-cn'] = "全球的";
+$text['select-global']['zh-cn'] = "全局";
 $text['select-global']['ja-jp'] = "グローバル";
 $text['select-global']['ko-kr'] = "글로벌";
 
@@ -374,7 +374,7 @@ $text['label-status-running']['ru-ru'] = "Запущено";
 $text['label-status-running']['sv-se'] = "Löpning";
 $text['label-status-running']['uk-ua'] = "Запущено";
 $text['label-status-running']['tr-tr'] = "Koşma";
-$text['label-status-running']['zh-cn'] = "跑步";
+$text['label-status-running']['zh-cn'] = "运行";
 $text['label-status-running']['ja-jp'] = "ランニング";
 $text['label-status-running']['ko-kr'] = "달리기";
 
@@ -401,7 +401,7 @@ $text['label-status']['ru-ru'] = "Статус";
 $text['label-status']['sv-se'] = "Status";
 $text['label-status']['uk-ua'] = "Статус";
 $text['label-status']['tr-tr'] = "Durum";
-$text['label-status']['zh-cn'] = "地位";
+$text['label-status']['zh-cn'] = "状态";
 $text['label-status']['ja-jp'] = "スターテス";
 $text['label-status']['ko-kr'] = "상태";
 
@@ -509,7 +509,7 @@ $text['label-register_transport']['ru-ru'] = "Регистрация Транс�
 $text['label-register_transport']['sv-se'] = "Register Transport";
 $text['label-register_transport']['uk-ua'] = "Транспорт для реєстрації";
 $text['label-register_transport']['tr-tr'] = "Taşımayı Kaydet";
-$text['label-register_transport']['zh-cn'] = "注册运输";
+$text['label-register_transport']['zh-cn'] = "注册传输协议";
 $text['label-register_transport']['ja-jp'] = "トランスポートの登録";
 $text['label-register_transport']['ko-kr'] = "운송 등록";
 
@@ -536,7 +536,7 @@ $text['label-contact_params']['ru-ru'] = "Парамы контактов";
 $text['label-contact_params']['sv-se'] = "Kontakta Params";
 $text['label-contact_params']['uk-ua'] = "Параметри контактів";
 $text['label-contact_params']['tr-tr'] = "İletişim Parametreleri";
-$text['label-contact_params']['zh-cn'] = "接触参数";
+$text['label-contact_params']['zh-cn'] = "Contact 参数";
 $text['label-contact_params']['ja-jp'] = "パラムスに連絡する";
 $text['label-contact_params']['ko-kr'] = "연락처 매개변수";
 
@@ -590,7 +590,7 @@ $text['label-register']['ru-ru'] = "Регистрация";
 $text['label-register']['sv-se'] = "Registrera";
 $text['label-register']['uk-ua'] = "Реєстрація";
 $text['label-register']['tr-tr'] = "Kayıt olmak";
-$text['label-register']['zh-cn'] = "登记";
+$text['label-register']['zh-cn'] = "注册";
 $text['label-register']['ja-jp'] = "登録";
 $text['label-register']['ko-kr'] = "등록하다";
 
@@ -617,7 +617,7 @@ $text['label-realm']['ru-ru'] = "Область";
 $text['label-realm']['sv-se'] = "Realm";
 $text['label-realm']['uk-ua'] = "Королівство";
 $text['label-realm']['tr-tr'] = "Diyar";
-$text['label-realm']['zh-cn'] = "领域";
+$text['label-realm']['zh-cn'] = "域";
 $text['label-realm']['ja-jp'] = "レルム";
 $text['label-realm']['ko-kr'] = "왕국";
 
@@ -644,7 +644,7 @@ $text['label-proxy']['ru-ru'] = "Прокси";
 $text['label-proxy']['sv-se'] = "Ombud";
 $text['label-proxy']['uk-ua'] = "Проксі";
 $text['label-proxy']['tr-tr'] = "vekil";
-$text['label-proxy']['zh-cn'] = "代理人";
+$text['label-proxy']['zh-cn'] = "代理";
 $text['label-proxy']['ja-jp'] = "プロキシー";
 $text['label-proxy']['ko-kr'] = "대리";
 
@@ -671,7 +671,7 @@ $text['label-profile']['ru-ru'] = "Профиль";
 $text['label-profile']['sv-se'] = "Profil";
 $text['label-profile']['uk-ua'] = "Профіль";
 $text['label-profile']['tr-tr'] = "Profil";
-$text['label-profile']['zh-cn'] = "轮廓";
+$text['label-profile']['zh-cn'] = "配置";
 $text['label-profile']['ja-jp'] = "プロフィール";
 $text['label-profile']['ko-kr'] = "프로필";
 
@@ -698,7 +698,7 @@ $text['label-ping']['ru-ru'] = "Пинг";
 $text['label-ping']['sv-se'] = "Ping";
 $text['label-ping']['uk-ua'] = "Пінг";
 $text['label-ping']['tr-tr'] = "ping";
-$text['label-ping']['zh-cn'] = "平";
+$text['label-ping']['zh-cn'] = "Ping";
 $text['label-ping']['ja-jp'] = "ピン";
 $text['label-ping']['ko-kr'] = "핑";
 
@@ -725,7 +725,7 @@ $text['label-ping_min']['ru-ru'] = "Мин. пинг";
 $text['label-ping_min']['sv-se'] = "Ping min";
 $text['label-ping_min']['uk-ua'] = "Пінг Мін";
 $text['label-ping_min']['tr-tr'] = "Ping Min";
-$text['label-ping_min']['zh-cn'] = "平敏";
+$text['label-ping_min']['zh-cn'] = "最小 Ping";
 $text['label-ping_min']['ja-jp'] = "ピン・ミン";
 $text['label-ping_min']['ko-kr'] = "핑 민";
 
@@ -752,7 +752,7 @@ $text['label-ping_max']['ru-ru'] = "Пинг Макс";
 $text['label-ping_max']['sv-se'] = "Ping max";
 $text['label-ping_max']['uk-ua'] = "Пінг Макс";
 $text['label-ping_max']['tr-tr'] = "Maksimum ping";
-$text['label-ping_max']['zh-cn'] = "平最大";
+$text['label-ping_max']['zh-cn'] = "最大 Ping";
 $text['label-ping_max']['ja-jp'] = "最大ピン数";
 $text['label-ping_max']['ko-kr'] = "핑 맥스";
 
@@ -779,7 +779,7 @@ $text['label-contact_in_ping']['ru-ru'] = "Контакты в Пинг";
 $text['label-contact_in_ping']['sv-se'] = "Kontakt i ping";
 $text['label-contact_in_ping']['uk-ua'] = "Контакти";
 $text['label-contact_in_ping']['tr-tr'] = "Ping'de iletişim";
-$text['label-contact_in_ping']['zh-cn'] = "联系人在平";
+$text['label-contact_in_ping']['zh-cn'] = "Ping 中包含 Contact";
 $text['label-contact_in_ping']['ja-jp'] = "Pingで連絡する";
 $text['label-contact_in_ping']['ko-kr'] = "핑에서 연락";
 
@@ -968,7 +968,7 @@ $text['label-extension']['ru-ru'] = "Внутренний Номер";
 $text['label-extension']['sv-se'] = "Anknytning";
 $text['label-extension']['uk-ua'] = "Розширення";
 $text['label-extension']['tr-tr'] = "Eklenti";
-$text['label-extension']['zh-cn'] = "扩大";
+$text['label-extension']['zh-cn'] = "分机";
 $text['label-extension']['ja-jp'] = "拡大";
 $text['label-extension']['ko-kr'] = "확대";
 
@@ -1049,7 +1049,7 @@ $text['label-domain']['ru-ru'] = "Домен";
 $text['label-domain']['sv-se'] = "Domän";
 $text['label-domain']['uk-ua'] = "Домен";
 $text['label-domain']['tr-tr'] = "İhtisas";
-$text['label-domain']['zh-cn'] = "领域";
+$text['label-domain']['zh-cn'] = "域";
 $text['label-domain']['ja-jp'] = "ドメイン";
 $text['label-domain']['ko-kr'] = "도메인";
 
@@ -1103,7 +1103,7 @@ $text['label-context']['ru-ru'] = "Контекст";
 $text['label-context']['sv-se'] = "Sammanhang";
 $text['label-context']['uk-ua'] = "Контекст";
 $text['label-context']['tr-tr'] = "Bağlam";
-$text['label-context']['zh-cn'] = "语境";
+$text['label-context']['zh-cn'] = "上下文";
 $text['label-context']['ja-jp'] = "コンテクスト";
 $text['label-context']['ko-kr'] = "문맥";
 
@@ -1184,7 +1184,7 @@ $text['label-caller_id_in_from']['ru-ru'] = "Идентификтор (Caller ID
 $text['label-caller_id_in_from']['sv-se'] = "Nummerpresentation in från";
 $text['label-caller_id_in_from']['uk-ua'] = "ідентифікатор абонента у від";
 $text['label-caller_id_in_from']['tr-tr'] = "Arayanın Kimliği Kimden?";
-$text['label-caller_id_in_from']['zh-cn'] = "来电显示来自";
+$text['label-caller_id_in_from']['zh-cn'] = "来电显示在 From";
 $text['label-caller_id_in_from']['ja-jp'] = "発信者ID 受信者";
 $text['label-caller_id_in_from']['ko-kr'] = "발신자 표시";
 
@@ -1211,7 +1211,7 @@ $text['label-auth_username']['ru-ru'] = "Имя Пользователя для 
 $text['label-auth_username']['sv-se'] = "Auth användarnamn";
 $text['label-auth_username']['uk-ua'] = "Авторизоване ім'я користувача ";
 $text['label-auth_username']['tr-tr'] = "Kimlik Doğrulama Kullanıcı Adı";
-$text['label-auth_username']['zh-cn'] = "授权用户名";
+$text['label-auth_username']['zh-cn'] = "认证用户名";
 $text['label-auth_username']['ja-jp'] = "認証ユーザー名";
 $text['label-auth_username']['ko-kr'] = "인증 사용자 이름";
 
@@ -1292,7 +1292,7 @@ $text['label-action']['ru-ru'] = "Действие";
 $text['label-action']['sv-se'] = "Åtgärd";
 $text['label-action']['uk-ua'] = "Дія";
 $text['label-action']['tr-tr'] = "Aksiyon";
-$text['label-action']['zh-cn'] = "复制";
+$text['label-action']['zh-cn'] = "操作";
 $text['label-action']['ja-jp'] = "コピー";
 $text['label-action']['ko-kr'] = "복사";
 
@@ -1454,7 +1454,7 @@ $text['description-register_transport']['ru-ru'] = "Выберите предп�
 $text['description-register_transport']['sv-se'] = "Välj om registrera transport eller ej.";
 $text['description-register_transport']['uk-ua'] = "Виберіть, чи реєструвати транспорт.";
 $text['description-register_transport']['tr-tr'] = "Taşımanın kaydedilip kaydedilmeyeceğini seçin.";
-$text['description-register_transport']['zh-cn'] = "选择是否注册传输。";
+$text['description-register_transport']['zh-cn'] = "选择用于注册的传输协议。";
 $text['description-register_transport']['ja-jp'] = "登録転送するかどうかを選択します。";
 $text['description-register_transport']['ko-kr'] = "등록-운송 여부를 선택합니다.";
 
@@ -1616,7 +1616,7 @@ $text['description-profile']['ru-ru'] = "Выберите профиль, исп
 $text['description-profile']['sv-se'] = "Definiera inställningar för denna profil.";
 $text['description-profile']['uk-ua'] = "Введіть профіль тут.";
 $text['description-profile']['tr-tr'] = "Profili buraya girin.";
-$text['description-profile']['zh-cn'] = "在此处输入个人资料。";
+$text['description-profile']['zh-cn'] = "在此处输入配置。";
 $text['description-profile']['ja-jp'] = "ここにプロフィールを入力します。";
 $text['description-profile']['ko-kr'] = "여기에 프로필을 입력하세요.";
 
@@ -1724,7 +1724,7 @@ $text['description-password']['ru-ru'] = "Введите здесь пароль
 $text['description-password']['sv-se'] = "Fyll i lösenord.";
 $text['description-password']['uk-ua'] = "Введіть пароль";
 $text['description-password']['tr-tr'] = "Şifreyi buraya girin.";
-$text['description-password']['zh-cn'] = "加入前言。";
+$text['description-password']['zh-cn'] = "在此处输入密码。";
 $text['description-password']['ja-jp'] = "ここにパスワードを入力します。";
 $text['description-password']['ko-kr'] = "여기에 비밀번호를 입력하세요.";
 
@@ -1859,7 +1859,7 @@ $text['description-from_user']['ru-ru'] = "Введите  Имя пользов
 $text['description-from_user']['sv-se'] = "Ange 'from-user' här.";
 $text['description-from_user']['uk-ua'] = "Введіть тут користувача від.";
 $text['description-from_user']['tr-tr'] = "Kullanıcıyı buraya girin.";
-$text['description-from_user']['zh-cn'] = "在此处输入来自用户。";
+$text['description-from_user']['zh-cn'] = "在此处输入 From-User。";
 $text['description-from_user']['ja-jp'] = "ここに送信者ユーザーを入力します。";
 $text['description-from_user']['ko-kr'] = "여기에 from-user를 입력합니다.";
 
@@ -1886,7 +1886,7 @@ $text['description-from_domain']['ru-ru'] = "Введите Домен отпр�
 $text['description-from_domain']['sv-se'] = "Ange 'from-domain' här.";
 $text['description-from_domain']['uk-ua'] = "Введіть тут домен відправника.";
 $text['description-from_domain']['tr-tr'] = "Alan adını buraya girin.";
-$text['description-from_domain']['zh-cn'] = "在此处输入发件人域。";
+$text['description-from_domain']['zh-cn'] = "在此处输入 From-Domain。";
 $text['description-from_domain']['ja-jp'] = "ここに from ドメインを入力します。";
 $text['description-from_domain']['ko-kr'] = "여기에 발신 도메인을 입력하세요.";
 
@@ -1940,7 +1940,7 @@ $text['description-extension']['ru-ru'] = "Введите внутренний �
 $text['description-extension']['sv-se'] = "Ange anknytningen här.";
 $text['description-extension']['uk-ua'] = "Введіть розширення";
 $text['description-extension']['tr-tr'] = "Uzantıyı buraya girin.";
-$text['description-extension']['zh-cn'] = "在此处输入扩展名。";
+$text['description-extension']['zh-cn'] = "在此处输入分机号。";
 $text['description-extension']['ja-jp'] = "ここに拡張子を入力します。";
 $text['description-extension']['ko-kr'] = "여기에 확장자를 입력합니다.";
 

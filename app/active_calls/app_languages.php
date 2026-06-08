@@ -22,7 +22,7 @@ $text['title-2']['ro-ro'] = "Extensii active";
 $text['title-2']['ru-ru'] = "Активные внутренние номера";
 $text['title-2']['sv-se'] = "Aktiva anknytningar";
 $text['title-2']['uk-ua'] = "Активні розширення";
-$text['title-2']['zh-cn'] = "活动扩展";
+$text['title-2']['zh-cn'] = "活动分机";
 $text['title-2']['ja-jp'] = "アクティブな拡張機能";
 $text['title-2']['ko-kr'] = "활성 확장";
 
@@ -48,7 +48,7 @@ $text['title']['ro-ro'] = "Apeluri active";
 $text['title']['ru-ru'] = "Активные вызовы";
 $text['title']['sv-se'] = "Aktiva Samtal";
 $text['title']['uk-ua'] = "Активні дзвінки";
-$text['title']['zh-cn'] = "主动通话";
+$text['title']['zh-cn'] = "活动通话";
 $text['title']['ja-jp'] = "アクティブな通話";
 $text['title']['ko-kr'] = "활성 통화";
 
@@ -126,7 +126,7 @@ $text['label-stop']['ro-ro'] = "opri înregistrarea";
 $text['label-stop']['ru-ru'] = "остановить запись";
 $text['label-stop']['sv-se'] = "Stoppa inspelning";
 $text['label-stop']['uk-ua'] = "Зупинити запис";
-$text['label-stop']['zh-cn'] = "停止记录";
+$text['label-stop']['zh-cn'] = "停止录音";
 $text['label-stop']['ja-jp'] = "記録を停止する";
 $text['label-stop']['ko-kr'] = "기록 중지";
 
@@ -152,7 +152,7 @@ $text['label-status']['ro-ro'] = "stare";
 $text['label-status']['ru-ru'] = "Статус";
 $text['label-status']['sv-se'] = "Status";
 $text['label-status']['uk-ua'] = "Статус";
-$text['label-status']['zh-cn'] = "地位";
+$text['label-status']['zh-cn'] = "状态";
 $text['label-status']['ja-jp'] = "スターテス";
 $text['label-status']['ko-kr'] = "상태";
 
@@ -178,7 +178,7 @@ $text['label-start']['ro-ro'] = "începe înregistrarea";
 $text['label-start']['ru-ru'] = "начать запись";
 $text['label-start']['sv-se'] = "Starta inspelning";
 $text['label-start']['uk-ua'] = "Запустити запис";
-$text['label-start']['zh-cn'] = "开始记录";
+$text['label-start']['zh-cn'] = "开始录音";
 $text['label-start']['ja-jp'] = "レコードを開始します";
 $text['label-start']['ko-kr'] = "기록 시작";
 
@@ -204,7 +204,7 @@ $text['label-secure']['ro-ro'] = "Sigur";
 $text['label-secure']['ru-ru'] = "Безопасный";
 $text['label-secure']['sv-se'] = "Skydda";
 $text['label-secure']['uk-ua'] = "Захищено";
-$text['label-secure']['zh-cn'] = "安全的";
+$text['label-secure']['zh-cn'] = "安全";
 $text['label-secure']['ja-jp'] = "安全";
 $text['label-secure']['ko-kr'] = "안전한";
 
@@ -308,7 +308,7 @@ $text['label-profile']['ro-ro'] = "Profil";
 $text['label-profile']['ru-ru'] = "Профиль";
 $text['label-profile']['sv-se'] = "Profil";
 $text['label-profile']['uk-ua'] = "Профіль";
-$text['label-profile']['zh-cn'] = "轮廓";
+$text['label-profile']['zh-cn'] = "Profile";
 $text['label-profile']['ja-jp'] = "プロフィール";
 $text['label-profile']['ko-kr'] = "프로필";
 
@@ -334,7 +334,7 @@ $text['label-park-extension']['ro-ro'] = "Parc";
 $text['label-park-extension']['ru-ru'] = "Парковка";
 $text['label-park-extension']['sv-se'] = "Parkera";
 $text['label-park-extension']['uk-ua'] = "Паркувати";
-$text['label-park-extension']['zh-cn'] = "公园";
+$text['label-park-extension']['zh-cn'] = "停放";
 $text['label-park-extension']['ja-jp'] = "公園";
 $text['label-park-extension']['ko-kr'] = "공원";
 
@@ -360,7 +360,7 @@ $text['label-park']['ro-ro'] = "parc";
 $text['label-park']['ru-ru'] = "парковка";
 $text['label-park']['sv-se'] = "parkera";
 $text['label-park']['uk-ua'] = "паркувати";
-$text['label-park']['zh-cn'] = "公园";
+$text['label-park']['zh-cn'] = "停放";
 $text['label-park']['ja-jp'] = "公園";
 $text['label-park']['ko-kr'] = "공원";
 
@@ -412,7 +412,7 @@ $text['label-number']['ro-ro'] = "Număr";
 $text['label-number']['ru-ru'] = "Номер";
 $text['label-number']['sv-se'] = "Nummer";
 $text['label-number']['uk-ua'] = "Номер";
-$text['label-number']['zh-cn'] = "数字";
+$text['label-number']['zh-cn'] = "号码";
 $text['label-number']['ja-jp'] = "番号";
 $text['label-number']['ko-kr'] = "숫자";
 
@@ -438,7 +438,7 @@ $text['label-message']['ro-ro'] = "Mesaj";
 $text['label-message']['ru-ru'] = "Сообщение";
 $text['label-message']['sv-se'] = "Meddelande";
 $text['label-message']['uk-ua'] = "Повідомлення";
-$text['label-message']['zh-cn'] = "信息";
+$text['label-message']['zh-cn'] = "消息";
 $text['label-message']['ja-jp'] = "メッセージ";
 $text['label-message']['ko-kr'] = "메시지";
 
@@ -464,7 +464,7 @@ $text['label-hangup']['ro-ro'] = "Rezistă";
 $text['label-hangup']['ru-ru'] = "Завершить";
 $text['label-hangup']['sv-se'] = "Avsluta";
 $text['label-hangup']['uk-ua'] = "Розірвати";
-$text['label-hangup']['zh-cn'] = "不挂断";
+$text['label-hangup']['zh-cn'] = "挂断";
 $text['label-hangup']['ja-jp'] = "ちょっとまって";
 $text['label-hangup']['ko-kr'] = "잠깐만";
 
@@ -516,7 +516,7 @@ $text['label-domain']['ro-ro'] = "Domeniu";
 $text['label-domain']['ru-ru'] = "Домен";
 $text['label-domain']['sv-se'] = "Domän";
 $text['label-domain']['uk-ua'] = "Домен";
-$text['label-domain']['zh-cn'] = "领域";
+$text['label-domain']['zh-cn'] = "域名";
 $text['label-domain']['ja-jp'] = "ドメイン";
 $text['label-domain']['ko-kr'] = "도메인";
 
@@ -646,7 +646,7 @@ $text['label-cid-name']['ro-ro'] = "Nume CID";
 $text['label-cid-name']['ru-ru'] = "CID Имя";
 $text['label-cid-name']['sv-se'] = "CID namnpresentation";
 $text['label-cid-name']['uk-ua'] = "CID Ім’я";
-$text['label-cid-name']['zh-cn'] = "客户ID名称";
+$text['label-cid-name']['zh-cn'] = "来电名称";
 $text['label-cid-name']['ja-jp'] = "CID名";
 $text['label-cid-name']['ko-kr'] = "CID 이름";
 
@@ -698,7 +698,7 @@ $text['label-eavesdrop']['ro-ro'] = "Trage cu urechea";
 $text['label-eavesdrop']['ru-ru'] = "Подслушивать";
 $text['label-eavesdrop']['sv-se'] = "Medlyssning";
 $text['label-eavesdrop']['uk-ua'] = "підслуховувати";
-$text['label-eavesdrop']['zh-cn'] = "窃听";
+$text['label-eavesdrop']['zh-cn'] = "监听";
 $text['label-eavesdrop']['ja-jp'] = "盗聴";
 $text['label-eavesdrop']['ko-kr'] = "엿듣다";
 
@@ -725,7 +725,7 @@ $text['label-duration']['ru-ru'] = "Продолжительность";
 $text['label-duration']['sv-se'] = "Samtalstid";
 $text['label-duration']['uk-ua'] = "Тривалість";
 $text['label-duration']['tr-tr'] = "Süre";
-$text['label-duration']['zh-cn'] = "期间";
+$text['label-duration']['zh-cn'] = "持续时间";
 $text['label-duration']['ja-jp'] = "間隔";
 $text['label-duration']['ko-kr'] = "지속";
 
@@ -803,7 +803,7 @@ $text['description-eavesdrop_destination']['ro-ro'] = "Selectați Destinația Ea
 $text['description-eavesdrop_destination']['ru-ru'] = "Выберите подслушивание пункта назначения";
 $text['description-eavesdrop_destination']['sv-se'] = "Välj Medlyssning Destination";
 $text['description-eavesdrop_destination']['uk-ua'] = "Виберіть пункт призначення підслуховувати";
-$text['description-eavesdrop_destination']['zh-cn'] = "选择窃听目的地";
+$text['description-eavesdrop_destination']['zh-cn'] = "选择监听目的地";
 $text['description-eavesdrop_destination']['ja-jp'] = "盗聴先を選択";
 $text['description-eavesdrop_destination']['ko-kr'] = "도청 대상 선택";
 
@@ -881,7 +881,7 @@ $text['confirm-eavesdrop']['ro-ro'] = "Chiar vrei să asculti cu urechea la aces
 $text['confirm-eavesdrop']['ru-ru'] = "Вы действительно хотите подслушать этот звонок?";
 $text['confirm-eavesdrop']['sv-se'] = "Vill du verkligen avlyssna det här samtalet?";
 $text['confirm-eavesdrop']['uk-ua'] = "Ви дійсно хочете підслухати цей дзвінок?";
-$text['confirm-eavesdrop']['zh-cn'] = "你真的想窃听这个电话吗？";
+$text['confirm-eavesdrop']['zh-cn'] = "你真的想监听这个电话吗？";
 $text['confirm-eavesdrop']['ja-jp'] = "本当にこの通話を盗聴したいですか?";
 $text['confirm-eavesdrop']['ko-kr'] = "정말로 이 통화를 엿듣고 싶으신가요?";
 
@@ -933,7 +933,7 @@ $text['check-onbreak-status']['ro-ro'] = "In pauza";
 $text['check-onbreak-status']['ru-ru'] = "Перерыв";
 $text['check-onbreak-status']['sv-se'] = "På Rast";
 $text['check-onbreak-status']['uk-ua'] = "На перерві";
-$text['check-onbreak-status']['zh-cn'] = "休息时";
+$text['check-onbreak-status']['zh-cn'] = "休息中";
 $text['check-onbreak-status']['ja-jp'] = "休んで";
 $text['check-onbreak-status']['ko-kr'] = "쉬는 중";
 
@@ -959,7 +959,7 @@ $text['check-loggedout-status']['ro-ro'] = "Delogat";
 $text['check-loggedout-status']['ru-ru'] = "Не в сети";
 $text['check-loggedout-status']['sv-se'] = "Utloggad";
 $text['check-loggedout-status']['uk-ua'] = "Вийшов";
-$text['check-loggedout-status']['zh-cn'] = "登出";
+$text['check-loggedout-status']['zh-cn'] = "已注销";
 $text['check-loggedout-status']['ja-jp'] = "ログアウトしました";
 $text['check-loggedout-status']['ko-kr'] = "로그아웃됨";
 
@@ -1011,7 +1011,7 @@ $text['check-available-status']['ro-ro'] = "Disponibil";
 $text['check-available-status']['ru-ru'] = "Доступен";
 $text['check-available-status']['sv-se'] = "Anträffbar";
 $text['check-available-status']['uk-ua'] = "Доступний";
-$text['check-available-status']['zh-cn'] = "可用的";
+$text['check-available-status']['zh-cn'] = "可用";
 $text['check-available-status']['ja-jp'] = "利用可能";
 $text['check-available-status']['ko-kr'] = "사용 가능";
 

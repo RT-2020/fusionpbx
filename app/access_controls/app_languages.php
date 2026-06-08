@@ -213,7 +213,7 @@ $text['label-node_domain']['ru-ru'] = "Домен";
 $text['label-node_domain']['sv-se'] = "Domän";
 $text['label-node_domain']['uk-ua'] = "домен";
 $text['label-node_domain']['tr-tr'] = "İhtisas";
-$text['label-node_domain']['zh-cn'] = "领域";
+$text['label-node_domain']['zh-cn'] = "域";
 $text['label-node_domain']['ja-jp'] = "ドメイン";
 $text['label-node_domain']['ko-kr'] = "도메인";
 
@@ -348,7 +348,7 @@ $text['label-access_control_name']['ru-ru'] = "Имя";
 $text['label-access_control_name']['sv-se'] = "namn";
 $text['label-access_control_name']['uk-ua'] = "ім'я";
 $text['label-access_control_name']['tr-tr'] = "İsim";
-$text['label-access_control_name']['zh-cn'] = "姓名";
+$text['label-access_control_name']['zh-cn'] = "名称";
 $text['label-access_control_name']['ja-jp'] = "名前";
 $text['label-access_control_name']['ko-kr'] = "이름";
 

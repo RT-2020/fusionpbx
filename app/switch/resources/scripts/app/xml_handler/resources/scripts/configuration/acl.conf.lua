@@ -103,7 +103,7 @@
 					if (row.access_control_name == 'providers' or row.access_control_name == 'domains') then
 						sql = "select domain_name, domain_description from v_domains ";
 						sql = sql .. "where domain_uuid in (select distinct(domain_uuid) ";
-						sql = sql .. "from v_extensions where enabled = true) ";
+						sql = sql .. "from v_extensions where enabled = 'true') ";
 						sql = sql .. "and domain_enabled = true ";
 						local params = {}
 						if (debug["sql"]) then

@@ -70,7 +70,7 @@
 	if (domain_uuid ~= nil) then
 		local sql = "SELECT * FROM v_extensions WHERE domain_uuid = :domain_uuid "
 			.. "and (extension = :user or number_alias = :user) "
-			.. "and enabled = true ";
+			.. "and enabled = 'true' ";
 		local params = {domain_uuid=domain_uuid, user=user};
 		if (debug["sql"]) then
 			log.noticef("SQL: %s; params %s", sql, json.encode(params));

@@ -29,7 +29,10 @@ require_once dirname(__DIR__, 3) . "/resources/require.php";
 require_once "resources/check_auth.php";
 
 //check permissions
-if (!permission_exists('operator_panel_view')) {
+if (permission_exists('operator_panel_view')) {
+	//access granted
+}
+else {
 	echo "access denied";
 	exit;
 }
@@ -71,29 +74,29 @@ if ($valet_info !== false) {
 	}
 	//view_array($valet_matches, false);
 
-	//unset($valet);
+	//unset($_SESSION['valet']);
 	foreach($valet_matches as $row) {
-		if (!isset($valet['uuid']['caller_id_name'])) {
-			$valet[$row[1]]['caller_id_name'] = event_socket::api('uuid_getvar '.$row[1].' caller_id_name');
+		if (!isset($_SESSION['valet']['uuid']['caller_id_name'])) {
+			$_SESSION['valet'][$row[1]]['caller_id_name'] = event_socket::api('uuid_getvar '.$row[1].' caller_id_name');
 		}
-		if (!isset($valet['uuid']['caller_id_number'])) {
-			$valet[$row[1]]['caller_id_number'] = event_socket::api('uuid_getvar '.$row[1].' caller_id_number');
+		if (!isset($_SESSION['valet']['uuid']['caller_id_number'])) {
+			$_SESSION['valet'][$row[1]]['caller_id_number'] = event_socket::api('uuid_getvar '.$row[1].' caller_id_number');
 		}
 	}
 
 	//unset the array
-	//view_array($valet);
+	//view_array($_SESSION['valet']);
 
 	//reformat the array and add the caller ID name and numbers
 	$x = 0;
 	foreach($valet_matches as $row) {
 		$valet_array[$x]['uuid'] = $row[1];
 		$valet_array[$x]['extension'] = $row[2];
-		if (isset($valet[$row[1]]['caller_id_name'])) {
-			$valet_array[$x]['caller_id_name'] = $valet[$row[1]]['caller_id_name'];
+		if (isset($_SESSION['valet'][$row[1]]['caller_id_name'])) {
+			$valet_array[$x]['caller_id_name'] = $_SESSION['valet'][$row[1]]['caller_id_name'];
 		}
-		if (isset($valet[$row[1]]['caller_id_number'])) {
-			$valet_array[$x]['caller_id_number'] = $valet[$row[1]]['caller_id_number'];
+		if (isset($_SESSION['valet'][$row[1]]['caller_id_number'])) {
+			$valet_array[$x]['caller_id_number'] = $_SESSION['valet'][$row[1]]['caller_id_number'];
 		}
 		$x++;
 	}
@@ -156,22 +159,34 @@ echo "						<span id='refresh_state'>".button::create(['type'=>'button','title'=
 echo "					</td>\n";
 
 if (permission_exists('operator_panel_eavesdrop')) {
-	echo "				<td valign='top' nowrap='nowrap'>\n";
+	echo "\t\t\t\t<td valign='top' nowrap='nowrap'>\n";
 	if (sizeof($_SESSION['user']['extensions']) > 1) {
-		echo "				<input type='hidden' id='eavesdrop_dest' value=\"".(($_REQUEST['eavesdrop_dest'] == '') ? $_SESSION['user']['extension'][0]['destination'] : escape($_REQUEST['eavesdrop_dest']))."\">\n";
-		echo "				<img src='resources/images/eavesdrop.png' style='width: 12px; height: 12px; border: none; margin: 0px 5px; cursor: help;' title='".$text['description-eavesdrop_destination']."' align='absmiddle'>\n";
-		echo "				<select class='formfld' style='margin-right: 5px;' align='absmiddle' onchange=\"document.getElementById('eavesdrop_dest').value = this.options[this.selectedIndex].value; refresh_start();\" onfocus='refresh_stop();'>\n";
+		echo "\t\t\t\t<input type='hidden' id='eavesdrop_dest' value=\"".(($_REQUEST['eavesdrop_dest'] == '') ? $_SESSION['user']['extension'][0]['destination'] : escape($_REQUEST['eavesdrop_dest']))."\">\n";
+		echo "\t\t\t\t<img src='resources/images/eavesdrop.png' style='width: 12px; height: 12px; border: none; margin: 0px 5px; cursor: help;' title='".$text['description-eavesdrop_destination']."' align='absmiddle'>\n";
+		echo "\t\t\t\t<select class='formfld' style='margin-right: 5px;' align='absmiddle' onchange=\"document.getElementById('eavesdrop_dest').value = this.options[this.selectedIndex].value; refresh_start();\" onfocus='refresh_stop();'>\n";
 		if (is_array($_SESSION['user']['extensions'])) {
 			foreach ($_SESSION['user']['extensions'] as $user_extension) {
-				echo "			<option value='".escape($user_extension)."' ".(($_REQUEST['eavesdrop_dest'] == $user_extension) ? "selected" : null).">".escape($user_extension)."</option>\n";
+				echo "\t\t\t\t\t<option value='".escape($user_extension)."' ".(($_REQUEST['eavesdrop_dest'] == $user_extension) ? "selected" : null).">".escape($user_extension)."</option>\n";
 			}
 		}
-		echo "				</select>\n";
+		echo "\t\t\t\t</select>\n";
 	}
 	else if (sizeof($_SESSION['user']['extensions']) == 1) {
-		echo "				<input type='hidden' id='eavesdrop_dest' value=\"".escape($_SESSION['user']['extension'][0]['destination'])."\">\n";
+		echo "\t\t\t\t<input type='hidden' id='eavesdrop_dest' value=\"".escape($_SESSION['user']['extension'][0]['destination'])."\">\n";
 	}
-	echo "				</td>\n";
+	echo "\t\t\t\t</td>\n";
+}
+else {
+	echo "\t\t\t\t<td valign='top' nowrap='nowrap'>\n";
+	if (sizeof($_SESSION['user']['extensions']) > 0) {
+		$default_ext = $_SESSION['user']['extension'][0]['destination'] ?? '';
+		echo "\t\t\t\t<input type='hidden' id='eavesdrop_dest' value=\"".escape($default_ext)."\">\n";
+	}
+	else {
+		echo "\t\t\t\t<!-- 没有绑定分机，隐藏字段保留但为空，前端会提示 -->\n";
+		echo "\t\t\t\t<input type='hidden' id='eavesdrop_dest' value=\"\">\n";
+	}
+	echo "\t\t\t\t</td>\n";
 }
 
 if (!empty($groups)) {
@@ -234,7 +249,8 @@ if (is_array($activity)) {
 				!in_array($extension, $_SESSION['user']['extensions']) && (
 					substr_count($ext['extension'], $_REQUEST['filter']) == 0 &&
 					substr_count(strtolower($ext['description'] ?? ''), strtolower($_REQUEST['filter'])) == 0 &&
-					substr_count(strtolower($ext['effective_caller_id_name'] ?? ''), strtolower($_REQUEST['filter'])) == 0
+					substr_count(strtolower($ext['effective_caller_id_name'] ?? ''), strtolower($_REQUEST['filter'])) == 0 &&
+					substr_count(strtolower($ext['extension_owner'] ?? ''), strtolower($_REQUEST['filter'])) == 0
 				)
 				) { continue; }
 		}
@@ -350,7 +366,7 @@ if (is_array($activity)) {
 		}
 		else {
 			//unregistered extension
-			if ($settings->get('operator_panel', 'show_unregistered', false)) {
+			if (filter_var($_SESSION['operator_panel']['show_unregistered']['boolean'] ?? false, FILTER_VALIDATE_BOOL)) {
 				$css_class = "ur_ext";
 			}
 			else {
@@ -444,7 +460,13 @@ if (is_array($activity)) {
 		}
 
 		//build the list of extensions
-		$block = "<div id='".escape($extension)."' class='".$css_class."' ".(($_GET['vd_ext_from'] == $extension || $_GET['vd_ext_to'] == $extension) ? "style='border-style: dotted;'" : null)." ".(empty($ext_state) || ($ext_state != 'active' && $ext_state != 'ringing') ? "ondrop='drop(event, this.id);' ondragover='allowDrop(event, this.id);' ondragleave='discardDrop(event, this.id);'" : null).">"; // DRAG TO
+		$block = "<div id='".escape($extension)."' 
+			class='".$css_class."' 
+			data-extension='".escape($extension)."'
+			data-state='".escape($ext_state)."'
+			data-call-length='".escape($ext['call_length'])."'
+			data-status-icon='".escape($status_icon)."'
+			".(($_GET['vd_ext_from'] == $extension || $_GET['vd_ext_to'] == $extension) ? "style='border-style: dotted;'" : null)." ".(empty($ext_state) || ($ext_state != 'active' && $ext_state != 'ringing') ? "ondrop='drop(event, this.id);' ondragover='allowDrop(event, this.id);' ondragleave='discardDrop(event, this.id);'" : null).">"; // DRAG TO
 		$block .= "<table class='".$css_class."'>\n";
 		$block .= "	<tr>\n";
 		$block .= "		<td class='op_ext_icon'>\n";
@@ -460,10 +482,20 @@ if (is_array($activity)) {
 		if ($ext['effective_caller_id_name'] != '' && escape($ext['effective_caller_id_name']) != $extension) {
 			$block .= "			<strong class='strong'>".escape($ext['effective_caller_id_name'])."</strong> (".escape($extension).")\n";
 		}
+		else if (!empty($ext['extension_owner']) && escape($ext['extension_owner']) != $extension) {
+			$block .= "			<strong class='strong'>".escape($ext['extension_owner'])."</strong> (".escape($extension).")\n";
+		}
 		else {
 			$block .= "			<strong class='strong'>".escape($extension)."</strong>\n";
 		}
 		$block .= "			</span><br>\n";
+		if (!empty($ext['extension_owner'])) {
+			$block .= "			<span class='op_caller_info'>使用人：".escape($ext['extension_owner'])."</span><br>\n";
+		}
+		$block .= "         <button class='btn-call-direct' ";
+		$block .= "onclick=\"callExtensionDirect('".escape($extension)."')\" ";
+		$block .= "title='直接呼叫'>";
+		$block .= "<i class='fas fa-phone'></i></button>\n";
 		if ($ext_state ?? '') {
 			$block .= "		<span class='op_caller_info'>\n";
 			$block .= "			<table align='right'><tr><td style='text-align: right;'>\n";
@@ -472,7 +504,7 @@ if (is_array($activity)) {
 			//record
 			if (permission_exists('operator_panel_record') && $ext_state == 'active') {
 				$call_identifier_record = $ext['call_uuid'];
-				$rec_file = $settings->get('switch', 'recordings')."/".$_SESSION['domain_name']."/archive/".date("Y")."/".date("M")."/".date("d")."/".escape($call_identifier_record).".wav";
+				$rec_file = $_SESSION['switch']['recordings']['dir']."/".$_SESSION['domain_name']."/archive/".date("Y")."/".date("M")."/".date("d")."/".escape($call_identifier_record).".wav";
 				if (file_exists($rec_file)) {
 					$block .= 		"<img src='resources/images/recording.png' style='width: 12px; height: 12px; border: none; margin: 4px 0px 0px 5px; cursor: help;' title=\"".$text['label-recording']."\" ".$onhover_pause_refresh.">\n";
 				}
@@ -480,9 +512,25 @@ if (is_array($activity)) {
 					$block .= 		"<img src='resources/images/record.png' style='width: 12px; height: 12px; border: none; margin: 4px 0px 0px 5px; cursor: pointer;' title=\"".$text['label-record']."\" onclick=\"record_call('".$call_identifier_record."');\" ".$onhover_pause_refresh.">\n";
 				}
 			}
-			//eavesdrop
-			if (permission_exists('operator_panel_eavesdrop') && $ext_state == 'active' && sizeof($_SESSION['user']['extensions']) > 0 && !in_array($extension, $_SESSION['user']['extensions'])) {
-				$block .= 			"<img src='resources/images/eavesdrop.png' style='width: 12px; height: 12px; border: none; margin: 4px 0px 0px 5px; cursor: pointer;' title='".$text['label-eavesdrop']."' onclick=\"eavesdrop_call('".escape($ext['destination'])."','".escape($call_identifier)."');\" ".$onhover_pause_refresh.">\n";
+			// 明确的"直呼"按钮（禁止对自身分机）
+			if (permission_exists('operator_panel_manage')) {
+				$own_dest = $_SESSION['user']['extension'][0]['destination'] ?? '';
+				if ($own_dest !== $extension) {
+					$block .= "\t\t\t\t<img src='resources/images/keypad_call.png' style='width: 12px; height: 12px; border: none; margin: 4px 0px 0px 5px; cursor: pointer;' title='直呼' aria-label='直呼' onclick=\"call_direct('".escape($ext['destination'])."');\" ".$onhover_pause_refresh.">\n";
+				}
+			}
+	//eavesdrop（监听）
+	if (permission_exists('operator_panel_eavesdrop') && $ext_state == 'active' && sizeof($_SESSION['user']['extensions']) > 0 && !in_array($extension, $_SESSION['user']['extensions'])) {
+		$block .= 			"<img src='resources/images/eavesdrop.png' style='width: 12px; height: 12px; border: none; margin: 4px 0px 0px 5px; cursor: pointer;' title='".$text['label-eavesdrop']."' aria-label='".$text['label-eavesdrop']."' onclick=\"eavesdrop_call('".escape($ext['destination'])."','".escape($call_identifier)."');\" ".$onhover_pause_refresh.">\n";
+	}
+	//three-way（插入讲话）
+	if (permission_exists('operator_panel_eavesdrop') && $ext_state == 'active' && sizeof($_SESSION['user']['extensions']) > 0 && !in_array($extension, $_SESSION['user']['extensions'])) {
+		$block .= 			"<img src='resources/images/eavesdrop.png' style='width: 12px; height: 12px; border: none; margin: 4px 0px 0px 5px; cursor: pointer;' title='".$text['label-three_way']."' aria-label='".$text['label-three_way']."' onclick=\"three_way_call('".escape($ext['destination'])."','".escape($call_identifier)."');\" ".$onhover_pause_refresh.">\n";
+	}
+			//mute/unmute
+			if (permission_exists('operator_panel_manage') && $ext_state == 'active') {
+				$block .= 			"<i class='fas fa-microphone-slash' style='font-size: 12px; margin: 4px 0px 0px 5px; cursor: pointer; color: #666;' title='静音' onclick=\"mute_call('".escape($call_identifier)."', 'mute');\" ".$onhover_pause_refresh."></i>\n";
+				$block .= 			"<i class='fas fa-microphone' style='font-size: 12px; margin: 4px 0px 0px 5px; cursor: pointer; color: #666;' title='取消静音' onclick=\"mute_call('".escape($call_identifier)."', 'unmute');\" ".$onhover_pause_refresh."></i>\n";
 			}
 			//hangup
 			if (permission_exists('operator_panel_hangup') || in_array($extension, $_SESSION['user']['extensions'])) {
@@ -495,7 +543,11 @@ if (is_array($activity)) {
 				else {
 					$call_identifier_hangup_uuid = $call_identifier;
 				}
-				$block .= 			"<img src='resources/images/kill.png' style='width: 12px; height: 12px; border: none; margin: 4px 0px 0px 5px; cursor: pointer;' title='".$text['label-hangup']."' onclick=\"hangup_call('".escape($call_identifier_hangup_uuid)."');\" ".$onhover_pause_refresh.">\n";
+			$block .= 			"<img src='resources/images/kill.png' style='width: 12px; height: 12px; border: none; margin: 4px 0px 0px 5px; cursor: pointer;' title='".$text['label-hangup']."' onclick=\"hangup_call('".escape($call_identifier_hangup_uuid)."');\" ".$onhover_pause_refresh.">\n";
+			// 强拆：当有桥接UUID时，提供拆除两端
+			if (!empty($ext['variable_bridge_uuid'])) {
+				$block .= "<img src='resources/images/kill.png' style='width: 12px; height: 12px; border: none; margin: 4px 0px 0px 5px; cursor: pointer;' title='".$text['label-hangup_both']."' onclick=\"hangup_both('".escape($call_identifier_hangup_uuid)."','".escape($ext['variable_bridge_uuid'])."');\" ".$onhover_pause_refresh.">\n";
+			}
 			}
 			$block .=				"</span>\n";
 			//transfer
@@ -516,13 +568,9 @@ if (is_array($activity)) {
 			}
 		}
 		else {
-			//call
-			if (in_array($extension, $_SESSION['user']['extensions'])) {
-				$block .= "		<img id='destination_control_".escape($extension)."_call' class='destination_control' src='resources/images/keypad_call.png' style='width: 12px; height: 12px; border: none; margin-top: 26px; margin-right: 1px; cursor: pointer;' align='right' onclick=\"toggle_destination('".escape($extension)."', 'call');\" ".$onhover_pause_refresh.">\n";
-				$block .= "		<form id='frm_destination_".escape($extension)."_call' onsubmit=\"go_destination('".escape($extension)."', document.getElementById('destination_".escape($extension)."_call').value, 'call'); return false;\">\n";
-				$block .= "			<input type='text' class='formfld' id='destination_".escape($extension)."_call' style='width: 100px; min-width: 100px; max-width: 100px; margin-top: 10px; text-align: center; display: none;' onblur=\"toggle_destination('".escape($extension)."', 'call');\">\n";
-				$block .= "		</form>\n";
-			}
+            // 移除用户自有分机拨号入口（统一用新版面板）
+			// 空闲分机的快捷“直呼”按钮（与拨号入口并存）
+            
 		}
 		$block .= "		</td>\n";
 		$block .= "	</tr>\n";
@@ -548,7 +596,7 @@ if (is_array($activity)) {
 
 		if (in_array($extension, $_SESSION['user']['extensions'])) {
 			$user_extensions[] = $block;
-		} elseif (!empty($ext['call_group']) && $settings->get('operator_panel', 'group_extensions', false)) {
+		} elseif (!empty($ext['call_group']) && filter_var($_SESSION['operator_panel']['group_extensions']['boolean'] ?? false, FILTER_VALIDATE_BOOLEAN)) {
 			$grouped_extensions[$ext['call_group']][] = $block;
 		} else {
 			$other_extensions[] = $block;

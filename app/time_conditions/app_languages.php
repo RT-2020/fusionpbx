@@ -941,7 +941,7 @@ $text['label-extension']['ru-ru'] = "Внутренний Номер";
 $text['label-extension']['sv-se'] = "Anknytning";
 $text['label-extension']['uk-ua'] = "Розширення (Extention)";
 $text['label-extension']['tr-tr'] = "Eklenti";
-$text['label-extension']['zh-cn'] = "扩大";
+$text['label-extension']['zh-cn'] = "分机号";
 $text['label-extension']['ja-jp'] = "拡大";
 $text['label-extension']['ko-kr'] = "확대";
 
@@ -1076,7 +1076,7 @@ $text['label-context']['ru-ru'] = "Контекст";
 $text['label-context']['sv-se'] = "Context";
 $text['label-context']['uk-ua'] = "Контекст";
 $text['label-context']['tr-tr'] = "Bağlam";
-$text['label-context']['zh-cn'] = "语境";
+$text['label-context']['zh-cn'] = "拨号上下文";
 $text['label-context']['ja-jp'] = "コンテクスト";
 $text['label-context']['ko-kr'] = "문맥";
 
@@ -1130,7 +1130,7 @@ $text['label-condition_value']['ru-ru'] = "Значение От";
 $text['label-condition_value']['sv-se'] = "Värde";
 $text['label-condition_value']['uk-ua'] = "Значення";
 $text['label-condition_value']['tr-tr'] = "Değer";
-$text['label-condition_value']['zh-cn'] = "价值";
+$text['label-condition_value']['zh-cn'] = "值";
 $text['label-condition_value']['ja-jp'] = "価値";
 $text['label-condition_value']['ko-kr'] = "값";
 

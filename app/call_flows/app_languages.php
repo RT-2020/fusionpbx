@@ -131,7 +131,7 @@ $text['label-call_flow_name']['ru-ru'] = "Имя";
 $text['label-call_flow_name']['sv-se'] = "Namn";
 $text['label-call_flow_name']['uk-ua'] = "Назва";
 $text['label-call_flow_name']['tr-tr'] = "İsim";
-$text['label-call_flow_name']['zh-cn'] = "姓名";
+$text['label-call_flow_name']['zh-cn'] = "名称";
 $text['label-call_flow_name']['ja-jp'] = "名前";
 $text['label-call_flow_name']['ko-kr'] = "이름";
 
@@ -158,7 +158,7 @@ $text['label-call_flow_status']['ru-ru'] = "Статус";
 $text['label-call_flow_status']['sv-se'] = "Status";
 $text['label-call_flow_status']['uk-ua'] = "Статус";
 $text['label-call_flow_status']['tr-tr'] = "Durum";
-$text['label-call_flow_status']['zh-cn'] = "地位";
+$text['label-call_flow_status']['zh-cn'] = "状态";
 $text['label-call_flow_status']['ja-jp'] = "スターテス";
 $text['label-call_flow_status']['ko-kr'] = "상태";
 
@@ -239,7 +239,7 @@ $text['label-call_flow_extension']['ru-ru'] = "Внутренний номер";
 $text['label-call_flow_extension']['sv-se'] = "Anknytning";
 $text['label-call_flow_extension']['uk-ua'] = "Розширення (Extention)";
 $text['label-call_flow_extension']['tr-tr'] = "Eklenti";
-$text['label-call_flow_extension']['zh-cn'] = "扩大";
+$text['label-call_flow_extension']['zh-cn'] = "分机号";
 $text['label-call_flow_extension']['ja-jp'] = "拡大";
 $text['label-call_flow_extension']['ko-kr'] = "확대";
 
@@ -320,7 +320,7 @@ $text['label-call_flow_context']['ru-ru'] = "Контекст";
 $text['label-call_flow_context']['sv-se'] = "Context";
 $text['label-call_flow_context']['uk-ua'] = "Контекст";
 $text['label-call_flow_context']['tr-tr'] = "Bağlam";
-$text['label-call_flow_context']['zh-cn'] = "语境";
+$text['label-call_flow_context']['zh-cn'] = "拨号上下文";
 $text['label-call_flow_context']['ja-jp'] = "コンテクスト";
 $text['label-call_flow_context']['ko-kr'] = "문맥";
 

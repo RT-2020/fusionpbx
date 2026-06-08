@@ -50,7 +50,7 @@ $text['title-ring_group']['ru-ru'] = "Группа вызовов";
 $text['title-ring_group']['sv-se'] = "Ringgrupper";
 $text['title-ring_group']['uk-ua'] = "Групи";
 $text['title-ring_group']['tr-tr'] = "Yüzük Grubu";
-$text['title-ring_group']['zh-cn'] = "环组";
+$text['title-ring_group']['zh-cn'] = "振铃组";
 $text['title-ring_group']['ja-jp'] = "リンググループ";
 $text['title-ring_group']['ko-kr'] = "링 그룹";
 
@@ -131,7 +131,7 @@ $text['option-rollover']['ru-ru'] = "Переходить";
 $text['option-rollover']['sv-se'] = "Revolver";
 $text['option-rollover']['uk-ua'] = "Рушники";
 $text['option-rollover']['tr-tr'] = "Yuvarlanmak";
-$text['option-rollover']['zh-cn'] = "滚下";
+$text['option-rollover']['zh-cn'] = "轮转";
 $text['option-rollover']['ja-jp'] = "転がる";
 $text['option-rollover']['ko-kr'] = "롤오버";
 
@@ -158,7 +158,7 @@ $text['option-random']['ru-ru'] = "Случайная";
 $text['option-random']['sv-se'] = "Slumpmässig";
 $text['option-random']['uk-ua'] = "Випадковий";
 $text['option-random']['tr-tr'] = "Rastgele";
-$text['option-random']['zh-cn'] = "随机的";
+$text['option-random']['zh-cn'] = "随机";
 $text['option-random']['ja-jp'] = "ランダム";
 $text['option-random']['ko-kr'] = "무작위의";
 
@@ -185,7 +185,7 @@ $text['option-ptring']['ru-ru'] = "pt-ring";
 $text['option-ptring']['sv-se'] = "pt-ring";
 $text['option-ptring']['uk-ua'] = "pt-ring";
 $text['option-ptring']['tr-tr'] = "pt-ring";
-$text['option-ptring']['zh-cn'] = "pt环";
+$text['option-ptring']['zh-cn'] = "PT振铃";
 $text['option-ptring']['ja-jp'] = "ptリング";
 $text['option-ptring']['ko-kr'] = "pt-링";
 
@@ -212,7 +212,7 @@ $text['option-itring']['ru-ru'] = "it-ring";
 $text['option-itring']['sv-se'] = "it-ring";
 $text['option-itring']['uk-ua'] = "it-ring";
 $text['option-itring']['tr-tr'] = "it-ring";
-$text['option-itring']['zh-cn'] = "戒指";
+$text['option-itring']['zh-cn'] = "IT振铃";
 $text['option-itring']['ja-jp'] = "それリング";
 $text['option-itring']['ko-kr'] = "잇링";
 
@@ -239,7 +239,7 @@ $text['option-frring']['ru-ru'] = "fr-ring";
 $text['option-frring']['sv-se'] = "fr-ring";
 $text['option-frring']['uk-ua'] = "fr-ring";
 $text['option-frring']['tr-tr'] = "fr-ring";
-$text['option-frring']['zh-cn'] = "弗林";
+$text['option-frring']['zh-cn'] = "FR振铃";
 $text['option-frring']['ja-jp'] = "FRリング";
 $text['option-frring']['ko-kr'] = "프 링";
 
@@ -347,7 +347,7 @@ $text['option-disabled']['ru-ru'] = "Выключено";
 $text['option-disabled']['sv-se'] = "Avaktiverad";
 $text['option-disabled']['uk-ua'] = "Виключено";
 $text['option-disabled']['tr-tr'] = "Engelli";
-$text['option-disabled']['zh-cn'] = "残疾人";
+$text['option-disabled']['zh-cn'] = "禁用";
 $text['option-disabled']['ja-jp'] = "無効";
 $text['option-disabled']['ko-kr'] = "장애가 있는";
 
@@ -455,7 +455,7 @@ $text['message-name']['ru-ru'] = "Пожалуйста укажите: Имя";
 $text['message-name']['sv-se'] = "Ange: Namn";
 $text['message-name']['uk-ua'] = "Будь ласка, заповніть: Ім'я";
 $text['message-name']['tr-tr'] = "Lütfen belirtin: Ad";
-$text['message-name']['zh-cn'] = "请提供：姓名";
+$text['message-name']['zh-cn'] = "请提供：名称";
 $text['message-name']['ja-jp'] = "入力してください: 名前";
 $text['message-name']['ko-kr'] = "제공하십시오: 이름";
 
@@ -779,7 +779,7 @@ $text['label-ring-group-extension']['ru-ru'] = "Группы вызовов вн
 $text['label-ring-group-extension']['sv-se'] = "Ringgrupp Anknytning";
 $text['label-ring-group-extension']['uk-ua'] = "Розширення групи з кільця";
 $text['label-ring-group-extension']['tr-tr'] = "Zil Grubu Uzantısı";
-$text['label-ring-group-extension']['zh-cn'] = "振铃组扩展";
+$text['label-ring-group-extension']['zh-cn'] = "振铃组分机";
 $text['label-ring-group-extension']['ja-jp'] = "リンググループの拡張";
 $text['label-ring-group-extension']['ko-kr'] = "전화 수신 그룹 확장";
 
@@ -860,7 +860,7 @@ $text['label-ring_group_follow_me_enabled']['ru-ru'] = "Подписывайте
 $text['label-ring_group_follow_me_enabled']['sv-se'] = "Följ mig";
 $text['label-ring_group_follow_me_enabled']['uk-ua'] = "Слідуй за мною";
 $text['label-ring_group_follow_me_enabled']['tr-tr'] = "Beni takip et";
-$text['label-ring_group_follow_me_enabled']['zh-cn'] = "跟我来";
+$text['label-ring_group_follow_me_enabled']['zh-cn'] = "跟随我";
 $text['label-ring_group_follow_me_enabled']['ja-jp'] = "フォローしてください";
 $text['label-ring_group_follow_me_enabled']['ko-kr'] = "나를 따르라";
 
@@ -995,7 +995,7 @@ $text['label-extension']['ru-ru'] = "Внутренний номер";
 $text['label-extension']['sv-se'] = "Anknytning";
 $text['label-extension']['uk-ua'] = "Розширення (Extention)";
 $text['label-extension']['tr-tr'] = "Eklenti";
-$text['label-extension']['zh-cn'] = "扩大";
+$text['label-extension']['zh-cn'] = "分机号";
 $text['label-extension']['ja-jp'] = "拡大";
 $text['label-extension']['ko-kr'] = "확대";
 
@@ -1049,7 +1049,7 @@ $text['label-duration']['ru-ru'] = "Продолжительность";
 $text['label-duration']['sv-se'] = "Samtalstid";
 $text['label-duration']['uk-ua'] = "Тривалість";
 $text['label-duration']['tr-tr'] = "Süre";
-$text['label-duration']['zh-cn'] = "期间";
+$text['label-duration']['zh-cn'] = "持续时间";
 $text['label-duration']['ja-jp'] = "間隔";
 $text['label-duration']['ko-kr'] = "지속";
 
@@ -1076,7 +1076,7 @@ $text['label-distinctive_ring']['ru-ru'] = "Отличительный вызо�
 $text['label-distinctive_ring']['sv-se'] = "Distinkt Ringning";
 $text['label-distinctive_ring']['uk-ua'] = "Дитинктивне кільце";
 $text['label-distinctive_ring']['tr-tr'] = "Ayırt Edici Yüzük";
-$text['label-distinctive_ring']['zh-cn'] = "特色戒指";
+$text['label-distinctive_ring']['zh-cn'] = "特征铃声";
 $text['label-distinctive_ring']['ja-jp'] = "特徴的なリング";
 $text['label-distinctive_ring']['ko-kr'] = "독특한 반지";
 
@@ -1319,7 +1319,7 @@ $text['label-destination_order']['ru-ru'] = "Приоритет";
 $text['label-destination_order']['sv-se'] = "Ordning";
 $text['label-destination_order']['uk-ua'] = "Порядок";
 $text['label-destination_order']['tr-tr'] = "Emir";
-$text['label-destination_order']['zh-cn'] = "命令";
+$text['label-destination_order']['zh-cn'] = "权重";
 $text['label-destination_order']['ja-jp'] = "注文";
 $text['label-destination_order']['ko-kr'] = "주문하다";
 
@@ -1454,7 +1454,7 @@ $text['label-context']['ru-ru'] = "Контекст";
 $text['label-context']['sv-se'] = "Context";
 $text['label-context']['uk-ua'] = "Контекст";
 $text['label-context']['tr-tr'] = "Bağlam";
-$text['label-context']['zh-cn'] = "语境";
+$text['label-context']['zh-cn'] = "拨号上下文";
 $text['label-context']['ja-jp'] = "コンテクスト";
 $text['label-context']['ko-kr'] = "문맥";
 
@@ -1749,7 +1749,7 @@ $text['description-timeout_destination']['ru-ru'] = "Выберите целев
 $text['description-timeout_destination']['sv-se'] = "Välj timeoutmål för denna ringgrupp.";
 $text['description-timeout_destination']['uk-ua'] = "Оберіть ціль таймауту для цієї групи дзвінків.";
 $text['description-timeout_destination']['tr-tr'] = "Bu halka grubu için timeout hedefini seçin.";
-$text['description-timeout_destination']['zh-cn'] = "选择此环组的超时目标.";
+$text['description-timeout_destination']['zh-cn'] = "选择此振铃组的超时目的地。";
 $text['description-timeout_destination']['ja-jp'] = "このリンググループのタイムアウト先を選択します。";
 $text['description-timeout_destination']['ko-kr'] = "이 루프 그룹의 타임아웃 대상 선택";
 

@@ -212,7 +212,7 @@ $text['label-number_translation_detail_order']['ru-ru'] = "Приоритет";
 $text['label-number_translation_detail_order']['sv-se'] = "order";
 $text['label-number_translation_detail_order']['uk-ua'] = "Замовити";
 $text['label-number_translation_detail_order']['tr-tr'] = "Emir";
-$text['label-number_translation_detail_order']['zh-cn'] = "命令";
+$text['label-number_translation_detail_order']['zh-cn'] = "权重";
 $text['label-number_translation_detail_order']['ja-jp'] = "注文";
 $text['label-number_translation_detail_order']['ko-kr'] = "주문하다";
 
@@ -266,7 +266,7 @@ $text['label-number_translation_name']['ru-ru'] = "Имя";
 $text['label-number_translation_name']['sv-se'] = "Namnnamn";
 $text['label-number_translation_name']['uk-ua'] = "Ім'я";
 $text['label-number_translation_name']['tr-tr'] = "İsim";
-$text['label-number_translation_name']['zh-cn'] = "姓名";
+$text['label-number_translation_name']['zh-cn'] = "名称";
 $text['label-number_translation_name']['ja-jp'] = "名前";
 $text['label-number_translation_name']['ko-kr'] = "이름";
 

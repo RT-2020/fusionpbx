@@ -50,7 +50,7 @@ $text['label-status_on_demand']['ru-ru'] = "По требованию";
 $text['label-status_on_demand']['sv-se'] = "På Begäran";
 $text['label-status_on_demand']['uk-ua'] = "На Демі";
 $text['label-status_on_demand']['tr-tr'] = "Talep üzerine";
-$text['label-status_on_demand']['zh-cn'] = "一经请求";
+$text['label-status_on_demand']['zh-cn'] = "按需";
 $text['label-status_on_demand']['ja-jp'] = "オンデマンド";
 $text['label-status_on_demand']['ko-kr'] = "주문형";
 
@@ -77,7 +77,7 @@ $text['label-status_on_break']['ru-ru'] = "Пауза";
 $text['label-status_on_break']['sv-se'] = "På Rast";
 $text['label-status_on_break']['uk-ua'] = "Прорив";
 $text['label-status_on_break']['tr-tr'] = "Molada";
-$text['label-status_on_break']['zh-cn'] = "休息时";
+$text['label-status_on_break']['zh-cn'] = "休息中";
 $text['label-status_on_break']['ja-jp'] = "休んで";
 $text['label-status_on_break']['ko-kr'] = "쉬는 중";
 
@@ -104,7 +104,7 @@ $text['label-status_logged_out_or_unknown']['ru-ru'] = "Вышел из сист
 $text['label-status_logged_out_or_unknown']['sv-se'] = "Utloggad / Okänd";
 $text['label-status_logged_out_or_unknown']['uk-ua'] = "Увійти / Невідомо";
 $text['label-status_logged_out_or_unknown']['tr-tr'] = "Çıkış Yapıldı / Bilinmiyor";
-$text['label-status_logged_out_or_unknown']['zh-cn'] = "注销/未知";
+$text['label-status_logged_out_or_unknown']['zh-cn'] = "已注销/未知";
 $text['label-status_logged_out_or_unknown']['ja-jp'] = "ログアウト/不明";
 $text['label-status_logged_out_or_unknown']['ko-kr'] = "로그아웃됨/알 수 없음";
 
@@ -131,7 +131,7 @@ $text['label-status_logged_out']['ru-ru'] = "Вышел из системы";
 $text['label-status_logged_out']['sv-se'] = "Utloggad";
 $text['label-status_logged_out']['uk-ua'] = "Увійти";
 $text['label-status_logged_out']['tr-tr'] = "Çıkış yapıldı";
-$text['label-status_logged_out']['zh-cn'] = "登出";
+$text['label-status_logged_out']['zh-cn'] = "已注销";
 $text['label-status_logged_out']['ja-jp'] = "ログアウトしました";
 $text['label-status_logged_out']['ko-kr'] = "로그아웃됨";
 
@@ -155,7 +155,7 @@ $text['label-status_do_not_disturb']['pt-br'] = "NÃ£o perturbe";
 $text['label-status_do_not_disturb']['pt-pt'] = "Não perturbe (DND)";
 $text['label-status_do_not_disturb']['ro-ro'] = "Nu deranjați";
 $text['label-status_do_not_disturb']['ru-ru'] = "Просьба не беспокоить";
-$text['label-status_do_not_disturb']['sv-se'] = "Stör ej";
+$text['label-status_do_not_disturb']['sv-se'] = "Stör Ej";
 $text['label-status_do_not_disturb']['uk-ua'] = "Не турбувати";
 $text['label-status_do_not_disturb']['tr-tr'] = "Rahatsız etmeyin";
 $text['label-status_do_not_disturb']['zh-cn'] = "请勿打扰";
@@ -212,7 +212,7 @@ $text['label-status_available']['ru-ru'] = "Доступен";
 $text['label-status_available']['sv-se'] = "Tillgänglig";
 $text['label-status_available']['uk-ua'] = "В наявності";
 $text['label-status_available']['tr-tr'] = "Mevcut";
-$text['label-status_available']['zh-cn'] = "可用的";
+$text['label-status_available']['zh-cn'] = "可用";
 $text['label-status_available']['ja-jp'] = "利用可能";
 $text['label-status_available']['ko-kr'] = "사용 가능";
 
@@ -293,7 +293,7 @@ $text['label-recording']['ru-ru'] = "Запись";
 $text['label-recording']['sv-se'] = "Inspelning";
 $text['label-recording']['uk-ua'] = "Запис";
 $text['label-recording']['tr-tr'] = "Kayıt";
-$text['label-recording']['zh-cn'] = "记录";
+$text['label-recording']['zh-cn'] = "录音";
 $text['label-recording']['ja-jp'] = "録音";
 $text['label-recording']['ko-kr'] = "녹음";
 
@@ -320,7 +320,7 @@ $text['label-record']['ru-ru'] = "Воспроизведение";
 $text['label-record']['sv-se'] = "Spela In";
 $text['label-record']['uk-ua'] = "Запис";
 $text['label-record']['tr-tr'] = "Kayıt";
-$text['label-record']['zh-cn'] = "记录";
+$text['label-record']['zh-cn'] = "录音";
 $text['label-record']['ja-jp'] = "記録";
 $text['label-record']['ko-kr'] = "기록";
 
@@ -347,7 +347,7 @@ $text['label-other_extensions']['ru-ru'] = "Другие внутренние н
 $text['label-other_extensions']['sv-se'] = "Annan Anknytning";
 $text['label-other_extensions']['uk-ua'] = "Інші розширення";
 $text['label-other_extensions']['tr-tr'] = "Diğer Uzantılar";
-$text['label-other_extensions']['zh-cn'] = "其他扩展";
+$text['label-other_extensions']['zh-cn'] = "其他分机";
 $text['label-other_extensions']['ja-jp'] = "その他の拡張子";
 $text['label-other_extensions']['ko-kr'] = "기타 확장";
 
@@ -374,7 +374,7 @@ $text['label-no_extensions_found']['ru-ru'] = "Внутренних номеро
 $text['label-no_extensions_found']['sv-se'] = "Ingen anknytning funnen.";
 $text['label-no_extensions_found']['uk-ua'] = "Не знайдено розширення.";
 $text['label-no_extensions_found']['tr-tr'] = "Uzantı bulunamadı.";
-$text['label-no_extensions_found']['zh-cn'] = "未找到扩展。";
+$text['label-no_extensions_found']['zh-cn'] = "未找到分机。";
 $text['label-no_extensions_found']['ja-jp'] = "拡張子が見つかりません。";
 $text['label-no_extensions_found']['ko-kr'] = "확장 프로그램이 없습니다.";
 
@@ -401,7 +401,7 @@ $text['label-hangup']['ru-ru'] = "Убить";
 $text['label-hangup']['sv-se'] = "Lägg På";
 $text['label-hangup']['uk-ua'] = "вбити";
 $text['label-hangup']['tr-tr'] = "Telefonu kapatmak";
-$text['label-hangup']['zh-cn'] = "不挂断";
+$text['label-hangup']['zh-cn'] = "挂断";
 $text['label-hangup']['ja-jp'] = "ちょっとまって";
 $text['label-hangup']['ko-kr'] = "잠깐만";
 
@@ -428,7 +428,7 @@ $text['label-eavesdrop']['ru-ru'] = "Подслушивать";
 $text['label-eavesdrop']['sv-se'] = "Medlyssning";
 $text['label-eavesdrop']['uk-ua'] = "підслуховувати";
 $text['label-eavesdrop']['tr-tr'] = "Kulak misafiri olmak";
-$text['label-eavesdrop']['zh-cn'] = "窃听";
+$text['label-eavesdrop']['zh-cn'] = "监听";
 $text['label-eavesdrop']['ja-jp'] = "盗聴";
 $text['label-eavesdrop']['ko-kr'] = "엿듣다";
 
@@ -536,7 +536,7 @@ $text['description-eavesdrop_destination']['ru-ru'] = "Выберите подс
 $text['description-eavesdrop_destination']['sv-se'] = "Välj Medlyssning Destination";
 $text['description-eavesdrop_destination']['uk-ua'] = "Виберіть пункт призначення підслуховувати";
 $text['description-eavesdrop_destination']['tr-tr'] = "Dinleme Hedefini Seçin";
-$text['description-eavesdrop_destination']['zh-cn'] = "选择窃听目的地";
+$text['description-eavesdrop_destination']['zh-cn'] = "选择监听目的地";
 $text['description-eavesdrop_destination']['ja-jp'] = "盗聴先を選択";
 $text['description-eavesdrop_destination']['ko-kr'] = "도청 대상 선택";
 
@@ -566,5 +566,230 @@ $text['button-all']['tr-tr'] = "Tüm";
 $text['button-all']['zh-cn'] = "全部";
 $text['button-all']['ja-jp'] = "全て";
 $text['button-all']['ko-kr'] = "모두";
+
+$text['label-three_way']['en-us'] = "Three Way";
+$text['label-three_way']['en-gb'] = "Three Way";
+$text['label-three_way']['de-de'] = "Drei-Wege-Gespräch";
+$text['label-three_way']['es-cl'] = "Tres vías";
+$text['label-three_way']['fr-fr'] = "Trois voies";
+$text['label-three_way']['pt-br'] = "Três vias";
+$text['label-three_way']['ru-ru'] = "Трёхсторонний";
+$text['label-three_way']['zh-cn'] = "插入讲话";
+$text['label-three_way']['ja-jp'] = "三者通話";
+$text['label-three_way']['ko-kr'] = "삼자 통화";
+
+$text['label-hangup_both']['en-us'] = "Hangup Both";
+$text['label-hangup_both']['en-gb'] = "Hangup Both";
+$text['label-hangup_both']['de-de'] = "Beide auflegen";
+$text['label-hangup_both']['es-cl'] = "Colgar ambos";
+$text['label-hangup_both']['fr-fr'] = "Raccrocher les deux";
+$text['label-hangup_both']['pt-br'] = "Desligar ambos";
+$text['label-hangup_both']['ru-ru'] = "Повесить обоих";
+$text['label-hangup_both']['zh-cn'] = "拆除双方";
+$text['label-hangup_both']['ja-jp'] = "両方を切断";
+$text['label-hangup_both']['ko-kr'] = "양쪽 끊기";
+
+$text['label-whisper']['en-us'] = "Whisper";
+$text['label-whisper']['en-gb'] = "Whisper";
+$text['label-whisper']['de-de'] = "Flüstern";
+$text['label-whisper']['es-cl'] = "Susurro";
+$text['label-whisper']['fr-fr'] = "Chuchoter";
+$text['label-whisper']['pt-br'] = "Sussurrar";
+$text['label-whisper']['ru-ru'] = "Шептать";
+$text['label-whisper']['zh-cn'] = "插话";
+$text['label-whisper']['ja-jp'] = "ささやき";
+$text['label-whisper']['ko-kr'] = "속삭임";
+
+$text['label-emergency_call']['zh-cn'] = "急呼";
+$text['label-emergency_call']['en-us'] = "Emergency Call";
+$text['label-emergency_call']['de-de'] = "Notruf";
+$text['label-emergency_call']['es-cl'] = "Llamada de emergencia";
+$text['label-emergency_call']['fr-fr'] = "Appel d'urgence";
+$text['label-emergency_call']['pt-br'] = "Chamada de emergência";
+$text['label-emergency_call']['ru-ru'] = "Экстренный вызов";
+$text['label-emergency_call']['ja-jp'] = "緊急通話";
+$text['label-emergency_call']['ko-kr'] = "긴급 통화";
+
+$text['button-emergency_call']['zh-cn'] = "急呼";
+$text['button-emergency_call']['en-us'] = "Emergency";
+$text['button-emergency_call']['de-de'] = "Notfall";
+$text['button-emergency_call']['es-cl'] = "Emergencia";
+$text['button-emergency_call']['fr-fr'] = "Urgence";
+$text['button-emergency_call']['pt-br'] = "Emergência";
+$text['button-emergency_call']['ru-ru'] = "Срочно";
+$text['button-emergency_call']['ja-jp'] = "緊急";
+$text['button-emergency_call']['ko-kr'] = "긴급";
+
+$text['label-emergency_incoming']['zh-cn'] = "急呼来电";
+$text['label-emergency_incoming']['en-us'] = "Emergency Incoming";
+$text['label-emergency_incoming']['de-de'] = "Eingehender Notruf";
+$text['label-emergency_incoming']['es-cl'] = "Emergencia entrante";
+$text['label-emergency_incoming']['fr-fr'] = "Urgence entrante";
+$text['label-emergency_incoming']['pt-br'] = "Emergência recebida";
+$text['label-emergency_incoming']['ru-ru'] = "Входящий экстренный";
+$text['label-emergency_incoming']['ja-jp'] = "緊急着信";
+$text['label-emergency_incoming']['ko-kr'] = "긴급 수신";
+
+$text['label-emergency_group']['zh-cn'] = "急呼组呼";
+$text['label-emergency_group']['en-us'] = "Emergency Group Call";
+$text['label-emergency_group']['de-de'] = "Notruf-Gruppenanruf";
+$text['label-emergency_group']['es-cl'] = "Llamada grupal de emergencia";
+$text['label-emergency_group']['fr-fr'] = "Appel de groupe d'urgence";
+$text['label-emergency_group']['pt-br'] = "Chamada em grupo de emergência";
+$text['label-emergency_group']['ru-ru'] = "Групповой экстренный вызов";
+$text['label-emergency_group']['ja-jp'] = "緊急グループ通話";
+$text['label-emergency_group']['ko-kr'] = "긴급 그룹 통화";
+
+$text['label-emergency_broadcast']['zh-cn'] = "急呼全呼";
+$text['label-emergency_broadcast']['en-us'] = "Emergency Broadcast";
+$text['label-emergency_broadcast']['de-de'] = "Notruf-Rundsendu";
+$text['label-emergency_broadcast']['es-cl'] = "Transmisión de emergencia";
+$text['label-emergency_broadcast']['fr-fr'] = "Diffusion d'urgence";
+$text['label-emergency_broadcast']['pt-br'] = "Transmissão de emergência";
+$text['label-emergency_broadcast']['ru-ru'] = "Экстренное оповещение";
+$text['label-emergency_broadcast']['ja-jp'] = "緊急一斉通知";
+$text['label-emergency_broadcast']['ko-kr'] = "긴급 방송";
+
+$text['message-emergency_initiated']['zh-cn'] = "急呼已发起";
+$text['message-emergency_initiated']['en-us'] = "Emergency call initiated";
+$text['message-emergency_initiated']['de-de'] = "Notruf initiiert";
+$text['message-emergency_initiated']['es-cl'] = "Llamada de emergencia iniciada";
+$text['message-emergency_initiated']['fr-fr'] = "Appel d'urgence initié";
+$text['message-emergency_initiated']['pt-br'] = "Chamada de emergência iniciada";
+$text['message-emergency_initiated']['ru-ru'] = "Экстренный вызов инициирован";
+$text['message-emergency_initiated']['ja-jp'] = "緊急通話を開始";
+$text['message-emergency_initiated']['ko-kr'] = "긴급 통화 시작됨";
+
+$text['title-emergency_alarm_test']['en-us'] = "Emergency Alarm Test";
+$text['title-emergency_alarm_test']['zh-cn'] = "声光报警测试";
+
+$text['header-emergency_alarm_test']['en-us'] = "Emergency Alarm Test";
+$text['header-emergency_alarm_test']['zh-cn'] = "声光报警测试";
+
+$text['description-emergency_alarm_test']['en-us'] = "This page tests alarm device TCP connectivity and sends alarm commands. Parameters on this page apply only to the current request and do not save the global alarm configuration.";
+$text['description-emergency_alarm_test']['zh-cn'] = "此页面用于测试报警器 TCP 连通性和指令下发。这里填写的参数仅作用于当前测试请求，不会保存全局报警器配置。";
+
+$text['label-configured_endpoint']['en-us'] = "Configured Endpoint";
+$text['label-configured_endpoint']['zh-cn'] = "当前配置地址";
+
+$text['description-configured_endpoint']['en-us'] = "Current global operator panel alarm endpoint used by the runtime service after it reloads settings.";
+$text['description-configured_endpoint']['zh-cn'] = "这是当前操作面板全局报警器地址，后台服务重载配置后会使用这个地址。";
+
+$text['label-test_host']['en-us'] = "Test Host";
+$text['label-test_host']['zh-cn'] = "测试 Host";
+
+$text['description-test_host']['en-us'] = "Temporary host used only for this test submission.";
+$text['description-test_host']['zh-cn'] = "仅本次测试使用的临时主机地址。";
+
+$text['label-test_port']['en-us'] = "Test Port";
+$text['label-test_port']['zh-cn'] = "测试端口";
+
+$text['description-test_port']['en-us'] = "Temporary TCP port used only for this test submission.";
+$text['description-test_port']['zh-cn'] = "仅本次测试使用的临时 TCP 端口。";
+
+$text['label-timeout_ms']['en-us'] = "Socket Timeout (ms)";
+$text['label-timeout_ms']['zh-cn'] = "超时毫秒";
+
+$text['description-timeout_ms']['en-us'] = "Read/write timeout used for the test device socket.";
+$text['description-timeout_ms']['zh-cn'] = "本次测试连接报警器时使用的读写超时。";
+
+$text['label-audio_loop']['en-us'] = "Audio Loop";
+$text['label-audio_loop']['zh-cn'] = "循环音频";
+
+$text['label-audio_folder']['en-us'] = "Folder";
+$text['label-audio_folder']['zh-cn'] = "目录";
+
+$text['label-audio_track']['en-us'] = "Track";
+$text['label-audio_track']['zh-cn'] = "曲目";
+
+$text['description-audio_loop']['en-us'] = "Parameters used by the loop-audio and activate-alarm actions.";
+$text['description-audio_loop']['zh-cn'] = "循环播放和触发整体报警时使用的音频目录与曲目参数。";
+
+$text['label-strobe_mode']['en-us'] = "Strobe Mode";
+$text['label-strobe_mode']['zh-cn'] = "频闪模式";
+
+$text['description-strobe_mode']['en-us'] = "Mode byte used by the start-strobe and activate-alarm actions.";
+$text['description-strobe_mode']['zh-cn'] = "启动频闪和整体报警时使用的模式字节。";
+
+$text['label-audio_volume']['en-us'] = "Audio Volume";
+$text['label-audio_volume']['zh-cn'] = "音量";
+
+$text['description-audio_volume']['en-us'] = "YX02S audio volume. 0 is mute and 30 is maximum.";
+$text['description-audio_volume']['zh-cn'] = "YX02S 设备音量。0 为静音，30 为最大值。";
+
+$text['label-quick_actions']['en-us'] = "Quick Actions";
+$text['label-quick_actions']['zh-cn'] = "快捷操作";
+
+$text['description-quick_actions']['en-us'] = "Use these buttons to verify connection, alarm activation, alarm clearing, audio and strobe control.";
+$text['description-quick_actions']['zh-cn'] = "用这些按钮直接验证连通性、报警触发、报警清除、音频和频闪控制。";
+
+$text['button-test_connect']['en-us'] = "Test Connect";
+$text['button-test_connect']['zh-cn'] = "测试连接";
+
+$text['button-query_online']['en-us'] = "Query Online";
+$text['button-query_online']['zh-cn'] = "查询在线状态";
+
+$text['button-query_playback']['en-us'] = "Query Playback";
+$text['button-query_playback']['zh-cn'] = "查询播放状态";
+
+$text['button-query_volume']['en-us'] = "Query Volume";
+$text['button-query_volume']['zh-cn'] = "查询音量";
+
+$text['button-query_sound_light']['en-us'] = "Query Sound/Light";
+$text['button-query_sound_light']['zh-cn'] = "查询声光状态";
+
+$text['button-set_volume']['en-us'] = "Set Volume";
+$text['button-set_volume']['zh-cn'] = "设置音量";
+
+$text['button-activate_alarm']['en-us'] = "Activate Alarm";
+$text['button-activate_alarm']['zh-cn'] = "触发报警";
+
+$text['button-clear_alarm']['en-us'] = "Clear Alarm";
+$text['button-clear_alarm']['zh-cn'] = "清除报警";
+
+$text['button-start_strobe']['en-us'] = "Start Strobe";
+$text['button-start_strobe']['zh-cn'] = "开启频闪";
+
+$text['button-stop_strobe']['en-us'] = "Stop Strobe";
+$text['button-stop_strobe']['zh-cn'] = "关闭频闪";
+
+$text['button-loop_audio']['en-us'] = "Loop Audio";
+$text['button-loop_audio']['zh-cn'] = "循环播放";
+
+$text['button-stop_audio']['en-us'] = "Stop Audio";
+$text['button-stop_audio']['zh-cn'] = "停止播放";
+
+$text['label-custom_command']['en-us'] = "Custom Command";
+$text['label-custom_command']['zh-cn'] = "自定义命令";
+
+$text['description-custom_command']['en-us'] = "Each field accepts decimal, hex like 0xC2, or hex bytes like C2.";
+$text['description-custom_command']['zh-cn'] = "每个字段都支持十进制、0xC2 这种写法，或直接填写 C2 这样的十六进制字节。";
+
+$text['label-command']['en-us'] = "Command";
+$text['label-command']['zh-cn'] = "命令";
+
+$text['label-feedback']['en-us'] = "Feedback";
+$text['label-feedback']['zh-cn'] = "反馈";
+
+$text['label-param1']['en-us'] = "Param1";
+$text['label-param1']['zh-cn'] = "参数1";
+
+$text['label-param2']['en-us'] = "Param2";
+$text['label-param2']['zh-cn'] = "参数2";
+
+$text['button-send_command']['en-us'] = "Send Command";
+$text['button-send_command']['zh-cn'] = "发送命令";
+
+$text['label-last_result']['en-us'] = "Last Result";
+$text['label-last_result']['zh-cn'] = "最近结果";
+
+$text['description-last_result']['en-us'] = "The payload below includes endpoint, request hex, response hex, and any composite action steps.";
+$text['description-last_result']['zh-cn'] = "下面的结果会显示目标地址、请求十六进制、响应十六进制，以及复合操作的每一步。";
+
+$text['label-permission_name']['en-us'] = "Permission";
+$text['label-permission_name']['zh-cn'] = "权限名";
+
+$text['description-permission_name']['en-us'] = "Grant this permission to additional roles if they need to open this test page directly.";
+$text['description-permission_name']['zh-cn'] = "如果其他角色也要直接访问这个测试页，请给对应角色授予这个权限。";
 
 ?>

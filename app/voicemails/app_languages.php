@@ -915,7 +915,7 @@ $text['label-play']['ru-ru'] = "Играть";
 $text['label-play']['sv-se'] = "Spela Upp";
 $text['label-play']['uk-ua'] = "Відтворити";
 $text['label-play']['tr-tr'] = "Oynamak";
-$text['label-play']['zh-cn'] = "玩";
+$text['label-play']['zh-cn'] = "播放";
 $text['label-play']['ja-jp'] = "遊ぶ";
 $text['label-play']['ko-kr'] = "놀다";
 
@@ -1050,7 +1050,7 @@ $text['label-message_status']['ru-ru'] = "Статус";
 $text['label-message_status']['sv-se'] = "Status";
 $text['label-message_status']['uk-ua'] = "Статус";
 $text['label-message_status']['tr-tr'] = "Durum";
-$text['label-message_status']['zh-cn'] = "地位";
+$text['label-message_status']['zh-cn'] = "状态";
 $text['label-message_status']['ja-jp'] = "スターテス";
 $text['label-message_status']['ko-kr'] = "상태";
 
@@ -1507,7 +1507,7 @@ $text['label-recorded_name']['ro-ro'] = "Nume";
 $text['label-recorded_name']['ru-ru'] = "Имя";
 $text['label-recorded_name']['sv-se'] = "Namn";
 $text['label-recorded_name']['uk-ua'] = "Назва";
-$text['label-recorded_name']['zh-cn'] = "姓名";
+$text['label-recorded_name']['zh-cn'] = "名称";
 $text['label-recorded_name']['ja-jp'] = "名前";
 $text['label-recorded_name']['ko-kr'] = "이름";
 
@@ -2049,7 +2049,7 @@ $text['description-message_status']['ru-ru'] = "Статус";
 $text['description-message_status']['sv-se'] = "Status";
 $text['description-message_status']['uk-ua'] = "Статус";
 $text['description-message_status']['tr-tr'] = "Durum";
-$text['description-message_status']['zh-cn'] = "地位";
+$text['description-message_status']['zh-cn'] = "状态";
 $text['description-message_status']['ja-jp'] = "スターテス";
 $text['description-message_status']['ko-kr'] = "상태";
 

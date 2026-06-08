@@ -50,7 +50,7 @@ $text['title-active_call_center']['ru-ru'] = "Активные Колл-цент
 $text['title-active_call_center']['sv-se'] = "Aktivt Call Center";
 $text['title-active_call_center']['uk-ua'] = "Активний Call Center";
 $text['title-active_call_center']['tr-tr'] = "Aktif Çağrı Merkezi";
-$text['title-active_call_center']['zh-cn'] = "主动呼叫中心";
+$text['title-active_call_center']['zh-cn'] = "活跃呼叫中心";
 $text['title-active_call_center']['ja-jp'] = "アクティブ コール センター";
 $text['title-active_call_center']['ko-kr'] = "활성 콜 센터";
 
@@ -536,7 +536,7 @@ $text['label-status']['ru-ru'] = "Статус";
 $text['label-status']['sv-se'] = "Status";
 $text['label-status']['uk-ua'] = "Статус";
 $text['label-status']['tr-tr'] = "Durum";
-$text['label-status']['zh-cn'] = "地位";
+$text['label-status']['zh-cn'] = "状态";
 $text['label-status']['ja-jp'] = "スターテス";
 $text['label-status']['ko-kr'] = "상태";
 
@@ -887,7 +887,7 @@ $text['label-extension']['ru-ru'] = "Внутренний номер";
 $text['label-extension']['sv-se'] = "Anknytning";
 $text['label-extension']['uk-ua'] = "Розширення";
 $text['label-extension']['tr-tr'] = "Eklenti";
-$text['label-extension']['zh-cn'] = "扩大";
+$text['label-extension']['zh-cn'] = "分机号";
 $text['label-extension']['ja-jp'] = "拡大";
 $text['label-extension']['ko-kr'] = "확대";
 
@@ -1103,7 +1103,7 @@ $text['header-active_call_center']['ru-ru'] = "Активный Колл-цен�
 $text['header-active_call_center']['sv-se'] = "Aktivt Call Center";
 $text['header-active_call_center']['uk-ua'] = "Активний Call Center";
 $text['header-active_call_center']['tr-tr'] = "Aktif Çağrı Merkezi";
-$text['header-active_call_center']['zh-cn'] = "主动呼叫中心";
+$text['header-active_call_center']['zh-cn'] = "活跃呼叫中心";
 $text['header-active_call_center']['ja-jp'] = "アクティブ コール センター";
 $text['header-active_call_center']['ko-kr'] = "활성 콜 센터";
 

@@ -212,7 +212,7 @@ $text['label-dashboard_name']['ru-ru'] = "Имя";
 $text['label-dashboard_name']['sv-se'] = "namn";
 $text['label-dashboard_name']['uk-ua'] = "Назва";
 $text['label-dashboard_name']['tr-tr'] = "İsim";
-$text['label-dashboard_name']['zh-cn'] = "姓名";
+$text['label-dashboard_name']['zh-cn'] = "名称";
 $text['label-dashboard_name']['ja-jp'] = "名前";
 $text['label-dashboard_name']['ko-kr'] = "이름";
 
@@ -239,7 +239,7 @@ $text['description-dashboard_name']['ru-ru'] = "Введите имя панел
 $text['description-dashboard_name']['sv-se'] = "Ange namnet på instrumentbrädet.";
 $text['description-dashboard_name']['uk-ua'] = "Введіть назву панелі управління.";
 $text['description-dashboard_name']['tr-tr'] = "Pano adını girin.";
-$text['description-dashboard_name']['zh-cn'] = "输入仪表盘名称。";
+$text['description-dashboard_name']['zh-cn'] = "输入仪表板小部件名称。";
 $text['description-dashboard_name']['ja-jp'] = "ダッシュボードの名前を入力します。";
 $text['description-dashboard_name']['ko-kr'] = "대시보드 이름을 입력합니다.";
 
@@ -293,7 +293,7 @@ $text['description-dashboard_enabled']['ru-ru'] = "Введите включен
 $text['description-dashboard_enabled']['sv-se'] = "Ange aktiverade instrumentpanelen.";
 $text['description-dashboard_enabled']['uk-ua'] = "Введіть увімкнену панель приладів.";
 $text['description-dashboard_enabled']['tr-tr'] = "Panoyu etkinleştirin.";
-$text['description-dashboard_enabled']['zh-cn'] = "输入启用的仪表板。";
+$text['description-dashboard_enabled']['zh-cn'] = "输入已启用的仪表板小部件。";
 $text['description-dashboard_enabled']['ja-jp'] = "ダッシュボードを有効にします。";
 $text['description-dashboard_enabled']['ko-kr'] = "대시보드 활성화를 입력합니다.";
 
@@ -347,7 +347,7 @@ $text['description-dashboard_description']['ru-ru'] = "Введите описа
 $text['description-dashboard_description']['sv-se'] = "Ange instrumentpanelens beskrivning.";
 $text['description-dashboard_description']['uk-ua'] = "Введіть опис панелі інструментів.";
 $text['description-dashboard_description']['tr-tr'] = "Pano açıklamasını girin.";
-$text['description-dashboard_description']['zh-cn'] = "输入仪表板描述。";
+$text['description-dashboard_description']['zh-cn'] = "输入仪表板小部件描述。";
 $text['description-dashboard_description']['ja-jp'] = "ダッシュボードの説明を入力します。";
 $text['description-dashboard_description']['ko-kr'] = "대시보드 설명을 입력합니다.";
 

@@ -22,7 +22,7 @@ $text['title-devices']['ro-ro'] = "Dispozitive";
 $text['title-devices']['ru-ru'] = "Устройства";
 $text['title-devices']['sv-se'] = "Enheter";
 $text['title-devices']['uk-ua'] = "Пристрої";
-$text['title-devices']['zh-cn'] = "设备";
+$text['title-devices']['zh-cn'] = "设备管理";
 $text['title-devices']['ja-jp'] = "デバイス";
 $text['title-devices']['ko-kr'] = "장치";
 
@@ -128,7 +128,7 @@ $text['title-device_profiles']['ro-ro'] = "Profiluri dispozitiv";
 $text['title-device_profiles']['ru-ru'] = "Профили устройств";
 $text['title-device_profiles']['sv-se'] = "Enhetsprofiler";
 $text['title-device_profiles']['uk-ua'] = "Профілі пристроїв";
-$text['title-device_profiles']['zh-cn'] = "设备配置文件";
+$text['title-device_profiles']['zh-cn'] = "设备配置模板";
 $text['title-device_profiles']['ja-jp'] = "デバイスプロファイル";
 $text['title-device_profiles']['ko-kr'] = "장치 프로필";
 
@@ -154,7 +154,7 @@ $text['title-device_profile']['ro-ro'] = "Profilul dispozitivului";
 $text['title-device_profile']['ru-ru'] = "Профиль устройства";
 $text['title-device_profile']['sv-se'] = "Enhetsprofil";
 $text['title-device_profile']['uk-ua'] = "Профіль пристрою";
-$text['title-device_profile']['zh-cn'] = "设备配置文件”";
+$text['title-device_profile']['zh-cn'] = "设备配置模板";
 $text['title-device_profile']['ja-jp'] = "デバイスプロファイル」";
 $text['title-device_profile']['ko-kr'] = "장치 프로필";
 
@@ -180,7 +180,7 @@ $text['title-device_keys']['ro-ro'] = "Tastele dispozitivului";
 $text['title-device_keys']['ru-ru'] = "Кнопки клавиатуры";
 $text['title-device_keys']['sv-se'] = "Enhets Knappar";
 $text['title-device_keys']['uk-ua'] = "Ключі пристрою";
-$text['title-device_keys']['zh-cn'] = "设备密钥";
+$text['title-device_keys']['zh-cn'] = "设备按键";
 $text['title-device_keys']['ja-jp'] = "デバイスキー";
 $text['title-device_keys']['ko-kr'] = "장치 키";
 
@@ -206,7 +206,7 @@ $text['title-device_key']['ro-ro'] = "Cheia dispozitivului";
 $text['title-device_key']['ru-ru'] = "Кнопка клавиатуры";
 $text['title-device_key']['sv-se'] = "Enhets Knapp";
 $text['title-device_key']['uk-ua'] = "ключ пристрою";
-$text['title-device_key']['zh-cn'] = "设备密钥";
+$text['title-device_key']['zh-cn'] = "设备按键";
 $text['title-device_key']['ja-jp'] = "デバイスキー";
 $text['title-device_key']['ko-kr'] = "장치 키";
 
@@ -232,7 +232,7 @@ $text['select-global']['ro-ro'] = "Global";
 $text['select-global']['ru-ru'] = "Глобально";
 $text['select-global']['sv-se'] = "Global";
 $text['select-global']['uk-ua'] = "Головна";
-$text['select-global']['zh-cn'] = "全球的";
+$text['select-global']['zh-cn'] = "全局";
 $text['select-global']['ja-jp'] = "グローバル";
 $text['select-global']['ko-kr'] = "글로벌";
 
@@ -466,7 +466,7 @@ $text['label-xml_phonebook']['ro-ro'] = "Agenda telefonică XML";
 $text['label-xml_phonebook']['ru-ru'] = "Адресная книга XML";
 $text['label-xml_phonebook']['sv-se'] = "XML Telefonbok";
 $text['label-xml_phonebook']['uk-ua'] = "Електронна пошта";
-$text['label-xml_phonebook']['zh-cn'] = "XML电话簿";
+$text['label-xml_phonebook']['zh-cn'] = "XML 电话簿";
 $text['label-xml_phonebook']['ja-jp'] = "XML電話帳";
 $text['label-xml_phonebook']['ko-kr'] = "XML 전화번호부";
 
@@ -492,7 +492,7 @@ $text['label-xml_group']['ro-ro'] = "Grupul XML";
 $text['label-xml_group']['ru-ru'] = "Группы XML";
 $text['label-xml_group']['sv-se'] = "XML Grupp";
 $text['label-xml_group']['uk-ua'] = "XML Груп";
-$text['label-xml_group']['zh-cn'] = "XML集团";
+$text['label-xml_group']['zh-cn'] = "XML 组";
 $text['label-xml_group']['ja-jp'] = "XMLグループ";
 $text['label-xml_group']['ko-kr'] = "XML 그룹";
 
@@ -596,7 +596,7 @@ $text['label-user_id']['ro-ro'] = "ID-ul de utilizator";
 $text['label-user_id']['ru-ru'] = "ID пользователя";
 $text['label-user_id']['sv-se'] = "Användar ID";
 $text['label-user_id']['uk-ua'] = "Ідентифікатор користувача";
-$text['label-user_id']['zh-cn'] = "用户身份";
+$text['label-user_id']['zh-cn'] = "用户ID";
 $text['label-user_id']['ja-jp'] = "ユーザーID";
 $text['label-user_id']['ko-kr'] = "사용자 아이디";
 
@@ -622,7 +622,7 @@ $text['label-url_record']['ro-ro'] = "Înregistrare URL";
 $text['label-url_record']['ru-ru'] = "URL записей";
 $text['label-url_record']['sv-se'] = "URL Post";
 $text['label-url_record']['uk-ua'] = "Контакти Запис";
-$text['label-url_record']['zh-cn'] = "网址记录";
+$text['label-url_record']['zh-cn'] = "URL 记录";
 $text['label-url_record']['ja-jp'] = "URLレコード";
 $text['label-url_record']['ko-kr'] = "URL 레코드";
 
@@ -674,7 +674,7 @@ $text['label-transfer']['ro-ro'] = "Transfer";
 $text['label-transfer']['ru-ru'] = "Перевод";
 $text['label-transfer']['sv-se'] = "Överföring";
 $text['label-transfer']['uk-ua'] = "Передача";
-$text['label-transfer']['zh-cn'] = "转移";
+$text['label-transfer']['zh-cn'] = "转接";
 $text['label-transfer']['ja-jp'] = "移行";
 $text['label-transfer']['ko-kr'] = "옮기다";
 
@@ -726,7 +726,7 @@ $text['label-switch_account_up']['ro-ro'] = "Schimbați contul în sus";
 $text['label-switch_account_up']['ru-ru'] = "FreeSwitch учетная запись доступна";
 $text['label-switch_account_up']['sv-se'] = "Switch Konto Igång";
 $text['label-switch_account_up']['uk-ua'] = "Переключити обліковий запис";
-$text['label-switch_account_up']['zh-cn'] = "切换帐户";
+$text['label-switch_account_up']['zh-cn'] = "向上切换账户";
 $text['label-switch_account_up']['ja-jp'] = "アカウントを切り替える";
 $text['label-switch_account_up']['ko-kr'] = "계정 전환";
 
@@ -752,7 +752,7 @@ $text['label-switch_account_down']['ro-ro'] = "Comutați contul în jos";
 $text['label-switch_account_down']['ru-ru'] = "FreeSwitch учетная запись недоступна";
 $text['label-switch_account_down']['sv-se'] = "Switch Konto Avstängd";
 $text['label-switch_account_down']['uk-ua'] = "Переключити обліковий запис вниз";
-$text['label-switch_account_down']['zh-cn'] = "向下切换帐户";
+$text['label-switch_account_down']['zh-cn'] = "向下切换账户";
 $text['label-switch_account_down']['ja-jp'] = "アカウントを停止する";
 $text['label-switch_account_down']['ko-kr'] = "계정을 아래로 전환";
 
@@ -778,7 +778,7 @@ $text['label-status']['ro-ro'] = "stare";
 $text['label-status']['ru-ru'] = "Статус";
 $text['label-status']['sv-se'] = "Status";
 $text['label-status']['uk-ua'] = "Статус";
-$text['label-status']['zh-cn'] = "地位";
+$text['label-status']['zh-cn'] = "状态";
 $text['label-status']['ja-jp'] = "スターテス";
 $text['label-status']['ko-kr'] = "상태";
 
@@ -933,7 +933,7 @@ $text['label-sip_transport']['ro-ro'] = "Transport";
 $text['label-sip_transport']['ru-ru'] = "Транспорт";
 $text['label-sip_transport']['sv-se'] = "Transport";
 $text['label-sip_transport']['uk-ua'] = "Транспорт";
-$text['label-sip_transport']['zh-cn'] = "运输";
+$text['label-sip_transport']['zh-cn'] = "传输协议";
 $text['label-sip_transport']['ja-jp'] = "輸送";
 $text['label-sip_transport']['ko-kr'] = "수송";
 
@@ -959,7 +959,7 @@ $text['label-sip_port']['ro-ro'] = "Port";
 $text['label-sip_port']['ru-ru'] = "Порт";
 $text['label-sip_port']['sv-se'] = "Port";
 $text['label-sip_port']['uk-ua'] = "Порт";
-$text['label-sip_port']['zh-cn'] = "港口";
+$text['label-sip_port']['zh-cn'] = "端口";
 $text['label-sip_port']['ja-jp'] = "ポート";
 $text['label-sip_port']['ko-kr'] = "포트";
 
@@ -1193,7 +1193,7 @@ $text['label-record']['ro-ro'] = "Record";
 $text['label-record']['ru-ru'] = "Запись";
 $text['label-record']['sv-se'] = "Spela In";
 $text['label-record']['uk-ua'] = "Запис";
-$text['label-record']['zh-cn'] = "记录";
+$text['label-record']['zh-cn'] = "录音";
 $text['label-record']['ja-jp'] = "記録";
 $text['label-record']['ko-kr'] = "기록";
 
@@ -1219,7 +1219,7 @@ $text['label-pickup']['ro-ro'] = "Ridica";
 $text['label-pickup']['ru-ru'] = "Перехват";
 $text['label-pickup']['sv-se'] = "Plocka";
 $text['label-pickup']['uk-ua'] = "Приват";
-$text['label-pickup']['zh-cn'] = "捡起";
+$text['label-pickup']['zh-cn'] = "代接";
 $text['label-pickup']['ja-jp'] = "選び出す";
 $text['label-pickup']['ko-kr'] = "찾다";
 
@@ -1245,7 +1245,7 @@ $text['label-public_hold']['ro-ro'] = "Aur public";
 $text['label-public_hold']['ru-ru'] = "Общее удержание";
 $text['label-public_hold']['sv-se'] = "Gemensam Vänt";
 $text['label-public_hold']['uk-ua'] = "Громадський тримач";
-$text['label-public_hold']['zh-cn'] = "公金";
+$text['label-public_hold']['zh-cn'] = "公共保持";
 $text['label-public_hold']['ja-jp'] = "パブリックゴールド";
 $text['label-public_hold']['ko-kr'] = "퍼블릭 골드";
 
@@ -1297,7 +1297,7 @@ $text['label-device_profile_name']['ro-ro'] = "Nume";
 $text['label-device_profile_name']['ru-ru'] = "Название";
 $text['label-device_profile_name']['sv-se'] = "Namn";
 $text['label-device_profile_name']['uk-ua'] = "Назва";
-$text['label-device_profile_name']['zh-cn'] = "姓名";
+$text['label-device_profile_name']['zh-cn'] = "名称";
 $text['label-device_profile_name']['ja-jp'] = "名前";
 $text['label-device_profile_name']['ko-kr'] = "이름";
 
@@ -1349,7 +1349,7 @@ $text['label-profile_domain']['ro-ro'] = "Domeniu";
 $text['label-profile_domain']['ru-ru'] = "Домен";
 $text['label-profile_domain']['sv-se'] = "Domän";
 $text['label-profile_domain']['uk-ua'] = "Домен";
-$text['label-profile_domain']['zh-cn'] = "领域";
+$text['label-profile_domain']['zh-cn'] = "域";
 $text['label-profile_domain']['ja-jp'] = "ドメイン";
 $text['label-profile_domain']['ko-kr'] = "도메인";
 
@@ -1401,7 +1401,7 @@ $text['label-profile']['ro-ro'] = "Profil";
 $text['label-profile']['ru-ru'] = "Профиль";
 $text['label-profile']['sv-se'] = "Profil";
 $text['label-profile']['uk-ua'] = "Профіль";
-$text['label-profile']['zh-cn'] = "轮廓";
+$text['label-profile']['zh-cn'] = "配置";
 $text['label-profile']['ja-jp'] = "プロフィール";
 $text['label-profile']['ko-kr'] = "프로필";
 
@@ -1427,7 +1427,7 @@ $text['label-private']['ro-ro'] = "Privat";
 $text['label-private']['ru-ru'] = "Скрытный";
 $text['label-private']['sv-se'] = "Privat";
 $text['label-private']['uk-ua'] = "Опис";
-$text['label-private']['zh-cn'] = "私人的";
+$text['label-private']['zh-cn'] = "私有";
 $text['label-private']['ja-jp'] = "プライベート";
 $text['label-private']['ko-kr'] = "사적인";
 
@@ -1453,7 +1453,7 @@ $text['label-private_hold']['ro-ro'] = "Reținere privată";
 $text['label-private_hold']['ru-ru'] = "Частный держатель";
 $text['label-private_hold']['sv-se'] = "Privat Hold";
 $text['label-private_hold']['uk-ua'] = "Приватний тримач";
-$text['label-private_hold']['zh-cn'] = "私人持有";
+$text['label-private_hold']['zh-cn'] = "私有保持";
 $text['label-private_hold']['ja-jp'] = "プライベートホールド";
 $text['label-private_hold']['ko-kr'] = "프라이빗 홀드";
 
@@ -1479,7 +1479,7 @@ $text['label-presence_watcher']['ro-ro'] = "Observator de prezență";
 $text['label-presence_watcher']['ru-ru'] = "Наблюдаемый статус присутствия";
 $text['label-presence_watcher']['sv-se'] = "Närvaro Hantering";
 $text['label-presence_watcher']['uk-ua'] = "Попереднє годинник";
-$text['label-presence_watcher']['zh-cn'] = "私有 HoldPresence 观察者";
+$text['label-presence_watcher']['zh-cn'] = "状态监视器";
 $text['label-presence_watcher']['ja-jp'] = "プライベート ホールドプレゼンス ウォッチャー";
 $text['label-presence_watcher']['ko-kr'] = "프라이빗 홀드Presence Watcher";
 
@@ -1505,7 +1505,7 @@ $text['label-presence']['ro-ro'] = "Prezenţă";
 $text['label-presence']['ru-ru'] = "Статус присутствия";
 $text['label-presence']['sv-se'] = "Närvaro";
 $text['label-presence']['uk-ua'] = "Закінчення";
-$text['label-presence']['zh-cn'] = "在场";
+$text['label-presence']['zh-cn'] = "在席状态";
 $text['label-presence']['ja-jp'] = "面前";
 $text['label-presence']['ko-kr'] = "있음";
 
@@ -1531,7 +1531,7 @@ $text['label-prefix']['ro-ro'] = "Prefix";
 $text['label-prefix']['ru-ru'] = "Префикс";
 $text['label-prefix']['sv-se'] = "Prefix";
 $text['label-prefix']['uk-ua'] = "Префікс";
-$text['label-prefix']['zh-cn'] = "字首";
+$text['label-prefix']['zh-cn'] = "前缀";
 $text['label-prefix']['ja-jp'] = "プレフィックス";
 $text['label-prefix']['ko-kr'] = "접두사";
 
@@ -1557,7 +1557,7 @@ $text['label-paging']['ro-ro'] = "Paging";
 $text['label-paging']['ru-ru'] = "Пейджинг";
 $text['label-paging']['sv-se'] = "Personsökning";
 $text['label-paging']['uk-ua'] = "Партії";
-$text['label-paging']['zh-cn'] = "分页";
+$text['label-paging']['zh-cn'] = "寻呼";
 $text['label-paging']['ja-jp'] = "ページング";
 $text['label-paging']['ko-kr'] = "페이징";
 
@@ -1609,7 +1609,7 @@ $text['label-outbound_proxy_primary']['ro-ro'] = "Proxy de ieșire principal";
 $text['label-outbound_proxy_primary']['ru-ru'] = "Исходящий прокси-сервер";
 $text['label-outbound_proxy_primary']['sv-se'] = "Utgående Proxy";
 $text['label-outbound_proxy_primary']['uk-ua'] = "Вихідний проксі Первинний";
-$text['label-outbound_proxy_primary']['zh-cn'] = "出站代理主要";
+$text['label-outbound_proxy_primary']['zh-cn'] = "主出站代理";
 $text['label-outbound_proxy_primary']['ja-jp'] = "アウトバウンドプロキシプライマリ";
 $text['label-outbound_proxy_primary']['ko-kr'] = "아웃바운드 프록시 기본";
 
@@ -1635,7 +1635,7 @@ $text['label-outbound_proxy_secondary']['ro-ro'] = "Proxy de ieșire secundar";
 $text['label-outbound_proxy_secondary']['ru-ru'] = "Исходящий прокси-сервер";
 $text['label-outbound_proxy_secondary']['sv-se'] = "Utgående Proxy";
 $text['label-outbound_proxy_secondary']['uk-ua'] = "Вихідний проксі вторинний";
-$text['label-outbound_proxy_secondary']['zh-cn'] = "出站代理辅助";
+$text['label-outbound_proxy_secondary']['zh-cn'] = "备用出站代理";
 $text['label-outbound_proxy_secondary']['ja-jp'] = "送信プロキシ セカンダリ";
 $text['label-outbound_proxy_secondary']['ko-kr'] = "아웃바운드 프록시 보조";
 
@@ -1661,7 +1661,7 @@ $text['label-primary']['ro-ro'] = "Primar";
 $text['label-primary']['ru-ru'] = "Основной";
 $text['label-primary']['sv-se'] = "Primär";
 $text['label-primary']['uk-ua'] = "Первинний";
-$text['label-primary']['zh-cn'] = "基本的";
+$text['label-primary']['zh-cn'] = "主";
 $text['label-primary']['ja-jp'] = "主要な";
 $text['label-primary']['ko-kr'] = "주요한";
 
@@ -1687,7 +1687,7 @@ $text['label-secondary']['ro-ro'] = "Secundar";
 $text['label-secondary']['ru-ru'] = "Резервный";
 $text['label-secondary']['sv-se'] = "Sekundär";
 $text['label-secondary']['uk-ua'] = "Вторинний";
-$text['label-secondary']['zh-cn'] = "中学";
+$text['label-secondary']['zh-cn'] = "次";
 $text['label-secondary']['ja-jp'] = "二次";
 $text['label-secondary']['ko-kr'] = "중고등 학년";
 
@@ -1713,7 +1713,7 @@ $text['label-orbit']['ro-ro'] = "Parcare + Orbită";
 $text['label-orbit']['ru-ru'] = "Общая парковка";
 $text['label-orbit']['sv-se'] = "Park + Orbit ";
 $text['label-orbit']['uk-ua'] = "Парк + Орбіт";
-$text['label-orbit']['zh-cn'] = "公园+轨道";
+$text['label-orbit']['zh-cn'] = "驻留位";
 $text['label-orbit']['ja-jp'] = "パーク + オービット";
 $text['label-orbit']['ko-kr'] = "공원 + 궤도";
 
@@ -1817,7 +1817,7 @@ $text['label-multicast_page']['ro-ro'] = "Pagina multicast";
 $text['label-multicast_page']['ru-ru'] = "Широковещательное оповещение";
 $text['label-multicast_page']['sv-se'] = "Muticast Sida";
 $text['label-multicast_page']['uk-ua'] = "Веб-сайт";
-$text['label-multicast_page']['zh-cn'] = "组播页面";
+$text['label-multicast_page']['zh-cn'] = "组播寻呼";
 $text['label-multicast_page']['ja-jp'] = "マルチキャストページ";
 $text['label-multicast_page']['ko-kr'] = "멀티캐스트 페이지";
 
@@ -1895,7 +1895,7 @@ $text['label-memory']['ro-ro'] = "Memorie";
 $text['label-memory']['ru-ru'] = "Память";
 $text['label-memory']['sv-se'] = "Minne";
 $text['label-memory']['uk-ua'] = "Пам’ять";
-$text['label-memory']['zh-cn'] = "记忆";
+$text['label-memory']['zh-cn'] = "存储";
 $text['label-memory']['ja-jp'] = "メモリー";
 $text['label-memory']['ko-kr'] = "메모리";
 
@@ -1973,7 +1973,7 @@ $text['label-lines']['ro-ro'] = "Linii";
 $text['label-lines']['ru-ru'] = "Линии";
 $text['label-lines']['sv-se'] = "Linjer";
 $text['label-lines']['uk-ua'] = "Лінії";
-$text['label-lines']['zh-cn'] = "线条";
+$text['label-lines']['zh-cn'] = "线路";
 $text['label-lines']['ja-jp'] = "ライン";
 $text['label-lines']['ko-kr'] = "윤곽";
 
@@ -1999,7 +1999,7 @@ $text['label-line_number']['ro-ro'] = "Numărul de linie";
 $text['label-line_number']['ru-ru'] = "Номер линии";
 $text['label-line_number']['sv-se'] = "Linje Nummer";
 $text['label-line_number']['uk-ua'] = "Номер лінії";
-$text['label-line_number']['zh-cn'] = "电话号码";
+$text['label-line_number']['zh-cn'] = "线路编号";
 $text['label-line_number']['ja-jp'] = "行番号";
 $text['label-line_number']['ko-kr'] = "라인 번호";
 
@@ -2025,7 +2025,7 @@ $text['label-line']['ro-ro'] = "Linia";
 $text['label-line']['ru-ru'] = "Линия";
 $text['label-line']['sv-se'] = "Linje";
 $text['label-line']['uk-ua'] = "Лінія";
-$text['label-line']['zh-cn'] = "线";
+$text['label-line']['zh-cn'] = "线路";
 $text['label-line']['ja-jp'] = "ライン";
 $text['label-line']['ko-kr'] = "선";
 
@@ -2103,7 +2103,7 @@ $text['label-keys']['ro-ro'] = "Keys";
 $text['label-keys']['ru-ru'] = "Кнопки";
 $text['label-keys']['sv-se'] = "Nycklar";
 $text['label-keys']['uk-ua'] = "Головна";
-$text['label-keys']['zh-cn'] = "钥匙";
+$text['label-keys']['zh-cn'] = "按键";
 $text['label-keys']['ja-jp'] = "キー";
 $text['label-keys']['ko-kr'] = "열쇠";
 
@@ -2155,7 +2155,7 @@ $text['label-key_event']['ro-ro'] = "Eveniment cheie";
 $text['label-key_event']['ru-ru'] = "Событие кнопки";
 $text['label-key_event']['sv-se'] = "Knapp Händelse";
 $text['label-key_event']['uk-ua'] = "Ключові події";
-$text['label-key_event']['zh-cn'] = "关键事件";
+$text['label-key_event']['zh-cn'] = "按键事件";
 $text['label-key_event']['ja-jp'] = "主要なイベント";
 $text['label-key_event']['ko-kr'] = "주요 이벤트";
 
@@ -2259,7 +2259,7 @@ $text['label-hold']['ro-ro'] = "Ține";
 $text['label-hold']['ru-ru'] = "Стойте.";
 $text['label-hold']['sv-se'] = "Håll";
 $text['label-hold']['uk-ua'] = "Прованс";
-$text['label-hold']['zh-cn'] = "抓住";
+$text['label-hold']['zh-cn'] = "保持";
 $text['label-hold']['ja-jp'] = "所有";
 $text['label-hold']['ko-kr'] = "잡고 있다";
 
@@ -2311,7 +2311,7 @@ $text['label-group_pickup']['ro-ro'] = "Preluare de grup";
 $text['label-group_pickup']['ru-ru'] = "Группа перехвата";
 $text['label-group_pickup']['sv-se'] = "Plocka Grupp";
 $text['label-group_pickup']['uk-ua'] = "Груповий Пікап";
-$text['label-group_pickup']['zh-cn'] = "团体取件";
+$text['label-group_pickup']['zh-cn'] = "组代接";
 $text['label-group_pickup']['ja-jp'] = "グループピックアップ";
 $text['label-group_pickup']['ko-kr'] = "그룹픽업";
 
@@ -2337,7 +2337,7 @@ $text['label-group_listening']['ro-ro'] = "Ascultarea în grup";
 $text['label-group_listening']['ru-ru'] = "Группа перехвата";
 $text['label-group_listening']['sv-se'] = "Plocka Grupp";
 $text['label-group_listening']['uk-ua'] = "Групові прослуховування";
-$text['label-group_listening']['zh-cn'] = "群听";
+$text['label-group_listening']['zh-cn'] = "组监听";
 $text['label-group_listening']['ja-jp'] = "グループリスニング";
 $text['label-group_listening']['ko-kr'] = "그룹 듣기";
 
@@ -2467,7 +2467,7 @@ $text['label-empty']['ro-ro'] = "Gol";
 $text['label-empty']['ru-ru'] = "Empty";
 $text['label-empty']['sv-se'] = "Tom";
 $text['label-empty']['uk-ua'] = "Зручність";
-$text['label-empty']['zh-cn'] = "空的";
+$text['label-empty']['zh-cn'] = "空";
 $text['label-empty']['ja-jp'] = "空";
 $text['label-empty']['ko-kr'] = "비어 있는";
 
@@ -2519,7 +2519,7 @@ $text['label-flash']['ro-ro'] = "Flash";
 $text['label-flash']['ru-ru'] = "Flash";
 $text['label-flash']['sv-se'] = "Flash";
 $text['label-flash']['uk-ua'] = "Плеймейт";
-$text['label-flash']['zh-cn'] = "闪光";
+$text['label-flash']['zh-cn'] = "闪断";
 $text['label-flash']['ja-jp'] = "閃光";
 $text['label-flash']['ko-kr'] = "플래시";
 
@@ -2545,7 +2545,7 @@ $text['label-icom']['ro-ro'] = "Icom";
 $text['label-icom']['ru-ru'] = "Icom";
 $text['label-icom']['sv-se'] = "Icom";
 $text['label-icom']['uk-ua'] = "Іком";
-$text['label-icom']['zh-cn'] = "爱康";
+$text['label-icom']['zh-cn'] = "ICOM";
 $text['label-icom']['ja-jp'] = "アイコム";
 $text['label-icom']['ko-kr'] = "아이컴";
 
@@ -2597,7 +2597,7 @@ $text['label-monitored_call_park']['ro-ro'] = "Parcare de apeluri monitorizată"
 $text['label-monitored_call_park']['ru-ru'] = "Monitored Call Park";
 $text['label-monitored_call_park']['sv-se'] = "Monitored Call Park";
 $text['label-monitored_call_park']['uk-ua'] = "Моніторинг Call Park";
-$text['label-monitored_call_park']['zh-cn'] = "모니터링된 통화 지정보류";
+$text['label-monitored_call_park']['zh-cn'] = "监控驻留";
 $text['label-monitored_call_park']['ja-jp'] = "監視対象コール パーク";
 $text['label-monitored_call_park']['ko-kr'] = "모니터링된 통화 지정보류";
 
@@ -2649,7 +2649,7 @@ $text['label-park']['ro-ro'] = "Parc";
 $text['label-park']['ru-ru'] = "Парковка";
 $text['label-park']['sv-se'] = "Parkera";
 $text['label-park']['uk-ua'] = "Паркінг";
-$text['label-park']['zh-cn'] = "公园";
+$text['label-park']['zh-cn'] = "驻留";
 $text['label-park']['ja-jp'] = "公園";
 $text['label-park']['ko-kr'] = "공원";
 
@@ -2674,7 +2674,7 @@ $text['label-park_return']['pt-pt'] = "Parque de regresso";
 $text['label-park_return']['ro-ro'] = "Întoarcere la parc";
 $text['label-park_return']['ru-ru'] = "Парковка Return";
 $text['label-park_return']['sv-se'] = "Parkera Return";
-$text['label-park_return']['zh-cn'] = "返回公园";
+$text['label-park_return']['zh-cn'] = "驻留返回";
 $text['label-park_return']['ja-jp'] = "パークリターン";
 $text['label-park_return']['ko-kr'] = "파크 리턴";
 
@@ -2700,7 +2700,7 @@ $text['label-phonelock']['ro-ro'] = "Telefon blocat";
 $text['label-phonelock']['ru-ru'] = "Блокировка телефона";
 $text['label-phonelock']['sv-se'] = "Telefonlås";
 $text['label-phonelock']['uk-ua'] = "Телефонний замок";
-$text['label-phonelock']['zh-cn'] = "手机锁";
+$text['label-phonelock']['zh-cn'] = "话机锁定";
 $text['label-phonelock']['ja-jp'] = "携帯のロック";
 $text['label-phonelock']['ko-kr'] = "전화 잠금";
 
@@ -2830,7 +2830,7 @@ $text['label-sprecode']['ro-ro'] = "Sprecode";
 $text['label-sprecode']['ru-ru'] = "Sprecode";
 $text['label-sprecode']['sv-se'] = "Sprecode";
 $text['label-sprecode']['uk-ua'] = "Поштовий індекс";
-$text['label-sprecode']['zh-cn'] = "废代码";
+$text['label-sprecode']['zh-cn'] = "服务前缀码";
 $text['label-sprecode']['ja-jp'] = "ウェイストコード";
 $text['label-sprecode']['ko-kr'] = "폐기물 코드";
 
@@ -2882,7 +2882,7 @@ $text['label-forward']['ro-ro'] = "Redirecţiona";
 $text['label-forward']['ru-ru'] = "Переадресация";
 $text['label-forward']['sv-se'] = "Vidarekoppla";
 $text['label-forward']['uk-ua'] = "Вступ";
-$text['label-forward']['zh-cn'] = "向前";
+$text['label-forward']['zh-cn'] = "转发";
 $text['label-forward']['ja-jp'] = "前方";
 $text['label-forward']['ko-kr'] = "앞으로";
 
@@ -2908,7 +2908,7 @@ $text['label-extension']['ro-ro'] = "Extensie";
 $text['label-extension']['ru-ru'] = "Внутренний номер";
 $text['label-extension']['sv-se'] = "Anknytning";
 $text['label-extension']['uk-ua'] = "Розширення (Extention)";
-$text['label-extension']['zh-cn'] = "扩大";
+$text['label-extension']['zh-cn'] = "分机";
 $text['label-extension']['ja-jp'] = "拡大";
 $text['label-extension']['ko-kr'] = "확대";
 
@@ -2934,7 +2934,7 @@ $text['label-expansion']['ro-ro'] = "Expansiune";
 $text['label-expansion']['ru-ru'] = "Донабор";
 $text['label-expansion']['sv-se'] = "Tillsats";
 $text['label-expansion']['uk-ua'] = "Розгортання";
-$text['label-expansion']['zh-cn'] = "扩张";
+$text['label-expansion']['zh-cn'] = "分机";
 $text['label-expansion']['ja-jp'] = "拡張";
 $text['label-expansion']['ko-kr'] = "확장";
 
@@ -3038,7 +3038,7 @@ $text['label-domain']['ro-ro'] = "Domeniu";
 $text['label-domain']['ru-ru'] = "Домен";
 $text['label-domain']['sv-se'] = "Domän";
 $text['label-domain']['uk-ua'] = "Домен";
-$text['label-domain']['zh-cn'] = "领域";
+$text['label-domain']['zh-cn'] = "域";
 $text['label-domain']['ja-jp'] = "ドメイン";
 $text['label-domain']['ko-kr'] = "도메인";
 
@@ -3168,7 +3168,7 @@ $text['label-device_vendor']['ro-ro'] = "Furnizor";
 $text['label-device_vendor']['ru-ru'] = "Производитель";
 $text['label-device_vendor']['sv-se'] = "Tillverkare";
 $text['label-device_vendor']['uk-ua'] = "Про компанію";
-$text['label-device_vendor']['zh-cn'] = "小贩";
+$text['label-device_vendor']['zh-cn'] = "厂商";
 $text['label-device_vendor']['ja-jp'] = "ベンダー";
 $text['label-device_vendor']['ko-kr'] = "공급업체";
 
@@ -3246,7 +3246,7 @@ $text['label-device_key_vendor']['ro-ro'] = "Furnizor";
 $text['label-device_key_vendor']['ru-ru'] = "Производитель";
 $text['label-device_key_vendor']['sv-se'] = "Tillverkare";
 $text['label-device_key_vendor']['uk-ua'] = "Про компанію";
-$text['label-device_key_vendor']['zh-cn'] = "小贩";
+$text['label-device_key_vendor']['zh-cn'] = "厂商";
 $text['label-device_key_vendor']['ja-jp'] = "ベンダー";
 $text['label-device_key_vendor']['ko-kr'] = "공급업체";
 
@@ -3376,7 +3376,7 @@ $text['label-device_setting_value']['ro-ro'] = "Valoare";
 $text['label-device_setting_value']['ru-ru'] = "Значение";
 $text['label-device_setting_value']['sv-se'] = "Värde";
 $text['label-device_setting_value']['uk-ua'] = "Ціна";
-$text['label-device_setting_value']['zh-cn'] = "价值";
+$text['label-device_setting_value']['zh-cn'] = "值";
 $text['label-device_setting_value']['ja-jp'] = "価値";
 $text['label-device_setting_value']['ko-kr'] = "값";
 
@@ -3402,7 +3402,7 @@ $text['label-device_setting_name']['ro-ro'] = "Nume";
 $text['label-device_setting_name']['ru-ru'] = "Название";
 $text['label-device_setting_name']['sv-se'] = "Namn";
 $text['label-device_setting_name']['uk-ua'] = "Ім'я";
-$text['label-device_setting_name']['zh-cn'] = "姓名";
+$text['label-device_setting_name']['zh-cn'] = "名称";
 $text['label-device_setting_name']['ja-jp'] = "名前";
 $text['label-device_setting_name']['ko-kr'] = "이름";
 
@@ -3454,7 +3454,7 @@ $text['label-device_profiles']['ro-ro'] = "Profiluri";
 $text['label-device_profiles']['ru-ru'] = "Профили";
 $text['label-device_profiles']['sv-se'] = "Profiler";
 $text['label-device_profiles']['uk-ua'] = "Профіль";
-$text['label-device_profiles']['zh-cn'] = "简介";
+$text['label-device_profiles']['zh-cn'] = "配置模板";
 $text['label-device_profiles']['ja-jp'] = "プロフィール";
 $text['label-device_profiles']['ko-kr'] = "프로필";
 
@@ -3532,7 +3532,7 @@ $text['label-device_profile']['ro-ro'] = "Profil";
 $text['label-device_profile']['ru-ru'] = "Профили";
 $text['label-device_profile']['sv-se'] = "Profiler";
 $text['label-device_profile']['uk-ua'] = "Профіль";
-$text['label-device_profile']['zh-cn'] = "轮廓";
+$text['label-device_profile']['zh-cn'] = "配置模板";
 $text['label-device_profile']['ja-jp'] = "プロフィール";
 $text['label-device_profile']['ko-kr'] = "프로필";
 
@@ -3558,7 +3558,7 @@ $text['label-device_profile_keys']['ro-ro'] = "Chei";
 $text['label-device_profile_keys']['ru-ru'] = "Кнопки";
 $text['label-device_profile_keys']['sv-se'] = "Knappar";
 $text['label-device_profile_keys']['uk-ua'] = "Головна";
-$text['label-device_profile_keys']['zh-cn'] = "钥匙";
+$text['label-device_profile_keys']['zh-cn'] = "按键";
 $text['label-device_profile_keys']['ja-jp'] = "キー";
 $text['label-device_profile_keys']['ko-kr'] = "열쇠";
 
@@ -3610,7 +3610,7 @@ $text['label-device_model']['ro-ro'] = "Model";
 $text['label-device_model']['ru-ru'] = "Модель";
 $text['label-device_model']['sv-se'] = "Modell";
 $text['label-device_model']['uk-ua'] = "Модель";
-$text['label-device_model']['zh-cn'] = "模型";
+$text['label-device_model']['zh-cn'] = "型号";
 $text['label-device_model']['ja-jp'] = "モデル";
 $text['label-device_model']['ko-kr'] = "모델";
 
@@ -3714,7 +3714,7 @@ $text['label-device_key_value']['ro-ro'] = "Valoare";
 $text['label-device_key_value']['ru-ru'] = "Значение";
 $text['label-device_key_value']['sv-se'] = "Värde";
 $text['label-device_key_value']['uk-ua'] = "Ціна";
-$text['label-device_key_value']['zh-cn'] = "价值";
+$text['label-device_key_value']['zh-cn'] = "值";
 $text['label-device_key_value']['ja-jp'] = "価値";
 $text['label-device_key_value']['ko-kr'] = "값";
 
@@ -3766,7 +3766,7 @@ $text['label-device_key_subtype']['ro-ro'] = "Subtip";
 $text['label-device_key_subtype']['ru-ru'] = "Тип";
 $text['label-device_key_subtype']['sv-se'] = "Typ";
 $text['label-device_key_subtype']['uk-ua'] = "Підтип";
-$text['label-device_key_subtype']['zh-cn'] = "亚型";
+$text['label-device_key_subtype']['zh-cn'] = "子类型";
 $text['label-device_key_subtype']['ja-jp'] = "サブタイプ";
 $text['label-device_key_subtype']['ko-kr'] = "하위 유형";
 
@@ -3792,7 +3792,7 @@ $text['label-device_key_line']['ro-ro'] = "Linia";
 $text['label-device_key_line']['ru-ru'] = "Линия";
 $text['label-device_key_line']['sv-se'] = "Linje";
 $text['label-device_key_line']['uk-ua'] = "Лінія";
-$text['label-device_key_line']['zh-cn'] = "线";
+$text['label-device_key_line']['zh-cn'] = "线路";
 $text['label-device_key_line']['ja-jp'] = "ライン";
 $text['label-device_key_line']['ko-kr'] = "선";
 
@@ -3870,7 +3870,7 @@ $text['label-device_key_id']['ro-ro'] = "Cheie";
 $text['label-device_key_id']['ru-ru'] = "Кнопка";
 $text['label-device_key_id']['sv-se'] = "Knapp";
 $text['label-device_key_id']['uk-ua'] = "Головна";
-$text['label-device_key_id']['zh-cn'] = "钥匙";
+$text['label-device_key_id']['zh-cn'] = "按键ID";
 $text['label-device_key_id']['ja-jp'] = "鍵";
 $text['label-device_key_id']['ko-kr'] = "열쇠";
 
@@ -3896,7 +3896,7 @@ $text['label-device_key_extension']['ro-ro'] = "Extensie";
 $text['label-device_key_extension']['ru-ru'] = "Внутренний номер";
 $text['label-device_key_extension']['sv-se'] = "Anknytning";
 $text['label-device_key_extension']['uk-ua'] = "Розширення";
-$text['label-device_key_extension']['zh-cn'] = "扩大";
+$text['label-device_key_extension']['zh-cn'] = "分机";
 $text['label-device_key_extension']['ja-jp'] = "拡大";
 $text['label-device_key_extension']['ko-kr'] = "확대";
 
@@ -3948,7 +3948,7 @@ $text['label-device_firmware_version']['ro-ro'] = "Firmware";
 $text['label-device_firmware_version']['ru-ru'] = "Прошивка";
 $text['label-device_firmware_version']['sv-se'] = "Mjukvara";
 $text['label-device_firmware_version']['uk-ua'] = "Прошивка";
-$text['label-device_firmware_version']['zh-cn'] = "固件";
+$text['label-device_firmware_version']['zh-cn'] = "固件版本";
 $text['label-device_firmware_version']['ja-jp'] = "ファームウェア";
 $text['label-device_firmware_version']['ko-kr'] = "펌웨어";
 
@@ -4000,7 +4000,7 @@ $text['label-device_status']['ro-ro'] = "stare";
 $text['label-device_status']['ru-ru'] = "Статус";
 $text['label-device_status']['sv-se'] = "Status";
 $text['label-device_status']['uk-ua'] = "Стан";
-$text['label-device_status']['zh-cn'] = "地位";
+$text['label-device_status']['zh-cn'] = "状态";
 $text['label-device_status']['ja-jp'] = "スターテス";
 $text['label-device_status']['ko-kr'] = "상태";
 
@@ -4260,7 +4260,7 @@ $text['label-broadsoft_group']['ro-ro'] = "Grupul Broadsoft";
 $text['label-broadsoft_group']['ru-ru'] = "Группа Broadsoft";
 $text['label-broadsoft_group']['sv-se'] = "Broadsoft Group";
 $text['label-broadsoft_group']['uk-ua'] = "Broadsoft Група";
-$text['label-broadsoft_group']['zh-cn'] = "博软集团";
+$text['label-broadsoft_group']['zh-cn'] = "BroadSoft 组";
 $text['label-broadsoft_group']['ja-jp'] = "ブロードソフトグループ";
 $text['label-broadsoft_group']['ko-kr'] = "브로드소프트 그룹";
 
@@ -4312,7 +4312,7 @@ $text['label-blf_axfer']['ro-ro'] = "BLF a participat la Xfer";
 $text['label-blf_axfer']['ru-ru'] = "BLF Attended Xfer";
 $text['label-blf_axfer']['sv-se'] = "BLF Attended Xfer";
 $text['label-blf_axfer']['uk-ua'] = "БЛ Забутий Xfer";
-$text['label-blf_axfer']['zh-cn'] = "BLF 参加 Xfer";
+$text['label-blf_axfer']['zh-cn'] = "BLF 咨询转接";
 $text['label-blf_axfer']['ja-jp'] = "BLF 出席 Xfer";
 $text['label-blf_axfer']['ko-kr'] = "BLF 참석 Xfer";
 
@@ -4338,7 +4338,7 @@ $text['label-blf_xfer']['ro-ro'] = "BLF Xfer";
 $text['label-blf_xfer']['ru-ru'] = "BLF Xfer";
 $text['label-blf_xfer']['sv-se'] = "BLF Xfer";
 $text['label-blf_xfer']['uk-ua'] = "ксфер";
-$text['label-blf_xfer']['zh-cn'] = "BLF交换器";
+$text['label-blf_xfer']['zh-cn'] = "BLF 转接";
 $text['label-blf_xfer']['ja-jp'] = "BLF ファー";
 $text['label-blf_xfer']['ko-kr'] = "BLF Xfer";
 
@@ -4390,7 +4390,7 @@ $text['label-blf']['ro-ro'] = "BLF";
 $text['label-blf']['ru-ru'] = "BLF";
 $text['label-blf']['sv-se'] = "BLF";
 $text['label-blf']['uk-ua'] = "БЛ";
-$text['label-blf']['zh-cn'] = "忙碌灯场";
+$text['label-blf']['zh-cn'] = "忙闲灯";
 $text['label-blf']['ja-jp'] = "にぎやかなランプフィールド";
 $text['label-blf']['ko-kr'] = "바쁜 램프 필드";
 
@@ -4572,7 +4572,7 @@ $text['label-messages']['ro-ro'] = "Mesaje";
 $text['label-messages']['ru-ru'] = "Сообщения";
 $text['label-messages']['sv-se'] = "mMddelanden";
 $text['label-messages']['uk-ua'] = "повідомлення";
-$text['label-messages']['zh-cn'] = "讯息";
+$text['label-messages']['zh-cn'] = "消息";
 $text['label-messages']['ja-jp'] = "メッセージ";
 $text['label-messages']['ko-kr'] = "메시지";
 
@@ -4624,7 +4624,7 @@ $text['label-null']['ro-ro'] = "Nul";
 $text['label-null']['ru-ru'] = "Нулевой";
 $text['label-null']['sv-se'] = "Null";
 $text['label-null']['uk-ua'] = "Нуль";
-$text['label-null']['zh-cn'] = "无效的";
+$text['label-null']['zh-cn'] = "空";
 $text['label-null']['ja-jp'] = "ヌル";
 $text['label-null']['ko-kr'] = "없는";
 
@@ -4676,7 +4676,7 @@ $text['label-direct_pickup']['ro-ro'] = "Ridicare directă";
 $text['label-direct_pickup']['ru-ru'] = "Прямой пикап";
 $text['label-direct_pickup']['sv-se'] = "Direkt pickup";
 $text['label-direct_pickup']['uk-ua'] = "Прямий пікап";
-$text['label-direct_pickup']['zh-cn'] = "直接取件";
+$text['label-direct_pickup']['zh-cn'] = "直接代接";
 $text['label-direct_pickup']['ja-jp'] = "直接引き取り";
 $text['label-direct_pickup']['ko-kr'] = "직접 픽업";
 
@@ -4754,7 +4754,7 @@ $text['label-auth_id']['ro-ro'] = "ID de autentificare";
 $text['label-auth_id']['ru-ru'] = "ID аутентификации";
 $text['label-auth_id']['sv-se'] = "Auth ID";
 $text['label-auth_id']['uk-ua'] = "Ідентифікатор";
-$text['label-auth_id']['zh-cn'] = "验证码";
+$text['label-auth_id']['zh-cn'] = "认证ID";
 $text['label-auth_id']['ja-jp'] = "認証ID";
 $text['label-auth_id']['ko-kr'] = "인증 ID";
 
@@ -4780,7 +4780,7 @@ $text['label-action_url']['ro-ro'] = "Adresa URL a acțiunii";
 $text['label-action_url']['ru-ru'] = "Адрес действия";
 $text['label-action_url']['sv-se'] = "Åtgärd URL";
 $text['label-action_url']['uk-ua'] = "URL-адреса дії";
-$text['label-action_url']['zh-cn'] = "操作网址";
+$text['label-action_url']['zh-cn'] = "动作URL";
 $text['label-action_url']['ja-jp'] = "アクション URL";
 $text['label-action_url']['ko-kr'] = "작업 URL";
 
@@ -6056,7 +6056,7 @@ $text['header-profile']['ro-ro'] = "Profil";
 $text['header-profile']['ru-ru'] = "Профиль";
 $text['header-profile']['sv-se'] = "Profil";
 $text['header-profile']['uk-ua'] = "Профіль";
-$text['header-profile']['zh-cn'] = "轮廓";
+$text['header-profile']['zh-cn'] = "配置文件";
 $text['header-profile']['ja-jp'] = "プロフィール";
 $text['header-profile']['ko-kr'] = "프로필";
 
@@ -6994,7 +6994,7 @@ $text['description-device_key_extension']['ro-ro'] = "Introduceți extensia.";
 $text['description-device_key_extension']['ru-ru'] = "Введите внутренний номер.";
 $text['description-device_key_extension']['sv-se'] = "Fyll i anknytning.";
 $text['description-device_key_extension']['uk-ua'] = "Введіть розширення.";
-$text['description-device_key_extension']['zh-cn'] = "输入扩展名。";
+$text['description-device_key_extension']['zh-cn'] = "输入分机号。";
 $text['description-device_key_extension']['ja-jp'] = "拡張子を入力します。";
 $text['description-device_key_extension']['ko-kr'] = "확장자를 입력합니다.";
 

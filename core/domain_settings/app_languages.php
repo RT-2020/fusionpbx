@@ -131,7 +131,7 @@ $text['title-domain-edit']['ru-ru'] = "Домен";
 $text['title-domain-edit']['sv-se'] = "Domän";
 $text['title-domain-edit']['uk-ua'] = "Домен";
 $text['title-domain-edit']['tr-tr'] = "İhtisas";
-$text['title-domain-edit']['zh-cn'] = "领域";
+$text['title-domain-edit']['zh-cn'] = "域";
 $text['title-domain-edit']['ja-jp'] = "ドメイン";
 $text['title-domain-edit']['ko-kr'] = "도메인";
 
@@ -752,7 +752,7 @@ $text['label-domain']['ru-ru'] = "Домен";
 $text['label-domain']['sv-se'] = "Domän";
 $text['label-domain']['uk-ua'] = "Домен";
 $text['label-domain']['tr-tr'] = "İhtisas";
-$text['label-domain']['zh-cn'] = "领域";
+$text['label-domain']['zh-cn'] = "域";
 $text['label-domain']['ja-jp'] = "ドメイン";
 $text['label-domain']['ko-kr'] = "도메인";
 
@@ -995,7 +995,7 @@ $text['select-global']['ru-ru'] = "Глобальный";
 $text['select-global']['sv-se'] = "Global";
 $text['select-global']['uk-ua'] = "Глобальний";
 $text['select-global']['tr-tr'] = "Küresel";
-$text['select-global']['zh-cn'] = "全球的";
+$text['select-global']['zh-cn'] = "全局";
 $text['select-global']['ja-jp'] = "グローバル";
 $text['select-global']['ko-kr'] = "글로벌";
 
