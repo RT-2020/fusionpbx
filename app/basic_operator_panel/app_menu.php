@@ -22,7 +22,7 @@
 	$apps[$x]['menu'][$y]['title']['ru-ru'] = "Панель оператора";
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "Telefonist Panel";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "Панель оператора";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "操作面板";
+		$apps[$x]['menu'][$y]['title']['zh-cn'] = "操作面板";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "オペレータ パネル";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "운영자 패널";
 	$apps[$x]['menu'][$y]['uuid'] = "dd3d173a-5d51-4231-ab22-b18c5b712bb2";
@@ -36,7 +36,7 @@
 	$y++;
 
 	$apps[$x]['menu'][$y]['title']['en-us'] = "Emergency Alarm Test";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "声光报警测试";
+		$apps[$x]['menu'][$y]['title']['zh-cn'] = "声光报警测试";
 	$apps[$x]['menu'][$y]['uuid'] = "2f9048e0-5a1a-4ef6-9c5e-28cf383e1280";
 	$apps[$x]['menu'][$y]['parent_uuid'] = "fd29e39c-c936-f5fc-8e2b-611681b266b5";
 	$apps[$x]['menu'][$y]['category'] = "internal";

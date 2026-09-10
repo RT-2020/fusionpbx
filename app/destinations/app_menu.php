@@ -24,7 +24,7 @@
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "Destinationer";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "Номери";
 	$apps[$x]['menu'][$y]['title']['tr-tr'] = "Destinasyonlar";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "目的地";
+		$apps[$x]['menu'][$y]['title']['zh-cn'] = "呼叫路由";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "行き先";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "목적지";
 	$apps[$x]['menu'][$y]['uuid'] = "fd2a708a-ff03-c707-c19d-5a4194375eba";
@@ -59,7 +59,7 @@
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "Destinationssammanfattning";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "Резюме призначення";
 	$apps[$x]['menu'][$y]['title']['tr-tr'] = "Hedef Özeti";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "目的地概要";
+		$apps[$x]['menu'][$y]['title']['zh-cn'] = "目的地概要";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "目的地の概要";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "목적지 요약";
 	$apps[$x]['menu'][$y]['uuid'] = "47f7b1a4-1ea2-4068-8e14-b1c13c489bd2";

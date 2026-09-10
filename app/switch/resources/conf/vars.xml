@@ -74,6 +74,10 @@
    <X-PRE-PROCESS cmd="set" data="external_rtp_ip=$${local_ip_v4}" category="IP Address" enabled="true" uuid="3d98734c-fa27-46c7-af21-29b3688005c2"/>
    <X-PRE-PROCESS cmd="set" data="external_sip_ip=$${local_ip_v4}" category="IP Address" enabled="true" uuid="21754b8f-c7cd-44da-ae44-6b890af8f23c"/>
 
+   <!-- Domain -->
+   <!-- Referenced by the sip profiles (force-register-domain, presence) -->
+   <X-PRE-PROCESS cmd="set" data="domain=$${local_ip_v4}" category="Domain" enabled="true" uuid="d39dac64-7aea-4520-b602-582df3ee46e5"/>
+
    <!-- Music on Hold -->
    <X-PRE-PROCESS cmd="set" data="hold_music=local_stream://default" category="Music on Hold" enabled="true" uuid="f3912a2-c3ea-4e6e-8f74-bce2838a20d8"/>
 
@@ -125,10 +129,15 @@
    <X-PRE-PROCESS cmd="set" data="sip_tls_version=tlsv1,tlsv1.1,tlsv1.2" category="SIP" enabled="true" uuid="3fff6ed5-fde0-49ca-abe6-7db15f7f54d4"/>
 
    <!-- SIP Profile: External -->
+   <!-- The sip profiles reference these ports as $${external_sip_port} and $${external_tls_port}. Without them sofia falls back to port 5060 and collides with the internal profile. -->
+   <X-PRE-PROCESS cmd="set" data="external_sip_port=5080" category="SIP Profile: External" enabled="true" uuid="1a0f9776-bbdc-4c8e-8245-fbd759bd550a"/>
+   <X-PRE-PROCESS cmd="set" data="external_tls_port=5081" category="SIP Profile: External" enabled="true" uuid="c60d81be-8fca-463c-a371-9f51e0373185"/>
    <X-PRE-PROCESS cmd="set" data="external_ssl_enable=false" category="SIP Profile: External" enabled="true" uuid="428d5aad-3116-4cfb-bbfa-d4c424707efb"/>
    <X-PRE-PROCESS cmd="set" data="external_ssl_dir=$${conf_dir}/tls" category="SIP Profile: External" enabled="true" uuid="ad813484-bd8a-4fe9-9342-82ef8834da96"/>
 
    <!-- SIP Profile: Internal -->
+   <X-PRE-PROCESS cmd="set" data="internal_sip_port=5060" category="SIP Profile: Internal" enabled="true" uuid="18e4e238-2de1-41fc-bb85-58f20201b4e9"/>
+   <X-PRE-PROCESS cmd="set" data="internal_tls_port=5061" category="SIP Profile: Internal" enabled="true" uuid="617fc341-7a6a-490a-9e3b-7b2568eb2ae6"/>
    <X-PRE-PROCESS cmd="set" data="internal_ssl_enable=false" category="SIP Profile: Internal" enabled="true" uuid="ee58ced9-75b2-49ae-9595-ea95a3781d85"/>
    <X-PRE-PROCESS cmd="set" data="internal_ssl_dir=$${conf_dir}/tls" category="SIP Profile: Internal" enabled="true" uuid="c7daefd5-ac6d-4fed-b85a-40d7e8ad8c53"/>
 

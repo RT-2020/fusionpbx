@@ -1,0 +1,33 @@
+﻿{
+    "active":  false,
+    "mode":  "autopilot",
+    "current_phase":  "complete",
+    "started_at":  "2026-06-05T07:30:59.278Z",
+    "updated_at":  "2026-06-08T06:58:25Z",
+    "session_id":  "019ea5e9-e6e8-7640-bd51-e752046c7d48",
+    "turn_id":  "019ea5f8-6d7b-75a3-b475-727cd3312bf5",
+    "iteration":  1,
+    "max_iterations":  10,
+    "review_cycle":  0,
+    "state":  {
+                  "phase_cycle":  [
+                                      "ralplan",
+                                      "ralph",
+                                      "code-review"
+                                  ],
+                  "handoff_artifacts":  {
+                                            "ralplan":  null,
+                                            "ralph":  null,
+                                            "code_review":  null
+                                        },
+                  "review_verdict":  null,
+                  "return_to_ralplan_reason":  null
+              },
+    "completed_at":  "2026-06-08T06:58:25Z",
+    "review_verdict":  {
+                           "recommendation":  "APPROVE",
+                           "architectural_status":  "CLEAR",
+                           "clean":  true
+                       },
+    "return_to_ralplan_reason":  null
+}

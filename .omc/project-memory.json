@@ -1,0 +1,113 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1780902162956,
+  "projectRoot": "D:\\Project\\Project\\博创\\fusionpbx\\fusionpbx",
+  "techStack": {
+    "languages": [],
+    "frameworks": [],
+    "packageManager": null,
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": null,
+    "testCommand": null,
+    "lintCommand": null,
+    "devCommand": null,
+    "scripts": {}
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [
+      "app",
+      "docs"
+    ],
+    "gitBranches": {
+      "defaultBranch": "master",
+      "branchingStrategy": null
+    }
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "app": {
+      "path": "app",
+      "purpose": "Application code",
+      "fileCount": 0,
+      "lastAccessed": 1780902162941,
+      "keyFiles": []
+    },
+    "core": {
+      "path": "core",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1780902162942,
+      "keyFiles": []
+    },
+    "docs": {
+      "path": "docs",
+      "purpose": "Documentation",
+      "fileCount": 17,
+      "lastAccessed": 1780902162942,
+      "keyFiles": [
+        "dispatcher-emergency-alarm-tcp-plan-2026-03-17.md",
+        "FUSIONPBX_OFFICIAL_DOCS.md",
+        "FusionPBX内网SSL证书配置指南.md",
+        "MT-T1115新版WebRTC功能对比分析-2026-03-21.md",
+        "MT-T1115新版WebRTC场景完成度核对-2026-03-21.md"
+      ]
+    },
+    "resources": {
+      "path": "resources",
+      "purpose": null,
+      "fileCount": 18,
+      "lastAccessed": 1780902162943,
+      "keyFiles": [
+        "app_languages.php",
+        "check_auth.php",
+        "cidr.php",
+        "countries.php",
+        "footer.php"
+      ]
+    },
+    "secure": {
+      "path": "secure",
+      "purpose": null,
+      "fileCount": 5,
+      "lastAccessed": 1780902162943,
+      "keyFiles": [
+        "fax_to_email.php",
+        "htaccess.tmp",
+        "index.php",
+        "v_mailto.php"
+      ]
+    },
+    "themes": {
+      "path": "themes",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1780902162943,
+      "keyFiles": []
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "app\\basic_operator_panel\\dispatcher_api.php",
+      "accessCount": 1,
+      "lastAccessed": 1780642750602,
+      "type": "file"
+    },
+    {
+      "path": "app\\basic_operator_panel\\resources\\dispatcher-control.js",
+      "accessCount": 1,
+      "lastAccessed": 1780642750680,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}

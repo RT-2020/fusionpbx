@@ -22,7 +22,7 @@
 	$apps[$x]['menu'][$y]['title']['ru-ru'] = "Управление меню";
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "Meny Inställningar";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "Менеджер меню";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "菜单管理器";
+		$apps[$x]['menu'][$y]['title']['zh-cn'] = "菜单管理器";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "メニューマネージャー";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "메뉴 관리자";
 	$apps[$x]['menu'][$y]['uuid'] = "da3a9ab4-c28e-ea8d-50cc-e8405ac8e76e";
@@ -54,7 +54,7 @@
 	$apps[$x]['menu'][$y]['title']['ru-ru'] = "Основные";
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "Hem";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "Основне";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "家";
+		$apps[$x]['menu'][$y]['title']['zh-cn'] = "首页";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "ホーム";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "집";
 	$apps[$x]['menu'][$y]['uuid'] = "02194288-6d56-6d3e-0b1a-d53a2bc10788";
@@ -90,7 +90,7 @@
 	$apps[$x]['menu'][$y]['title']['ru-ru'] = "Учетные Записи";
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "Konton";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "Облікові записи";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "账户";
+		$apps[$x]['menu'][$y]['title']['zh-cn'] = "账户";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "アカウント";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "계정";
 	$apps[$x]['menu'][$y]['uuid'] = "bc96d773-ee57-0cdd-c3ac-2d91aba61b55";
@@ -122,7 +122,7 @@
 	$apps[$x]['menu'][$y]['title']['ru-ru'] = "Приложения";
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "Appar";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "Додатки";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "应用";
+		$apps[$x]['menu'][$y]['title']['zh-cn'] = "应用";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "アプリケーション";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "애플리케이션";
 	$apps[$x]['menu'][$y]['uuid'] = "fd29e39c-c936-f5fc-8e2b-611681b266b5";
@@ -158,7 +158,7 @@
 	$apps[$x]['menu'][$y]['title']['ru-ru'] = "Статус";
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "Status";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "Статус";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "现况";
+		$apps[$x]['menu'][$y]['title']['zh-cn'] = "现况";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "ステータス";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "상태";
 	$apps[$x]['menu'][$y]['uuid'] = "0438b504-8613-7887-c420-c837ffb20cb1";
@@ -191,7 +191,7 @@
 	$apps[$x]['menu'][$y]['title']['ru-ru'] = "Дополнительные";
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "Avancerad";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "Розширені";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "先进的";
+		$apps[$x]['menu'][$y]['title']['zh-cn'] = "高级设置";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "高度";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "고급의";
 	$apps[$x]['menu'][$y]['uuid'] = "594d99c5-6128-9c88-ca35-4b33392cec0f";
@@ -223,7 +223,7 @@
 	$apps[$x]['menu'][$y]['title']['ru-ru'] = "Войти";
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "Login";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "Логін";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "伐木";
+		$apps[$x]['menu'][$y]['title']['zh-cn'] = "登录";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "ログイン";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "로그인";
 	$apps[$x]['menu'][$y]['uuid'] = "c85bf816-b88d-40fa-8634-11b456928afa";
@@ -255,7 +255,7 @@
 	$apps[$x]['menu'][$y]['title']['ru-ru'] = "Выйти";
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "Logga ut";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "вийти";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "登出";
+		$apps[$x]['menu'][$y]['title']['zh-cn'] = "退出";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "ログアウト";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "로그아웃";
 	$apps[$x]['menu'][$y]['uuid'] = "0d29e9f4-0c9b-9d8d-cd2d-454899dc9bc4";

@@ -21,7 +21,7 @@
 	$apps[$x]['menu'][$y]['title']['ru-ru'] = "Шлюзы";
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "Gateways";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "Шлюзи";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "网关";
+		$apps[$x]['menu'][$y]['title']['zh-cn'] = "网关管理";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "ゲートウェイ";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "게이트웨이";
 	$apps[$x]['menu'][$y]['uuid'] = "237a512a-f8fe-1ce4-b5d7-e71c401d7159";

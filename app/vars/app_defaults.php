@@ -208,9 +208,78 @@ if ($domains_processed == 1) {
 	//set country code variables
 		set_country_vars($database, $x);
 
+	//ensure the sip profile port and domain variables exist - the sip profile xml templates reference them as $${internal_sip_port} etc. without them sofia falls back to port 5060 for every profile and the internal profile can no longer bind its port
+		$required_vars = [
+			['category' => 'Domain', 'name' => 'domain', 'value' => '$${local_ip_v4}'],
+			['category' => 'SIP Profile: Internal', 'name' => 'internal_sip_port', 'value' => '5060'],
+			['category' => 'SIP Profile: Internal', 'name' => 'internal_tls_port', 'value' => '5061'],
+			['category' => 'SIP Profile: External', 'name' => 'external_sip_port', 'value' => '5080'],
+			['category' => 'SIP Profile: External', 'name' => 'external_tls_port', 'value' => '5081'],
+		];
+
+	//get the names of the required variables that already exist
+		$sql = "select var_name from v_vars ";
+		$sql .= "where var_name in ('domain','internal_sip_port','internal_tls_port','external_sip_port','external_tls_port') ";
+		$rows = $database->select($sql, null, 'all');
+		$existing_vars = array_column($rows ?? [], 'var_name');
+		unset($sql, $rows);
+
+	//add the missing variables
+		$vars_added = false;
+		$x = 0;
+		foreach ($required_vars as $var) {
+			if (!in_array($var['name'], $existing_vars)) {
+				$array['vars'][$x]['var_uuid'] = uuid();
+				$array['vars'][$x]['var_category'] = $var['category'];
+				$array['vars'][$x]['var_name'] = $var['name'];
+				$array['vars'][$x]['var_value'] = $var['value'];
+				$array['vars'][$x]['var_command'] = 'set';
+				$array['vars'][$x]['var_enabled'] = 'true';
+				$array['vars'][$x]['var_order'] = $x;
+				$array['vars'][$x]['var_description'] = '';
+				$x++;
+				$vars_added = true;
+			}
+		}
+		if ($vars_added) {
+			//grant temporary permissions
+				$p = permissions::new();
+				$p->add("var_add", "temp");
+
+			//execute insert
+				$database->save($array, false);
+
+			//revoke temporary permissions
+				$p->delete("var_add", "temp");
+		}
+		unset($array, $x, $existing_vars, $required_vars);
+
 	//save the vars.xml file
 		save_var_xml();
 
-}
+	//when the port variables were just added the external profile may be bound to the internal profile port - move it back to its own port and start the internal profiles
+		if ($vars_added && function_exists('event_socket_request_cmd')) {
+			$internal_status = event_socket_request_cmd('api sofia status profile internal');
+			if (strpos($internal_status ?? '', 'Invalid Profile!') !== false) {
+				//reload the xml so the new variables are available to the profiles
+					event_socket_request_cmd('api reloadxml');
+				//restart the external profiles so they bind their own ports again
+					$external_status = event_socket_request_cmd('api sofia status profile external');
+					if (strpos($external_status ?? '', 'Invalid Profile!') === false) {
+						event_socket_request_cmd('api sofia profile external restart');
+					}
+					$external_status = event_socket_request_cmd('api sofia status profile external-ipv6');
+					if (strpos($external_status ?? '', 'Invalid Profile!') === false) {
+						event_socket_request_cmd('api sofia profile external-ipv6 restart');
+					}
+					unset($external_status);
+				//start the internal profiles
+					event_socket_request_cmd('api sofia profile internal start');
+					event_socket_request_cmd('api sofia profile internal-ipv6 start');
+			}
+			unset($internal_status);
+		}
+
+	}
 
 ?>

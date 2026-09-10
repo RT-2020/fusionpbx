@@ -3,7 +3,7 @@
 //event guard
 $array['dashboard_widgets'][$x]['dashboard_uuid'] = '3e2cbaa4-2bec-41b2-a626-999a59b8b19c';
 $array['dashboard_widgets'][$x]['dashboard_widget_uuid'] = 'e95f0221-d956-4baf-90c5-e38e16a20a4c';
-$array['dashboard_widgets'][$x]['widget_name'] = 'Event Guard';
+$array['dashboard_widgets'][$x]['widget_name'] = '事件守卫';
 $array['dashboard_widgets'][$x]['widget_path'] = 'dashboard/icon';
 $array['dashboard_widgets'][$x]['widget_icon'] = 'fa-solid fa-person-military-pointing';
 $array['dashboard_widgets'][$x]['widget_icon_color'] = '#5D5CE3';

@@ -1,0 +1,34 @@
+{
+  "active": false,
+  "mode": "autopilot",
+  "current_phase": "complete",
+  "started_at": "2026-06-08T09:01:12Z",
+  "updated_at": "2026-06-08T09:32:59Z",
+  "completed_at": "2026-06-08T09:32:59Z",
+  "session_id": "019ea607-3490-7903-9277-7b938b015996",
+  "iteration": 1,
+  "max_iterations": 10,
+  "review_cycle": 0,
+  "state": {
+    "phase_cycle": [
+      "ralplan",
+      "ralph",
+      "code-review"
+    ],
+    "handoff_artifacts": {
+      "context_snapshot_path": ".omx/context/operator-panel-video-dial-20260608T090112Z.md",
+      "ralplan": {
+        "prd": ".omx/plans/prd-operator-panel-video-dial-20260608T090112Z.md",
+        "test_spec": ".omx/plans/test-spec-operator-panel-video-dial-20260608T090112Z.md"
+      },
+      "ralph": ".omx/context/operator-panel-video-dial-ralph-evidence-20260608T093259Z.md",
+      "code_review": ".omx/context/operator-panel-video-dial-code-review-20260608T093259Z.md"
+    },
+    "review_verdict": {
+      "recommendation": "APPROVE",
+      "architectural_status": "CLEAR",
+      "clean": true
+    },
+    "return_to_ralplan_reason": null
+  }
+}

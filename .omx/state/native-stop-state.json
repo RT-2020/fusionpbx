@@ -1,0 +1,8 @@
+{
+  "sessions": {
+    "019ea5e9-e6e8-7640-bd51-e752046c7d48": {
+      "last_signature": "autopilot-stop|019ea5e9-e6e8-7640-bd51-e752046c7d48|no-thread|019ea5fe-e07a-7991-9d08-6a1fad9bd8e8|C:\\Users\\lenovo\\.codex\\sessions\\2026\\06\\08\\rollout-2026-06-08T14-27-10-019ea5e9-e6e8-7640-bd51-e752046c7d48.jsonl|codex ' claude settings local json' rules '''text c users lenovo codex rules default rules ''' '''text codex rules default rules ''' 'rg' '''python prefix_rule pattern rg decision allow justification allow read only code search without prompting match rg n video d project android linphone android rg n reloadxml ''' '''python prefix_rule pattern git diff decision allow justification allow read only git diff prefix_rule pattern git status decision allow justification allow read only git status prefix_rule pattern rg decision allow justification allow ripgrep searches ''' codex rules codex ' codex rules ' tui ' codex rules default rules' '''toml approval_policy never sandbox_mode danger full access ''' 'prefix_rule decision allow ' 'rg' 'git diff' 'cargo check' https developers openai com codex rules https developers openai com codex config reference|autopilot_ralplan",
+      "updated_at": "2026-06-08T06:51:22.973Z"
+    }
+  }
+}

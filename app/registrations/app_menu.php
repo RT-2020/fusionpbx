@@ -24,7 +24,7 @@
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "Registreringar";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "Реєстрації";
 	$apps[$x]['menu'][$y]['title']['tr-tr'] = "Kayıtlar";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "登记";
+		$apps[$x]['menu'][$y]['title']['zh-cn'] = "注册";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "登録";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "등록";
 	$apps[$x]['menu'][$y]['uuid'] = "17dbfd56-291d-8c1c-bc43-713283a9dd5a";

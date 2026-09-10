@@ -1035,6 +1035,61 @@ class xml_cdr {
 				}
 			}
 
+			//parse recording details from bridge [ ... ] variables in last_arg (group call / emergency call recordings)
+			if (empty($record_name) && !empty($xml->variables->last_app) && urldecode($xml->variables->last_app) == "bridge" && !empty($xml->variables->last_arg)) {
+				$last_arg = urldecode($xml->variables->last_arg);
+				$bracket_start = strpos($last_arg, '[');
+				if ($bracket_start !== false) {
+					$bracket_end = strpos($last_arg, ']', $bracket_start);
+				}
+				if (isset($bracket_end) && $bracket_end !== false && $bracket_end > $bracket_start) {
+					$vars_str = substr($last_arg, $bracket_start + 1, $bracket_end - $bracket_start - 1);
+					$params = explode(",", $vars_str);
+					$tmp_record_path = null;
+					$tmp_record_name = null;
+					$tmp_api_on_answer = null;
+					foreach ($params as $param) {
+						$param = trim($param);
+						if ($param === '') { continue; }
+						$pair = explode("=", $param, 2);
+						if (count($pair) != 2) { continue; }
+						$name = $pair[0];
+						$value = $pair[1];
+						$value = trim($value, "'\" ");
+						if ($name === "record_path") {
+							$tmp_record_path = $value;
+						}
+						elseif ($name === "record_name") {
+							$tmp_record_name = $value;
+						}
+						elseif ($name === "api_on_answer") {
+							$tmp_api_on_answer = $value;
+						}
+					}
+					if (!empty($tmp_record_path) && !empty($tmp_record_name)) {
+						$record_path = $tmp_record_path;
+						$record_name = $tmp_record_name;
+						if (isset($xml->variables->record_seconds)) {
+							$record_length = urldecode($xml->variables->record_seconds);
+						}
+						else {
+							$record_length = urldecode($xml->variables->duration);
+						}
+					}
+					elseif (!empty($tmp_api_on_answer)) {
+						$command = str_replace("\n", " ", $tmp_api_on_answer);
+						$parts = explode(" ", $command);
+						if ($parts[0] == "uuid_record" && isset($parts[3])) {
+							$recording = $parts[3];
+							$record_path = dirname($recording);
+							$record_name = basename($recording);
+							$record_length = urldecode($xml->variables->duration);
+						}
+					}
+					unset($bracket_start, $bracket_end, $vars_str, $params, $tmp_record_path, $tmp_record_name, $tmp_api_on_answer);
+				}
+			}
+
 			//check to see if file exists with the default file name and path
 			if (empty($record_name)) {
 				$path = $this->settings->get('switch', 'recordings') . '/' . $domain_name . '/archive/' . $start_year . '/' . $start_month . '/' . $start_day;
@@ -1061,6 +1116,125 @@ class xml_cdr {
 					$record_path   = $path;
 					$record_name   = $bridge_uuid . '.mp3';
 					$record_length = urldecode($xml->variables->duration);
+				}
+			}
+
+			//fallback: when a parsed recording file does not exist, try alternative sources
+			if (!empty($record_path) && !empty($record_name) && !file_exists($record_path.'/'.$record_name)) {
+				//try bridge [ ... ] variables in last_arg
+				if (!empty($xml->variables->last_app) && urldecode($xml->variables->last_app) == 'bridge' && !empty($xml->variables->last_arg)) {
+					$last_arg2 = urldecode($xml->variables->last_arg);
+					$bracket_start2 = strpos($last_arg2, '[');
+					if ($bracket_start2 !== false) {
+						$bracket_end2 = strpos($last_arg2, ']', $bracket_start2);
+					}
+					if (isset($bracket_end2) && $bracket_end2 !== false && $bracket_end2 > $bracket_start2) {
+						$vars_str2 = substr($last_arg2, $bracket_start2 + 1, $bracket_end2 - $bracket_start2 - 1);
+						$params2 = explode(',', $vars_str2);
+						$tmp_record_path2 = null;
+						$tmp_record_name2 = null;
+						$tmp_api_on_answer2 = null;
+						foreach ($params2 as $param2) {
+							$param2 = trim($param2);
+							if ($param2 === '') { continue; }
+							$pair2 = explode('=', $param2, 2);
+							if (count($pair2) != 2) { continue; }
+							$name2 = $pair2[0];
+							$value2 = trim($pair2[1], "'\" ");
+							if ($name2 === 'record_path') { $tmp_record_path2 = $value2; }
+							elseif ($name2 === 'record_name') { $tmp_record_name2 = $value2; }
+							elseif ($name2 === 'api_on_answer') { $tmp_api_on_answer2 = $value2; }
+						}
+						if (!empty($tmp_record_path2) && !empty($tmp_record_name2)) {
+							if (file_exists($tmp_record_path2.'/'.$tmp_record_name2)) {
+								$record_path = $tmp_record_path2;
+								$record_name = $tmp_record_name2;
+								if (isset($xml->variables->record_seconds)) { $record_length = urldecode($xml->variables->record_seconds); }
+								else { $record_length = urldecode($xml->variables->duration); }
+							}
+						}
+						elseif (!empty($tmp_api_on_answer2)) {
+							$command2 = str_replace("\n", ' ', $tmp_api_on_answer2);
+							$parts2 = explode(' ', $command2);
+							if ($parts2[0] == 'uuid_record' && isset($parts2[3])) {
+								$recording2 = $parts2[3];
+								$rp2 = dirname($recording2);
+								$rn2 = basename($recording2);
+								if (file_exists($rp2.'/'.$rn2)) {
+									$record_path = $rp2;
+									$record_name = $rn2;
+									$record_length = urldecode($xml->variables->duration);
+								}
+							}
+						}
+					}
+				}
+
+				//try variables.api_on_answer
+				if (!file_exists($record_path.'/'.$record_name) && !empty($xml->variables->api_on_answer)) {
+					$command3 = str_replace("\n", ' ', urldecode($xml->variables->api_on_answer));
+					$parts3 = explode(' ', $command3);
+					if ($parts3[0] == 'uuid_record' && isset($parts3[3])) {
+						$recording3 = $parts3[3];
+						$rp3 = dirname($recording3);
+						$rn3 = basename($recording3);
+						if (file_exists($rp3.'/'.$rn3)) {
+							$record_path = $rp3;
+							$record_name = $rn3;
+							$record_length = urldecode($xml->variables->duration);
+						}
+					}
+				}
+
+				//try current_application_data api_on_answer
+				if (!file_exists($record_path.'/'.$record_name) && !empty($xml->variables->current_application_data)) {
+					$commands4 = explode(',', urldecode($xml->variables->current_application_data));
+					foreach ($commands4 as $command4) {
+						$cmd4 = explode('=', $command4);
+						if ($cmd4[0] == 'api_on_answer') {
+							$a4 = explode(']', $cmd4[1]);
+							$command4b = str_replace("'", '', $a4[0]);
+							$parts4 = explode(' ', $command4b);
+							if ($parts4[0] == 'uuid_record' && isset($parts4[3])) {
+								$recording4 = $parts4[3];
+								$rp4 = dirname($recording4);
+								$rn4 = basename($recording4);
+								if (file_exists($rp4.'/'.$rn4)) {
+									$record_path = $rp4;
+									$record_name = $rn4;
+									$record_length = urldecode($xml->variables->duration);
+								}
+							}
+						}
+					}
+				}
+
+				//fallback to archive by uuid or bridge_uuid
+				if (!file_exists($record_path.'/'.$record_name)) {
+					$path5 = $this->settings->get('switch', 'recordings').'/'.$domain_name.'/archive/'.$start_year.'/'.$start_month.'/'.$start_day;
+					if (file_exists($path5.'/'.$uuid.'.wav')) {
+						$record_path = $path5;
+						$record_name = $uuid.'.wav';
+						$record_length = urldecode($xml->variables->duration);
+					}
+					elseif (file_exists($path5.'/'.$uuid.'.mp3')) {
+						$record_path = $path5;
+						$record_name = $uuid.'.mp3';
+						$record_length = urldecode($xml->variables->duration);
+					}
+					else {
+						$bridge_uuid5 = urldecode($xml->variables->bridge_uuid) ?: $last_bridge;
+						if (file_exists($path5.'/'.$bridge_uuid5.'.wav')) {
+							$record_path = $path5;
+							$record_name = $bridge_uuid5.'.wav';
+							$record_length = urldecode($xml->variables->duration);
+						}
+						elseif (file_exists($path5.'/'.$bridge_uuid5.'.mp3')) {
+							$record_path = $path5;
+							$record_name = $bridge_uuid5.'.mp3';
+							$record_length = urldecode($xml->variables->duration);
+						}
+					}
 				}
 			}
 

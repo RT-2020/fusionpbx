@@ -1939,20 +1939,21 @@ function disableDispatcherFunctions() {
 }
 
 // 快速拨号
-function quickDial() {
+function quickDial(videoEnabled) {
 	var number = $('#quick-dial-number').val();
 	if (!number) {
 		alert('请输入号码');
 		return;
 	}
 
+	videoEnabled = videoEnabled === true;
 	var serverHost = dispatcherControl.getServerHost();
 	var target = 'sip:' + number + '@' + serverHost;
 
-	dispatcherControl.sipClient.makeCall(target, { audio: true, video: false })
+	dispatcherControl.sipClient.makeCall(target, { audio: true, video: videoEnabled })
 		.then(function() {
 			$('#quick-dial-number').val('');
-			alert('呼叫已发起');
+			alert(videoEnabled ? '视频呼叫已发起' : '呼叫已发起');
 		})
 		.catch(function(error) {
 			alert('拨打失败: ' + error.message);
@@ -2407,12 +2408,13 @@ function endConference() {
 // 旧的分组管理模态对话框函数已移除，使用 batch-call-modal 替代
 
 // 直接呼叫分机
-function callExtensionDirect(extension) {
+function startDirectExtensionCall(extension, videoEnabled) {
 	// 检查SIP注册状态
 	if (!dispatcherControl || !dispatcherControl.isRegistered()) {
 		alert('请先注册SIP账号');
 		return;
 	}
+	videoEnabled = videoEnabled === true;
 	
 	// 从localStorage获取服务器地址
 	var sipConfig = localStorage.getItem('sip_config');
@@ -2431,15 +2433,15 @@ function callExtensionDirect(extension) {
 	
 	var sipUri = 'sip:' + extension + '@' + serverHost;
 	
-	console.log('发起直接呼叫到:', sipUri);
+	console.log(videoEnabled ? '发起视频呼叫到:' : '发起直接呼叫到:', sipUri);
 	
 	// 使用JsSIP客户端直接拨号
 	dispatcherControl.sipClient.makeCall(sipUri, {
 		audio: true,
-		video: false
+		video: videoEnabled
 	}).then(function(result) {
 		console.log('呼叫已发起，session ID:', result.sessionId);
-		showDirectCallStatus(extension, result.sessionId);
+		showDirectCallStatus(extension, result.sessionId, videoEnabled);
 	}).catch(function(error) {
 		console.error('呼叫失败:', error);
 		
@@ -2454,11 +2456,19 @@ function callExtensionDirect(extension) {
 	});
 }
 
+function callExtensionDirect(extension) {
+	startDirectExtensionCall(extension, false);
+}
+
+function callExtensionVideo(extension) {
+	startDirectExtensionCall(extension, true);
+}
+
 // 显示直接呼叫状态
-function showDirectCallStatus(extension, sessionId) {
+function showDirectCallStatus(extension, sessionId, videoEnabled) {
 	// 显示通话中状态
 	var statusHtml = '<div id="direct-call-status-' + sessionId + '" class="call-status-bar">';
-	statusHtml += '与 ' + extension + ' 通话中 ';
+	statusHtml += '与 ' + extension + (videoEnabled ? ' 视频通话中 ' : ' 通话中 ');
 	statusHtml += '<button class="btn btn-sm btn-danger" onclick="hangupDirectCall(\'' + sessionId + '\')">挂断</button>';
 	statusHtml += '</div>';
 	$('body').append(statusHtml);

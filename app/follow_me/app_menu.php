@@ -22,7 +22,7 @@
 	$apps[$x]['menu'][$y]['title']['ru-ru'] = "Следуй за мной";
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "Följ mig";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "Про нас";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "跟我来";
+		$apps[$x]['menu'][$y]['title']['zh-cn'] = "呼叫跟随";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "フォローしてください";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "나를 따르라";
 	$apps[$x]['menu'][$y]['uuid'] = "a1144e12-873e-4722-9818-02da1adb6ba3";

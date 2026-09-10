@@ -22,7 +22,7 @@
 	$apps[$x]['menu'][$y]['title']['ru-ru'] = "Маршрутизация входящих";
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "Inkommande rutter";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "Вхідні маршрути";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "入境航线";
+		$apps[$x]['menu'][$y]['title']['zh-cn'] = "入站路由";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "インバウンドルート";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "인바운드 경로";
 	$apps[$x]['menu'][$y]['uuid'] = "b64b2bbf-f99b-b568-13dc-32170515a687";

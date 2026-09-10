@@ -24,7 +24,7 @@
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "Твитнуть";
 	$apps[$x]['menu'][$y]['title']['de-de'] = "Datenbank Transaktionen";
 	$apps[$x]['menu'][$y]['title']['de-at'] = "Datenbank Transaktionen";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "交易";
+		$apps[$x]['menu'][$y]['title']['zh-cn'] = "数据库事务";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "取引";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "업무";
 	$apps[$x]['menu'][$y]['uuid'] = "ffc57bea-df1d-4099-b7e5-835d68f09006";

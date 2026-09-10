@@ -496,6 +496,10 @@ if (is_array($activity)) {
 		$block .= "onclick=\"callExtensionDirect('".escape($extension)."')\" ";
 		$block .= "title='直接呼叫'>";
 		$block .= "<i class='fas fa-phone'></i></button>\n";
+		$block .= "         <button class='btn-call-direct btn-call-video' ";
+		$block .= "onclick=\"callExtensionVideo('".escape($extension)."')\" ";
+		$block .= "title='视频通话'>";
+		$block .= "<i class='fas fa-video'></i></button>\n";
 		if ($ext_state ?? '') {
 			$block .= "		<span class='op_caller_info'>\n";
 			$block .= "			<table align='right'><tr><td style='text-align: right;'>\n";

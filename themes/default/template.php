@@ -106,6 +106,7 @@
 							{literal}
 							$('.menu_side_sub').slideUp(180);
 							$('.menu_side_item_title').hide();
+							try { localStorage.setItem('menu_open_ids', '[]'); } catch(e) {}
 							{/literal}
 							{if $settings.theme.menu_brand_type == 'image' || $settings.theme.menu_brand_type == 'image_text' || $settings.theme.menu_brand_type == ''}
 								{literal}
@@ -215,11 +216,31 @@
 					$('#sub_arrow_'+item_id).toggleClass(['{/literal}{$settings.theme.menu_side_item_main_sub_icon_contract}{literal}','{/literal}{$settings.theme.menu_side_item_main_sub_icon_expand}{literal}']);
 					$('.sub_arrows').not('#sub_arrow_'+item_id).removeClass('{/literal}{$settings.theme.menu_side_item_main_sub_icon_contract}{literal}').addClass('{/literal}{$settings.theme.menu_side_item_main_sub_icon_expand}{literal}');
 					$('#sub_'+item_id).slideToggle(180, function() {
+						try {
+							var openIds = JSON.parse(localStorage.getItem('menu_open_ids') || '[]');
+							var idx = openIds.indexOf(item_id);
+							if (!$(this).is(':hidden')) {
+								if (idx === -1) openIds.push(item_id);
+							} else {
+								if (idx !== -1) openIds.splice(idx, 1);
+							}
+							localStorage.setItem('menu_open_ids', JSON.stringify(openIds));
+						} catch(e) {}
 						{/literal}
 						{if $settings.theme.menu_side_item_main_sub_close != 'manual'}
 							{literal}
 							if (!$(this).is(':hidden')) {
-								$('.menu_side_sub').not($(this)).slideUp(180);
+								$('.menu_side_sub').not($(this)).slideUp(180, function() {
+									try {
+										var closed_id = this.id.replace('sub_', '');
+										var openIds = JSON.parse(localStorage.getItem('menu_open_ids') || '[]');
+										var idx = openIds.indexOf(closed_id);
+										if (idx !== -1) {
+											openIds.splice(idx, 1);
+											localStorage.setItem('menu_open_ids', JSON.stringify(openIds));
+										}
+									} catch(e) {}
+								});
 							}
 							{/literal}
 						{/if}
@@ -234,6 +255,24 @@
 		{/literal}
 
 		{$messages}
+
+		//restore open submenus from localStorage when side menu
+			{if $settings.theme.menu_style == 'side'}
+				{literal}
+				if (menu_side_state_current == 'expanded') {
+					try {
+						var openIds = JSON.parse(localStorage.getItem('menu_open_ids') || '[]');
+						openIds.forEach(function(id){
+							var sub = $('#sub_'+id);
+							if (sub && sub.length) {
+								sub.show();
+								$('#sub_arrow_'+id).removeClass('{/literal}{$settings.theme.menu_side_item_main_sub_icon_expand}{literal}').addClass('{/literal}{$settings.theme.menu_side_item_main_sub_icon_contract}{literal}');
+							}
+						});
+					} catch(e) {}
+				}
+				{/literal}
+			{/if}
 
 		//message bar hide on hover
 			{literal}

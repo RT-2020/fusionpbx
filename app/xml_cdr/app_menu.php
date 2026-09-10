@@ -24,7 +24,7 @@
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "Detaljerad Samtalsinformation";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "Деталізація дзвінків";
 	$apps[$x]['menu'][$y]['title']['tr-tr'] = "Çağrı Detay Kayıtları";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "通话详情记录";
+		$apps[$x]['menu'][$y]['title']['zh-cn'] = "通话详情记录";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "通話詳細記録";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "통화 내역 기록";
 	$apps[$x]['menu'][$y]['uuid'] = "8f80e71a-31a5-6432-47a0-7f5a7b271f05";
@@ -57,7 +57,7 @@
 	$apps[$x]['menu'][$y]['title']['ru-ru'] = "Статистика CDR";
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "CDR Statistik";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "Статистика";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "CDR 统计";
+		$apps[$x]['menu'][$y]['title']['zh-cn'] = "CDR 统计";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "CDR 統計";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "CDR 통계";
 	$apps[$x]['menu'][$y]['uuid'] = "032887d2-2315-4e10-b3a2-8989f719c80c";
@@ -89,7 +89,7 @@
 	$apps[$x]['menu'][$y]['title']['ru-ru'] = "Общая по внутренним номерам";
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "Anknytnings Summering";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "Розширення резюме";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "扩展摘要";
+		$apps[$x]['menu'][$y]['title']['zh-cn'] = "分机摘要";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "拡張機能の概要";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "확장 요약";
 	$apps[$x]['menu'][$y]['uuid'] = "4e45a3c1-6db5-417f-9abb-1d30a4fd0bf2";

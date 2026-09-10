@@ -22,7 +22,7 @@
 	$apps[$x]['menu'][$y]['title']['ru-ru'] = "Колл-центр";
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "Callcenter";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "Кол-центр";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "呼叫中心";
+		$apps[$x]['menu'][$y]['title']['zh-cn'] = "呼叫中心";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "コールセンター";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "콜센터";
 	$apps[$x]['menu'][$y]['uuid'] = "6c072b29-5b6c-49fc-008e-95e24c77de99";
@@ -55,7 +55,7 @@
 	$apps[$x]['menu'][$y]['title']['ru-ru'] = "Статус агента";
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "Agentstatus";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "Статус оператора";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "代理状态";
+		$apps[$x]['menu'][$y]['title']['zh-cn'] = "呼叫中心座席状态";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "エージェントステータス";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "에이전트 상태";
 	$apps[$x]['menu'][$y]['uuid'] = "597c483a-51a9-f95a-8d54-ea7d87ada2b8";

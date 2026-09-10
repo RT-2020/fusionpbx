@@ -24,7 +24,7 @@
 	$apps[$x]['menu'][$y]['title']['sv-se'] = "PIN-nummer";
 	$apps[$x]['menu'][$y]['title']['uk-ua'] = "PIN Кількість";
 	$apps[$x]['menu'][$y]['title']['tr-tr'] = "PIN Numaraları";
-	$apps[$x]['menu'][$y]['title']['zh-cn'] = "密码";
+		$apps[$x]['menu'][$y]['title']['zh-cn'] = "PIN码";
 	$apps[$x]['menu'][$y]['title']['ja-jp'] = "暗証番号";
 	$apps[$x]['menu'][$y]['title']['ko-kr'] = "PIN 번호";
 	$apps[$x]['menu'][$y]['uuid'] = "2e3d8f49-5beb-44a8-9617-0bffc5b418c2";

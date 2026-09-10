@@ -13,6 +13,9 @@
     this.incomingSession = null // 来电会话
     this.conferenceSessions = [] // 会议会话列表
     this.audioElements = {}
+    this.videoContainers = {}
+    this.videoElements = {}
+    this.localVideoElements = {}
     this._micStream = null
     this.incomingSessions = {}
     this.resourceStats = { releases: 0, timeouts: 0, forced: 0, lastOps: [] }
@@ -63,6 +66,180 @@
     } catch (e) {}
 
     return pcConfig
+  }
+
+  JsSipClient.prototype._wantsVideo = function (options) {
+    return !!(options && options.video === true)
+  }
+
+  JsSipClient.prototype._getVideoConstraints = function (enabled) {
+    if (!enabled) return false
+    return {
+      width: { ideal: 640 },
+      height: { ideal: 360 },
+      frameRate: { ideal: 15, max: 30 },
+    }
+  }
+
+  JsSipClient.prototype._createCallMediaStream = function (options) {
+    options = options || {}
+    var needAudio = options.audio !== false
+    var needVideo = this._wantsVideo(options)
+
+    if (!needAudio && !needVideo) {
+      return Promise.resolve(null)
+    }
+
+    if (needVideo) {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        return Promise.reject(new Error('浏览器不支持摄像头访问'))
+      }
+      return navigator.mediaDevices.getUserMedia({
+        audio: needAudio,
+        video: this._getVideoConstraints(true),
+      })
+    }
+
+    return this.getOrCreateMicStream().then(function (stream) {
+      return stream && stream.clone ? stream.clone() : stream
+    })
+  }
+
+  JsSipClient.prototype._ensureVideoContainer = function (sessionId) {
+    if (this.videoContainers[sessionId]) {
+      return this.videoContainers[sessionId]
+    }
+
+    var self = this
+    var container = document.createElement('div')
+    container.id = 'dispatcher-video-call-' + sessionId
+    container.className = 'dispatcher-video-call-window'
+    container.setAttribute('data-session-id', sessionId)
+
+    var header = document.createElement('div')
+    header.className = 'dispatcher-video-call-header'
+
+    var title = document.createElement('span')
+    title.className = 'dispatcher-video-call-title'
+    title.textContent = '视频通话'
+
+    var hangup = document.createElement('button')
+    hangup.type = 'button'
+    hangup.className = 'dispatcher-video-call-hangup'
+    hangup.title = '挂断视频通话'
+    hangup.textContent = '×'
+    hangup.onclick = function () {
+      self.hangup(sessionId).catch(function () {
+        self._removeVideoElements(sessionId, true)
+      })
+    }
+
+    var body = document.createElement('div')
+    body.className = 'dispatcher-video-call-body'
+
+    var remoteVideo = document.createElement('video')
+    remoteVideo.className = 'dispatcher-video-remote'
+    remoteVideo.autoplay = true
+    remoteVideo.playsInline = true
+    remoteVideo.setAttribute('playsinline', 'true')
+    remoteVideo.setAttribute('webkit-playsinline', 'true')
+
+    var localVideo = document.createElement('video')
+    localVideo.className = 'dispatcher-video-local'
+    localVideo.autoplay = true
+    localVideo.muted = true
+    localVideo.playsInline = true
+    localVideo.setAttribute('playsinline', 'true')
+    localVideo.setAttribute('webkit-playsinline', 'true')
+
+    header.appendChild(title)
+    header.appendChild(hangup)
+    body.appendChild(remoteVideo)
+    body.appendChild(localVideo)
+    container.appendChild(header)
+    container.appendChild(body)
+    document.body.appendChild(container)
+
+    this.videoContainers[sessionId] = container
+    this.videoElements[sessionId] = remoteVideo
+    this.localVideoElements[sessionId] = localVideo
+    return container
+  }
+
+  JsSipClient.prototype._playVideoElement = function (video) {
+    if (!video) return
+    try {
+      video
+        .play()
+        .catch(function (err) {
+          console.warn('视频播放等待用户交互:', err)
+        })
+    } catch (e) {}
+  }
+
+  JsSipClient.prototype._attachRemoteVideoTrack = function (sessionId, stream) {
+    if (!stream) return
+    this._ensureVideoContainer(sessionId)
+    var video = this.videoElements[sessionId]
+    video.srcObject = stream
+    video.load()
+    this._playVideoElement(video)
+  }
+
+  JsSipClient.prototype._attachLocalVideoPreview = function (sessionId, stream) {
+    if (!stream || !stream.getVideoTracks || stream.getVideoTracks().length === 0) {
+      return
+    }
+    this._ensureVideoContainer(sessionId)
+    var video = this.localVideoElements[sessionId]
+    video.srcObject = stream
+    video.load()
+    this._playVideoElement(video)
+  }
+
+  JsSipClient.prototype._removeVideoElements = function (sessionId, stopTracks) {
+    var elements = [
+      this.videoElements && this.videoElements[sessionId],
+      this.localVideoElements && this.localVideoElements[sessionId],
+    ]
+    for (var i = 0; i < elements.length; i++) {
+      var element = elements[i]
+      if (!element) continue
+      try {
+        if (stopTracks && element.srcObject && element.srcObject.getTracks) {
+          var tracks = element.srcObject.getTracks()
+          for (var t = 0; t < tracks.length; t++) {
+            try {
+              tracks[t].stop()
+            } catch (e) {}
+          }
+        }
+      } catch (e) {}
+      try {
+        element.pause()
+      } catch (e) {}
+      try {
+        element.srcObject = null
+      } catch (e) {}
+    }
+
+    var container = this.videoContainers && this.videoContainers[sessionId]
+    if (container && container.parentNode) {
+      try {
+        container.parentNode.removeChild(container)
+      } catch (e) {}
+    }
+
+    delete this.videoContainers[sessionId]
+    delete this.videoElements[sessionId]
+    delete this.localVideoElements[sessionId]
+  }
+
+  JsSipClient.prototype._removeAllVideoElements = function (stopTracks) {
+    var keys = Object.keys(this.videoContainers || {})
+    for (var i = 0; i < keys.length; i++) {
+      this._removeVideoElements(keys[i], stopTracks)
+    }
   }
 
   // 设置回调
@@ -790,6 +967,11 @@
           // 如果立即播放失败，尝试延迟播放
           setTimeout(playAudio, 100)
         }
+
+        if (event.track.kind === 'video') {
+          var videoStream = event.streams[0] || new MediaStream([event.track])
+          self._attachRemoteVideoTrack(session._customId || 'default', videoStream)
+        }
       }
     })
 
@@ -1104,6 +1286,13 @@
         // 如果立即播放失败，尝试延迟播放
         setTimeout(playAudio, 100)
       }
+
+      if (event.track.kind === 'video') {
+        var videoStream = event.streams.length
+          ? event.streams[0]
+          : new MediaStream([event.track])
+        self._attachRemoteVideoTrack(session._customId || 'default', videoStream)
+      }
     }
   }
 
@@ -1238,6 +1427,8 @@
   JsSipClient.prototype.makeCall = function (target, options) {
     var self = this
     options = options || {}
+    var videoEnabled = self._wantsVideo(options)
+    var needAudio = options.audio !== false
 
     // 尝试在用户手势链路内解锁自动播放
     try {
@@ -1255,7 +1446,10 @@
     // 检查和请求媒体权限
     return this.checkMediaPermissions()
       .then(function () {
-        return self.getOrCreateMicStream()
+        return self._createCallMediaStream({
+          audio: needAudio,
+          video: videoEnabled,
+        })
       })
       .then(function (stream) {
         // 权限获取成功，继续原有逻辑
@@ -1263,15 +1457,18 @@
 
         var callOptions = {
           mediaConstraints: {
-            audio: true,
-            video: false,
+            audio: needAudio,
+            video: self._getVideoConstraints(videoEnabled),
           },
           rtcOfferConstraints: {
-            offerToReceiveAudio: true,
-            offerToReceiveVideo: false,
+            offerToReceiveAudio: needAudio,
+            offerToReceiveVideo: videoEnabled,
           },
           pcConfig: self._getPcConfig(),
-          mediaStream: stream.clone(),  // ✅ 使用克隆而不是原始流
+        }
+
+        if (stream) {
+          callOptions.mediaStream = stream
         }
 
         // 添加急呼特殊处理
@@ -1300,6 +1497,10 @@
 
             self.sessions[sessionId] = session
             session._customId = sessionId
+
+            if (videoEnabled && callOptions.mediaStream) {
+              self._attachLocalVideoPreview(sessionId, callOptions.mediaStream)
+            }
 
             // 呼出方向的急呼标记
             if (options.emergency) {
@@ -1337,6 +1538,13 @@
           } catch (error) {
             console.error('❌ 拨打电话失败:', error)
             self.isCalling = false
+            if (callOptions.mediaStream && callOptions.mediaStream.getTracks) {
+              callOptions.mediaStream.getTracks().forEach(function (track) {
+                try {
+                  track.stop()
+                } catch (e) {}
+              })
+            }
             reject(error)
           }
         })
@@ -1346,12 +1554,17 @@
         var errorMessage = error.message || '未知错误'
         if (error.name === 'NotAllowedError') {
           errorMessage =
-            '麦克风权限被拒绝。请点击地址栏左侧的麦克风图标，选择"允许"，然后重试。'
+            videoEnabled
+              ? '麦克风或摄像头权限被拒绝。请点击地址栏左侧的权限图标，允许麦克风和摄像头后重试。'
+              : '麦克风权限被拒绝。请点击地址栏左侧的麦克风图标，选择"允许"，然后重试。'
         } else if (error.name === 'NotFoundError') {
-          errorMessage = '未检测到麦克风设备。请确保麦克风已连接并正常工作。'
+          errorMessage = videoEnabled
+            ? '未检测到麦克风或摄像头设备。请确认设备已连接并正常工作。'
+            : '未检测到麦克风设备。请确保麦克风已连接并正常工作。'
         } else if (error.name === 'NotReadableError') {
-          errorMessage =
-            '麦克风被其他应用程序占用。请关闭其他使用麦克风的应用程序，然后重试。'
+          errorMessage = videoEnabled
+            ? '麦克风或摄像头被其他应用程序占用。请关闭其他占用设备的应用后重试。'
+            : '麦克风被其他应用程序占用。请关闭其他使用麦克风的应用程序，然后重试。'
         }
 
         return Promise.reject(new Error(errorMessage))
@@ -1391,12 +1604,18 @@
         if (!endedSession && self.incomingSession) {
           endedSession = self.incomingSession
         }
+        var endedSessionId =
+          sessionId ||
+          (endedSession && endedSession._customId ? endedSession._customId : '')
         if (self.incomingSession) {
           self.incomingSession.terminate()
           self.incomingSession = null
         }
 
         self.endCall(endedSession)
+        if (endedSessionId) {
+          self._removeVideoElements(endedSessionId, true)
+        }
 
         // 清理音频元素
         if (sessionId && self.audioElements[sessionId]) {
@@ -1473,6 +1692,9 @@
     }
     if (sid && this.incomingSessions[sid]) {
       delete this.incomingSessions[sid]
+    }
+    if (sid) {
+      this._removeVideoElements(sid, true)
     }
 
     // 如果没有活动会话了，重置状态
@@ -1659,6 +1881,7 @@
         if (self.incomingSessions[sessionId]) {
           delete self.incomingSessions[sessionId]
         }
+        self._cleanupSessionMedia(session)
         self._syncIncomingState()
         resolve()
       } catch (error) {
@@ -1682,6 +1905,7 @@
         if (self.incomingSessions[sessionId]) {
           delete self.incomingSessions[sessionId]
         }
+        self._cleanupSessionMedia(session)
         if (
           self.currentSession &&
           self.currentSession._customId === sessionId
@@ -1921,6 +2145,9 @@ JsSipClient.prototype._cleanupSessionMedia = function (session) {
     var sid = session && session._customId ? session._customId : null
     if (!sid) return
     try {
+      this._removeVideoElements(sid, true)
+    } catch (e) {}
+    try {
       var audio = this.audioElements[sid]
       if (audio) {
         try {
@@ -2004,6 +2231,9 @@ JsSipClient.prototype._cleanupSessionMedia = function (session) {
 
 JsSipClient.prototype._releaseAllAudio = function (reason) {
   try {
+    this._removeAllVideoElements(true)
+  } catch (e) {}
+  try {
     var keys = Object.keys(this.audioElements || {})
     for (var i = 0; i < keys.length; i++) {
       var id = keys[i]
@@ -2049,6 +2279,7 @@ JsSipClient.prototype.getResourceReport = function () {
   try {
     return {
       activeAudio: Object.keys(this.audioElements || {}).length,
+      activeVideo: Object.keys(this.videoContainers || {}).length,
       releases: this.resourceStats.releases,
       timeouts: this.resourceStats.timeouts,
       forced: this.resourceStats.forced,
