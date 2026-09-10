@@ -301,7 +301,8 @@ function buildConferenceOriginateDialString($conference_room, $domain_name, $ext
 
     return [
         'origination_uuid' => $origination_uuid,
-        'dial_string' => "{" . implode(',', $dial_parts) . "}user/$extension@$domain_name",
+        'dial_parts' => $dial_parts,
+        'endpoint' => "user/$extension@$domain_name",
     ];
 }
 
@@ -515,16 +516,14 @@ function dispatcherJoinConference($conference_room, $extension, $domain_uuid) {
     $auto_record_enabled = conferenceProfileUsesAutoRecord('default');
     $rec_file = $auto_record_enabled ? '' : getConferenceRecordingFile($conference_room);
     $dial_data = buildConferenceOriginateDialString($conference_room, $domain_name, $extension, $caller_id_name, $caller_id_number, true);
-    $dial_string = substr($dial_data['dial_string'], 0, -strlen("user/$extension@$domain_name"));
-    $dial_string .= ",";
+    $dial_parts = $dial_data['dial_parts'];
     if (!$auto_record_enabled && $rec_file !== '') {
         event_socket::api("bgapi conference $conference_room record $rec_file");
         setRecordingVarForMembers($conference_room, $rec_file);
-        $dial_string .= "conference_recording=".$rec_file.",";
-        $dial_string .= "api_on_answer='uuid_setvar \${uuid} conference_recording " . $rec_file . "'";
+        $dial_parts[] = "conference_recording=" . $rec_file;
+        $dial_parts[] = "api_on_answer='uuid_setvar \${uuid} conference_recording " . $rec_file . "'";
     }
-    $dial_string = rtrim($dial_string, ',');
-    $dial_string .= "}user/$extension@$domain_name";
+    $dial_string = "{" . implode(',', $dial_parts) . "}" . $dial_data['endpoint'];
     
     // *** 关键：使用 inline 方式直接加入会议室，不依赖 dialplan ***
     $app = "&conference($conference_room@default)";
@@ -588,16 +587,14 @@ function inviteToConference($conference_room, $extension, $domain_uuid) {
     $auto_record_enabled = conferenceProfileUsesAutoRecord('default');
     $rec_file = $auto_record_enabled ? '' : getConferenceRecordingFile($conference_room);
     $dial_data = buildConferenceOriginateDialString($conference_room, $domain_name, $extension, $caller_id_name, $caller_id_number, false);
-    $dial_string = substr($dial_data['dial_string'], 0, -strlen("user/$extension@$domain_name"));
-    $dial_string .= ",";
+    $dial_parts = $dial_data['dial_parts'];
     if (!$auto_record_enabled && $rec_file !== '') {
         event_socket::api("bgapi conference $conference_room record $rec_file");
         setRecordingVarForMembers($conference_room, $rec_file);
-        $dial_string .= "conference_recording=".$rec_file.",";
-        $dial_string .= "api_on_answer='uuid_setvar \${uuid} conference_recording " . $rec_file . "'";
+        $dial_parts[] = "conference_recording=" . $rec_file;
+        $dial_parts[] = "api_on_answer='uuid_setvar \${uuid} conference_recording " . $rec_file . "'";
     }
-    $dial_string = rtrim($dial_string, ',');
-    $dial_string .= "}user/$extension@$domain_name";
+    $dial_string = "{" . implode(',', $dial_parts) . "}" . $dial_data['endpoint'];
     
     // *** 关键：使用 inline 方式直接加入会议室，不依赖 dialplan ***
     $app = "&conference($conference_room@default)";
